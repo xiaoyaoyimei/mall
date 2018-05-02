@@ -1,15 +1,15 @@
 <template>
 <div class="layout">
         <Layout>
-            <Header>
+            <!--<Header>
             <app-menu></app-menu>
-            </Header>
-            <Layout :style="{padding: '0 50px'}">
-                <Content :style="{padding: '24px 0', minHeight: '280px', background: '#fff'}">
+            </Header>-->
+            <Layout >
+                <Content :style="{ minHeight: '280px',marginBottom:'50px'}">
                    <router-view/>
                 </Content>
             </Layout>
-            <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
+           <app-footer></app-footer>
         </Layout>
     </div>
 </div>
@@ -32,5 +32,6 @@ import AppMenu from '@/components/Menu'
        }
 </script>
 
-<style>
+<style scoped="scoped">
+	
 </style>
