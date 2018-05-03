@@ -25,6 +25,7 @@
 		bottom: 0;
 		left: 0;
 		width:100%;
+		text-align: center;
 	i{
 		display: block;
 		font-size:2em
