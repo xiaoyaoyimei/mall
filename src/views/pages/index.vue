@@ -1,7 +1,6 @@
 <template>
 	<div class="index">
-		<Carousel
-        v-model="value3"
+		<Carousel v-model="value3"
         :autoplay="setting.autoplay"
         :autoplay-speed="setting.autoplaySpeed"
         :dots="setting.dots"
@@ -95,9 +94,9 @@
     }
 </script>
 
-<style lang="scss" >
+<style lang="scss"  scoped="scoped">
  @import '@/styles/color.scss';
-	.index {
+ 	.index {
 			background: #f5f5f5;
 			img{
 			max-width: 100%;
@@ -128,7 +127,9 @@
 					margin-bottom:10px;
 				}
 			}
-			.goodslist a {
+			.goodslist h4{
+				color:$color-dx;
+			}a {
 				white-space: nowrap;
 				overflow:hidden;
 				text-overflow: ellipsis;

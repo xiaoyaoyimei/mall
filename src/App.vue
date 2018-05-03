@@ -10,15 +10,45 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+ @import '@/styles/color.scss';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
-.color-dx{
-	color:#ed1844
+ul,li{
+	list-style: none;
+}
+.ivu-tabs-nav .ivu-tabs-tab-active,.ivu-tabs-nav .ivu-tabs-tab:hover{
+	color:$color-dx;
+}
+.ivu-tabs-ink-bar{
+	background:$color-dx;
+}
+ .order{
+		h2{
+		background: #000;
+		color: #fff;
+		font-size: 16px;
+		height: 44px;
+		line-height: 44px;
+		padding-left:10px;
+		font-weight: normal;
+		cursor: pointer;
+		i{
+			font-size: 1.5em;
+			margin-right: 10px;
+			font-weight: bold;
+			position:relative;
+			top:3px;
+			
+		}
+	}
+	
+}
+.order div,.ivu-tabs-tabpane{
+	text-align: center;
 }
 </style>
