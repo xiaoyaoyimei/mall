@@ -78,7 +78,7 @@
 	 		border-bottom:1px solid $color-border;
 	 		padding: 10px 0;
 	 		font-weight: normal;
-	 		text-indent: 10px;
+	 		text-indent: 10px;;
 	 	}
 	 	a{
 	 		padding: 10px 0;
