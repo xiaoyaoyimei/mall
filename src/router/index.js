@@ -9,16 +9,16 @@ let routes =  [
 				{
 					name:'首页',
 					path: '/index',
-					component:resolve => require(['@/views/pages/index.vue'], resolve),
+					component:resolve => require(['@/views/pages/Index.vue'], resolve),
 				},{
 					name:'/sort',
 					path: '/sort',
-					component:resolve => require(['@/views/pages/sort.vue'], resolve),
+					component:resolve => require(['@/views/pages/Sort.vue'], resolve),
 				},
 				{
 					name:'购物车',
 					path: '/cart',
-					component:resolve => require(['@/views/pages/cart/cartOne.vue'], resolve),
+					component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 				},
 				{
 					name:'个人中心',
