@@ -9,7 +9,7 @@
                        <router-view/>
                     </Content>
                 </Layout>
-               <app-footer1></app-footer1>
+              <app-footer2></app-footer2>
             </Layout>
         </div>
     </div>
@@ -17,7 +17,7 @@
     
     <script>
     import AppHeader from '@/components/Header'
-    import AppFooter1 from '@/components/Footer1'
+      import AppFooter2 from '@/components/Footer2'
     import AppMenu from '@/components/Menu'
         export default {
                 data(){
@@ -26,8 +26,9 @@
                 },
             components:{
                 AppHeader,
-                AppFooter1,
-                AppMenu
+                AppFooter2,
+                AppMenu,
+                
             }
            }
     </script>

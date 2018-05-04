@@ -5,7 +5,7 @@
             <app-menu></app-menu>
             </Header>-->
             <Layout >
-                <Content :style="{ minHeight: '280px',marginBottom:'50px'}">
+                <Content class='layout' :style="{ minHeight: '280px',marginBottom:'50px'}">
                    <router-view/>
                 </Content>
             </Layout>

@@ -20,7 +20,7 @@
         <p ><Icon class='sdp' type="ios-checkmark-outline"></Icon> 正品保障</p>
         <i-form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
             <form-item label="规格" prop="city">
-            <Row class="sRow">
+            <Row class="">
 				<Col :xs="12" class="sMar"  :md="6">
                 <i-select v-model="formValidate.city" placeholder="请选择">
                     <i-option value="beijing">New York</i-option>
@@ -31,7 +31,7 @@
 		    </Row>
             </form-item>
             <form-item label="数量" prop="desc">
-                <Row class="sRow">
+                <Row class="">
                 <!-- <Col :xs="1" class="sMar"  :md="1">
                         <Icon type="minus"></Icon>
                     </Col> -->
@@ -44,8 +44,8 @@
                 </Row>
             </form-item>
             <form-item>
-                <i-button type="primary" @click="handleSubmit('formValidate')">加入购物车</i-button>
-                <i-button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</i-button>
+                <!-- <i-button type="primary" @click="handleSubmit('formValidate')">加入购物车</i-button>
+                <i-button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</i-button> -->
             </form-item>
     </i-form>
      <Tabs value="name1">

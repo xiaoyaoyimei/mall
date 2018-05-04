@@ -20,18 +20,46 @@ let routes =  [
 				{
 					name:'购物车',
 					path: '/cart',
-					component:resolve => require(['@/views/pages/cart/cartOne.vue'], resolve)
+					component:resolve => require(['@/views/pages/cart/cartOne.vue'], resolve),
+					// children:[
+					// 	{
+					// 		component:resolve => require(['@/Subcomponent/shopping.vue'], resolve)
+					// 	}
+					// ]
 				},
+				
 				{
 					name:'个人中心',
 					path: '/user',
 					component:resolve => require(['@/views/pages/userCenter/index.vue'], resolve)
-				},{
+				},
+				]
+		},
+		{
+			path:"/sort/sortDetail",
+			redirect: '/index',
+			iconCls: 'el-icon-location',//图标样式class\n
+			component:resolve=>require(['@/container/full1.vue'], resolve),
+			children:[
+				{
 					name:'详情',
 					path:"/sort/sortDetail",
-					component:resolve=>require(['@/views/pages/sortDetail.vue'], resolve)
+					component:resolve=>require(['@/views/pages/sortDetail.vue'], resolve),
 				}
-				]
-		}
+			]
+		},
+		{
+			path:"/paymoney",
+			redirect: '/index',
+			iconCls: 'el-icon-location',//图标样式class\n
+			component:resolve=>require(['@/container/full2.vue'], resolve),
+			children:[
+				{
+					name:'结算',
+					path: '/paymoney',
+					component:resolve => require(['@/views/pages/cart/paymoney.vue'], resolve)
+				},
+			]
+		},
   ]
 export default routes;
