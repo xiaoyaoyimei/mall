@@ -12,7 +12,10 @@ let routes =  [
 				},{
 					name:'分类',
 					path: '/sort',
-					component:resolve => require(['@/views/pages/sort.vue'], resolve)
+					component:resolve => require(['@/views/pages/sort.vue'], resolve),
+					children:[
+						
+					]
 				},
 				{
 					name:'购物车',
@@ -23,6 +26,10 @@ let routes =  [
 					name:'个人中心',
 					path: '/user',
 					component:resolve => require(['@/views/pages/userCenter/index.vue'], resolve)
+				},{
+					name:'详情',
+					path:"/sort/sortDetail",
+					component:resolve=>require(['@/views/pages/sortDetail.vue'], resolve)
 				}
 				]
 		}

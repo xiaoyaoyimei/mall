@@ -8,71 +8,71 @@
         :radius-dot="setting.radiusDot"
         :trigger="setting.trigger"
         :arrow="setting.arrow">
-        <CarouselItem>
-            <div class="demo-carousel"><img src="../../assets/img/banner.jpg"></div>
-        </CarouselItem>
-        <CarouselItem>
-            <div class="demo-carousel"><img src="../../assets/img/banner1.jpg"></div>
-        </CarouselItem>
-    </Carousel>
-     <Row class="series">
-        <Col span="6"><img  src="../../assets/img/x1.jpg">电竞桌系列</Col>
-        <Col span="6"><img  src="../../assets/img/x2.jpg">电竞椅系列</Col>
-         <Col span="6"><img  src="../../assets/img/x3.jpg">其他周边</Col>
-          <Col span="6"><img  src="../../assets/img/x4.jpg">电竞馆周边</Col>
-   </Row>
-   <div class="activity">
-    	<img src="../../assets/img/b1.jpg"><img src="../../assets/img/b2.jpg">
-   </div>
-     <div class="floor">
-       	<h3><a href="#">更多></a>电竞椅系列</h3>
-	   <Row  class="goodslist">
-	        <Col  :xs="12"  :md="6" >
-	            	<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
-	            	<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-	            	<h4 class="color-dx">￥899.00</h4>
-	        </Col>
-	        <Col  :xs="12"  :md="6" >
-	           	<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
-	            	<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-	            	<h4 class="color-dx">￥899.00</h4>
-	        </Col>
-	        <Col  :xs="12"  :md="6" >
-	            	<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
-	            	<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-	            	<h4 class="color-dx">￥899.00</h4>
-	        </Col>
-	        <Col  :xs="12"  :md="6" >
-	          	<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子"> 
-	            	<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-	            	<h4 class="color-dx">￥899.00</h4>
-	        </Col>
-	    </Row>
+        	<CarouselItem>
+           		 	<div class="demo-carousel"><img src="../../assets/img/banner.jpg"></div>
+        	</CarouselItem>
+        	<CarouselItem>
+            		<div class="demo-carousel"><img src="../../assets/img/banner1.jpg"></div>
+        	</CarouselItem>
+    	</Carousel>
+     	<Row class="series">
+        		<Col span="6"><img  src="../../assets/img/x1.jpg">电竞桌系列</Col>
+        		<Col span="6"><img  src="../../assets/img/x2.jpg">电竞椅系列</Col>
+         		<Col span="6"><img  src="../../assets/img/x3.jpg">其他周边</Col>
+         		 <Col span="6"><img  src="../../assets/img/x4.jpg">电竞馆周边</Col>
+   		</Row>
+		<div class="activity">
+				<img src="../../assets/img/b1.jpg"><img src="../../assets/img/b2.jpg">
+		</div>
+     	<div class="floor">
+       		<h3><a href="#">更多></a>电竞椅系列</h3>
+	   		<Row  class="goodslist">
+				<Col  :xs="12"  :md="6" >
+						<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
+						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
+						<h4 class="color-dx">￥899.00</h4>
+				</Col>
+				<Col  :xs="12"  :md="6" >
+					<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
+						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
+						<h4 class="color-dx">￥899.00</h4>
+				</Col>
+				<Col  :xs="12"  :md="6" >
+						<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
+						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
+						<h4 class="color-dx">￥899.00</h4>
+				</Col>
+				<Col  :xs="12"  :md="6" >
+					<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子"> 
+						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
+						<h4 class="color-dx">￥899.00</h4>
+				</Col>
+			</Row>
 	    </div>
        <div class="floor">
-       	<h3><a href="#">更多></a>电竞桌系列</h3>
-	   <Row  class="goodslist">
-	        <Col  :xs="12"  :md="6" >
-	            	<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-	            	<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-	            	<h4 class="color-dx">￥1699.00</h4>
-	        </Col>
-	       <Col  :xs="12"  :md="6" >
-	            	<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-	            	       	<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-	            	<h4 class="color-dx">￥1699.00</h4>
-	        </Col>
-	        <Col  :xs="12"  :md="6" >
-	            	<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-	            	       	<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-	            	<h4 class="color-dx">￥1699.00</h4>
-	        </Col>
-	          <Col  :xs="12"  :md="6" >
-	            	<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-	            	       	<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-	            	<h4 class="color-dx">￥1699.00</h4>
-	        </Col>
-	    </Row>
+			<h3><a href="#">更多></a>电竞桌系列</h3>
+			<Row  class="goodslist">
+				<Col  :xs="12"  :md="6" >
+						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
+						<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
+						<h4 class="color-dx">￥1699.00</h4>
+				</Col>
+				<Col  :xs="12"  :md="6" >
+						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
+								<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
+						<h4 class="color-dx">￥1699.00</h4>
+				</Col>
+				<Col  :xs="12"  :md="6" >
+						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
+								<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
+						<h4 class="color-dx">￥1699.00</h4>
+				</Col>
+				<Col  :xs="12"  :md="6" >
+						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
+								<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
+						<h4 class="color-dx">￥1699.00</h4>
+				</Col>
+			</Row>
 	    </div>
 	</div>
 </template>
