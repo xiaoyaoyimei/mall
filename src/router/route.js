@@ -9,7 +9,7 @@ let routes =  [
 				{
 					name:'首页',
 					path: '/index',
-					component:resolve => require(['@/views/pages/Index.vue'], resolve),
+					component:resolve => require(['@/views/pages/Home.vue'], resolve),
 				},{
 					name:'/sort',
 					path: '/sort',
@@ -27,25 +27,6 @@ let routes =  [
 				}
 				]
 		},
-//{
-//			 path: '/user',
-//			 redirect: 'index',
-//		   	iconCls: 'el-icon-location',//图标样式class\n
-//			component: resolve => require(['@/container/UserTop.vue'], resolve),
-//			children: [
-//				{
-//					name:'orderlist',
-//					path: 'orderlist',
-//					chinaname:'订单列表',
-//					component:resolve => require(['@/views/pages/userCenter/OrderList.vue'], resolve),
-//				},{
-//					name:'address',
-//					path: 'address',
-//					chinaname:'添加地址',
-//					component:resolve => require(['@/views/pages/userCenter/Address.vue'], resolve),
-//				},
-//				]
-//		},
 				{
 					name:'/user/orderlist',
 			   		path: '/user/orderlist',
