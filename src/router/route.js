@@ -1,9 +1,22 @@
 const _import = require('./_import_' + process.env.NODE_ENV);
 let routes =  [
-        {
-			 path: '/',
-			 redirect: '/index',
-		   	iconCls: 'el-icon-location',//图标样式class\n
+				{
+			      path: '/',
+			      redirect: '/login',
+			    },
+			    {
+			      path: '/login',
+			      name: '登录',
+			      component:  resolve => require(['@/views/Login.vue'], resolve),
+			    },
+			    	    {
+			      path: '/register',
+			      name: '注册',
+			      component:  resolve => require(['@/views/Register.vue'], resolve),
+			    },
+
+       			 {
+			 path: '/index',
 			component: resolve => require(['@/container/Full.vue'], resolve),
 			children: [
 				{
