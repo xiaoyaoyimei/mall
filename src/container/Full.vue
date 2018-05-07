@@ -1,9 +1,6 @@
 <template>
 <div class="layout">
         <Layout>
-            <!--<Header>
-            <app-menu></app-menu>
-            </Header>-->
             <Layout >
                 <Content :style="{ minHeight: '280px',marginBottom:'50px'}">
                    <router-view/>

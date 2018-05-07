@@ -16,6 +16,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
   color: #2c3e50;
 }
 ul,li{
@@ -29,21 +30,23 @@ ul,li{
 }
  .order{
 		h2{
-		background: #000;
+		background: #d32122;
 		color: #fff;
 		font-size: 16px;
 		height: 44px;
-		line-height: 44px;
+		line-height: 24px;
 		padding-left:10px;
+		padding-top:10px;
+		padding-bottom: 10px;
 		font-weight: normal;
 		cursor: pointer;
+		text-align: center;
 		i{
 			font-size: 1.5em;
 			margin-right: 10px;
 			font-weight: bold;
-			position:relative;
-			top:3px;
-			
+			position:fixed;
+			left:15px;
 		}
 	}
 	

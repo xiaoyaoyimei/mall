@@ -1,10 +1,15 @@
 <template>
 	<div class="user">
 		<div class="user-header">
-			<div class="portrait"><img src="../../../assets/img/头像.png" class="tx"><span class="color-white">桃之一夭</span>
+			<div class="portrait">
+				 	<router-link :to="{name: '/user/myinfo'}"> <img :src="userinfo.iconUrl" class="tx" >		</router-link>
+				    <span class="color-white"  >
+				    </span>
 				<span class="shdz">
-						<router-link :to="{name: '/user/address'}">
-							<img src="../../../assets/img/收货地址.png" >收货地址
+					设置
+					<router-link :to="{name: '/user/address'}">
+							<img src="../../../assets/img/收货地址.png" >
+							收货地址
 						</router-link>
 						</span>
 			</div>
@@ -28,6 +33,19 @@
 </template>
 
 <script>
+	export default {
+	    data () {
+	        return {
+	        	userinfo:{
+					 iconUrl: require('../../../../static/head.png'),
+					  },
+	        }
+	      },
+	      methods:{
+	      },
+	      mounted(){
+	      }
+    }
 </script>
 
 <style lang="scss"> 
