@@ -20,7 +20,7 @@
     methods: {
       getParams () {
         // 取到路由带过来的参数 
-        let routerParams = this.$route.params.nickname
+        let routerParams = this.$route.query.nickname
         // 将数据放在当前组件的数据内
         this.name = routerParams
       },

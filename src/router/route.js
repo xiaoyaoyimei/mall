@@ -21,49 +21,50 @@ let routes =  [
 				},
 				{
 				path: '/user',redirect: '/user/home',component: resolve => require(['@/container/UFull.vue'], resolve),
-				children:[{
-				         	name:'/user/orderlist',
-				   			path: '/user/home',
+				children:[
+				   {
+				         	name:'orderlist',
+				   			path: 'home',
 				 	   		component:resolve => require(['@/views/pages/userCenter/Index.vue'], resolve),
 				         },
-						   {
-					name:'/user/address',
-			   		path: '/user/address',
-		 		   	component:resolve => require(['@/views/pages/userCenter/Address.vue'],resolve)
-				},
+					{
+						name:'address',
+				   		path: 'address',
+			 		   	component:resolve => require(['@/views/pages/userCenter/Address.vue'],resolve)
+					},
 				{
-					name:'/user/editaddress',
-			   		path:'/user/editaddress',
+					name:'editaddress',
+			   		path:'editaddress',
 		 		   	component:resolve => require(['@/views/pages/userCenter/EditAddress.vue'],resolve)
 				},
 					{
-					name:'/user/mycoupon',
-			   		path:'/user/mycoupon',
+					name:'mycoupon',
+			   		path:'mycoupon',
 		 		   	component:resolve => require(['@/views/pages/userCenter/MyCoupon.vue'],resolve)
 				},
 				{
-					name:'/user/couponcenter',
-			   		path:'/user/couponcenter',
+					name:'couponcenter',
+			   		path:'couponcenter',
 		 		   	component:resolve => require(['@/views/pages/userCenter/CouponCenter.vue'],resolve)
 				},
 					{
-					name:'/user/mylove',
-			   		path:'/user/mylove',
+					name:'mylove',
+			   		path:'mylove',
 		 		   	component:resolve => require(['@/views/pages/userCenter/MyLove.vue'],resolve)
 				},
 					{
-					name:'/user/myinfo',
-			   		path:'/user/myinfo',
+					name:'myinfo',
+			   		path:'myinfo',
 		 		   	component:resolve => require(['@/views/pages/userCenter/MyInfo.vue'],resolve)
 				},
 				{
-					name:'/user/editnick',
-			   		path:'/user/editnick',
+					name:'editnick',
+			   		path:'editnick',
 		 		   	component:resolve => require(['@/views/pages/userCenter/EditNickname.vue'],resolve)
 				},
 				{
-					name:'/user/editsex',
-			   		path:'/user/editsex',
+					name:'editsex',
+			   		path:'editsex',
 		 		   	component:resolve => require(['@/views/pages/userCenter/EditSex.vue'],resolve)
 				}]
 				}]

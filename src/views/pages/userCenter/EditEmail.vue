@@ -10,7 +10,7 @@
 </template>
 
 <script>
-		 export default {
+ export default {
     data () {
       return {
         email: ''
@@ -19,7 +19,7 @@
     methods: {
       getParams () {
         // 取到路由带过来的参数 
-        let routerParams = this.$route.params.email
+        let routerParams = this.$route.query.email
         // 将数据放在当前组件的数据内
         this.email = routerParams
       },

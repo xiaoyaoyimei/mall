@@ -4,8 +4,8 @@
 		<ul class="flex-ul">
 			<li><span>头像</span><span >></span></li>
 			<li><span>用户名</span><span ></span></li>
-			<li><span>昵称</span><router-link :to="{ name: '/user/editnick', params: { nickname: userinfo.nickName }}" tag="span"> {{userinfo.nickName}}  ></router-link></li>
-			<li><span>性别</span><router-link :to="{ name: '/user/editsex', params: { sex: userinfo.sex }}" tag="span">
+			<li><span>昵称</span> <router-link :to="{ path: '/user/editnick', query: { nickname: userinfo.nickName }}" tag="span"> {{userinfo.nickName}}  ></router-link></li>
+			<li><span>性别</span><router-link :to="{ path: '/user/editsex', query: { sex: userinfo.sex }}" tag="span">
 			<label v-if="userinfo.sex === 'M'">男</label>	<label  v-else-if="userinfo.sex === 'F'">女</label>	<label  v-else>保密</label>	  > </span></router-link></li>
 			<li><span>出生日期</span> <span> {{userinfo.email}} ></span> </li>
 		</ul>
