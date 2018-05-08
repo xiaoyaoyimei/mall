@@ -66,7 +66,13 @@ let routes =  [
 					name:'editsex',
 			   		path:'editsex',
 		 		   	component:resolve => require(['@/views/pages/userCenter/EditSex.vue'],resolve)
-				}]
+				},
+				{
+					name:'photo',
+			   		path:'photo',
+		 		   	component:resolve => require(['@/views/pages/userCenter/Photo.vue'],resolve)
+				}	
+			]
 				}]
 
 export default routes;

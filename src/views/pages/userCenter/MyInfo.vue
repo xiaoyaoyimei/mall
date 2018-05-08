@@ -2,7 +2,7 @@
 		<div class="order">
 		<router-link tag="h2" to="/user"><Icon type="ios-arrow-thin-left"></Icon>个人信息</router-link>
 		<ul class="flex-ul">
-			<li><span>头像</span><span >></span></li>
+			<li><span>头像</span><router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" tag="span"> <img :src='userinfo.iconUrl' style='vertical-align:middle;width:35px;'> ></router-link></li>
 			<li><span>用户名</span><span ></span></li>
 			<li><span>昵称</span> <router-link :to="{ path: '/user/editnick', query: { nickname: userinfo.nickName }}" tag="span"> {{userinfo.nickName}}  ></router-link></li>
 			<li><span>性别</span><router-link :to="{ path: '/user/editsex', query: { sex: userinfo.sex }}" tag="span">
@@ -22,8 +22,8 @@
 	        		birthday: "",
 					sex: "",
 					nickName: "",
-					 iconUrl: "",
-					  },
+					iconUrl: "",
+					},
 	        }
 	      },
 	      methods:{
