@@ -35,14 +35,22 @@
 	    data () {
 	        return {
 	        	userinfo:{
-					 iconUrl: require('../../../../static/head.png'),
+					 iconUrl: '',
 					  },
 	        }
 	      },
 	      methods:{
-	      	
-	      },
+	      	getUser(){
+	      				this.$axios({
+					    method: 'post',
+					    url:'/account',
+					}).then((res)=>{
+						this.userinfo = Object.assign({},res.data);
+					});
+			  }	      
+			 },
 	      mounted(){
+			  this.getUser()
 	      }
     }
 </script>

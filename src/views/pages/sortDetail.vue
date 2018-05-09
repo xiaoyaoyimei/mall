@@ -1,4 +1,5 @@
 <template>
+<div>
 	<div class="sortDetail">
 		<Carousel
             v-model="value3"
@@ -47,17 +48,25 @@
                 <!-- <i-button type="primary" @click="handleSubmit('formValidate')">加入购物车</i-button>
                 <i-button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</i-button> -->
             </form-item>
-    </i-form>
-     <Tabs value="name1">
-        <TabPane   label="商品详情" name="name1"><img src='../../assets/img/banner.jpg'></TabPane>
-        <TabPane  label="评价" name="name2"> 
-            <Tag closable color="blue">全部<br>(0)</Tag>
-            <Tag closable color="green">好评<br>(0)</Tag>
-            <Tag closable color="red">差评<br>(0)</Tag>
-        </TabPane>
-    </Tabs>
+        </i-form>
+        <Tabs value="name1">
+            <TabPane   label="商品详情" name="name1"><img src='../../assets/img/banner.jpg'></TabPane>
+            <TabPane  label="评价" name="name2"> 
+                <Tag closable color="blue">全部<br>(0)</Tag>
+                <Tag closable color="green">好评<br>(0)</Tag>
+                <Tag closable color="red">差评<br>(0)</Tag>
+            </TabPane>
+        </Tabs>
     </div>
-
+    <div class="foot">
+        <Row class="tabs tabs-icon-left">
+            <router-link :to="{ path: 'index' }"> <Col span="6" ><Icon type="home" /> 首页</Col></router-link>
+            <router-link :to="{ path: 'collection' }">  <Col span="6" > <Icon type="android-apps"></Icon> 收藏</Col></router-link>
+            <router-link :to="{ path: '../cart' }">   <Col span="6"> <Icon type="android-cart"></Icon>加入购物车</Col></router-link>
+            <router-link :to="{ path: 'shopping' }">    <Col span="6"><Icon type="ios-person"></Icon> 立即购买</Col></router-link>
+        </Row>
+    </div>
+</div>
 </template>
 <script>
     	export default {
@@ -93,6 +102,7 @@
 <style lang="scss">
  @import '@/styles/color.scss';
     .sortDetail{
+        margin-bottom:50px;
         img{
             max-width:100%;
         }
@@ -146,6 +156,29 @@
         }
         .ivu-tabs-nav .ivu-tabs-tab{
             width:48%;
+            text-align:center;
         }
     }
+    .foot {
+		background: #fff;
+		border-top:1px solid #eee;
+		padding:5px 0;
+		position: fixed;
+		height: 50px;
+		z-index: 31;
+		bottom: 0;
+		left: 0;
+        width:100%;
+        text-align:center;
+	i{
+		display: block;
+		font-size:2em
+	}
+	a{
+		color:$color-default;
+	}
+	a.router-link-active{
+			color:$color-dx;
+	}
+}
 </style>
