@@ -3,7 +3,7 @@
                 <Row>
                     <i-col  class='cartCol ' span="24">
                         <i-col class='' span="18">
-                            <P class='color-dx'>总计：￥{{totalPrice}}</P>
+                            <P class='color-dx'>总计：</P>
                         </i-col>
                         <i-col class='cartButton1' span="6"> 
                             <i-button class='cartButton'  @click.prevent.native="paymoney" type="error"> <router-link class='font-dx' :to="{ path: 'paymoney' }">支付</router-link></i-button>
@@ -13,6 +13,7 @@
 		</div>
 </template>
 <script>
+	
 </script>
 
 <style scoped="scoped"  lang="scss">
