@@ -4,7 +4,7 @@
         <span  @click="handleNick">保存</span>
         <div>
         <Upload
-            action="http://10.0.0.2:8081/mall/pc/upload/upload?path=upload"
+            :action="uploadUrl"
             :on-success="handleSuccess"
             :show-upload-list='false' >
             <Row class="series1">
@@ -20,7 +20,8 @@
         data () {
             return {
                  iconUrl:'',
-                 imageSrc:'http://test-shop.dxracer.com.cn/',
+                 imageSrc:this.global_.imgurl,
+                 uploadUrl:this.$axios.defaults.baseURL+'upload/upload?path=accout'
             }
         },
         methods: {
@@ -36,8 +37,8 @@
 						    data:{"iconUrl":this.iconUrl}
 						}).then((res)=>{
 							if(res.data.code=='200'){
-               this.$Message.success('头像修改成功');
-               this.iconUrl = "";
+               				this.$Message.success('头像修改成功');
+              				 this.iconUrl = "";
 							 this.$router.push('/user/myinfo');  
 							}
 						});
@@ -64,14 +65,6 @@
 </script>
 
 <style scope='scope' >
-.photo >span{
-	  position: fixed;
-    right: 15px;
-    top: 10px;
-    color: #fff;
-    cursor: pointer;
-    font-size:1rem;
-}
 .photo .btn{
   margin-top:15px;
 }
