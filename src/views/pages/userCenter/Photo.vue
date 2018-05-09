@@ -31,17 +31,19 @@
               }          
           },
           handleNick(){
-	      	this.$axios({
-						    method: 'post',
-						    url:'/account/update',
-						    data:{"iconUrl":this.iconUrl}
-						}).then((res)=>{
-							if(res.data.code=='200'){
-               				this.$Message.success('头像修改成功');
-              				 this.iconUrl = "";
-							 this.$router.push('/user/myinfo');  
-							}
-						});
+          	let self=this;
+            this.fang_.editUser(self,{"iconUrl":this.iconUrl});
+//	      	this.$axios({
+//						    method: 'post',
+//						    url:'/account/update',
+//						    data:{"iconUrl":this.iconUrl}
+//						}).then((res)=>{
+//							if(res.data.code=='200'){
+//             				this.$Message.success('头像修改成功');
+//            				 this.iconUrl = "";
+//							 this.$router.push('/user/myinfo');  
+//							}
+//						});
           },
           getParams () {
                 // 取到路由带过来的参数 

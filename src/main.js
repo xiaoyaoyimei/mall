@@ -9,6 +9,7 @@ import iView from 'iview';
 import axios from 'axios';
 import 'iview/dist/styles/iview.css';
 import '@/my-theme/index.less'
+import fang_ from '@/assets/js/user.js'
 //设置全局变量
 import global_ from '@/base/baseParam';
 Vue.config.productionTip = false
@@ -16,6 +17,7 @@ Vue.use(VueRouter)
 Vue.use(iView);
 Vue.prototype.global_=global_;
 Vue.prototype.$axios = axios;
+Vue.prototype.fang_ = fang_;
 console.log(store)
 
 
@@ -81,7 +83,7 @@ if (error.response) {
 return Promise.reject(error.response.data)  
 }); 
 /* eslint-disable no-new */
-new Vue({
+var app =new Vue({
   el: '#app',
   router,
   store,//使用store

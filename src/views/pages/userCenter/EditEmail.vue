@@ -24,15 +24,16 @@
         this.email = routerParams
       },
       handleNick(){
-	      	this.$axios({
-						    method: 'post',
-						    url:'/account/update',
-						    data:{"email":this.email}
-						}).then((res)=>{
-							if(res.data.code=='200'){
-							 this.$Message.success('Email修改成功');
-							}
-						});
+      	this.fang_.editUser({"email":this.email});
+//	      	this.$axios({
+//						    method: 'post',
+//						    url:'/account/update',
+//						    data:{"email":this.email}
+//						}).then((res)=>{
+//							if(res.data.code=='200'){
+//							 this.$Message.success('Email修改成功');
+//							}
+//						});
       }
     },
     watch: {
