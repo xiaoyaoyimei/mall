@@ -51,7 +51,7 @@
                 checkAll: false,
                 checkAllGroup: ['香蕉', '西瓜'],
                 price:[{label:1,total:"730"},{label:2,total:'730'},{label:3,total:'730'}],
-                totalPrice:2190,
+               // totalPrice:2190,
             }
         },
         methods: {

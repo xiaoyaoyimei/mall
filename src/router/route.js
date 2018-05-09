@@ -8,7 +8,8 @@ let routes =  [
 						name:'首页',
 						path: '/index',
 						component:resolve => require(['@/views/pages/Home.vue'], resolve),
-					},{
+					},
+					{
 						name:'/sort',
 						path: '/sort',
 						component:resolve => require(['@/views/pages/Sort.vue'], resolve),
@@ -19,6 +20,24 @@ let routes =  [
 						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 					}]
 				},
+			  {
+					path:"/sort/sortDetail",
+					name:'详情',
+					component:resolve=>require(['@/views/pages/SortDetail.vue'], resolve),
+				},
+				{
+						path:"/paymoney",
+						redirect: '/index',
+						iconCls: 'el-icon-location',//图标样式class\n
+						component:resolve=>require(['@/container/full2.vue'], resolve),
+						children:[
+							{
+								name:'结算',
+								path: '/paymoney',
+								component:resolve => require(['@/views/pages/cart/Paymoney.vue'], resolve)
+							},
+						]
+					},
 				{
 				path: '/user',redirect: '/user/home',component: resolve => require(['@/container/UFull.vue'], resolve),
 				children:[
