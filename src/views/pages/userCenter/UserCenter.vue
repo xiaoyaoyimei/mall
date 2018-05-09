@@ -6,7 +6,7 @@
 				    <span class="color-white"  >
 				    </span>
 				<span class="shdz">
-					<router-link :to="{name: '/user/setting'}">
+					<router-link :to="{path: '/user/setting'}">
 						<img src="../../../assets/img/setting.png"/>
 						</router-link>
 						</span>
@@ -40,6 +40,7 @@
 	        }
 	      },
 	      methods:{
+	      	
 	      },
 	      mounted(){
 	      }

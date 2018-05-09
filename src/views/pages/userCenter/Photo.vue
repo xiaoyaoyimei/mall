@@ -64,14 +64,6 @@
 </script>
 
 <style scope='scope' >
-.photo >span{
-	  position: fixed;
-    right: 15px;
-    top: 10px;
-    color: #fff;
-    cursor: pointer;
-    font-size:1rem;
-}
 .photo .btn{
   margin-top:15px;
 }

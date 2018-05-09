@@ -17,6 +17,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  height:100vh;
+  background: #f6f6f6;
 }
 ul,li{
 	list-style: none;
@@ -26,31 +28,5 @@ ul,li{
 }
 .ivu-tabs-ink-bar{
 	background:$color-dx;
-}
- .order{
-		h2{
-		background: #d32122;
-		color: #fff;
-		font-size: 16px;
-		height: 44px;
-		line-height: 24px;
-		padding-left:10px;
-		padding-top:10px;
-		padding-bottom: 10px;
-		font-weight: normal;
-		cursor: pointer;
-		text-align: center;
-		i{
-			font-size: 1.5em;
-			margin-right: 10px;
-			font-weight: bold;
-			position:fixed;
-			left:15px;
-		}
-	}
-	
-}
-.order div,.ivu-tabs-tabpane{
-	text-align: center;
 }
 </style>

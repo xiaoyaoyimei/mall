@@ -1,21 +1,21 @@
 <template>
 	<div class="order">
-		<router-link tag="h2" to="user/address"><Icon type="ios-arrow-thin-left"></Icon>编辑地址</router-link>
-	<Form :model="formValidate" label-position="left" :label-width="100" :rules="ruleValidate" ref="formValidate"> 
-        <FormItem label="收货人" prop="name">
-            <Input v-model="formValidate.name" placeholder="收货人"></Input>
+		<router-link tag="h2" to="/user/address"><Icon type="ios-arrow-thin-left"></Icon>添加新地址</router-link>
+		<span>保存</span>
+	<Form :model="formValidate" label-position="left" :label-width="100" :rules="ruleValidate" ref="formValidate" style="background: #fff;"> 
+        <FormItem label="收货人" prop="person">
+            <Input v-model="formValidate.person" placeholder="收货人"></Input>
         </FormItem>
-        <FormItem label="联系电话" prop="mobile">
-            <Input v-model="formValidate.mobile" placeholder="联系电话"></Input>
+        <FormItem label="联系电话" prop="phone">
+            <Input v-model="formValidate.phone" placeholder="联系电话"></Input>
         </FormItem>
         <FormItem label="所在地区" prop="city">
-            <Input v-model="formValidate.city" placeholder="所在地区"></Input>
+        	 <Cascader  v-model="formValidate.city"></Cascader>
         </FormItem>
-         <FormItem label="详细地址" prop="input4">
-            <Input v-model="formValidate.input4" placeholder="详细地址"></Input>
+         <FormItem label="详细地址" prop="address">
+            <Input v-model="formValidate.address" placeholder="详细地址"></Input>
         </FormItem>
     </Form>
-		<div class="addaddress">保存</div>
 	</div>
 </template>
 
@@ -24,10 +24,10 @@
     data () {
         return {
 			  formValidate: {
-		                    name: '',
-		                    mobile: '',
+		                    person: '',
+		                    phone: '',
 		                    city: '',
-		                    input4:''
+		                    address:''
 		                    
 		                },
 		            ruleValidate: {
@@ -36,7 +36,7 @@
 	                    ],
 	                    mobile: [
 	                        { required: true, message: 'Mobile cannot be empty', trigger: 'blur' },
-	                        { type: 'phone', message: 'Incorrect mobile format', trigger: 'blur' }
+	                        { type: 'number', message: 'Incorrect mobile format', trigger: 'blur' }
 	                    ],
                     city: [
                         { required: true, message: 'Please select the city', trigger: 'change' }
@@ -48,7 +48,6 @@
 </script>
 
 <style scoped="scoped"  lang="scss">
- @import '@/styles/color.scss';
   .addaddress{
   	position: fixed;
   	bottom:0;

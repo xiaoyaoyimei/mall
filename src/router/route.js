@@ -18,7 +18,14 @@ let routes =  [
 						name:'购物车',
 						path: '/cart',
 						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
-					}]
+					},
+						{
+						name:'用户中心',
+						meta:{requireAuth:true},
+						path: '/user',
+						component:resolve => require(['@/views/pages/userCenter/UserCenter.vue'], resolve),
+					},
+					]
 				},
 			  {
 					path:"/sort/sortDetail",
@@ -39,12 +46,18 @@ let routes =  [
 						]
 					},
 				{
-				path: '/user',redirect: '/user/home',component: resolve => require(['@/container/UFull.vue'], resolve),
+				path: '/user',component: resolve => require(['@/container/UFull.vue'], resolve),
+				meta:{requireAuth:true},
 				children:[
-				   {
-				         	name:'orderlist',
+				   			{
+				         	name:'home',
 				   			path: 'home',
-				 	   		component:resolve => require(['@/views/pages/userCenter/UserC.vue'], resolve),
+				 	   		component:resolve => require(['@/views/pages/userCenter/UserCenter.vue'], resolve),
+				         },
+				            {
+				         	name:'orderlist',
+				   			path: 'orderlist',
+				 	   		component:resolve => require(['@/views/pages/userCenter/OrderList.vue'], resolve),
 				         },
 					{
 						name:'address',
@@ -90,6 +103,11 @@ let routes =  [
 					name:'photo',
 			   		path:'photo',
 		 		   	component:resolve => require(['@/views/pages/userCenter/Photo.vue'],resolve)
+				},
+					{
+					name:'setting',
+			   		path:'setting',
+		 		   	component:resolve => require(['@/views/pages/userCenter/MySetting.vue'],resolve)
 				}	
 			]
 				}]

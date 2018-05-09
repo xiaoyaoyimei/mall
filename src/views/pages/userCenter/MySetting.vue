@@ -2,7 +2,7 @@
 		<div class="order coupon">
 		<router-link tag="h2" to="/user"><Icon type="ios-arrow-thin-left"></Icon>账号设置</router-link>
 			<ul class="flex-ul">
-			<li><span>地址管理</span><span >></span></li>
+			<li><router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link><span >></span></li>
 		</ul>
 		<div  class="bottom-buttom" @click="logout">退出登录</div>
    </div>

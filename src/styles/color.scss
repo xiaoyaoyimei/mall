@@ -36,9 +36,9 @@ $color-gray:#e6e6e6;
                 line-height: 45px;
                 font-size: 14px;
                 padding:0 10px;
-            }
-            li span:first-child{
-                flex:1
+                span:first-child{
+                    flex:1
+                 }
             }
        }
     .bottom-buttom{
@@ -80,8 +80,9 @@ $color-gray:#e6e6e6;
     .order >span{
     position: fixed;
     right: 15px;
-    top: 8px;
+    top: 10px;
     cursor: pointer;
+    font-size:14px
 }
 .color-gray{
     color:#999;

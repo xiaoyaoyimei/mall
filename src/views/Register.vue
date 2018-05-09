@@ -1,5 +1,5 @@
 <template>
-		<div class="reg">
+		<div class="login">
 			<h3>注册</h3>
 	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
            <FormItem label="手机号" prop="loginName">

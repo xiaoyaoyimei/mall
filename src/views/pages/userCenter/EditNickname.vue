@@ -46,16 +46,3 @@
 		}
   }
 </script>
-
-<style scoped="scoped">
-	.order >span{
-	    position: fixed;
-    right: 15px;
-    top: 15px;
-    color: #fff;
-    cursor: pointer;
-}
-.color-gray{
-	color:#999;
-}
-</style>
