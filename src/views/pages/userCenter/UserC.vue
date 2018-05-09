@@ -33,15 +33,27 @@
 <script>
 	export default {
 	    data () {
+			debugger;
 	        return {
 	        	userinfo:{
-					 iconUrl: require('../../../../static/head.png'),
+					 iconUrl: '',
 					  },
 	        }
 	      },
 	      methods:{
+			  getUser(){
+				  debugger;
+	      				this.$axios({
+					    method: 'post',
+					    url:'/account',
+					}).then((res)=>{
+						console.log(res)
+						this.userinfo = Object.assign({},res.data);
+					});
+	      	}
 	      },
 	      mounted(){
+	      	this.getUser()
 	      }
     }
 </script>

@@ -41,6 +41,18 @@
         </TabPane>
         <TabPane label="到店自提" name="name2">标签二的内容</TabPane>
     </Tabs>
+         <div class='cartfoot'>
+                <Row>
+                    <i-col  class='cartCol ' span="24">
+                        <i-col class='' span="18">
+                            <P class='color-dx totalPrice'>总计：{{totalPrice}}</P>
+                        </i-col>
+                        <i-col class='cartButton1' span="6"> 
+                            <i-button class='cartButton'  @click.prevent.native="paymoney" type="error"> <router-link class='payBtn' :to="{ path: 'paymoney' }">支付</router-link></i-button>
+                        </i-col>
+                    </i-col>
+                </Row>
+		</div>
     </div>
 </template>
 <script>
@@ -51,7 +63,7 @@
                 checkAll: false,
                 checkAllGroup: ['香蕉', '西瓜'],
                 price:[{label:1,total:"730"},{label:2,total:'730'},{label:3,total:'730'}],
-               // totalPrice:2190,
+                totalPrice:2190,
             }
         },
         methods: {
@@ -95,6 +107,7 @@
         }
         .ivu-tabs-nav .ivu-tabs-tab{
             width:50%;
+            text-align:center;
         }
         .ivu-tabs-bar{
             margin-bottom:0px;
@@ -104,7 +117,8 @@
         }
         .cartCol{
 			background-color:$color-white;
-			margin-bottom:5px;
+            margin-bottom:5px;
+            padding-left:25px;
 			.cartcheckbok{
 				height:16px;
 				margin-top:12%;
@@ -113,7 +127,11 @@
 					width:16px;
 					overflow:hidden;
 				}
-			}
+            }
+            .totalPrice{
+                height:50px;
+                line-height:50px;
+            }
 			.cartImg{
 				max-width:100%;
 				padding-top:15px;
@@ -188,7 +206,7 @@
         .cartfoot {
                 background: #fff;
                 border-top:1px solid #eee;
-                padding:5px 0;
+                // padding:5px 0;
                 position: fixed;
                 height: 50px;
                 z-index: 31;
@@ -201,10 +219,15 @@
             }
             a{
                 color:$color-default;
+                background-color:$color-dx;
             }
             a.router-link-active{
                     color:$color-dx;
             }
+            a.payBtn{
+                color:$color-white!important;
+            }
         }
+        
     }
 </style>
