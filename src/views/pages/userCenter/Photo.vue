@@ -31,6 +31,7 @@
               }          
           },
           handleNick(){
+            console.log(this)
 	      	this.$axios({
 						    method: 'post',
 						    url:'/account/update',
@@ -38,7 +39,8 @@
 						}).then((res)=>{
 							if(res.data.code=='200'){
                				this.$Message.success('头像修改成功');
-              				 this.iconUrl = "";
+                       this.iconUrl = "";
+                       debugger;
 							 this.$router.push('/user/myinfo');  
 							}
 						});
