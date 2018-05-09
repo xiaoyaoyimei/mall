@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login">
     			<h3>登录</h3>
     <div id="canvascontainer" ref='can'></div>
     <Form ref="loginForm" autoComplete="on" :model="loginForm" :rules="loginRules"   label-position="left" :label-width="100">
@@ -11,9 +11,8 @@
             <Input type="password" v-model="loginForm.passWord" placeholder="passWord" @keyup.enter.native="handleLogin">
             </Input>
         </Form-item>
-        <Form-item>
-            <Button type="primary" @click="handleLogin('loginForm')" long>登录</Button>
-        </Form-item>
+             <Button type="primary" @click="handleLogin('loginForm')"  class="btn-login">登录</Button>
+            <router-link :to="{path: '/register'}" class="re">新用户注册</router-link>
     </Form>
     </div>
 </template>
@@ -104,14 +103,38 @@
       },
     }
 </script>
-<style>
+<style scoped="scoped" lang="scss">
+ @import '@/styles/color.scss';
+	.login{
+		padding:30px 15px;
+		background: #fff;
+		overflow: hidden;
+		h3{
+			margin-bottom: 40px;
+			color:$color-dx;
+		}
+		.btn-login{
+			width: 100%;
+			border-radius: 50px;
+			padding:10px 0;
+		}
+		.re{
+			float: right;
+			margin-top:40px;
+			color:#333;
+			font-size:12px;
+		}
+	}
+	</style>
+	<style>
 		.ivu-form-item:not(:last-child) {
 			border-bottom: 1px  solid #eee;
 		}
 		 .ivu-input{
 			border:0 none;
+			font-size: 16px;
 		}
 		.ivu-form .ivu-form-item-label{
-			font-size: 14px;
+			font-size: 16px;
 		}
 </style>
