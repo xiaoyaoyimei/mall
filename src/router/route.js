@@ -25,7 +25,7 @@ let routes =  [
 				   {
 				         	name:'orderlist',
 				   			path: 'home',
-				 	   		component:resolve => require(['@/views/pages/userCenter/Index.vue'], resolve),
+				 	   		component:resolve => require(['@/views/pages/userCenter/UserC.vue'], resolve),
 				         },
 					{
 						name:'address',

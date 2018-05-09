@@ -3,4 +3,89 @@ $color-border:#eee;
 $color-dx:#ed1844;
 $color-default:#333;
 $color-white:#fff;
+<<<<<<< HEAD
 $color-gray:#e6e6e6;
+=======
+.order{
+        h2{
+        color: #222;
+        font-size: 16px;
+        height: 44px;
+        line-height: 24px;
+        padding-left:10px;
+        padding-top:10px;
+        padding-bottom: 10px;
+        font-weight: normal;
+        cursor: pointer;
+        text-align: center;
+        background: #fff;
+        margin-bottom: 10px;
+        i{
+            font-size: 1.5em;
+            margin-right: 10px;
+            font-weight: bold;
+            position:fixed;
+            left:15px;
+        }
+    }
+       .flex-ul{
+           background: #fff;
+            li{
+                display: flex;
+                flex-direction: row;
+                border-bottom: 1px solid #eee;
+                height:45px;
+                line-height: 45px;
+                font-size: 14px;
+                padding:0 10px;
+            }
+            li span:first-child{
+                flex:1
+            }
+       }
+    .bottom-buttom{
+        position: fixed;
+        bottom: 0;
+        text-align: center;
+        color: #fff;
+        background: $color-dx;
+        width: 100%;
+        padding-top:8px;
+        padding-bottom: 8px;
+    }
+    
+}
+.order div,.ivu-tabs-tabpane{
+    text-align: center;
+}
+    .login{
+        padding:30px 15px;
+        background: #fff;
+        overflow: hidden;
+        h3{
+            margin-bottom: 40px;
+            color:$color-dx;
+            font-weight: 100;
+        }
+        .btn-login{
+            width: 100%;
+            border-radius: 50px;
+            padding:10px 0;
+        }
+        .re{
+            float: right;
+            margin-top:40px;
+            color:#333;
+            font-size:12px;
+        }
+    }
+    .order >span{
+    position: fixed;
+    right: 15px;
+    top: 8px;
+    cursor: pointer;
+}
+.color-gray{
+    color:#999;
+}
+>>>>>>> 21bd673fffef85510502bc190b4e26af9a816c6f
