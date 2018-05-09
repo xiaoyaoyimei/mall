@@ -9,11 +9,15 @@ import iView from 'iview';
 import axios from 'axios';
 import 'iview/dist/styles/iview.css';
 import '@/my-theme/index.less'
+//设置全局变量
+import global_ from '@/base/baseParam';
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(iView);
+Vue.prototype.global_=global_;
 Vue.prototype.$axios = axios;
 console.log(store)
+
 
 //判断是否登录
 
