@@ -76,7 +76,8 @@
  			border:2px solid #fff;
  			border-radius: 60px;
  			float: left;
- 			margin-right:20px
+ 			margin-right:20px;
+ 			height:60px;
  		}
  		.color-white{
  			color:$color-white;

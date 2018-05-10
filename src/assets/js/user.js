@@ -1,14 +1,29 @@
 /* 进入子页面*/
-import axios from 'axios';
-
-export function editUser(para) {
-     				axios({
+let fang_={
+		editUser(self,para){
+			self.$axios({
 						    method: 'post',
 						    url:'/account/update',
 						    data:para,
 						}).then((res)=>{
 							if(res.data.code=='200'){
-							  alert('修改成功');
+							  self.$Message.success('修改成功');
+							  self.$router.go(-1)
 							}
 						});
+		},
+		login(self){
+//				self.$axios({
+//						    method: 'post',
+//						    url:'/account/update',
+//						    data:para,
+//						}).then((res)=>{
+//							if(res.data.code=='200'){
+//							  self.$Message.success('修改成功');
+//							  self.$router.go(-1)
+//							}
+//						});
+		}
 }
+
+export default fang_;

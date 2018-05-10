@@ -11,7 +11,7 @@
 </template>
 
 <script>
-		 export default {
+  export default {
     data () {
       return {
         name: ''
@@ -25,16 +25,7 @@
         this.name = routerParams
       },
       handleNick(){
-	      	this.$axios({
-						    method: 'post',
-						    url:'/account/update',
-						    data:{"nickName":this.name}
-						}).then((res)=>{
-							if(res.data.code=='200'){
-							 this.$Message.success('昵称修改成功');
-							 this.$router.push('/user/myinfo')  
-							}
-						});
+	      	this.fang_.editUser({'nickName':this.name});
       }
     },
     watch: {

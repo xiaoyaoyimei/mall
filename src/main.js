@@ -9,6 +9,7 @@ import iView from 'iview';
 import axios from 'axios';
 import 'iview/dist/styles/iview.css';
 import '@/my-theme/index.less'
+import fang_ from '@/assets/js/user.js'
 //设置全局变量
 import global_ from '@/base/baseParam';
 Vue.config.productionTip = false
@@ -16,11 +17,44 @@ Vue.use(VueRouter)
 Vue.use(iView);
 Vue.prototype.global_=global_;
 Vue.prototype.$axios = axios;
+Vue.prototype.fang_ = fang_;
 console.log(store)
-
+//window.setInterval(fang_.login(app),3000);
 
 //判断是否登录
-
+//let sendBtnTimer = setInterval(changeSendBtn,5000)
+function changeSendBtn() {
+	console.log(global_)
+       axios.post('customer/login', {  
+				loginName: global_.loginName,  
+				passWord: global_.passWord  
+				}).then(res => {  
+					this.logining = false;
+	               	let { code, msg } = res.data;
+		              if (code !== 200) {
+		                  this.$Message.error(msg);
+		              } else {
+					        this.$Message.success('登录成功');
+							let data = res.data;  
+							//根据store中set_token方法将token保存至localStorage/sessionStorage中，data["Authentication-Token"]，获取token的value值  
+							this.$store.commit('set_token',{token:data.object["token"],userId:data.object["userId"]});  
+//							 ...mapMutations({
+//   							 'set_token',{token:data.object["token"]} // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+// 								 })
+							if (store.state.token) {  
+								this.$router.push('/index')  
+								console.log(store.state.token)  
+							    console.log(store.state.userId) 
+							} else {  
+								this.$router.replace('/login');  
+							}  
+		              }
+				}).catch(error => {  
+						this.loading = false  
+						this.loginBtn = "登录"  
+						  this.$Message.error('系统异常');
+				}) 
+}
 // 页面刷新时，重新赋值token  
 if (sessionStorage.getItem('token')) {  
 store.commit('set_token',{token: sessionStorage.getItem('token'),userId:sessionStorage.getItem('userId')})  
@@ -47,7 +81,7 @@ router.beforeEach((to, from, next) => {
 		}  
 }) 
 //设置拦截器
-axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/pc/';
+axios.defaults.baseURL = 'http://10.0.0.30:8080/dxracer-mall-api/pc/';
 axios.interceptors.request.use(config => {  
 // 在发送请求之前做些什么  
 //判断是否存在token，如果存在将每个页面header都添加token  
@@ -81,7 +115,7 @@ if (error.response) {
 return Promise.reject(error.response.data)  
 }); 
 /* eslint-disable no-new */
-new Vue({
+var app =new Vue({
   el: '#app',
   router,
   store,//使用store
