@@ -31,7 +31,6 @@
               }          
           },
           handleNick(){
-            console.log(this)
 	      	this.$axios({
 						    method: 'post',
 						    url:'/account/update',
@@ -40,7 +39,6 @@
 							if(res.data.code=='200'){
                				this.$Message.success('头像修改成功');
                        this.iconUrl = "";
-                       debugger;
 							 this.$router.push('/user/myinfo');  
 							}
 						});
@@ -50,7 +48,6 @@
                 let routerParams = this.$route.query.iconUrl;
                 // 将数据放在当前组件的数据内
                 this.iconUrl = routerParams;
-                
           },
         
          
