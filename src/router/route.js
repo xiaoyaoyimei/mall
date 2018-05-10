@@ -56,6 +56,11 @@ let routes =  [
 				   		path: 'address',
 			 		   	component:resolve => require(['@/views/pages/userCenter/Address.vue'],resolve)
 					},
+					{
+					name:'addaddress',
+			   		path:'addaddress',
+		 		   	component:resolve => require(['@/views/pages/userCenter/addAddress.vue'],resolve)
+				},
 				{
 					name:'editaddress',
 			   		path:'editaddress',

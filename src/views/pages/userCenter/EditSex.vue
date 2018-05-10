@@ -1,6 +1,6 @@
 <template>
 	<div class="order">
-		<router-link tag="h2" to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon>修改性别 </router-link>
+		<h2><router-link to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon> </router-link>修改性别</h2>
 		<span  @click="handleNick">保存</span>
 		<div>
 	    <RadioGroup v-model="sex" vertical>

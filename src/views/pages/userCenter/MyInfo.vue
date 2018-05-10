@@ -1,6 +1,6 @@
 <template>
 		<div class="order">
-		<router-link tag="h2" to="/user"><Icon type="ios-arrow-thin-left"></Icon>个人信息</router-link>
+		<h2><router-link to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>个人信息</h2>
 		<ul class="flex-ul">
 			<li><span>头像</span><router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" tag="span"> <img :src='userinfo.iconUrl' style='vertical-align:middle;width:35px;'> ></router-link></li>
 			<li><span>用户名</span><span ></span></li>
