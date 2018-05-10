@@ -10,7 +10,7 @@
             <Input v-model="formValidate.phone" placeholder="联系电话"></Input>
         </FormItem>
         <FormItem label="所在地区" prop="city">
-        	 <Cascader  v-model="formValidate.city"></Cascader>
+        	 <Cascader  v-model="addressOption"></Cascader>
         </FormItem>
          <FormItem label="详细地址" prop="address">
             <Input v-model="formValidate.address" placeholder="详细地址"></Input>
@@ -23,10 +23,11 @@
    export default {
     data () {
         return {
+        	addressOption: [],
 			  formValidate: {
 		                    person: '',
 		                    phone: '',
-		                    city: '',
+		                    
 		                    address:''
 		                    
 		                },
@@ -43,7 +44,23 @@
                     ]
                    },
 			  }
-       }
+		
+      	},
+    	      methods: {
+    	      	getAddressOption(){
+    	      		  	this.$axios({
+						    method: 'post',
+						    url:'/common/address',
+						}).then((res)=>{
+							console.log(res);
+							 this.addressOption=res;
+							 
+						});
+    	      	}
+			      },
+			         mounted() {
+			this.getAddressOption();
+		}
    }
 </script>
 
