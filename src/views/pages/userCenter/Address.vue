@@ -100,6 +100,7 @@
   	cursor: pointer;
   	a{
   		color:#fff;
+  		text-align: center;
   	}
   }
   .address { 

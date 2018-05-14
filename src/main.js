@@ -60,7 +60,6 @@ if (sessionStorage.getItem('token')) {
 store.commit('set_token',{token: sessionStorage.getItem('token'),userId:sessionStorage.getItem('userId')})  
 }  
 const router = new VueRouter({  
-mode: "history",  
 routes  
 });  
   
