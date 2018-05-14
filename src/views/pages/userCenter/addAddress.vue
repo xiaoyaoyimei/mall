@@ -1,22 +1,22 @@
 <template>
 	<div class="order">
-		<h2><router-link to="/user/address"><Icon type="ios-arrow-thin-left"></Icon></router-link>编辑地址
+		<h2><router-link to="/user/address"><Icon type="ios-arrow-thin-left"></Icon></router-link>添加新地址
 		<span @click="addSubmit">保存</span></h2>
-	<Form :model="editForm" ref="editForm" label-position="left" :label-width="100" :rules="ruleValidate"  style="background: #fff;"> 
+	<Form :model="addForm" ref="addForm" label-position="left" :label-width="100" :rules="ruleValidate"  style="background: #fff;"> 
         <FormItem label="收货人" prop="person">
-            <Input v-model="editForm.person" placeholder="收货人"></Input>
+            <Input v-model="addForm.person" placeholder="收货人"></Input>
         </FormItem>
         <FormItem label="手机号" prop="phone">
-            <Input v-model="editForm.phone" placeholder="联系电话"></Input>
+            <Input v-model="addForm.phone" placeholder="联系电话"></Input>
         </FormItem>
         <FormItem label="固定电话" >
-            <Input v-model="editForm.tel" placeholder="固定电话"></Input>
+            <Input v-model="addForm.tel" placeholder="固定电话"></Input>
         </FormItem>
         <FormItem label="所在地区"  prop="selectedOptionsAddr">
-        	 <Cascader  v-model="editForm.selectedOptionsAddr" :data="addressOption"></Cascader>
+        	 <Cascader  v-model="addForm.selectedOptionsAddr" :data="addressOption"></Cascader>
         </FormItem>
          <FormItem label="详细地址" prop="address">
-            <Input v-model="editForm.address" placeholder="详细地址"></Input>
+            <Input v-model="addForm.address" placeholder="详细地址"></Input>
         </FormItem>
     </Form>
 	</div>
@@ -26,9 +26,8 @@
    export default {
     data () {
         return {
-        	  old:[],
         	  addressOption: [],
-			  editForm: {
+			  addForm: {
 		                    person: '',
 		                    phone: '',
 		                    selectedOptionsAddr:[],
@@ -53,18 +52,6 @@
 		
       	},
     	      methods: {
-    	      	getParams () {
-	       			 // 取到路由带过来的参数 
-			        let routerParams = this.$route.query.old
-			        // 将数据放在当前组件的数据内
-			        this.old = routerParams
-			        this.editForm.id=this.old.id;
-			        this.editForm.person=this.old.person;
-			        this.editForm.phone=this.old.phone;
-			        this.editForm.tel=this.old.tel;
-			        this.editForm.selectedOptionsAddr=[this.old.receiveProvince,this.old.receiveCity,this.old.receiveDistrict];
-			        this.editForm.address=this.old.address;
-     			 },
     	      	getAddressOption(){
     	      		  	this.$axios({
 						    method: 'post',
@@ -76,23 +63,21 @@
 						});
     	      	},
     	      	addSubmit(){
-    	      		   this.$refs['editForm'].validate((valid) => {
+    	      		   this.$refs['addForm'].validate((valid) => {
 					if (valid) {
-							let temp=this.editForm;
-							let id=temp.id;
-							temp.receiveProvince=this.editForm.selectedOptionsAddr[0];
-							temp.receiveCity=this.editForm.selectedOptionsAddr[1];
-							temp.receiveDistrict=this.editForm.selectedOptionsAddr[2];
+							let temp=this.addForm;
+							temp.receiveProvince=this.addForm.selectedOptionsAddr[0];
+							temp.receiveCity=this.addForm.selectedOptionsAddr[1];
+							temp.receiveDistrict=this.addForm.selectedOptionsAddr[2];
 							delete temp['selectedOptionsAddr']
-							delete temp['id']
 							let para = Object.assign({}, temp);
 								this.$axios({
 							    method: 'post',
-							    url:'/address/update?id='+id,
+							    url:'/address/insert',
 							    data:para,
 								}).then((res)=>{
 							        this.$Message.success('提交成功');
-									this.$refs['editForm'].resetFields();
+									this.$refs['addForm'].resetFields();
 									this.$router.push('/user/address')  
 							});
 					}
@@ -101,7 +86,6 @@
 			    },
 			         mounted() {
 			this.getAddressOption();
-				this.getParams();
 		}
    }
 </script>

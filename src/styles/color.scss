@@ -25,6 +25,10 @@ $color-gray:#e6e6e6;
             position:fixed;
             left:15px;
         }
+        span{
+            float: right;
+            margin-right:15px
+        }
     }
        .flex-ul{
            background: #fff;
@@ -77,13 +81,6 @@ $color-gray:#e6e6e6;
             font-size:12px;
         }
     }
-    .order >span{
-    position: fixed;
-    right: 15px;
-    top: 10px;
-    cursor: pointer;
-    font-size:14px
-}
 .color-gray{
     color:#999;
 }

@@ -1,6 +1,6 @@
 <template>
 		<div class="order coupon">
-		<router-link tag="h2" to="/user"><Icon type="ios-arrow-thin-left"></Icon>我的优惠券</router-link>
+		<h2><router-link to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>我的优惠券</h2>
 		    <div>领券中心</div>
    </div>
 </template>

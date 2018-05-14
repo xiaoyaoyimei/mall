@@ -1,7 +1,6 @@
 <template>
 	<div class="order">
-		<router-link tag="h2" to="/user"><Icon type="ios-arrow-thin-left"></Icon>订单列表</router-link>
-		
+	<h2>	<router-link  to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>订单列表</h2>
     <Tabs :animated="false" :value="name"> 
         <TabPane label="待付款" name="待付款">待付款</TabPane>
         <TabPane label="待发货"  name="待发货">待发货</TabPane>
