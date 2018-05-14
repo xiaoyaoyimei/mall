@@ -32,17 +32,18 @@
 			</i-col>
 		</Row>
 		</header>
-		<Row class="sRow">
+		<Row class="sRow product">
 		
-				<Col :xs="12" class="sMar"  :md="6">
+				<Col :xs="12"  class="sMar"  :md="6"   v-for="(item, index) in productList" :key='index'>
 					<router-link :to="{ path: '/sort/sortDetail' }">
-						<img  src="../../assets/img/x1.jpg">
-						<p class="sP">电竞桌系列
+						<img  :src='imageSrc + item.model_img'>
+						<p class="sP">{{item.series_name}}
 						</p>
-						<h6 class="sh6">￥1000.00<small class="sSmall">已售68件</small></h6>
+						<!-- {{item}} -->
+						<h6 class="sh6">{{item.sale_price}}<small class="sSmall">已售68件</small></h6>
 					</router-link>
 				</Col>
-				<Col :xs="12" class="sMar"  :md="6">
+				<!-- <Col :xs="12" class="sMar"  :md="6">
 					<a href="#/sort/sortDetail">
 						<img  src="../../assets/img/x2.jpg">
 						<p class="sP">电竞椅系列
@@ -83,7 +84,7 @@
 						<h6 class="sh6">￥1101.00
 						<small class="sSmall">已售68件</small></h6>
 					</a>
-				</Col>
+				</Col> -->
 		</Row>
 	</div>
 </template>
@@ -92,9 +93,24 @@
         data () {
             return {
 				theme1: 'light',
-				
-            }
-        }
+				productList:[],
+				imageSrc:this.global_.imgurl,
+			}
+			
+		},
+		methods:{
+			getList(){
+				this.$axios({
+					method: 'GET',
+					url:'/product/search?startRow=1&pageSize=10',
+				}).then((res)=>{
+					this.productList = res.data.itemsList;
+				})
+			}
+		},
+		 mounted(){
+	      	this.getList();
+	      }
     }
 </script>
 
@@ -116,11 +132,9 @@
 .sMar{
 	margin-top:0.2em;
 	box-sizing:border-box;
-	// width:100%;
 	padding:0.25em;
 	a{
 		margin-top:-0.2em;
-		background-color:$color-white;
 		box-sizing:border-box;
 		width:100%;
 		img{
