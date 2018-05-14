@@ -7,7 +7,20 @@
 			<li><span>昵称</span> <router-link :to="{ path: '/user/editnick', query: { nickname: userinfo.nickName }}" tag="span"> {{userinfo.nickName}}  ></router-link></li>
 			<li><span>性别</span><router-link :to="{ path: '/user/editsex', query: { sex: userinfo.sex }}" tag="span">
 			<label v-if="userinfo.sex === 'M'">男</label>	<label  v-else-if="userinfo.sex === 'F'">女</label>	<label  v-else>保密</label>	  > </span></router-link></li>
-			<li><span>出生日期</span> <span> {{userinfo.email}} ></span> </li>
+				<li><span>出生日期</span> 
+					<span > 
+				
+			
+		   <label v-if="!show">
+		   	<DatePicker type="date" confirm placeholder="Select date" style="width: 200px"
+		   @on-ok="handleOk"  :value="userinfo.birthday"  @on-change="handleChange"></DatePicker>
+		   </label>
+		   <label @click="xshow">	<span  v-if="show" >{{userinfo.birthday}}</span> ></label>
+	
+			</span> 
+				
+				</li>
+			
 		</ul>
 		
 		
@@ -24,9 +37,13 @@
 					nickName: "",
 					iconUrl: "",
 					},
+					 show:true
 	        }
 	      },
 	      methods:{
+	       xshow(){
+	      		this.show=!this.show;
+	      	},
 	      	getUser(){
 	      				this.$axios({
 					    method: 'post',
@@ -34,7 +51,33 @@
 					}).then((res)=>{
 						this.userinfo = Object.assign({},res.data);
 					});
-	      	}
+	      	},
+	      	 handleChange(date) {
+                this.userinfo.birthday = date;
+            },
+	      	//日期插件事件
+	      	 handleClick() {
+                this.open = !this.open;
+            },
+	      	   handleClear() {
+                this.open = false;
+                  this.show=!this.show;
+            },
+            handleOk() {
+            	let self=this;
+            	      	this.$axios({
+						    method: 'post',
+						    url:'/account/update',
+						    data:{'birthday':this.userinfo.birthday}
+						}).then((res)=>{
+							if(res.data.code=='200'){
+							 this.$Message.success('修改成功');
+							  this.show=!this.show;
+							}
+						});
+                this.open = false;
+               
+            }
 	      },
 	      mounted(){
 	      	this.getUser()
@@ -43,22 +86,4 @@
 </script>
 
 <style>
-	.flex-ul li{
-		display: flex;
-		flex-direction: row;
-		border-bottom: 1px solid #eee;
-		height:45px;
-		line-height: 45px;
-		font-size: 14px;
-		padding:0 10px;
-	}
-	.flex-ul li span:first-child{
-		width:80%
-	}
-	.flex-ul li span:last-child{
-		    position: fixed;
-		    cursor: pointer;
-	    right: 15px;
-	    font-size: 16px;
-	}
 </style>
