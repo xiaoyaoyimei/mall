@@ -81,7 +81,7 @@ router.beforeEach((to, from, next) => {
 		}  
 }) 
 //设置拦截器
-axios.defaults.baseURL = 'http://10.0.0.30:8080/dxracer-mall-api/pc/';
+axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/pc/';
 axios.interceptors.request.use(config => {  
 // 在发送请求之前做些什么  
 //判断是否存在token，如果存在将每个页面header都添加token  

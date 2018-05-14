@@ -40,10 +40,15 @@ $color-gray:#e6e6e6;
                 line-height: 45px;
                 font-size: 14px;
                 padding:0 10px;
-                span:first-child{
-                    flex:1
-                 }
+                label{
+                    font-size: 16px;
+                    cursor: pointer;
+                }
             }
+            li> span:first-child{
+                flex:1;
+            }
+            
        }
     .bottom-buttom{
         position: fixed;
@@ -56,9 +61,6 @@ $color-gray:#e6e6e6;
         padding-bottom: 8px;
     }
     
-}
-.order div,.ivu-tabs-tabpane{
-    text-align: center;
 }
     .login{
         padding:30px 15px;

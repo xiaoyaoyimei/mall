@@ -1,7 +1,6 @@
 <template>
 	<div class="order">
-		<h2><router-link  to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon></router-link>修改昵称 </h2>
-		<span  @click="handleNick">保存</span>
+		<h2><router-link  to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon></router-link>修改昵称 <span  @click="handleNick">保存</span></h2>
 		<div>
 	     <Input type="text" v-model="name" placeholder="请输入昵称" >
 	     </Input>
