@@ -24,7 +24,8 @@
         this.name = routerParams
       },
       handleNick(){
-	      	this.fang_.editUser({'nickName':this.name});
+      	var self=this;
+	      	this.fang_.editUser(self,{'nickName':this.name});
       }
     },
     watch: {

@@ -60,10 +60,10 @@
     </div>
     <div class="foot">
         <Row class="tabs tabs-icon-left">
-            <router-link :to="{ path: 'index' }"> <Col span="6" ><Icon type="home" /> 首页</Col></router-link>
-            <router-link :to="{ path: 'collection' }">  <Col span="6" > <Icon type="android-apps"></Icon> 收藏</Col></router-link>
+            <router-link :to="{ path: '/index' }"> <Col span="6" ><Icon type="home" /> 首页</Col></router-link>
+            <router-link :to="{ path: '/collection' }">  <Col span="6" > <Icon type="android-apps"></Icon> 收藏</Col></router-link>
             <router-link :to="{ path: '../cart' }">   <Col span="6"> <Icon type="android-cart"></Icon>加入购物车</Col></router-link>
-            <router-link :to="{ path: 'shopping' }">    <Col span="6"><Icon type="ios-person"></Icon> 立即购买</Col></router-link>
+            <router-link :to="{ path: '/shopping' }">    <Col span="6"><Icon type="ios-person"></Icon> 立即购买</Col></router-link>
         </Row>
     </div>
 </div>

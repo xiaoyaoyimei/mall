@@ -1,7 +1,7 @@
 <template>
 	<div class="order photo">
-		<h2><router-link  to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon></router-link>修改头像 </h2>
-        <span  @click="handleNick">保存</span>
+		<h2><router-link  to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon></router-link>修改头像  <span  @click="handleNick">保存</span></h2>
+       
         <div>
         <Upload
             :action="uploadUrl"
@@ -33,17 +33,6 @@
           handleNick(){
           	let self=this;
             this.fang_.editUser(self,{"iconUrl":this.iconUrl});
-//	      	this.$axios({
-//						    method: 'post',
-//						    url:'/account/update',
-//						    data:{"iconUrl":this.iconUrl}
-//						}).then((res)=>{
-//							if(res.data.code=='200'){
-//             				this.$Message.success('头像修改成功');
-//            				 this.iconUrl = "";
-//							 this.$router.push('/user/myinfo');  
-//							}
-//						});
           },
           getParams () {
                 // 取到路由带过来的参数 
