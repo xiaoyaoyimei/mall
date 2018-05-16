@@ -1,6 +1,10 @@
 <template>
 	<div class="sort1">
+	 
 	<header>
+		<div class="search">
+			<Icon class='search1' type="ios-search-strong"></Icon><input type="text" class="search" placeholder="搜索" v-model.trim="title" />
+		</div>
 	 	<Row>
 		 <i-col span="24">
 				<Menu mode="horizontal" :theme="theme1" active-key="1">
@@ -32,6 +36,7 @@
 			</i-col>
 		</Row>
 		</header>
+		 <Scroll class='scroll' :on-reach-bottom="handleReachBottom">
 		<Row class="sRow product">
 		
 				<Col :xs="12"  class="sMar"  :md="6"   v-for="(item, index) in productList" :key='index'>
@@ -39,35 +44,96 @@
 						<img  :src='imageSrc + item.model_img'>
 						<p class="sP">{{item.series_name}}
 						</p>
-						<!-- {{item}} -->
 						<h6 class="sh6">{{item.sale_price}}<small class="sSmall">已售68件</small></h6>
 					</router-link>
 				</Col>
 		</Row>
+		</Scroll>
+		<back-top :height="0" :bottom="200">
+        	<div class="top" @click="top">返回顶端</div>
+    	</back-top>
 	</div>
 </template>
 <script>
+	// 节流函数
+	const delay = (function() {
+	let timer = 0;
+	return function(callback, ms) {
+		clearTimeout(timer);
+		timer = setTimeout(callback, ms);
+	};
+	})();
     export default {
         data () {
             return {
 				theme1: 'light',
 				productList:[],
 				imageSrc:this.global_.imgurl,
+				startRow:1,
+				pageSize:10,
+				title:''
 			}
 			
 		},
+		name: 'scroll-top',
 		methods:{
+			getMockData () {
+            },
+            getTargetKeys () {
+
+            },
+            handleChange2 (newTargetKeys) {
+                this.targetKeys2 = newTargetKeys;
+            },
+            filterMethod (data, query) {
+                return data.label.indexOf(query) > -1;
+            },
 			getList(){
 				this.$axios({
 					method: 'GET',
-					url:'/product/search?startRow=1&pageSize=10',
+					url:'/product/search?startRow='+this.startRow+'&pageSize='+this.pageSize,
 				}).then((res)=>{
 					this.productList = res.data.itemsList;
 				})
-			}
+			},
+			top(){
+				document.querySelector(".ivu-scroll-container").scrollTop = 0; 
+			},
+			handleReachBottom (dir) {
+				this.startRow=this.startRow+10;
+				console.log(this.startRow)
+                return new Promise(resolve => {
+                    this.$axios({
+						method: 'GET',
+						url:'/product/search?startRow='+this.startRow+'&pageSize='+this.pageSize,
+						}).then((res)=>{
+							var arr = this.productList.concat(res.data.itemsList);
+							this.productList = arr;
+							console.log(this.productList)
+							
+						})
+						resolve();
+                });
+			},
+			async fetchData(val) {
+				const res = await this.$axios({
+					url: '写上你的URL',
+					method: 'GET',
+					params: { title: this.title },
+				});
+				this.search = res.data.list;
+			},
+		},
+		watch: {
+		//watch title change
+			title() {
+			delay(() => {
+				this.fetchData();
+			}, 300);
+			},
 		},
 		 mounted(){
-	      	this.getList();
+			  this.getList();
 	      }
     }
 </script>
@@ -81,11 +147,45 @@
 	 z-index:10;
 	 width:100%;
  }
+.search{
+	 width:100%;
+	 height:50px;
+ }
+ .search input{
+	 width:100%;
+	 display:block;
+	 margin: 0 auto;
+	 height:50px;
+	 padding:0px 50px ;
+	font-size:30px;
+ }
+ .search1{
+	 position:fixed;
+	 top:10px;
+	 left:15px;
+	 font-size:30px;
+ }
+ .ivu-scroll-container{
+	 height:700px!important;
+ }
+ .ivu-transfer-list-content{
+	 display:none;
+ }
 .ivu-table-row{
 	float:left;
 }
+// .ivu-back-top{
+// 	display:block!important;
+// }
+.top{
+        padding: 10px;
+        background: rgba(0, 153, 229, .7);
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+    }
 .sRow{
-	margin-top:5.5em;
+	margin-top:8.5em;
 }
 .sMar{
 	margin-top:0.2em;
