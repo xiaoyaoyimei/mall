@@ -1,79 +1,71 @@
 <template>
 <div>
 	<div class="sortDetail">
-		<Carousel
-            v-model="value3"
-            :autoplay="setting.autoplay"
-            :autoplay-speed="setting.autoplaySpeed"
-            :dots="setting.dots"
-            :radius-dot="setting.radiusDot"
-            :trigger="setting.trigger"
-            :arrow="setting.arrow">
-                <CarouselItem>
-                        <div class="demo-carousel"><img src="../../assets/img/banner.jpg"></div>
-                </CarouselItem>
-                <CarouselItem>
-                        <div class="demo-carousel"><img src="../../assets/img/banner1.jpg"></div>
+		<span class='back'><Icon type="ios-arrow-left"></Icon></span>
+		<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
+            :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow">
+                <CarouselItem v-for="(item, index) in product.product"  :key="index">
+                        <div class="demo-carousel" ><img :src="imageSrc+item.listImg"></div>
                 </CarouselItem>
     	</Carousel>
-        <h4 class='sdh4'>Z1电竞桌</h4>
-        <p><span class='sdh4 sdprice'>￥859</span><span class='sdyuan sdprice'>￥999</span><span class='sdprice sdnum'>销量：100件</span><span class='sdspan'><Icon class='sdShare'  type="share"></Icon><br>分享</span></p>
-        <p ><Icon class='sdp' type="ios-checkmark-outline"></Icon> 正品保障</p>
-        <i-form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-            <form-item label="规格" prop="city">
-            <Row class="">
-				<Col :xs="12" class="sMar"  :md="6">
-                <i-select v-model="formValidate.city" placeholder="请选择">
-                    <i-option value="beijing">New York</i-option>
-                    <i-option value="shanghai">London</i-option>
-                    <i-option value="shenzhen">Sydney</i-option>
-                </i-select>
-                </Col>
-		    </Row>
-            </form-item>
-            <form-item label="数量" prop="desc">
-                <Row class="">
-                <!-- <Col :xs="1" class="sMar"  :md="1">
-                        <Icon type="minus"></Icon>
-                    </Col> -->
-                    <Col :xs="12" class="sMar"  :md="6">
-                        <Input v-model="formValidate.desc" placeholder="请输入数量"></Input>
-                    </Col>
-                    <!-- <Col :xs="1" class="sMar"  :md="1">
-                       <Icon type="plus"></Icon>
-                    </Col> -->
-                </Row>
-            </form-item>
-            <form-item>
-                <!-- <i-button type="primary" @click="handleSubmit('formValidate')">加入购物车</i-button>
-                <i-button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</i-button> -->
-            </form-item>
-        </i-form>
-        <Tabs value="name1">
-            <TabPane   label="商品详情" name="name1"><img src='../../assets/img/banner.jpg'></TabPane>
-            <TabPane  label="评价" name="name2"> 
-                <Tag closable color="blue">全部<br>(0)</Tag>
-                <Tag closable color="green">好评<br>(0)</Tag>
-                <Tag closable color="red">差评<br>(0)</Tag>
-            </TabPane>
-        </Tabs>
+    	<div class="xiangqiang">
+    		<h6>{{product.productImageList.modelName}}</h6>
+    		<strong>￥{{product.productImageList.salePrice}}</strong>
+    	</div>
+    	<div class="choose" @click="modal2 = true">
+    		<span>已选<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
+    	</div>
+  
     </div>
     <div class="foot">
-        <Row class="tabs tabs-icon-left">
-            <router-link :to="{ path: '/index' }"> <Col span="6" ><Icon type="home" /> 首页</Col></router-link>
-            <router-link :to="{ path: '/collection' }">  <Col span="6" > <Icon type="android-apps"></Icon> 收藏</Col></router-link>
-            <router-link :to="{ path: '../cart' }">   <Col span="6"> <Icon type="android-cart"></Icon>加入购物车</Col></router-link>
-            <router-link :to="{ path: '/shopping' }">    <Col span="6"><Icon type="ios-person"></Icon> 立即购买</Col></router-link>
-        </Row>
+            <button    :loading="modal_loading" @click="modal2 = true">加入购物车</button>
     </div>
+       	<!--选择商品尺寸颜色-->
+    	 <Modal v-model="modal2"  class="chooseModal" :mask-closable="false">
+         <div slot="header" >
+         	 <div v-if="xiajia" class="xiajia"><Icon type="information-circled">
+         	 </Icon>该商品已下架 </div>
+            <div  v-if="!xiajia" class='choosesp'> <img :src="choosesp.img"> <span><strong>￥{{choosesp.price}}</strong>商品编号:{{choosesp.itemNo}}</span> </div>
+         </div>
+        <dl v-for="(item, index) in product.productAttrList"  :key="index">
+          <dt>{{item.attrKey.catalogAttrValue}}</dt>
+          <dd v-for="(child, index) in item.attrValues"  :key="index" @click="chooseSP($event,item,child)"   ref="dditem" :title="child.id">
+          	{{child.modelAttrValue}}
+          </dd>
+        </dl>
+        <div>数量 <InputNumber  :min="1" v-model="quantity"></InputNumber></div>
+        <div slot="footer">
+        	  <Button  size="large" long    disabled="disabled" v-if="xiajia">加入购物车</Button>
+            <Button  size="large" long :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">加入购物车</Button>
+        </div>
+    </Modal>
 </div>
 </template>
 <script>
     	export default {
         data () {
             return {
+            	xiajia:false,
+            	selectedId:-1,
+            	modal2: false,
+            	modal_loading:false,
+            	imageSrc:this.global_.imgurl,
+            	product:{
+            		productImageList:{},
+            		product:[],
+            		productAttrList:{},
+            		productItemList:[]
+            	},
+            	bigchoose:'',
+            	choosesp:{
+            		img:'',
+            		itemNo:'',
+            		price:''
+            	},
+            	productItemId:'',
+            	quantity:1,
+            	productId:'',
                 value3: 0,
-                 model9: '',
                 setting: {
                     autoplay: false,
                     autoplaySpeed: 2000,
@@ -82,87 +74,201 @@
                     trigger: 'click',
                     arrow: 'hover'
                 },
-                formValidate: {
-                    name: '',
-                    desc: ''
-                },
-                ruleValidate: {
-                    name: [
-                        { required: true, message: '请选择规格', trigger: 'blur' }
-                    ],
-                    desc: [
-                        { required: true, message: '请输入数量', trigger: 'blur' },
-                        // { type: 'string', min: 20, message: '请输入个数', trigger: 'blur' }
-                    ]
-                }
             }
         },
+          methods: {
+          	//加入购物车
+          	   atc () {
+                this.modal_loading = true;
+                	this.$axios({
+							    method: 'post',
+							    url:'/order/shopping/add',
+							    data:{
+							    	productItemId:this.productItemId,
+							    	quantity:this.quantity
+							    }
+								}).then((res)=>{
+									if(res.data.code=='200'){
+										this.modal_loading = false;
+										this.$router.push('/cart')  
+									}
+							});
+            	},
+            	chooseSP(e,pa,ch){
+            		
+            		var chooseId="",jishu=0;
+       	            let  p=e.target.parentNode.children;
+       	            for(let i =1;i<p.length;i++) {
+       	            	p[i].className="";
+					}
+       	             e.target.className="active"; 
+            		if(pa.attrKey.isColorAttr=='Y'){
+            			this.choosesp.img=this.imageSrc+ch.listImg;
+            		}
+            		let dditem=this.$refs['dditem'];
+            		 this.bigchoose="";
+            		for(let n=0;n<dditem.length;n++){
+            			if(dditem[n].getAttribute("class")=='active'){
+            				chooseId+=dditem[n].getAttribute("title")+',';
+            				this.bigchoose +=dditem[n].innerHTML+',';
+            				jishu++
+            			}
+            		}
+            	   chooseId=(chooseId.slice(chooseId.length-1)==',')?chooseId.slice(0,-1):chooseId;
+            	   this.bigchoose=(this.bigchoose.slice(this.bigchoose.length-1)==',')?this.bigchoose.slice(0,-1):this.bigchoose;
+            	   
+            	   var flag= false;
+            	   if(jishu==this.product.productAttrList.length){
+            	   	    for (var chooseItem of this.product.productItemList) {
+							   if(chooseItem.productModelAttrs==chooseId){
+							   	this.choosesp.itemNo=chooseItem.itemNo,
+							   	this.choosesp.price=chooseItem.salePrice,
+							   	this.productItemId=chooseItem.id;
+							   	flag= true;
+							   	break;
+							   }else{
+							   		flag= false
+							   }
+							}
+            	   	    if(flag == false){
+            	   	    	this.choosesp.itemNo="";
+            	   	    	this.choosesp.price="";
+            	   	    	this.xiajia=true
+            	   	    }else{
+            	   	    	this.xiajia=false;
+            	   	    }
+            	   }
+            		
+            	},
+    	      	getParams () {
+	       			 // 取到路由带过来的参数 
+			        let routerParams = this.$route.query.id
+			        this.productId=routerParams;
+			    },
+			     getProduct(){
+			     	    this.productId='294b040671dd4865915b77fc8fbbce99';
+			     		this.$axios({
+							    method: 'post',
+							    url:'/product/'+this.productId,
+								}).then((res)=>{
+									if(res.data.code=='200'){
+										this.product.productImageList=res.data.object.product;
+										this.product.product=res.data.object.productImageList;
+										this.product.productAttrList=res.data.object.productAttrList;
+										this.product.productItemList=res.data.object.productItemList;
+									}
+							});
+			     }
+    	      	
+    	     },
+    	 mounted() {
+				this.getParams();
+				this.getProduct();
+		}
     }
 </script>
 <style lang="scss">
  @import '@/styles/color.scss';
-    .sortDetail{
-        margin-bottom:50px;
-        img{
-            max-width:100%;
-        }
-        h4{
-            text-align:left;
-            text-indent:1.5em;
-            height:40px;
-        }
-        p{
-            text-align:left;
-            height:40px;
-            overflow:hidden;
-            .sdh4{
-                color:$color-dx;
-                font-size:14px;
-            }
-            .sdprice{
-                padding-left:1.5em;
-            }
-            .sdyuan{
-                color:$color-gray;
-                text-decoration:line-through;
-            }
-            .sdnum{
-                color:$color-gray;
-            }
-            .sdspan{
-                float:right;
-                padding-right:20px;
-                color:$color-gray;
-            }
-            .sdShare{
-                font-size:20px;
-                color:$color-gray;
-            }
-            .sdp{
-                color:$color-primary;
-                font-size:20px;
-                padding-left:1em;
-            }
-        }
-        .sMar{
-            height:30px;
-            line-height:30px;
-        }
-        .biaoqian{
-            width:50%;
-        }
-        .ivu-tabs-nav {
-            width:100%;
-        }
-        .ivu-tabs-nav .ivu-tabs-tab{
-            width:48%;
-            text-align:center;
-        }
+ .xiajia{
+     min-height: 65px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    i{
+    	margin-right:10px;
     }
+ }
+ .choosesp{
+ 	display: flex;
+ }
+  .choosesp span {
+  	margin-left:10px;
+  	color:#999;
+  	margin-top:20px;
+  }strong{
+  	margin-bottom: 5px;
+  	color:$color-dx;
+  	display: block;
+  	font-size: 14px;
+  }
+ .back{
+ 	    background: rgba(64, 64, 64, 0.6);
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+    display: inline-block;
+    text-align: center;
+    font-size: 2em;
+    color: #fff;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 1;
+    cursor: pointer;
+ 	}
+ .xiangqiang{
+ 	background: #fff;
+ 	padding: 15px 10px;
+ 	font-size: 1rem;
+ 	h6{
+ 		margin-bottom:10px;
+ 		color: #222;
+ 	}
+ 	strong{
+ 		color:$color-dx;
+ 		font-size: 1.1rem;
+ 	}
+ }
+ .choose{
+ 	margin-top:10px;
+ 	background: #fff;
+ 	padding: 15px 10px;
+ 	display: flex;
+ 	cursor: pointer;
+ 	span{
+ 		flex: 1;
+ 	}
+ 	i{
+ 		color:#222;
+ 		font-size:14px;
+ 		font-weight: bold;
+ 		font-style: normal;
+ 		margin-left:10px
+ 	}
+ }
+ .chooseModal dl{
+ 	overflow: hidden;
+ 	margin-bottom: 15px;
+ 	dt{
+ 	margin-bottom:10px
+ 	}
+	 dd{
+	  	border:1px solid $color-border;
+	  	float: left;
+	  	padding: 3px 15px;
+	  	margin-right: 10px;
+	  	border-radius: 3px;
+	  	color: #222;
+	  	cursor: pointer;
+	  }
+	  dd.active{
+	  	color:$color-dx;
+	  	border-color:$color-dx;
+	  }
+ }
+ .choosesp img{
+ 	width: 65px;
+    height: 65px;
+    background: #fff;
+    position: relative;
+    top: -25px;
+    border-radius: 5px;
+    padding: 5px;
+ }
+
     .foot {
 		background: #fff;
 		border-top:1px solid #eee;
-		padding:5px 0;
 		position: fixed;
 		height: 50px;
 		z-index: 31;
@@ -170,15 +276,15 @@
 		left: 0;
         width:100%;
         text-align:center;
-	i{
-		display: block;
-		font-size:2em
-	}
-	a{
-		color:$color-default;
-	}
-	a.router-link-active{
-			color:$color-dx;
-	}
+          button{
+          	float: right;
+          	background: $color-dx;
+          	color:#fff;
+          	height: 100%;
+          	border:0 none;
+          	padding-left:15px ;
+          	padding-right: 15px;
+          	cursor: pointer;
+          }
 }
 </style>

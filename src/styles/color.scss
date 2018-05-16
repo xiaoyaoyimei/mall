@@ -3,7 +3,7 @@ $color-border:#eee;
 $color-dx:#ed1844;
 $color-default:#333;
 $color-white:#fff;
-$color-gray:#e6e6e6;
+$color-gray:#999;
 .order{
         h2{
         color: #222;
@@ -21,9 +21,9 @@ $color-gray:#e6e6e6;
         i{
             font-size: 1.5em;
             margin-right: 10px;
-            font-weight: bold;
             position:fixed;
             left:15px;
+            color:#666
         }
         span{
             float: right;
@@ -83,7 +83,5 @@ $color-gray:#e6e6e6;
             font-size:12px;
         }
     }
-.color-gray{
-    color:#999;
-}
+
 

@@ -2,7 +2,7 @@ const _import = require('./_import_' + process.env.NODE_ENV);
 let routes =  [
 				{path: '/',redirect: '/login'},
 			    {path: '/login', name: 'login',component:  resolve => require(['@/views/Login.vue'], resolve)},
-			    {path: '/register',name: '注册',component:  resolve => require(['@/views/Register.vue'], resolve)},
+			    {path: '/register',name: '注册',component:  resolve => require(['@/views/RegisterOne.vue'], resolve)},
        			{path: '/index',component: resolve => require(['@/container/Full.vue'], resolve),
 					children: [{
 						name:'首页',
@@ -14,11 +14,7 @@ let routes =  [
 						path: '/sort',
 						component:resolve => require(['@/views/pages/Sort.vue'], resolve),
 					},
-					{
-						name:'购物车',
-						path: '/cart',
-						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
-					},
+				
 						{
 						name:'用户中心',
 						meta:{requireAuth:true},
@@ -27,7 +23,12 @@ let routes =  [
 					},
 					]
 				},
-			  {
+					{
+						name:'购物车',
+						path: '/cart',
+						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
+					},
+			  	{
 					path:"/sort/sortDetail",
 					name:'详情',
 					component:resolve=>require(['@/views/pages/SortDetail.vue'], resolve),

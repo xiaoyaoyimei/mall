@@ -35,7 +35,7 @@
 		<Row class="sRow product">
 		
 				<Col :xs="12"  class="sMar"  :md="6"   v-for="(item, index) in productList" :key='index'>
-					<router-link :to="{ path: '/sort/sortDetail' }">
+					<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 						<img  :src='imageSrc + item.model_img'>
 						<p class="sP">{{item.series_name}}
 						</p>
@@ -43,48 +43,6 @@
 						<h6 class="sh6">{{item.sale_price}}<small class="sSmall">已售68件</small></h6>
 					</router-link>
 				</Col>
-				<!-- <Col :xs="12" class="sMar"  :md="6">
-					<a href="#/sort/sortDetail">
-						<img  src="../../assets/img/x2.jpg">
-						<p class="sP">电竞椅系列
-						</p>
-						<h6 class="sh6">￥1100.00<small class="sSmall">已售68件</small></h6>
-					</a>
-				</Col>
-				<Col :xs="12" class="sMar"  :md="6">
-					<a href="#">
-						<img  src="../../assets/img/x3.jpg">
-						<p class="sP">其他周边
-						</p>
-						<h6 class="sh6">￥1110.00<small class="sSmall">已售68件</small></h6>
-					</a>
-				</Col>
-				<Col :xs="12" class="sMar"  :md="6">
-					<a href="#">
-						<img  src="../../assets/img/x4.jpg">
-						<p class="sP">电竞馆周边
-						</p>
-						<h6 class="sh6">￥1101.00
-						<small class="sSmall">已售68件</small></h6>
-					</a>
-				</Col>
-				<Col :xs="12" class="sMar"  :md="6">
-					<a href="#">
-						<img  src="../../assets/img/x3.jpg">
-						<p class="sP">其他周边
-						</p>
-						<h6 class="sh6">￥1110.00<small class="sSmall">已售68件</small></h6>
-					</a>
-				</Col>
-				<Col :xs="12" class="sMar"  :md="6">
-					<a href="#">
-						<img  src="../../assets/img/x4.jpg">
-						<p class="sP">电竞馆周边
-						</p>
-						<h6 class="sh6">￥1101.00
-						<small class="sSmall">已售68件</small></h6>
-					</a>
-				</Col> -->
 		</Row>
 	</div>
 </template>

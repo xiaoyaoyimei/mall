@@ -1,18 +1,9 @@
 <template>
 	<div class="index">
-		<Carousel
-        v-model="value3"
-        :autoplay="setting.autoplay"
-        :autoplay-speed="setting.autoplaySpeed"
-        :dots="setting.dots"
-        :radius-dot="setting.radiusDot"
-        :trigger="setting.trigger"
-        :arrow="setting.arrow">
-        	<CarouselItem>
-           		 	<div class="demo-carousel"><img src="../../assets/img/banner.jpg"></div>
-        	</CarouselItem>
-        	<CarouselItem>
-            		<div class="demo-carousel"><img src="../../assets/img/banner1.jpg"></div>
+		<Carousel  v-model="value3" :autoplay="setting.autoplay"    :autoplay-speed="setting.autoplaySpeed"
+        :dots="setting.dots"  :radius-dot="setting.radiusDot"  :trigger="setting.trigger" :arrow="setting.arrow">
+        	<CarouselItem  v-for="(item, index) in Items"  :key="index">
+           		 	<div class="demo-carousel"><img :src="imageSrc+item.phoneUrl"></div>
         	</CarouselItem>
     	</Carousel>
      	<Row class="series">
@@ -82,6 +73,7 @@
         data () {
             return {
                 value3: 0,
+                imageSrc:this.global_.imgurl,
                 setting: {
                     autoplay: false,
                     autoplaySpeed: 2000,
@@ -89,10 +81,27 @@
                     radiusDot: false,
                     trigger: 'click',
                     arrow: 'hover'
-                }
+                },
+                Items:[]
             }
         },
-    }
+        methods: {
+    	      	getBanner(){
+    	      		  	this.$axios({
+						    method: 'GET',
+						    url:'/index/poster',
+						}).then((res)=>{
+							if(res.data.code=='200'){
+							 this.Items=res.data.object;
+							}
+						});
+    	      	},
+    	  
+    	},
+        mounted() {
+			this.getBanner();
+		}
+        }
 </script>
 
 <style lang="scss" >

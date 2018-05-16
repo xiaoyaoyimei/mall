@@ -1,56 +1,41 @@
 <template>
-	<div class='cart1'>
-	<div class='cartfoot'>
-			<Row>
-				<i-col  class='cartCol ' span="24">
-					<i-col class='' span="4">
-							<div style="padding-bottom:6px;margin-bottom:10px;padding-left:10px;">
-								<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
-							</div>
+	<div class='cart1 order'>
+		<h2><router-link to="/sort"><Icon type="ios-arrow-back"></Icon></router-link>购物车<span  @click="edit" v-show="editface">编辑</span><span  @click="edit" v-show="!editface">完成</span></h2>
+		<div class='cartfoot'>
+				<Row>
+					<i-col  class='cartCol ' span="24">
+						<i-col class='' span="4">
+								<div style="padding-bottom:6px;margin-bottom:10px;padding-left:10px;">
+									<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
+								</div>
+						</i-col>
+						<i-col class='' span="8">
+							<P class='color-dx'>总计：￥{{totalPrice}}</P>
+						</i-col>
+						<i-col class='cartButton1' span="12"> 
+							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
+								<router-link class='font-dx' :to="{ path: 'paymoney' }" > 结算</router-link>
+							</i-button>
+							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">删除</Button>
+						</i-col>
 					</i-col>
-					<i-col class='' span="8">
-						<P class='color-dx'>总计：￥{{totalPrice}}</P>
-					</i-col>
-					<i-col class='cartButton1' span="12"> 
-						<i-button class='cartButton' v-bind:class="{ active: isActive}" @click.prevent.native="edit" type="primary">编辑</i-button>
-						<i-button class='cartButton' v-bind:class="{ active: isActive}" @click.prevent.native="paymoney" type="error"> <router-link class='font-dx' :to="{ path: 'paymoney' }"> 结算</router-link></i-button>
-						<i-button class='cartButton' v-bind:class="{ 'text-danger': hasError }" @click.prevent.native="edit1" type="primary">完成</i-button>
-						<i-button class='cartButton' v-bind:class="{ 'text-danger': hasError }" @click.prevent.native="remove" type="error">删除</i-button>
-					</i-col>
-				</i-col>
-			</Row>
-		</div>
+				</Row>
+			</div>
 		<Row>
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
-		 		<i-col  class='cartCol' span="24">
-        			<i-col class='cartcheckbok' span="2"><Checkbox  label="1"></Checkbox></i-col>
-					<i-col span="5"><img class='cartImg' src='../../../assets/img/x1.jpg'></i-col>
+		 		<i-col  class='cartCol' span="24" v-for="(item,index) in cartList" :key="index"> 
+        			<i-col class='cartcheckbok' span="2">
+        				<Checkbox  :label="index"></Checkbox></i-col>
+					<i-col span="5"><img class='cartImg' :src="imageSrc+item.image"></i-col>
 					<i-col span="13">
-						<p class='cart_black'>迪锐克斯座椅</p>
-						<p class='cart_gray'>迪锐克斯座椅：五星脚（绿色）</p>
-						<p class='cart_gray'>x1</p>
+						<p class='cart_black'>{{item.productName}}</p>
+						<p class='cart_gray'>{{item.productAttr}}</p>
+						<p class='cart_price'>￥{{item.salePrice}}</p>
 					</i-col>
-					<i-col span="4"><p class='cart_price'>￥：730</p></i-col>
-				</i-col>
-				<i-col  class='cartCol' span="24">
-        			<i-col class='cartcheckbok' span="2"><Checkbox  label="2"></Checkbox></i-col>
-					<i-col span="5"><img class='cartImg' src='../../../assets/img/x1.jpg'></i-col>
-					<i-col span="13">
-						<p class='cart_black'>迪锐克斯座椅</p>
-						<p class='cart_gray'>迪锐克斯座椅：五星脚（绿色）</p>
-						<p class='cart_gray'>x1</p>
+					<i-col span="4">
+						<p class='cart_qua'>
+							<InputNumber  :min="1" v-model="item.quantity*1" ></InputNumber></p>
 					</i-col>
-					<i-col span="4"><p class='cart_price'>￥：730</p></i-col>
-				</i-col>
-				<i-col  class='cartCol' span="24">
-        			<i-col class='cartcheckbok' span="2"><Checkbox label="3"></Checkbox></i-col>
-					<i-col span="5"><img class='cartImg' src='../../../assets/img/x1.jpg'></i-col>
-					<i-col span="13">
-						<p class='cart_black'>迪锐克斯座椅</p>
-						<p class='cart_gray'>迪锐克斯座椅：五星脚（绿色）</p>
-						<p class='cart_gray'>x1</p>
-					</i-col>
-					<i-col span="4"><p class='cart_price'>￥：730</p></i-col>
 				</i-col>
 			</Checkbox-group>
 				
@@ -62,23 +47,30 @@
 export default {
         data () {
             return {
+            	imageSrc:this.global_.imgurl,
                 indeterminate: true,
                 checkAll: false,
 				checkAllGroup: [],
-				price:[{label:1,total:"730"},{label:2,total:'730'},{label:3,total:'730'}],
 				totalPrice:0,
-				isActive:false,
-				hasError:true,
+				cartList:[],
+				editface:true
             }
 		},
         methods: {
+        	getCartList(){
+        			this.$axios({
+							    method: 'post',
+							    url:'/order/shopping/list',
+								}).then((res)=>{
+									if(res.data.code=='200'){
+										this.cartList=res.data.object;
+									}
+							});
+        	},
 			edit(){
-				this.isActive=true;
-				this.hasError=false;
+				this.editface=!this.editface;
 			},
 			edit1(){
-				this.isActive=false;
-				this.hasError=true;
 			},
 			paymoney(){
 				
@@ -94,31 +86,20 @@ export default {
                 }
                 this.indeterminate = false;
                 if (this.checkAll) {
-					this.checkAllGroup = ['1', '2', '3'];
-					for (let index = 0; index < this.price.length; index++) {
-							this.totalPrice = parseFloat(this.price[index].total) + parseFloat(this.totalPrice);
-					}
+                	var _this=this;
+	                	_this.checkAllGroup=[];
+	                    _this.cartList.forEach(function(item,index) {
+	                    	console.log(item);
+					    _this.checkAllGroup.push(index);
+					    _this.totalPrice+=item.salePrice*item.quantity;
+				      });
                 } else {
 					this.checkAllGroup = [];
 					this.totalPrice=0;
                 }
 			},
-			handleCheck () {
-                if (this.indeterminate) {
-                    this.checkAll = false;
-                } else {
-                    this.checkAll = !this.checkAll;
-                }
-                this.indeterminate = false;
-
-                if (this.checkAll) {
-                    this.checkAllGroup = ['1', '2', '3'];
-                } else {
-                    this.checkAllGroup = [];
-                }
-            },
             checkAllGroupChange (data) {
-                if (data.length === 3) {
+                if (data.length === this.cartList.length) {
                     this.indeterminate = false;
                     this.checkAll = true;
                 } else if (data.length > 0) {
@@ -128,16 +109,15 @@ export default {
                     this.indeterminate = false;
                     this.checkAll = false;
 				}
-				this.totalPrice = 0;
-				for(var i=0;i<data.length;i++){
-					for (let index = 0; index < this.price.length; index++) {
-						if(data[i] == this.price[index].label){
-							this.totalPrice = parseFloat(this.price[index].total) + parseFloat(this.totalPrice);
-						}
-					}
-				}
+                 this.totalPrice=0;
+                 data.forEach((i) => {
+				   this.totalPrice += parseFloat(this.cartList[i].salePrice) * parseFloat(this.cartList[i].quantity);
+				});
             }
-        }
+        },
+         mounted() {
+				this.getCartList();
+		}
     }
 </script>
 
@@ -145,12 +125,14 @@ export default {
  	@import '@/styles/color.scss';
 	.cart1{
 		margin-bottom:55px;
+		
 		.cartCol{
 			background-color:$color-white;
 			margin-bottom:5px;
+			padding-bottom:10px;
 			.cartcheckbok{
 				height:16px;
-				margin-top:12%;
+				margin-top:5%;
 				padding-left:10px;
 				overflow:hidden;
 				.ivu-checkbox-wrapper{
@@ -158,17 +140,25 @@ export default {
 					overflow:hidden;
 				}
 			}
+			.cart_qua{
+				font-size:14px;
+				padding-top:50px;
+				
+			}
 			.cartImg{
 				max-width:100%;
 				padding-top:15px;
 			}
 			.cart_black{
-				text-align:left;
 				color:$color-default;
-				padding-left:20px;
-				box-sizing:border-box;
-				font-size:14px;
-				padding-top:15px;
+				text-align: left;
+			    padding-left: 20px;
+			    box-sizing: border-box;
+			    font-size: 14px;
+			    padding-top: 15px;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    overflow: hidden;
 			}
 			.cart_gray{
 				text-align:left;
@@ -176,13 +166,11 @@ export default {
 				padding-left:20px;
 				box-sizing:border-box;
 				font-size:12px;
-				height:40px;
-				overflow:hidden;
 			}
 			.cart_price{
+		margin-top:5px;
 				color:$color-dx;
-				font-size:14px;
-				padding-top:75px;
+				padding-left:20px;
 			}
 			.color-dx{
 				color:$color-dx;
@@ -206,16 +194,13 @@ export default {
 		.cartfoot{
 			    background: #fff;
 				border-top: 1px solid #eee;
-				position: fixed!important;
-				height: 50px!important;
-				line-height:50px;
-				z-index: 31!important;
-				bottom: 50px!important;
-				left: 0!important;
+				position: fixed;
+				height: 49px;
+				line-height:49px;
+				z-index: 31;
+				bottom: 0px;
+				left: 0;
 				width: 100%;
-		}
-		.active, .text-danger{
-			display:none;
 		}
 	}
 </style>

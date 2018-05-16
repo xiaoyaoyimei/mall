@@ -1,22 +1,23 @@
 <template>
 		<div class="login">
-			<h3>注册</h3>
+			<Icon type="chevron-left"></Icon>
+			
 	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
            <FormItem label="手机号" prop="loginName">
-            <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"></Input>
-               <Button type="primary" :loading="loadingtx"  @click="getTx">
+            <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"  @blur.native="getTx(value)" v-bind:value='regiForm.loginName'></Input>
+               <!--<Button type="primary" :loading="loadingtx"  @click="getTx">
 	        <span v-if="!loadingtx">获取图形码</span>
 	        <span v-else>Loading...</span>
-   			 </Button>
+   			 </Button>-->
           
         </FormItem>
            <FormItem label="图形验证码" prop="verificationCode">
       <Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码"></Input>
              <img  :src="verimg"  @click="getTx"/>
-                  <Button type="primary" :loading="loadingDx"   @click="getDx">
+                  <!--<Button type="primary" :loading="loadingDx"   @click="getDx">
 	        <span v-if="!loadingDx">获取短信验证码</span>
 	        <span v-else>Loading...</span>
-   			 </Button>
+   			 </Button>-->
         </FormItem>
         <FormItem label="短信验证码" prop="shortMessage">
             <Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码"></Input>
@@ -33,8 +34,25 @@
 </template>
 
 <script>
+	    import { validatePhone } from '@/utils/validate';
 	  export default {
         data () {
+        	 const validateName = (rule, value, callback) => {
+	          if (value.length < 1) {
+	            callback(new Error('手机号不能为空'));
+	          } else if (!validatePhone(value)) {
+	                 callback(new Error('请输入正确的手机号'));
+	          }else{
+	          	callback(this.getTx());
+	          }
+	        };
+	        const validateYZM=(rule, value, callback) => {
+	          if (value.length < 1) {
+	            callback(new Error('验证码不能为空'));
+	          } else{
+	          	callback(this.getDx());
+	          }
+	        };
             return {
             	loadingDx:false,
             	loadingtx:false,
@@ -51,10 +69,10 @@
                       { required: true, message: 'The passWord cannot be empty', trigger: 'blur' }
                     ],
                     loginName:[
-                      { required: true, message: 'The loginName cannot be empty', trigger: 'blur' }
+                      { required: true, validator: validateName, trigger: 'blur' }
                     ],
                     verificationCode:[
-                     { required: true, message: 'The verificationCode cannot be empty', trigger: 'blur' }
+                     { required: true, validator: validateYZM, trigger: 'blur' }
                     ],
                     shortMessage:[
                      { required: true, message: 'The shortMessage cannot be empty', trigger: 'blur' }
@@ -85,9 +103,9 @@
 					});
 					}
           	},
-          	getTx(){
+          	getTx(value){
           			this.txv++;
-          			this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
+          			this.verimg=this.$axios.defaults.baseURL+'customer/'+value+'/verification.png?v='+this.txv;
           	},
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
