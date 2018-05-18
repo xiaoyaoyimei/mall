@@ -71,12 +71,12 @@
 				passWord: this.loginForm.passWord  
 				}).then(res => {  
 					this.logining = false;
-	               	let { code, msg } = res.data;
+	               	let { code, msg } = res;
 		              if (code !== 200) {
 		                  this.$Message.error(msg);
 		              } else {
 					        this.$Message.success('登录成功');
-							let data = res.data;  
+							let data = res;  
 							//根据store中set_token方法将token保存至localStorage/sessionStorage中，data["Authentication-Token"]，获取token的value值  
 							this.$store.commit('set_token',{token:data.object["token"],userId:data.object["userId"]});  
 //							 ...mapMutations({

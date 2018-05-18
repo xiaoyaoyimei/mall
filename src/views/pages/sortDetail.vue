@@ -1,7 +1,7 @@
 <template>
 <div>
 	<div class="sortDetail">
-		<span class='back'><Icon type="ios-arrow-left"></Icon></span>
+		<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
 		<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
             :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow">
                 <CarouselItem v-for="(item, index) in product.product"  :key="index">
@@ -88,7 +88,7 @@
 							    	quantity:this.quantity
 							    }
 								}).then((res)=>{
-									if(res.data.code=='200'){
+									if(res.code=='200'){
 										this.modal_loading = false;
 										this.$router.push('/cart')  
 									}
@@ -151,19 +151,36 @@
 							    method: 'post',
 							    url:'/product/'+this.productId,
 								}).then((res)=>{
-									if(res.data.code=='200'){
-										this.product.productImageList=res.data.object.product;
-										this.product.product=res.data.object.productImageList;
-										this.product.productAttrList=res.data.object.productAttrList;
-										this.product.productItemList=res.data.object.productItemList;
+									if(res.code=='200'){
+										this.product.productImageList=res.object.product;
+										this.product.product=res.object.productImageList;
+										this.product.productAttrList=res.object.productAttrList;
+										this.product.productItemList=res.object.productItemList;
+										//this.setdefault();
 									}
 							});
+			     },
+			     setdefault(){
+			     		//找出默认选中
+										var result=this.product.productItemList[0].productModelAttrs.split(",");
+									    let dditem=this.$refs['dditem'];
+									     this.bigchoose="";
+										for(let i=0;i<result.length;i++){
+												for(let n=0;n<dditem.length;n++){
+						            			if(dditem[n].getAttribute("title")==result[i]){
+						            				dditem[n].setAttribute("class",'active');
+						            				this.bigchoose +=dditem[n].innerHTML+',';
+						            			}
+						            		}
+										}
 			     }
     	      	
     	     },
+    	     
     	 mounted() {
 				this.getParams();
 				this.getProduct();
+				this.setdefault();
 		}
     }
 </script>

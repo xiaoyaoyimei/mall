@@ -12,12 +12,13 @@
 						</span>
 			</div>
 		<div class="integral"><span>积分 0</span><router-link class="discount" :to="{ name: '/sort'}">去购物车抵扣     ></router-link></div></div>
-	 <div class="myorder"><h3>我的订单</h3>
-	  	<router-link :to="{ path: '/user/orderlist', query: { tabname: '待付款' }}"><img  src="../../../assets/img/待付款.png"><p>待付款</p></router-link>
+	 <div class="myorder">
+	 	<h3>我的订单<router-link :to="{ path: '/user/orderlist'}" tag="span" class="more">查看更多订单></router-link></h3>
+	  	<!--<router-link :to="{ path: '/user/orderlist', query: { tabname: '待付款' }}"><img  src="../../../assets/img/待付款.png"><p>待付款</p></router-link>
 		<router-link :to="{ path: '/user/orderlist', query: { tabname: '待发货'}}"><img  src="../../../assets/img/待发货.png"><p>待发货</p></router-link>
 		<router-link :to="{ path: '/user/orderlist', query: { tabname: '待收货' }}"><img  src="../../../assets/img/待收货.png"><p>待收货</p></router-link>
 		<router-link :to="{ path: '/user/orderlist', query: { tabname: '已完成' }}"> <img  src="../../../assets/img/已完成.png"><p>已完成</p></router-link>
-		<router-link :to="{ path: '/user/orderlist', query: { tabname: '售后' }}"> <img  src="../../../assets/img/售后.png"><p>售后</p></router-link>
+		<router-link :to="{ path: '/user/orderlist', query: { tabname: '售后' }}"> <img  src="../../../assets/img/售后.png"><p>售后</p></router-link>-->
    </div>
    <ul class="order-list"> 
    	<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
@@ -66,7 +67,6 @@
  	height: 150px;
  	position:relative;
  	.portrait{
- 		
  		padding-left:20px;
  		padding-top:30px;
  		overflow:hidden;
@@ -136,6 +136,11 @@
 				right: 15px;
 	 			font-size: 16px;
 	 		}
+	 	}
+	 	.more{
+	 		float: right;
+	 		cursor: pointer;
+	 		margin-right:10px;
 	 	}
 	 	.integral{
 	 		background: rgba(168,168,168,0.1);

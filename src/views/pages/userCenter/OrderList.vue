@@ -1,37 +1,44 @@
 <template>
 	<div class="order">
-	<h2>	<router-link  to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>订单列表</h2>
-    <Tabs :animated="false" :value="name"> 
-        <TabPane label="待付款" name="待付款">待付款</TabPane>
-        <TabPane label="待发货"  name="待发货">待发货</TabPane>
-        <TabPane label="待收货" name="待收货">待收货</TabPane>
-                <TabPane label="已完成" name="已完成">已完成</TabPane>
-                  <TabPane label="售后" name="售后">售后</TabPane>
-    </Tabs>
-   </div>
+	<h2>	<router-link  to="/user"><Icon type="ios-arrow-back"></Icon></router-link>我的订单</h2>
+  <ul>
+  			<i-col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
+  				<i-col v-for="(child,index) in x.orderItems" :key="index">
+					<i-col span="6"><img class='cartImg' :src="imageSrc+child.productItemImg"></i-col>
+					<i-col span="18">
+						<p class='cart_black'>{{child.productAttrs}}</p>
+						<p class='cart_gray'>{{child.productTitle}}</p>
+						<p class='cart_price'>￥{{child.orderFee}}*{{child.quantity}}</p>
+					</i-col>
+					</i-col>
+				</i-col>
+  </ul>
+	</div>
 </template>
 
 <script>
 export default {
     data () {
       return {
-        name: ''
+        cartList:[],
+        imageSrc:this.global_.imgurl,
       }
     },
     methods: {
-      getParams () {
-        // 取到路由带过来的参数 
-        let routerParams = this.$route.query.tabname
-        // 将数据放在当前组件的数据内
-        this.name = routerParams
+      getOrder(){
+      			this.$axios({
+					    method: 'get',
+					    url:'/order/list',
+					}).then((res)=>{
+						if(res.code=='200'){
+						this.cartList = res.object;
+						}
+						
+					});
       }
     },
-    watch: {
-    // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
-      '$route': 'getParams'
-    },
-    mounted() {
-			this.getParams();
+         mounted() {
+				this.getOrder();
 		}
   }
 </script>

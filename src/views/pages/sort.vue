@@ -1,44 +1,20 @@
 <template>
 	<div class="sort1">
-	 
-	<header>
+		<header>
 		<div class="search">
-			<Icon class='search1' type="ios-search-strong"></Icon><input type="text" class="search" placeholder="搜索" v-model.trim="title" />
+		<Icon type="chevron-left"></Icon>	
+		 <Input v-model="keyword" icon="ios-search-strong" placeholder="搜索" ></Input>
 		</div>
-	 	<Row>
-		 <i-col span="24">
-				<Menu mode="horizontal" :theme="theme1" active-key="1">
-					<i-col span="6">
-						<Menu-item name="1" key="1">
-							综合
-						</Menu-item>
-					</i-col>
-					<i-col span="6">
-						<Menu-item name="2" key="2">
-							最新
-						</Menu-item>
-					</i-col>
-					<i-col span="6">
-						<Menu-item name="3" key="3">
-						价格
-						<!-- <div>价格
-							<Icon type="arrow-up-b"></Icon></div>
-						<div style="position:absolute;top:10px;"><span style="opacity:0;">价格</span>	<Icon type="arrow-down-b"></Icon></div> -->
-		<!-- <i-table size="small" border :columns="columns5" :data="data5"></i-table> -->
-						</Menu-item>
-					</i-col>
-					<i-col span="6">
-						<Menu-item name="4" key="4">
-							销量
-						</Menu-item>
-					</i-col>
-				</Menu>
-			</i-col>
-		</Row>
+		 <Row type="flex" justify="space-between" class="code-row-bg">
+        <Col span="4">综合</Col>
+        <Col span="4">销量</Col>
+        <Col span="4">价格</Col>
+        <Col span="4">筛选</Col>
+    </Row>
+		<!--<ul class="sort-ul"><li>综合</li><li>销量</li><li>价格</li></ul>-->
 		</header>
-		 <Scroll class='scroll' :on-reach-bottom="handleReachBottom">
+		 <Scroll class='scroll' :on-reach-bottom="handleReachBottom" :height='600'>
 		<Row class="sRow product">
-		
 				<Col :xs="12"  class="sMar"  :md="6"   v-for="(item, index) in productList" :key='index'>
 					<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 						<img  :src='imageSrc + item.model_img'>
@@ -71,7 +47,7 @@
 				imageSrc:this.global_.imgurl,
 				startRow:1,
 				pageSize:10,
-				title:''
+				keyword:''
 			}
 			
 		},
@@ -91,9 +67,9 @@
 			getList(){
 				this.$axios({
 					method: 'GET',
-					url:'/product/search?startRow='+this.startRow+'&pageSize='+this.pageSize,
+					url:'/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
 				}).then((res)=>{
-					this.productList = res.data.itemsList;
+					this.productList = res.itemsList;
 				})
 			},
 			top(){
@@ -107,7 +83,7 @@
 						method: 'GET',
 						url:'/product/search?startRow='+this.startRow+'&pageSize='+this.pageSize,
 						}).then((res)=>{
-							var arr = this.productList.concat(res.data.itemsList);
+							var arr = this.productList.concat(res.itemsList);
 							this.productList = arr;
 							console.log(this.productList)
 							
@@ -121,7 +97,7 @@
 					method: 'GET',
 					params: { title: this.title },
 				});
-				this.search = res.data.list;
+				this.search = res.list;
 			},
 		},
 		watch: {
@@ -129,7 +105,7 @@
 			title() {
 			delay(() => {
 				this.fetchData();
-			}, 300);
+			}, 600);
 			},
 		},
 		 mounted(){
@@ -149,34 +125,31 @@
  }
 .search{
 	 width:100%;
-	 height:50px;
+	 height:32px;
+	 display: flex;
+	 padding:5px;
+	 margin-bottom: 10px;
+ }
+ .search >i{
+ 	margin:10px 10px 0 0;
+ 	cursor: pointer;
  }
  .search input{
 	 width:100%;
 	 display:block;
 	 margin: 0 auto;
-	 height:50px;
-	 padding:0px 50px ;
-	font-size:30px;
+	 height:32px;
  }
- .search1{
-	 position:fixed;
-	 top:10px;
-	 left:15px;
-	 font-size:30px;
- }
- .ivu-scroll-container{
-	 height:700px!important;
- }
- .ivu-transfer-list-content{
-	 display:none;
- }
-.ivu-table-row{
-	float:left;
+.scroll {
+	position: relative;
+	top:75px;
+	min-height: 90vh;
 }
-// .ivu-back-top{
-// 	display:block!important;
-// }
+.code-row-bg{
+	background: #fff;
+	padding: 8px 0;
+	text-align: center;
+}
 .top{
         padding: 10px;
         background: rgba(0, 153, 229, .7);
@@ -184,9 +157,6 @@
         text-align: center;
         border-radius: 2px;
     }
-.sRow{
-	margin-top:8.5em;
-}
 .sMar{
 	margin-top:0.2em;
 	box-sizing:border-box;

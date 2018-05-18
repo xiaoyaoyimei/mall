@@ -18,7 +18,6 @@ Vue.use(iView);
 Vue.prototype.global_=global_;
 Vue.prototype.$axios = axios;
 Vue.prototype.fang_ = fang_;
-console.log(store)
 //window.setInterval(fang_.login(app),3000);
 
 //判断是否登录
@@ -80,7 +79,7 @@ router.beforeEach((to, from, next) => {
 		}  
 }) 
 //设置拦截器
-axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/pc/';
+axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
 axios.interceptors.request.use(config => {  
 // 在发送请求之前做些什么  
 //判断是否存在token，如果存在将每个页面header都添加token  
@@ -98,7 +97,7 @@ return Promise.reject(error);
 // http response 拦截器  
 axios.interceptors.response.use(  
 response => {  
-return response;  
+return response.data;  
 },  
 error => {  
 if (error.response) {  

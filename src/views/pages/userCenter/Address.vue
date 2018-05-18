@@ -1,6 +1,6 @@
 <template>
 	<div class="order">
-		<h2><router-link  to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>收货地址</h2>
+		<h2><Icon type="ios-arrow-left" @click.native="back"></Icon>收货地址</h2>
 			<ul class="address">
 				<li v-for="(item, index) in addressList">
 				<p><span>{{item.person}} </span><span>{{item.phone}}</span></p>
@@ -41,9 +41,7 @@
 						    method: 'post',
 						    url:'/address',
 						}).then((res)=>{
-							if(res.status=='200'){
-							 this.addressList=res.data;
-							}
+							 this.addressList=res;
 							for(let i=0;i<this.addressList.length;i++){
 								if(this.addressList[i].isDefault=='N'){
 									this.addressList[i].isDefault=false;
@@ -53,14 +51,15 @@
 							}
 						});
        	   },
+       	   back(){
+       	   	this.$router.go(-1)
+       	   },
        	   updateDefault(value){
        	   	this.$axios({
 						    method: 'post',
 						    url:'/address/updateDefault?id='+value+'&isDefault=Y',
 						}).then((res)=>{
-							if(res.status=='200'){
 								this.getAddressList();
-							}
 						})
        	   },
        	   handleDelete(value){
@@ -90,37 +89,38 @@
    }
 </script>
 
-<style scoped="scoped"  lang="scss">
+<style   lang="scss" scoped="scoped">
+
   .addaddress{
-  	position: fixed;
-  	bottom:0;
-  	background: #ed1844;
-  	width: 100%;color:#fff;
-  	padding:10px 0;
-  	cursor: pointer;
-  	a{
-  		color:#fff;
-  		text-align: center;
-  	}
+    position: fixed;
+    bottom:0;
+    background: #ed1844;
+    width: 100%;color:#fff;
+    padding:10px 0;
+    cursor: pointer;
+    text-align: center;
+    a{
+        color:#fff;
+    }
   }
   .address { 
-  	background: #fff;
-  	padding:10px;
-  	font-size: 14px;
-		 li p{
-		  	display: flex;
-		  	padding:3px 0
-		  	}
-		  	label{
-		  		cursor: pointer;
-		  	}
-		  	span:first-child{
-		  		flex:1
-		  		}
-		  		i{
-		  			margin-left:10px;
-		  			margin-right:5px;
-		  			
-		  		}
-		  }
+    background: #fff;
+    padding:10px;
+    font-size: 14px;
+         li p{
+            display: flex;
+            padding:3px 0
+            }
+            label{
+                cursor: pointer;
+            }
+            span:first-child{
+                flex:1
+                }
+                i{
+                    margin-left:10px;
+                    margin-right:5px;
+                    
+                }
+          }
 </style>

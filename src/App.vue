@@ -29,4 +29,7 @@ ul,li{
 .ivu-tabs-ink-bar{
 	background:$color-dx;
 }
+outline{
+	border: 0 none;
+}
 </style>

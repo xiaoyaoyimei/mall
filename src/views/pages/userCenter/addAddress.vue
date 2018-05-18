@@ -1,6 +1,6 @@
 <template>
 	<div class="order">
-		<h2><router-link to="/user/address"><Icon type="ios-arrow-thin-left"></Icon></router-link>添加新地址
+		<h2><router-link to="/user/address"><Icon type="ios-arrow-left"></Icon></router-link>添加新地址
 		<span @click="addSubmit">保存</span></h2>
 	<Form :model="addForm" ref="addForm" label-position="left" :label-width="100" :rules="ruleValidate"  style="background: #fff;"> 
         <FormItem label="收货人" prop="person">
@@ -57,9 +57,7 @@
 						    method: 'post',
 						    url:'/common/address',
 						}).then((res)=>{
-							if(res.status=='200'){
-							 this.addressOption=res.data;
-							}
+							 this.addressOption=res;
 						});
     	      	},
     	      	addSubmit(){

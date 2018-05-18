@@ -34,7 +34,7 @@ let routes =  [
 					component:resolve=>require(['@/views/pages/SortDetail.vue'], resolve),
 				},
 				{
-					name:'结算',
+					name:'/paymony',
 					path: '/paymoney',
 					component:resolve => require(['@/views/pages/cart/Paymoney.vue'], resolve)
 				},

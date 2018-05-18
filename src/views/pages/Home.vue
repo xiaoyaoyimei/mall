@@ -1,5 +1,11 @@
 <template>
 	<div class="index">
+			<header>
+		<div class="search">
+		<Icon type="chevron-left"></Icon>	
+		 <Input v-model="keyword" icon="ios-search-strong" placeholder="搜索" ></Input>
+		</div>
+		</header>
 		<Carousel  v-model="value3" :autoplay="setting.autoplay"    :autoplay-speed="setting.autoplaySpeed"
         :dots="setting.dots"  :radius-dot="setting.radiusDot"  :trigger="setting.trigger" :arrow="setting.arrow">
         	<CarouselItem  v-for="(item, index) in Items"  :key="index">
@@ -82,7 +88,8 @@
                     trigger: 'click',
                     arrow: 'hover'
                 },
-                Items:[]
+                Items:[],
+                aditems:[]
             }
         },
         methods: {
@@ -96,6 +103,16 @@
 							}
 						});
     	      	},
+    	      	getAD(){
+    	      			this.$axios({
+						    method: 'GET',
+						    url:'/index/advert',
+						}).then((res)=>{
+							if(res.data.code=='200'){
+							 this.aditems=res.data.object;
+							}
+						});
+    	      	}
     	  
     	},
         mounted() {
@@ -106,6 +123,30 @@
 
 <style lang="scss" >
  @import '@/styles/color.scss';
+  header{
+	 position:fixed;
+	 top:0px;
+	 left:0px;
+	 z-index:10;
+	 width:100%;
+ }
+.search{
+	 width:100%;
+	 height:32px;
+	 display: flex;
+	 padding:5px;
+	 margin-bottom: 10px;
+ }
+ .search >i{
+ 	margin:10px 10px 0 0;
+ 	cursor: pointer;
+ }
+ .search input{
+	 width:100%;
+	 display:block;
+	 margin: 0 auto;
+	 height:32px;
+ }
 	.index {
 			background: #f5f5f5;
 			img{
