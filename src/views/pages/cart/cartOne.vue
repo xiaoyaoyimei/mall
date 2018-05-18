@@ -1,26 +1,6 @@
 <template>
 	<div class='cart1 order'>
 		<h2><router-link to="/sort"><Icon type="ios-arrow-back"></Icon></router-link>购物车<span  @click="edit" v-show="editface">编辑</span><span  @click="edit" v-show="!editface">完成</span></h2>
-		<div class='cartfoot'>
-				<Row>
-					<Col  class='cartCol' span="24">
-						<Col  span="4" class="center">
-								<div style="padding-bottom:6px;margin-bottom:10px;padding-left:10px;">
-									<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
-								</div>
-						</Col>
-						<Col  span="8">
-							<P class='color-dx'>总计：￥{{totalPrice}}</P>
-						</Col>
-						<Col class='cartButton1' span="12"> 
-							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
-								结算({{zslcount}})
-							</i-button>
-							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">删除</Button>
-						</Col>
-					</Col>
-				</Row>
-			</div>
 		<Row>
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
 		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index"> 
@@ -36,14 +16,31 @@
 						<p class='cart_qua'>
 							<div class="min-add">
 						    <Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
-						     <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x)" placeholder="数量" data-max="50" />
+						     <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
 						  <Icon type="plus-round" @click.native="jia(x,index)" class="add"></Icon>
 						</div>
 					</Col>
 				</Col>
 			</Checkbox-group>
-				
 		</Row>
+			<div class='cartfoot'>
+				<Row>
+					<Col  class='cartCol' span="24">
+						<Col  span="4" class="center">
+									<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
+						</Col>
+						<Col  span="8">
+							<P class='color-dx'>总计：￥{{totalPrice}}</P>
+						</Col>
+						<Col class='cartButton1' span="12"> 
+							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
+								结算({{zslcount}})
+							</i-button>
+							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">删除</Button>
+						</Col>
+					</Col>
+				</Row>
+			</div>
 	</div>
 </template>
 
@@ -64,9 +61,14 @@ export default {
 		},
         methods: {
 
-        	changeNumber: function(event,x){
+        	changeNumber: function(event,x,index){
 					var obj=event.target;
 					x.quantity = parseInt(obj.value);
+					 if(this.temp.indexOf(index)<0){
+					     		this.temp.push(index)
+					     	}
+					     	   this.checkAllGroup=this.temp;
+							this.checkAllGroupChange(this.temp);
 					},
 					//添加
 					jia:function(x,index){
@@ -113,7 +115,10 @@ export default {
 			edit1(){
 			},
 			paymoney(){
-				console.log(this.checkAllGroup);
+				if(this.checkAllGroup.length<1){
+					 this.$Message.warning('您尚未选择任何商品');
+					return false;
+				}
 				var goumai=[];
 				this.checkAllGroup.forEach((i) => {
 				  goumai.push(this.cartList[i])
@@ -121,7 +126,7 @@ export default {
 				});
 				 sessionStorage.removeItem('cart'); 
 		         sessionStorage.setItem('cart', JSON.stringify(goumai)); 
-				 this.$router.push({ name:'/paymony'});
+				 this.$router.push({ name:'/carttwo'});
 			},
 			remove(){
 
@@ -183,12 +188,13 @@ export default {
     cursor: pointer;
     margin-right:5px;
     font-size: 14px;
-    margin-left:5px;
+    margin-left:3px;
  	}
  	.min-add .min,.min-add .add,.min-add input{
  		display: inline-block;
  	}
  	.min-add input{
+ 		font-size: 14px;
  		width:50px;
  		text-align: center;
  		background: #f5f5f5;border:0 none;

@@ -1,10 +1,13 @@
 <template>
 		<div class="login">
-			<Icon type="chevron-left"></Icon>
-			
+			<router-link to="/login"><Icon type="ios-arrow-left"></Icon></router-link>
+			<div class="ding">
+			<h3>注册</h3>
+            <h6>欢迎来到DXRACER</h6>
+            </div>
 	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
            <FormItem label="手机号" prop="loginName">
-            <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"  @blur.native="getTx(value)" v-bind:value='regiForm.loginName'></Input>
+            <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.loginName'></Input>
                <!--<Button type="primary" :loading="loadingtx"  @click="getTx">
 	        <span v-if="!loadingtx">获取图形码</span>
 	        <span v-else>Loading...</span>
@@ -96,16 +99,16 @@
 					    		  "verificationCode":this.regiForm.verificationCode
 					    	},
 					}).then((res)=>{
-						     if (res.data.code !== 200) {
-		                 		 this.$Message.error(res.data.msg);
+						     if (res.code !== 200) {
+		                 		 this.$Message.error(res.msg);
 		              		} 
 							this.loadingDx = false;
 					});
 					}
           	},
-          	getTx(value){
+          	getTx(){
           			this.txv++;
-          			this.verimg=this.$axios.defaults.baseURL+'customer/'+value+'/verification.png?v='+this.txv;
+          			this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
           	},
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
@@ -117,9 +120,9 @@
 							    data:para,
 							}).then((res)=>{
 									this.loadingDx = false;
-									      let { code, msg } = res.data;
+									      let { code, msg } = res;
 								              if (code !== 200) {
-								                this.$Message.error(res.data.msg);
+								                this.$Message.error(res.msg);
 								              } else {
 								                this.$router.push({ path: '/Login' ,params: { loginName: this.regiForm.loginName }});
 								              }
@@ -135,14 +138,11 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-	.reg{
-		padding: 20px;
-		h3{
-			margin-bottom: 20px;
-		}
-	
-	}
-	
+.login i{
+	font-size: 1.25rem;
+	color:#333;
+	font-weight: bold;
+}
 </style>
 <style>
 		.ivu-form-item:not(:last-child) {

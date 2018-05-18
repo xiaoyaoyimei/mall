@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="ding">
     			<h3>登录</h3>
     <div id="canvascontainer" ref='can'></div>
     <Form ref="loginForm" autoComplete="on" :model="loginForm" :rules="loginRules"   label-position="left" :label-width="100">
@@ -107,12 +107,11 @@
 </script>
 <style scoped="scoped" lang="scss">
  @import '@/styles/color.scss';
-	.login{
+	.ding{
 		padding:30px 15px;
 		background: #fff;
 		overflow: hidden;
 		h3{
-			margin-bottom: 40px;
 			color:$color-dx;
 		}
 		.btn-login{

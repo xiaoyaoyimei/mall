@@ -1,5 +1,5 @@
 let global_={
-		imgurl:'http://test-shop.dxracer.com.cn/',
+		imgurl:'http://test-shop-img.dxracer.com.cn/',
 		loginName:'',
 		passWord:''
 }

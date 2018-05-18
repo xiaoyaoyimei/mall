@@ -6,7 +6,7 @@
 				<li>
 					<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 					<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
-					<Icon type="chevron-right"></Icon>
+						<Icon type="chevron-right"  @click.native="addAdd"></Icon>
 				</li>
 			   </ul>
                 <div  class="zeroAddress" v-else >
@@ -20,8 +20,7 @@
 					<i-col span="6"><img class='cartImg' :src="imageSrc+x.image"></i-col>
 					<i-col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
-						<p class='cart_gray'>{{x.productAttr}}</p>
-						<p class='cart_price'>￥{{x.salePrice}}x{{x.quantity}}</p>
+						<p class='cart_gray'>{{x.productAttr}} <span>￥ <strong>{{x.salePrice}}</strong>x{{x.quantity}}</span></p>
 					</i-col>
 				</div>
 			</div>
@@ -53,6 +52,11 @@
             }
         },
         methods: {
+        	addAdd(){
+        		 sessionStorage.removeItem('fromc'); 
+		         sessionStorage.setItem('fromc','dingdan'); 
+        		 this.$router.push('/user/address') ;
+        	},
 		      getCartList(){
 		        this.cartList =  JSON.parse(sessionStorage.getItem('cart')); 
 		        var _this=this;
@@ -78,6 +82,7 @@
 					addressId:this.addressList.id,
                     productItemIds:this.productItemIds
           	};
+        
             	   	  	this.$axios({
 						    method: 'post',
 						    url:'/order/shopping/confirm',
@@ -85,7 +90,7 @@
 						}).then((res)=>{
 							if(res.code=='200'){
 								 this.$Message.success('订单提交成功');
-								 	this.$router.replace('/user/orderlist');  
+								 this.$router.push({name:'/cartthree',params: { orderNo: res.msg}});  
 							}else{
 								 this.$Message.error(res.msg);
 							}
@@ -111,7 +116,7 @@
  	padding:10px 0;
  	width:100%;
  	overflow:hidden;
- 	border-bottom:1px solid #ddd;
+ 	border-bottom:1px solid #eee;
  }
  .address li{
  	display: flex;
@@ -128,19 +133,26 @@
   		color:#222
   	}
   }
+  .cart_gray span{
+  	float: right;
+	   strong{ 
+	  	color:$color-dx;
+	  	font-size: 16px;
+	  }
+  }
    		.cartfoot{
+   				position: fixed;
 			    background: #fff;
 				border-top: 1px solid #eee;
-				position: fixed;
 				height: 49px;
 				line-height:49px;
-				z-index: 31;
 				bottom: 0px;
-				left: 0;
 				width: 100%;
+				padding-left:10px;
 				strong{
 					color:$color-dx;
 					font-size: 1rem;
+					display:inline-block;
 					span{
 						font-size: 1.125rem;
 					}

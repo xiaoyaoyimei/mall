@@ -52,7 +52,12 @@
 						});
        	   },
        	   back(){
-       	   	this.$router.go(-1)
+       	   	 if(sessionStorage.getItem('fromc')=='dingdan'){
+       	   	 		this.$router.push('/carttwo')  
+       	   	 		 sessionStorage.removeItem('fromc'); 
+       	   	 }else{
+       	   	 	this.$router.push('/user')  
+       	   	 }
        	   },
        	   updateDefault(value){
        	   	this.$axios({

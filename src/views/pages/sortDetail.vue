@@ -15,7 +15,6 @@
     	<div class="choose" @click="modal2 = true">
     		<span>已选<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
     	</div>
-  
     </div>
     <div class="foot">
             <button    :loading="modal_loading" @click="modal2 = true">加入购物车</button>
@@ -24,8 +23,14 @@
     	 <Modal v-model="modal2"  class="chooseModal" :mask-closable="false">
          <div slot="header" >
          	 <div v-if="xiajia" class="xiajia"><Icon type="information-circled">
-         	 </Icon>该商品已下架 </div>
-            <div  v-if="!xiajia" class='choosesp'> <img :src="choosesp.img"> <span><strong>￥{{choosesp.price}}</strong>商品编号:{{choosesp.itemNo}}</span> </div>
+         	 </Icon>该商品已下架
+         	 </div>
+       	 <div v-if="!xiajia&&!firstshow" class="xiajia"><Icon type="information-circled">
+         	 </Icon>请选择商品
+         	 </div>
+            <div  v-if="firstshow" class='choosesp'>
+             	<img :src="choosesp.img"> <span><strong>￥{{choosesp.price}}</strong>商品编号:{{choosesp.itemNo}}</span> 
+            </div>
          </div>
         <dl v-for="(item, index) in product.productAttrList"  :key="index">
           <dt>{{item.attrKey.catalogAttrValue}}</dt>
@@ -46,6 +51,7 @@
         data () {
             return {
             	xiajia:false,
+            	firstshow:false,
             	selectedId:-1,
             	modal2: false,
             	modal_loading:false,
@@ -134,8 +140,10 @@
             	   	    	this.choosesp.itemNo="";
             	   	    	this.choosesp.price="";
             	   	    	this.xiajia=true
+            	   	    	this.firstshow=false
             	   	    }else{
             	   	    	this.xiajia=false;
+            	   	    	this.firstshow=true
             	   	    }
             	   }
             		
@@ -146,7 +154,6 @@
 			        this.productId=routerParams;
 			    },
 			     getProduct(){
-			     	    this.productId='294b040671dd4865915b77fc8fbbce99';
 			     		this.$axios({
 							    method: 'post',
 							    url:'/product/'+this.productId,
@@ -162,17 +169,17 @@
 			     },
 			     setdefault(){
 			     		//找出默认选中
-										var result=this.product.productItemList[0].productModelAttrs.split(",");
-									    let dditem=this.$refs['dditem'];
-									     this.bigchoose="";
-										for(let i=0;i<result.length;i++){
-												for(let n=0;n<dditem.length;n++){
-						            			if(dditem[n].getAttribute("title")==result[i]){
-						            				dditem[n].setAttribute("class",'active');
-						            				this.bigchoose +=dditem[n].innerHTML+',';
-						            			}
-						            		}
-										}
+//										var result=this.product.productItemList[0].productModelAttrs.split(",");
+//									    let dditem=this.$refs['dditem'];
+//									     this.bigchoose="";
+//										for(let i=0;i<result.length;i++){
+//												for(let n=0;n<dditem.length;n++){
+//						            			if(dditem[n].getAttribute("title")==result[i]){
+//						            				dditem[n].setAttribute("class",'active');
+//						            				this.bigchoose +=dditem[n].innerHTML+',';
+//						            			}
+//						            		}
+//										}
 			     }
     	      	
     	     },
@@ -262,8 +269,9 @@
 	 dd{
 	  	border:1px solid $color-border;
 	  	float: left;
-	  	padding: 3px 15px;
+	  	padding: 3px 10px;
 	  	margin-right: 10px;
+	  	margin-bottom: 3px;
 	  	border-radius: 3px;
 	  	color: #222;
 	  	cursor: pointer;

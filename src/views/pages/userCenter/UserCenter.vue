@@ -116,27 +116,7 @@
 	 	}
 	 	margin-bottom:10px
 	}
-	.order-list{
-		    padding:0 10px;
-	 		background: #fff;
-	 		li{
-	 			padding:10px 0;
-	 			border-bottom:1px solid $color-border;
-	 			font-size: 14px;
-	 			display: flex;
-	 			cursor: pointer;
-	 		}
-	 		img{
-	 			height: 20px;
-	 			width:20px;
-	 			margin-right:15px;
-	 		}
-	 		i{
-	 			position: fixed;
-				right: 15px;
-	 			font-size: 16px;
-	 		}
-	 	}
+
 	 	.more{
 	 		float: right;
 	 		cursor: pointer;

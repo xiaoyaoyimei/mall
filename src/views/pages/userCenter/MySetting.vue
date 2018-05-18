@@ -1,6 +1,6 @@
 <template>
 		<div class="order coupon">
-		<h2><router-link  to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>账号设置</h2>
+		<h2><router-link  to="/user"><Icon type="ios-arrow-left"></Icon></router-link>账号设置</h2>
 			<ul class="flex-ul">
 			<li><router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link><span >></span></li>
 		</ul>

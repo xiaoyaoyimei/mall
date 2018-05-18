@@ -1,6 +1,6 @@
 <template>
 		<div class="order">
-		<h2><router-link to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>个人信息</h2>
+		<h2><router-link to="/user"><Icon type="ios-arrow-left"></Icon></router-link>个人信息</h2>
 		<ul class="flex-ul">
 			<li><span>头像</span><router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" tag="span"> <img :src='userinfo.iconUrl' style='vertical-align:middle;width:35px;'> ></router-link></li>
 			<li><span>用户名</span><span ></span></li>
@@ -9,21 +9,15 @@
 			<label v-if="userinfo.sex === 'M'">男</label>	<label  v-else-if="userinfo.sex === 'F'">女</label>	<label  v-else>保密</label>	  > </span></router-link></li>
 				<li><span>出生日期</span> 
 					<span > 
-				
 			
 		   <label v-if="!show">
 		   	<DatePicker type="date" confirm placeholder="Select date" style="width: 200px"
 		   @on-ok="handleOk"  :value="userinfo.birthday"  @on-change="handleChange"></DatePicker>
 		   </label>
 		   <label @click="xshow">	<span  v-if="show" >{{userinfo.birthday}}</span> ></label>
-	
 			</span> 
-				
 				</li>
-			
 		</ul>
-		
-		
 		</div>
 </template>
 

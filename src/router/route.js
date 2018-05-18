@@ -28,18 +28,23 @@ let routes =  [
 						path: '/cart',
 						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 					},
+					{
+						name:'/cartthree',
+						path: '/cartthree',
+						component:resolve => require(['@/views/pages/cart/CartThree.vue'], resolve),
+					},
 			  	{
 					path:"/sort/sortDetail",
 					name:'详情',
 					component:resolve=>require(['@/views/pages/SortDetail.vue'], resolve),
 				},
 				{
-					name:'/paymony',
-					path: '/paymoney',
-					component:resolve => require(['@/views/pages/cart/Paymoney.vue'], resolve)
+					name:'/carttwo',
+					path: '/carttwo',
+					component:resolve => require(['@/views/pages/cart/CartTwo.vue'], resolve)
 				},
 				{
-				path: '/user',component: resolve => require(['@/container/UFull.vue'], resolve),
+				path: '/user',name:'/user',component: resolve => require(['@/container/UFull.vue'], resolve),
 				meta:{requireAuth:true},
 				children:[
 				   			{
@@ -53,7 +58,7 @@ let routes =  [
 				 	   		component:resolve => require(['@/views/pages/userCenter/OrderList.vue'], resolve),
 				         },
 					{
-						name:'address',
+						name:'/user/address',
 				   		path: 'address',
 			 		   	component:resolve => require(['@/views/pages/userCenter/Address.vue'],resolve)
 					},

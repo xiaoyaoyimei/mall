@@ -2,8 +2,9 @@
 	<div class="sort1">
 		<header>
 		<div class="search">
-		<Icon type="chevron-left"></Icon>	
-		 <Input v-model="keyword" icon="ios-search-strong" placeholder="搜索" ></Input>
+		 <Icon type="ios-arrow-left"></Icon>	
+		 <input v-model="keyword" icon="ios-search-strong" placeholder="搜索"/></input>
+		 <span @click="getList">搜索</span>
 		</div>
 		 <Row type="flex" justify="space-between" class="code-row-bg">
         <Col span="4">综合</Col>
@@ -11,7 +12,6 @@
         <Col span="4">价格</Col>
         <Col span="4">筛选</Col>
     </Row>
-		<!--<ul class="sort-ul"><li>综合</li><li>销量</li><li>价格</li></ul>-->
 		</header>
 		 <Scroll class='scroll' :on-reach-bottom="handleReachBottom" :height='600'>
 		<Row class="sRow product">
@@ -25,8 +25,7 @@
 				</Col>
 		</Row>
 		</Scroll>
-		<back-top :height="0" :bottom="200">
-        	<div class="top" @click="top">返回顶端</div>
+		<back-top :height="50" :bottom="100">
     	</back-top>
 	</div>
 </template>
@@ -42,10 +41,9 @@
     export default {
         data () {
             return {
-				theme1: 'light',
 				productList:[],
 				imageSrc:this.global_.imgurl,
-				startRow:1,
+				startRow:0,
 				pageSize:10,
 				keyword:''
 			}
@@ -125,33 +123,47 @@
  }
 .search{
 	 width:100%;
-	 height:32px;
 	 display: flex;
-	 padding:5px;
+	 padding:10px;
 	 margin-bottom: 10px;
- }
- .search >i{
- 	margin:10px 10px 0 0;
- 	cursor: pointer;
+	 border-bottom: 1px solid #eee;
+	 background: #fff;
+	  line-height: 32px;
+	  i{
+	  	 line-height: 32px;
+	  }
+	  span{
+	  	cursor: pointer;
+	  }
  }
  .search input{
-	 width:100%;
 	 display:block;
-	 margin: 0 auto;
-	 height:32px;
+	  height:32px;
+	 border-radius: 5px;
+	 border:0 none;
+	 flex:1;
+	 margin-left:10px;
+	 margin-right:10px;
+	 background: #f9f9f9;
+	 padding-left:5px
  }
 .scroll {
 	position: relative;
-	top:75px;
+	top:100px;
 	min-height: 90vh;
 }
 .code-row-bg{
 	background: #fff;
 	padding: 8px 0;
 	text-align: center;
+	color:#222;
+	font-weight: 600;
+	 border-top: 1px solid #eee;
+	  border-bottom: 1px solid #eee;
+	  margin-bottom:5px;
 }
 .top{
-        padding: 10px;
+	 padding: 10px;
         background: rgba(0, 153, 229, .7);
         color: #fff;
         text-align: center;
