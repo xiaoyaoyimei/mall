@@ -45,13 +45,24 @@
 				editface:true,
 				zslcount:0,
 				temp:[],
-				addressList:[],
+				addressList:{},
 				youdizhi:false,
 				tempcart:[],
-				productItemIds:[]
+				productItemIds:[],
             }
         },
+  		watch: {
+            // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
+               '$route': 'getDD'
+          },
         methods: {
+        	getDD(){
+                let routerParams = this.$route.params.address;
+                if(routerParams!=undefined){
+                	this.addressList=routerParams;
+                	this.youdizhi=true
+                }
+        	},
         	addAdd(){
         		 sessionStorage.removeItem('fromc'); 
 		         sessionStorage.setItem('fromc','dingdan'); 
@@ -67,40 +78,43 @@
 				      });
 		      },
 		      getAddress(){
+		      	var _this=this;
 		      	  	this.$axios({
 						    method: 'post',
 						    url:'/address',
 						}).then((res)=>{
 							 if(res.length>0){
-							 	 this.addressList=res[0];
+							 	res.map(function (i) {
+							 		if(i.isDefault=='Y'&&JSON.stringify(_this.addressList) == "{}"){
+							 			_this.addressList=i
+							 		}
+							 	});
 								 this.youdizhi=true
 							}
 						});
 		      },
             confirm(){
-          	let para={
-					addressId:this.addressList.id,
-                    productItemIds:this.productItemIds
-          	};
-        
-            	   	  	this.$axios({
-						    method: 'post',
-						    url:'/order/shopping/confirm',
-						    data:para
-						}).then((res)=>{
-							if(res.code=='200'){
-								 this.$Message.success('订单提交成功');
-								 this.$router.push({name:'/cartthree',params: { orderNo: res.msg}});  
-							}else{
-								 this.$Message.error(res.msg);
-							}
-							
-						});
+	          	let para={
+						addressId:this.addressList.id,
+	                    productItemIds:this.productItemIds
+	          	};
+    	   	  	this.$axios({
+				    method: 'post',
+				    url:'/order/shopping/confirm',
+				    data:para
+				}).then((res)=>{
+					if(res.code=='200'){
+						 this.$router.push({name:'/cartthree',params: { orderNo: res.msg}});  
+					}else{
+						 this.$Message.error(res.msg);
+					}
+				});
             }
         },
          mounted() {
          	this.getAddress();
          	this.getCartList();
+         	this.getDD();
 		}
     }
 </script>

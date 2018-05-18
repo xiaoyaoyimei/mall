@@ -101,7 +101,6 @@
 							});
             	},
             	chooseSP(e,pa,ch){
-            		
             		var chooseId="",jishu=0;
        	            let  p=e.target.parentNode.children;
        	            for(let i =1;i<p.length;i++) {

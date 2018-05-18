@@ -2,14 +2,16 @@
 	<div class="order">
 		<h2><Icon type="ios-arrow-left" @click.native="back"></Icon>收货地址</h2>
 			<ul class="address">
-				<li v-for="(item, index) in addressList">
+				<li v-for="(item, index) in addressList" @click='chooseDD(item)'>
 				<p><span>{{item.person}} </span><span>{{item.phone}}</span></p>
 				<p><span>{{item.receiveProvince}}{{item.receiveCity}}{{item.receiveDistrict}}{{item.address}}</span></p>
-				<p><span> <Checkbox v-model="item.isDefault" @click.native="updateDefault(item.id)">设为默认</Checkbox></span>
-				<span>
-				<router-link :to="{ path: '/user/editaddress', query: {old:item}}" tag="label"> <Icon type="edit"></Icon>编辑</router-link>
-					<label @click="handleDelete(item.id)"><Icon type="trash-a" ></Icon>删除</label>
-				</span></p>
+				<p>
+					<span> <Checkbox v-model="item.isDefault" @click.native="updateDefault(item.id)">设为默认</Checkbox></span>
+					<span>
+					<router-link :to="{ path: '/user/editaddress', query: {old:item}}" tag="label"> <Icon type="edit"></Icon>编辑</router-link>
+						<label @click="handleDelete(item.id)"><Icon type="trash-a" ></Icon>删除</label>
+					</span>
+				</p>
 				</li>
 			</ul>
 		<div class="addaddress">
@@ -35,6 +37,7 @@
 				return statusMap[value]
 		  }
 		},
+		
        methods:{
        	    getAddressList(){
        	    	      	this.$axios({
@@ -50,6 +53,10 @@
 								}
 							}
 						});
+       	   },
+       	   chooseDD(value){
+       	   	
+       	   	    this.$router.push({name:'/carttwo',params:{address:value}})  
        	   },
        	   back(){
        	   	 if(sessionStorage.getItem('fromc')=='dingdan'){

@@ -33,6 +33,11 @@ let routes =  [
 						path: '/cartthree',
 						component:resolve => require(['@/views/pages/cart/CartThree.vue'], resolve),
 					},
+						{
+						name:'/paysuccess',
+						path: '/paysuccess',
+						component:resolve => require(['@/views/pages/cart/CartFour.vue'], resolve),
+					},
 			  	{
 					path:"/sort/sortDetail",
 					name:'详情',

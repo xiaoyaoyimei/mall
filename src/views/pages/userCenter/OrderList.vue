@@ -50,18 +50,19 @@ export default {
  @import '@/styles/color.scss';
 .splist{
 	
+	li{
+	margin-bottom: 10px;
 	background: #fff;
-	}.img{
+	}
+	}
+	.img{
 		margin-right:10px
 	}
 	.splist .sphead{
 		overflow: hidden;
 		padding:10px;
-		background: #f9f9f9;
-	}
-	.img,.xq,.price{
-		display: inline-block;
-		float: left;
+		background: #fafafa;
+		display: flex;
 	}
 	.xq{
 	 color:#333;
