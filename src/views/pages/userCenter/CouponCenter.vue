@@ -1,8 +1,9 @@
 <template>
-		<div class="order coupon">
-		<h2><router-link to="/user"><Icon type="ios-arrow-thin-left"></Icon></router-link>我的优惠券</h2>
-		    <div>领券中心</div>
-   </div>
+   	<div class="m_header_bar">
+			<router-link to="/user"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">领券中心</span>
+			<span  class="m_header_bar_menu"></span>
+		</div>
 </template>
 
 <script>

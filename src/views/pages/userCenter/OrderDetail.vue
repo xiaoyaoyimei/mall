@@ -2,7 +2,7 @@
 <div class="order">
 		<h2><router-link to="/user"><Icon type="ios-arrow-left"></Icon></router-link>订单详情</h2>
 		<div>
-		  	<ul class="address" v-if="youdizhi">
+		  	<ul class="address" >
 			<li>
 				<!--<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 				<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
@@ -16,6 +16,7 @@
 <script>
 	export default {
     data () {
+   
       return {
       	 orderdeatil:{},
         imageSrc:this.global_.imgurl,

@@ -1,10 +1,16 @@
 <template>
-	<div class="sort1">
-		<header>
+	<div class="sort1 ">
+		<div class="header-home-wrapper sort-box">
+			<router-link to="/index"  class="icon-back"><Icon type="ios-arrow-back"></Icon></router-link>
+		<div class="SearchBarWrapper">
 		<div class="search">
-		 <Icon type="ios-arrow-left"></Icon>	
-		 <input v-model="keyword" icon="ios-search-strong" placeholder="搜索"/></input>
-		 <span @click="getList">搜索</span>
+		<img src="../../assets/img/search.png" class="search-form-icon">
+		<div class="inputwrap">
+		 <input   placeholder="搜索" class="search-form-input" v-model="keyword"></input>
+		 </div>
+		</div>
+		</div>
+		<button class="search-button"  @click="getList()" type="button">搜索</button>
 		</div>
 		 <Row type="flex" justify="space-between" class="code-row-bg">
         <Col span="4">综合</Col>
@@ -12,7 +18,6 @@
         <Col span="4">价格</Col>
         <Col span="4">筛选</Col>
     </Row>
-		</header>
 		 <Scroll class='scroll' :on-reach-bottom="handleReachBottom" :height='600'>
 		<Row class="sRow product">
 				<Col :xs="12"  class="sMar"  :md="6"   v-for="(item, index) in productList" :key='index'>
@@ -45,7 +50,7 @@
 				imageSrc:this.global_.imgurl,
 				startRow:0,
 				pageSize:10,
-				keyword:''
+				keyword:'',
 			}
 			
 		},
@@ -63,6 +68,11 @@
                 return data.label.indexOf(query) > -1;
             },
 			getList(){
+				 let routerParams = this.$route.params.keyword;
+                // 将数据放在当前组件的数据内
+                if(routerParams!=""&&routerParams!=undefined){
+                 this.keyword = routerParams;
+                }
 				this.$axios({
 					method: 'GET',
 					url:'/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
@@ -112,7 +122,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped="scoped">
  @import '@/styles/color.scss';
  header{
 	 position:fixed;
@@ -121,35 +131,8 @@
 	 z-index:10;
 	 width:100%;
  }
-.search{
-	 width:100%;
-	 display: flex;
-	 padding:10px;
-	 margin-bottom: 10px;
-	 border-bottom: 1px solid #eee;
-	 background: #fff;
-	  line-height: 32px;
-	  i{
-	  	 line-height: 32px;
-	  }
-	  span{
-	  	cursor: pointer;
-	  }
- }
- .search input{
-	 display:block;
-	  height:32px;
-	 border-radius: 5px;
-	 border:0 none;
-	 flex:1;
-	 margin-left:10px;
-	 margin-right:10px;
-	 background: #f9f9f9;
-	 padding-left:5px
- }
 .scroll {
 	position: relative;
-	top:100px;
 	min-height: 90vh;
 }
 .code-row-bg{

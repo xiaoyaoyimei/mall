@@ -1,6 +1,10 @@
 <template>
 		<div class="order">
-		<h2><router-link to="/user"><Icon type="ios-arrow-left"></Icon></router-link>个人信息</h2>
+		<div class="m_header_bar">
+			<router-link to="/user"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">个人信息</span>
+			<span  class="m_header_bar_menu"></span>
+		</div>
 		<ul class="flex-ul">
 			<li><span>头像</span><router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" tag="span"> <img :src='userinfo.iconUrl' style='vertical-align:middle;width:35px;'> ></router-link></li>
 			<li><span>用户名</span><span ></span></li>

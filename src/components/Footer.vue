@@ -2,10 +2,10 @@
           <div class="foot">
     <Row class="tabs tabs-icon-left">
     
-   <router-link :to="{ path: 'index' }"> <Col span="6" ><Icon type="home" /> 首页</Col></router-link>
-     <router-link :to="{ path: 'sort' }">  <Col span="6" > <Icon type="android-apps"></Icon> 分类</Col></router-link>
-       <router-link :to="{ path: 'cart' }">   <Col span="6"> <Icon type="android-cart"></Icon>购物车</Col></router-link>
-         <router-link :to="{ path: 'user' }">    <Col span="6"><Icon type="ios-person"></Icon> 用户中心</Col></router-link>
+   <router-link :to="{ path: '/index' }"> <Col span="6" ><Icon type="home" /> 首页</Col></router-link>
+     <router-link :to="{ path: '/sort' }">  <Col span="6" > <Icon type="android-apps"></Icon> 分类</Col></router-link>
+       <router-link :to="{ path: '/cart' }">   <Col span="6"> <Icon type="android-cart"></Icon>购物车</Col></router-link>
+         <router-link :to="{ path: '/user' }">    <Col span="6"><Icon type="ios-person"></Icon> 用户中心</Col></router-link>
     </Row></router-link>
             </div>
 </template>

@@ -1,6 +1,9 @@
 <template>
 	<div class="order">
-		<h2><Icon type="ios-arrow-left" @click.native="back"></Icon>收货地址</h2>
+		<div class="m_header_bar">
+			<Icon type="ios-arrow-back"  @click.native="back"  class="m_header_bar_back"></Icon>
+			<span class="m_header_bar_title">收货地址</span>
+		</div>
 			<ul class="address">
 				<li v-for="(item, index) in addressList" @click='chooseDD(item)'>
 				<p><span>{{item.person}} </span><span>{{item.phone}}</span></p>

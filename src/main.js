@@ -18,6 +18,12 @@ Vue.use(iView);
 Vue.prototype.global_=global_;
 Vue.prototype.$axios = axios;
 Vue.prototype.fang_ = fang_;
+// 导入所有的过滤器变量
+import * as custom from '@/base/basefilters/'
+// 导出的是对象，可以直接通过key和value来获得过滤器的名和过滤器的方法
+Object.keys(custom).forEach(key => {
+    Vue.filter(key, custom[key])
+})
 //window.setInterval(fang_.login(app),3000);
 
 //判断是否登录
@@ -61,23 +67,30 @@ store.commit('set_token',{token: sessionStorage.getItem('token'),userId:sessionS
 const router = new VueRouter({  
 routes  
 });  
-  
 router.beforeEach((to, from, next) => {  
 		if (to.matched.some(r => r.meta.requireAuth)) { 
-			if (store.state.token) {  
+			if (store.state.token!==null&&store.state.token!==undefined&&store.state.token!=="") {  
 			next();  
 			}  
 			else {  
-			next({  
-					path: '/login',  
-					query: {redirect: to.fullPath}  
-			})  
+				next({  
+						path: '/login',  
+						query: {redirect: to.fullPath}  
+				})  
 			}  
 		}  
 		else {  
 		next();  
 		}  
 }) 
+/* eslint-disable no-new */
+var app =new Vue({
+  el: '#app',
+  router,
+  store,//使用store
+  components: { App },
+  template: '<App/>'
+})
 //设置拦截器
 axios.defaults.baseURL = 'http://test-shop.dxracer.com.cn:8084/mall/wap/';
 axios.interceptors.request.use(config => {  
@@ -96,27 +109,21 @@ return Promise.reject(error);
   
 // http response 拦截器  
 axios.interceptors.response.use(  
-response => {  
+response => { 
+	
 return response.data;  
 },  
 error => {  
 if (error.response) {  
 		switch (error.response.status) {  
-		case 401:  
-		this.$store.commit('del_token');  
+		case 401: 
+		this.$store.commit('del_token');
 		router.replace({  
 		path: '/login',  
 		query: {redirect: router.currentRoute.fullPath}//登录成功后跳入浏览的当前页面  
-		})  
+		});
 }  
 }  
 return Promise.reject(error.response.data)  
 }); 
-/* eslint-disable no-new */
-var app =new Vue({
-  el: '#app',
-  router,
-  store,//使用store
-  components: { App },
-  template: '<App/>'
-})
+

@@ -1,8 +1,12 @@
 <template>
 	<div class="order photo">
-		<h2><router-link  to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon></router-link>修改头像  <span  @click="handleNick">保存</span></h2>
-       
+       	<div class="m_header_bar">
+			<router-link to="/user/myinfo"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">修改头像  </span>
+			 <span  @click="handleNick" class="m_header_bar_menu">保存</span>
+		</div>
         <div>
+        	
         <Upload
             :action="uploadUrl"
             :on-success="handleSuccess"

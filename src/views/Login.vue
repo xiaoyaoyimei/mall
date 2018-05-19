@@ -82,10 +82,9 @@
 //							 ...mapMutations({
 //   							 'set_token',{token:data.object["token"]} // 将 `this.add()` 映射为 `this.$store.commit('increment')`
 // 								 })
+
 							if (store.state.token) {  
-								this.$router.push('/index')  
-								console.log(store.state.token)  
-							    console.log(store.state.userId) 
+							this.$router.push(this.$route.query.redirect || '/')
 							} else {  
 								this.$router.replace('/login');  
 							}  

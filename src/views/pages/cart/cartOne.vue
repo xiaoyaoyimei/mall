@@ -1,6 +1,11 @@
 <template>
-	<div class='cart1 order'>
-		<h2><router-link to="/sort"><Icon type="ios-arrow-back"></Icon></router-link>购物车<span  @click="edit" v-show="editface">编辑</span><span  @click="edit" v-show="!editface">完成</span></h2>
+	<div class='cart1'>
+		<div class="m_header_bar">
+			<router-link to="/sort"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">购物车</span>
+			<span  @click="edit" v-show="editface" class="m_header_bar_menu">编辑</span>
+			<span  @click="edit" v-show="!editface"  class="m_header_bar_menu">完成</span>
+		</div>
 		<Row>
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
 		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index"> 

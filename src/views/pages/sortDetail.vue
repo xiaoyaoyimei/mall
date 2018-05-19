@@ -16,6 +16,16 @@
     		<span>已选<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
     	</div>
     </div>
+       <Tabs class="spjs">
+        <TabPane label="商品介绍">
+        	<ul><li v-for="(item, index) in productimg"  :key="index"><img :src="imageSrc+item.imgUrl"></li></ul>
+        </TabPane>
+        <TabPane label="规格参数" >
+        		<ul class="gk">
+        			<li v-for="(item, index) in productDesc"  :key="index">
+        			<span class="title">{{item.attrCode}}:</span> <span class="neirong">{{item.attrValue}}</span></li></ul>
+        	</TabPane>
+    </Tabs>
     <div class="foot">
             <button    :loading="modal_loading" @click="modal2 = true">加入购物车</button>
     </div>
@@ -26,7 +36,7 @@
          	 </Icon>该商品已下架
          	 </div>
        	 <div v-if="!xiajia&&!firstshow" class="xiajia"><Icon type="information-circled">
-         	 </Icon>请选择商品
+         	</Icon>请选择商品 
          	 </div>
             <div  v-if="firstshow" class='choosesp'>
              	<img :src="choosesp.img"> <span><strong>￥{{choosesp.price}}</strong>商品编号:{{choosesp.itemNo}}</span> 
@@ -62,6 +72,8 @@
             		productAttrList:{},
             		productItemList:[]
             	},
+            	productDesc:[],
+            	productimg:[],
             	bigchoose:'',
             	choosesp:{
             		img:'',
@@ -166,6 +178,20 @@
 									}
 							});
 			     },
+			     getProductDesc(){
+			     		this.$axios({
+							    method: 'post',
+							    url:'/product/desc/'+this.productId,
+								}).then((res)=>{
+										this.productDesc=res;
+							});
+								this.$axios({
+							    method: 'post',
+							    url:'/product/img/'+this.productId,
+								}).then((res)=>{
+										this.productimg=res;
+							});
+			     },
 			     setdefault(){
 			     		//找出默认选中
 //										var result=this.product.productItemList[0].productModelAttrs.split(",");
@@ -186,12 +212,33 @@
     	 mounted() {
 				this.getParams();
 				this.getProduct();
+				this.getProductDesc();
 				this.setdefault();
 		}
     }
 </script>
-<style lang="scss">
- @import '@/styles/color.scss';
+<style lang="scss" scoped="scoped">
+ @import '@/styles/color.scss'; 
+ .spjs{
+ 	background: #fff;
+ }
+ .spjs img{
+ 	max-width:100%;
+ }
+ .spjs li{
+ 	
+ }
+ .gk li{
+ 	display: flex;
+ 	padding: 5px 10px;
+ 	.title{
+ 		width:40%;
+ 		float: left;
+ 	}
+ 	.neirong{
+ 		width:60%;
+ 	}
+ }
  .xiajia{
      min-height: 65px;
     font-size: 16px;
@@ -244,6 +291,7 @@
  }
  .choose{
  	margin-top:10px;
+ 	margin-bottom: 10px;
  	background: #fff;
  	padding: 15px 10px;
  	display: flex;

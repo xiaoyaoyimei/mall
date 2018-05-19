@@ -1,7 +1,10 @@
 <template>
-	<div class="order">
-		<h2><span><Icon type="ios-arrow-left"></Icon></span>支付方式<router-link  to="/user/orderlist" tag="span">订单中心</router-link></h2>
-		
+	<div >
+			<div class="m_header_bar">
+			<router-link   class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">支付方式</span>
+			<router-link  to="/user/orderlist" tag="span" class="m_header_bar_menu">订单</router-link>
+		</div>
 		  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
 		  	 <FormItem  prop="payType">
 			  <ul class="order-list">
@@ -68,8 +71,4 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-	 @import '@/styles/color.scss';
-	 .order-list{
-	 	margin-bottom: 10px;
-	 }
 </style>

@@ -18,6 +18,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #666;
   height:100vh;
+  font-size:10px;
   background: #f6f6f6;
 }
 ul,li{

@@ -17,9 +17,17 @@
       getParams () {
         // 取到路由带过来的参数 
         let routerParams = this.$route.fullPath
-        let n= routerParams.indexOf('?')+1
+        let n= routerParams.indexOf('?')
         // 将数据放在当前组件的数据内
         this.pay = routerParams.substring(n)
+          	this.$axios({
+							    method: 'post',
+							    url:'/order/alipay/check'+this.pay,
+								}).then((res)=>{
+									if(res.code=='200'){
+											this.$router.push({push:'/order/detail',params:{orderNo:res.msg}})
+									}
+							});
       },
     },
     watch: {

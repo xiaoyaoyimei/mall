@@ -1,6 +1,6 @@
 const _import = require('./_import_' + process.env.NODE_ENV);
 let routes =  [
-				{path: '/',redirect: '/login'},
+				{path: '/',redirect: '/index'},
 			    {path: '/login', name: 'login',component:  resolve => require(['@/views/Login.vue'], resolve)},
 			    {path: '/register',name: '注册',component:  resolve => require(['@/views/RegisterOne.vue'], resolve)},
        			{path: '/index',component: resolve => require(['@/container/Full.vue'], resolve),
@@ -24,30 +24,34 @@ let routes =  [
 					]
 				},
 					{
-						name:'购物车',
+						name:'/cart',
 						path: '/cart',
+						meta:{requireAuth:true},
 						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 					},
+						{
+					name:'/carttwo',
+					path: '/carttwo',
+					meta:{requireAuth:true},
+					component:resolve => require(['@/views/pages/cart/CartTwo.vue'], resolve)
+				},
 					{
 						name:'/cartthree',
 						path: '/cartthree',
+						meta:{requireAuth:true},
 						component:resolve => require(['@/views/pages/cart/CartThree.vue'], resolve),
 					},
 						{
 						name:'/paysuccess',
 						path: '/paysuccess',
+						meta:{requireAuth:true},
 						component:resolve => require(['@/views/pages/cart/CartFour.vue'], resolve),
 					},
-			  	{
+			  		{
 					path:"/sort/sortDetail",
 					name:'详情',
 					component:resolve=>require(['@/views/pages/SortDetail.vue'], resolve),
-				},
-				{
-					name:'/carttwo',
-					path: '/carttwo',
-					component:resolve => require(['@/views/pages/cart/CartTwo.vue'], resolve)
-				},
+					},
 				{
 				path: '/user',name:'/user',component: resolve => require(['@/container/UFull.vue'], resolve),
 				meta:{requireAuth:true},
@@ -61,7 +65,14 @@ let routes =  [
 				         	name:'orderlist',
 				   			path: 'orderlist',
 				 	   		component:resolve => require(['@/views/pages/userCenter/OrderList.vue'], resolve),
+				 	   		children:[  {
+				         	name:'/user/orderlist/datail',
+				   			path: 'datail',
+				 	   		component:resolve => require(['@/views/pages/userCenter/OrderDetail.vue'], resolve),
+				        		 }]
 				         },
+				       
+				         
 					{
 						name:'/user/address',
 				   		path: 'address',
@@ -115,9 +126,14 @@ let routes =  [
 					{
 					name:'setting',
 			   		path:'setting',
-		 		   	component:resolve => require(['@/views/pages/userCenter/MySetting.vue'],resolve)
+		 		   	component:resolve => require(['@/views/pages/userCenter/MySetting.vue'],resolve),
 				}	
+			],
+			},
+			 {
+            path: '/*',
+            component:resolve => require(['@/views/errorPages/404.vue'],resolve)
+       		 },
 			]
-				}]
 
 export default routes;

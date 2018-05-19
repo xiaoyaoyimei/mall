@@ -1,6 +1,10 @@
 <template>
-    <div class='paymoney order'>
-        <h2><router-link to="/cart"><Icon type="ios-arrow-back"></Icon></router-link>填写订单</h2>
+    <div class='paymoney'>
+    	<div class="m_header_bar">
+			<router-link to="/cart"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">填写订单</span>
+			<span  class="m_header_bar_menu"></span>
+		</div>
             <div class="chooseAddress">
             	<ul class="address" v-if="youdizhi">
 				<li>
@@ -165,7 +169,7 @@
 				padding-left:10px;
 				strong{
 					color:$color-dx;
-					font-size: 1rem;
+					font-size: 12px;
 					display:inline-block;
 					span{
 						font-size: 1.125rem;
