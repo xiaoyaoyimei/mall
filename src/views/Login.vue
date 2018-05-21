@@ -55,11 +55,11 @@
 			this.getParams();
 		},
       methods: {
-      	     getParams () {
-        // 取到路由带过来的参数 
-        let routerParams = this.$route.params.loginName
-        // 将数据放在当前组件的数据内
-        this.loginName = routerParams
+      	 getParams () {
+	        // 取到路由带过来的参数 
+	        let routerParams = this.$route.params.loginName
+	        // 将数据放在当前组件的数据内
+	        this.loginName = routerParams
      	 },
         handleLogin() {
           this.$refs.loginForm.validate(valid => {
@@ -71,9 +71,9 @@
 				passWord: this.loginForm.passWord  
 				}).then(res => {  
 					this.logining = false;
-	               	let { code, msg } = res;
+	               	let { code, object } = res;
 		              if (code !== 200) {
-		                  this.$Message.error(msg);
+		                  this.$Message.error(object);
 		              } else {
 					        this.$Message.success('登录成功');
 							let data = res;  
@@ -92,11 +92,11 @@
 				}).catch(error => {  
 						this.loading = false  
 						this.loginBtn = "登录"  
-						  this.$Message.error('系统异常');
+						this.$Message.error('系统异常');
 				})  
             } 
             else {
-              console.log('error submit!!');
+              console.log('登录验证失败!');
               return false;
             }
           });

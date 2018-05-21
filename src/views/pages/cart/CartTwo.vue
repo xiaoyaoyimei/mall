@@ -20,13 +20,13 @@
                 </div>
             </div>
             <div class="carttwo">
-		 		<div  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index"> 
+		 		<Row  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index" :gutter="16"> 
 					<i-col span="6"><img class='cartImg' :src="imageSrc+x.image"></i-col>
 					<i-col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
 						<p class='cart_gray'>{{x.productAttr}} <span>￥ <strong>{{x.salePrice}}</strong>x{{x.quantity}}</span></p>
 					</i-col>
-				</div>
+				</Row>
 			</div>
          <div class='cartfoot'>
 			<strong>￥<span>{{totalPrice}}</span></strong>
@@ -135,6 +135,9 @@
  	width:100%;
  	overflow:hidden;
  	border-bottom:1px solid #eee;
+ 	img{
+ 		max-width: 100%;
+ 	}
  }
  .address li{
  	display: flex;

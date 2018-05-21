@@ -143,7 +143,6 @@
 	font-weight: 600;
 	 border-top: 1px solid #eee;
 	  border-bottom: 1px solid #eee;
-	  margin-bottom:5px;
 }
 .top{
 	 padding: 10px;
@@ -155,11 +154,14 @@
 .sMar{
 	margin-top:0.2em;
 	box-sizing:border-box;
-	padding:0.25em;
+	margin-bottom: 5px;
+  background: #fff;
 	a{
 		margin-top:-0.2em;
 		box-sizing:border-box;
 		width:100%;
+		display: block;
+		padding: 5px;
 		img{
 			max-width:100%;
 		}
@@ -168,19 +170,14 @@
 .sP{
 	color:$color-default;
 	text-align:left;
-	text-indent:1.5em;
 	font-size:1.2em;
-	height:3em;
 	line-height:1.5em;
 	background-color:$color-white;
 }
 .sh6{
 	color:$color-dx;
 	text-align:left;
-	text-indent:2em;
 	font-size:0.8em;
-	// height:1.5em;
-	// line-height:1.5em;
 	background-color:$color-white;
 	padding-bottom:0.5em;
 	overflow:hidden;

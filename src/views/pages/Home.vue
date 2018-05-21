@@ -9,7 +9,7 @@
 				 </div>
 				</div>
 		    </div>
-		<router-link :to="{path: '/login'}" tag="span" class="m_header_bar_menu">登录</router-link>
+		<router-link :to="{path: '/login'}" tag="span" class="m_header_bar_menu"  v-if="loginflag">登录</router-link>
 		</div>
 		<Carousel  v-model="value3" :autoplay="setting.autoplay"    :autoplay-speed="setting.autoplaySpeed"
         :dots="setting.dots"  :radius-dot="setting.radiusDot"  :trigger="setting.trigger" :arrow="setting.arrow">
@@ -17,67 +17,26 @@
            		 	<div class="demo-carousel"><img :src="imageSrc+item.phoneUrl"></div>
         	</CarouselItem>
     	</Carousel>
-<ul class="ad-list">
+        <ul class="ad-list">
   		 <li v-for="(item,index) in aditems" :key="index" >
     			 <router-link :to="{name: '/sort',params:{keyword:child.linkUrl}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
     			 	<img  :src="imageSrc+child.imgUrl"  :width="child.proportion | baifenhao" >
     				</router-link>
     			</li>			
     	</ul>
+    	<div class="newpd">
+    		<img src="../../assets/img/xppd.jpg"><img src="../../assets/img/xstq.jpg"></div>
     	<div class="activity-title">
     		<h2>618 瑞家节</h2>
     		<h6>预定抢半价    椅子超低价</h6>
     	</div>
-		<!--<div class="activity">
-				<img src="../../assets/img/b1.jpg"><img src="../../assets/img/b2.jpg">
-		</div>
-     	<div class="floor">
-       		<h3><a href="#">更多></a>电竞椅系列</h3>
+     	<!--<div class="floor">
+       		<h3><a href="#">更多></a><img src=""新品系列</h3>
 	   		<Row  class="goodslist">
-				<Col  :xs="12"  :md="6" >
-						<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
-						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-						<h4 class="color-dx">￥899.00</h4>
-				</Col>
-				<Col  :xs="12"  :md="6" >
-					<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
-						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-						<h4 class="color-dx">￥899.00</h4>
-				</Col>
-				<Col  :xs="12"  :md="6" >
-						<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">
-						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-						<h4 class="color-dx">￥899.00</h4>
-				</Col>
-				<Col  :xs="12"  :md="6" >
-					<img src="../../assets/img/s.jpg" alt="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子"> 
-						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子</a>
-						<h4 class="color-dx">￥899.00</h4>
-				</Col>
-			</Row>
-	    </div>
-       <div class="floor">
-			<h3><a href="#">更多></a>电竞桌系列</h3>
-			<Row  class="goodslist">
-				<Col  :xs="12"  :md="6" >
-						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-						<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-						<h4 class="color-dx">￥1699.00</h4>
-				</Col>
-				<Col  :xs="12"  :md="6" >
-						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-								<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-						<h4 class="color-dx">￥1699.00</h4>
-				</Col>
-				<Col  :xs="12"  :md="6" >
-						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-								<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-						<h4 class="color-dx">￥1699.00</h4>
-				</Col>
-				<Col  :xs="12"  :md="6" >
-						<img src="../../assets/img/s1.jpg" alt="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色">
-								<a title="DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 ">DXRACER 迪锐克斯2017款人体工学游戏桌1000型家用电脑桌电竞桌子简约办公书桌 全黑色 </a>
-						<h4 class="color-dx">￥1699.00</h4>
+				<Col  :xs="12"  :md="6"  v-for="(item,index) in productNew" :key="index">
+							<img  :src='imageSrc + item.model_img'>
+						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">{{item.model_name}}</a>
+						<h4 class="color-dx">￥{{item.sale_price}}</h4>
 				</Col>
 			</Row>
 	    </div>-->
@@ -90,6 +49,7 @@
             return {
                 value3: 0,
                 imageSrc:this.global_.imgurl,
+                loginflag:true,
                 setting: {
                     autoplay: false,
                     autoplaySpeed: 2000,
@@ -99,7 +59,9 @@
                     arrow: 'hover'
                 },
                 Items:[],
-                aditems:[]
+                aditems:[],
+                productNew:[]
+                
             }
         },
         filters:{
@@ -111,7 +73,11 @@
         	gosearch(){
         		this.$router.push('/sort');  
         	},
-    	      	getBanner(){
+    	     getBanner(){
+    	     	//判断是否已经登录
+    	     	 if(sessionStorage.getItem("token")!=undefined&&sessionStorage.getItem("token")!=""){
+    	     	 	this.loginflag=false;
+    	     	 }
     	      		  	this.$axios({
 						    method: 'GET',
 						    url:'/index/poster',
@@ -128,6 +94,14 @@
 							 this.aditems=res.object;
 							}
 						});
+								this.$axios({
+						    method: 'GET',
+						    url:'/index/product/new',
+						}).then((res)=>{
+							if(res.code=='200'){
+							 this.productNew=res.object;
+							}
+						});
     	      	},
     	  
     	},
@@ -139,12 +113,19 @@
 
 <style lang="scss"  scoped="scoped">
  @import '@/styles/color.scss';
+ .index img{
+ 	max-width: 100%;
+ }
  .m_header_bar_menu{
  	position: absolute;
     right: 8px;
     top: 10px;
     color: #fff;
     cursor: pointer;
+ }
+ .newpd img{
+ 	width: 50%;
+ 	cursor: pointer;
  }
   header{
 	 position:fixed;
@@ -166,45 +147,8 @@
 		font-weight: 100;
 	}
 }
-	.index {
-			background: #f5f5f5;
-			img{
-			max-width: 100%;
-			}
-			.series{
-				margin-top:10px;
-				background: #fff;
-				border-top:1px solid $color-border;
-				margin-bottom:15px;
-				text-align: center;
-				padding:10px 0;
-				div{
-					display: flex;
-					align-items: center;
-					flex-direction: column;
-					cursor: pointer;
-				}
-				img{
-					max-width:100%;
-					border-radius: 100%;
-					border:2px solid $color-border;
-					display: block;
-					margin-bottom: 10px;
-				}
-			}
-			.activity{
-				img{
-					margin-bottom:10px;
-				}
-			}
-			.goodslist a {
-				white-space: nowrap;
-				overflow:hidden;
-				text-overflow: ellipsis;
-				display:block;
-				color:$color-default;
-			}
 			.floor{ 
+				margin-top:10px;
 				background: #fff;
 			   .goodslist div{
 				padding:10px;
@@ -214,7 +158,8 @@
 					margin-bottom:8px;
 				}
 				h3{
-				padding:8px 0;
+				padding:10px 0;
+				border-top:1px solid #eee;
 				border-bottom:1px solid #eee;
 					a{
 						float: right;
@@ -223,7 +168,6 @@
 					}
 			}
 			}
-		}
 		@media screen and (max-width: 767px) {
 			.index {
 			 .series{ 

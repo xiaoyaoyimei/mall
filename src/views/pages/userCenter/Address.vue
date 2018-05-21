@@ -5,8 +5,8 @@
 			<span class="m_header_bar_title">收货地址</span>
 		</div>
 			<ul class="address">
-				<li v-for="(item, index) in addressList" @click='chooseDD(item)'>
-				<p><span>{{item.person}} </span><span>{{item.phone}}</span></p>
+				<li v-for="(item, index) in addressList" >
+				<p @click='chooseDD(item)'><span>{{item.person}} </span><span>{{item.phone}}</span></p>
 				<p><span>{{item.receiveProvince}}{{item.receiveCity}}{{item.receiveDistrict}}{{item.address}}</span></p>
 				<p>
 					<span> <Checkbox v-model="item.isDefault" @click.native="updateDefault(item.id)">设为默认</Checkbox></span>
@@ -17,8 +17,7 @@
 				</p>
 				</li>
 			</ul>
-		<div class="addaddress">
-			<router-link  to="/user/addaddress">添加新地址</router-link></div>
+			<router-link  to="/user/addaddress" class="addaddress" tag="div">添加新地址</router-link>
 	</div>
 </template>
 
@@ -80,13 +79,13 @@
        	   handleDelete(value){
        	   	   this.$Modal.confirm({
                     title: '确认删除',
-                    content: '<p>确认删除该条地址</p>',
+                    content: '<p>确认删除该地址</p>',
                     onOk: () => {
                          	this.$axios({
 							    method: 'post',
 							    url:'/address/delete?id='+value+'',
 							}).then((res)=>{
-								if(res.status=='200'){
+								if(res.code=='200'){
 									this.getAddressList();
 								}
 						})

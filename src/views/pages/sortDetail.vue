@@ -26,10 +26,11 @@
         			<span class="title">{{item.attrCode}}:</span> <span class="neirong">{{item.attrValue}}</span></li></ul>
         	</TabPane>
     </Tabs>
-    <div class="foot">
-            <button    :loading="modal_loading" @click="modal2 = true">加入购物车</button>
+    <div class="foot"> <button    :loading="modal_loading" @click="modal2 = true">加入购物车</button>
+    	  <router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon>购物车</router-link>
+         
     </div>
-       	<!--选择商品尺寸颜色-->
+       	<!--弹窗选择商品尺寸颜色-->
     	 <Modal v-model="modal2"  class="chooseModal" :mask-closable="false">
          <div slot="header" >
          	 <div v-if="xiajia" class="xiajia"><Icon type="information-circled">
@@ -50,7 +51,7 @@
         </dl>
         <div>数量 <InputNumber  :min="1" v-model="quantity"></InputNumber></div>
         <div slot="footer">
-        	  <Button  size="large" long    disabled="disabled" v-if="xiajia">加入购物车</Button>
+          <Button  size="large" long    disabled="disabled" v-if="xiajia">加入购物车</Button>
             <Button  size="large" long :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">加入购物车</Button>
         </div>
     </Modal>
@@ -358,5 +359,20 @@
           	padding-right: 15px;
           	cursor: pointer;
           }
+          .cart{
+          	color:#666;
+          	text-align: center;
+          	margin-left: 20px;
+          	font-size: 10px;
+          	float: left;
+          	margin-top: 5px;
+          	i{
+          		display: block;
+          		font-size: 20px;
+          	}
+          }
+}
+.demo-carousel img{
+	max-width: 100%;
 }
 </style>

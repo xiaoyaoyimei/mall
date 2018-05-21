@@ -44,7 +44,6 @@
 	    	getParams () {
 	                // 取到路由带过来的参数 
 	                let routerParams = this.$route.params.orderNo;
-	                console.log(routerParams);
 	                // 将数据放在当前组件的数据内
 	                this.orderNo = routerParams;
 	          },
@@ -71,4 +70,5 @@
 </script>
 
 <style scoped="scoped" lang="scss">
+
 </style>

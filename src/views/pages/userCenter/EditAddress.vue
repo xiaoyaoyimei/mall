@@ -1,7 +1,10 @@
 <template>
 	<div class="order">
-		<h2><router-link to="/user/address"><Icon type="ios-arrow-thin-left"></Icon></router-link>编辑地址
-		<span @click="addSubmit">保存</span></h2>
+			<div class="m_header_bar">
+			<router-link to="/user/address"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">编辑地址</span>
+			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
+		</div>
 	<Form :model="editForm" ref="editForm" label-position="left" :label-width="100" :rules="ruleValidate"  style="background: #fff;"> 
         <FormItem label="收货人" prop="person">
             <Input v-model="editForm.person" placeholder="收货人"></Input>
@@ -70,9 +73,7 @@
 						    method: 'post',
 						    url:'/common/address',
 						}).then((res)=>{
-							if(res.status=='200'){
-							 this.addressOption=res.data;
-							}
+							 this.addressOption=res;
 						});
     	      	},
     	      	addSubmit(){
@@ -99,8 +100,8 @@
 				});
     	      	}
 			    },
-			         mounted() {
-			this.getAddressOption();
+			    mounted() {
+			     this.getAddressOption();
 				this.getParams();
 		}
    }

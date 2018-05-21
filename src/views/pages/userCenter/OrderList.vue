@@ -6,8 +6,9 @@
 			<span class="m_header_bar_menu"></span>
 		</div>
   	<ul class="splist">
-	<li  v-for="(x,index) in cartList" :key="index"  @click="seeDetail(x.order.orderNo)">
-		  <div class="orderno">订单号:{{x.order.orderNo}} <span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></div>
+	<li  v-for="(x,index) in cartList" :key="index"  >
+		   <div @click="seeDetail(x.order.orderNo)"> 
+		   	<div class="orderno">订单号:{{x.order.orderNo}} <span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></div>
 		   <div v-for="(child,i) in x.orderItems" :key="i" class="sphead">
 			<div class="img"><img  :src="child.productItemImg | imgfilter"></div>
 			<div class="xq">
@@ -16,8 +17,9 @@
 			</div>
 			<div class="price">￥{{child.orderFee}}<br/>x {{child.quantity}}</div>
 			</div>
-			<div class="sptitle">合计￥<span>{{x.order.orderTotalFee}}</span></div>
-			<div class="cz" v-if="x.order.orderStatus=='01'"> <button  type="button"  class="btn btn-dx" >去支付</button></div>
+			<div class="sptitle">合计：￥<span>{{x.order.orderTotalFee}}</span></div>
+			</div>
+			<div class="cz" v-if="x.order.orderStatus=='01'"> <button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)">去支付</button></div>
 		</li>
   	</ul>
 	</div>
@@ -34,6 +36,9 @@ export default {
     	}
    	 },
     methods: {
+    	quzhifu(value){
+    		this.$router.push({name:'/cartthree',params:{orderNo:value}});  
+    	},
     	statusfilter(value){
     			for(var i = 0 ;i < this.statusList.length;i++){
 					if(this.statusList[i].key == value){
@@ -42,7 +47,7 @@ export default {
 				}
     	},
 		seeDetail(value){
-				this.$router.push({name:'/user/orderlist/datail',params:{orderNo:value}});  
+			this.$router.push({name:'orderdetail',params:{orderNo:value}});  
 		},
     	getStatusEnum(){
     			this.$axios({
@@ -87,14 +92,16 @@ export default {
 	background: #fff;
 	}
 	}
-	.img{
-		margin-right:10px
-	}
+
 	.splist .sphead{
 		overflow: hidden;
 		padding:10px;
 		background: #fafafa;
 		display: flex;
+
+	}
+	.sphead img{
+		max-width:70px;
 	}
 	.xq{
 	 color:#333;

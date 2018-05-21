@@ -65,13 +65,12 @@ let routes =  [
 				         	name:'orderlist',
 				   			path: 'orderlist',
 				 	   		component:resolve => require(['@/views/pages/userCenter/OrderList.vue'], resolve),
-				 	   		children:[  {
-				         	name:'/user/orderlist/datail',
+				         },
+				      {
+				         	name:'orderdetail',
 				   			path: 'datail',
 				 	   		component:resolve => require(['@/views/pages/userCenter/OrderDetail.vue'], resolve),
-				        		 }]
-				         },
-				       
+				       },
 				         
 					{
 						name:'/user/address',

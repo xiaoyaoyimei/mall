@@ -6,7 +6,7 @@ let fang_={
 						    url:'/account/update',
 						    data:para,
 						}).then((res)=>{
-							if(res.data.code=='200'){
+							if(res.code=='200'){
 							  self.$Message.success('修改成功');
 							  self.$router.go(-1)
 							}

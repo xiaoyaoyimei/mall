@@ -1,7 +1,11 @@
 <template>
 	<div class="order">
-		<h2><router-link  to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon></router-link>修改昵称 <span  @click="handleNick">保存</span></h2>
-		<div>
+		<div class="m_header_bar">
+			<router-link to="/user/myinfo"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">修改昵称  </span>
+			 <span  @click="handleNick" class="m_header_bar_menu">保存</span>
+		</div>
+	<div class="user-con-wrap">
 	     <Input type="text" v-model="name" placeholder="请输入昵称" >
 	     </Input>
 	     <span class="color-gray">2-40个字符，可由中英文、数字、"_"、"-"组成</span>

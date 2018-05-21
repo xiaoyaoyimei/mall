@@ -13,7 +13,6 @@
 			<label v-if="userinfo.sex === 'M'">男</label>	<label  v-else-if="userinfo.sex === 'F'">女</label>	<label  v-else>保密</label>	  > </span></router-link></li>
 				<li><span>出生日期</span> 
 					<span > 
-			
 		   <label v-if="!show">
 		   	<DatePicker type="date" confirm placeholder="Select date" style="width: 200px"
 		   @on-ok="handleOk"  :value="userinfo.birthday"  @on-change="handleChange"></DatePicker>
@@ -47,7 +46,7 @@
 					    method: 'post',
 					    url:'/account',
 					}).then((res)=>{
-						this.userinfo = Object.assign({},res.data);
+						this.userinfo =res;
 					});
 	      	},
 	      	 handleChange(date) {
@@ -68,7 +67,7 @@
 						    url:'/account/update',
 						    data:{'birthday':this.userinfo.birthday}
 						}).then((res)=>{
-							if(res.data.code=='200'){
+							if(res.code=='200'){
 							 this.$Message.success('修改成功');
 							  this.show=!this.show;
 							}

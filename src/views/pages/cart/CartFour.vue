@@ -2,7 +2,6 @@
 	<div>
 		订单支付成功 
 		查看已支付订单
-		
 	</div>
 </template>
 
@@ -15,6 +14,7 @@
     },
     methods: {
       getParams () {
+      	debugger
         // 取到路由带过来的参数 
         let routerParams = this.$route.fullPath
         let n= routerParams.indexOf('?')

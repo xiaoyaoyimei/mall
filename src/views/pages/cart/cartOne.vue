@@ -6,6 +6,7 @@
 			<span  @click="edit" v-show="editface" class="m_header_bar_menu">编辑</span>
 			<span  @click="edit" v-show="!editface"  class="m_header_bar_menu">完成</span>
 		</div>
+		<div v-if="cartList.length>0">
 		<Row>
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
 		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index"> 
@@ -41,11 +42,16 @@
 							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
 								结算({{zslcount}})
 							</i-button>
-							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">删除</Button>
+							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">清空购物车</Button>
 						</Col>
 					</Col>
 				</Row>
 			</div>
+			</div>
+				<div class="cart-empty"  v-else>
+			<div></div><img src="../../../assets/img/cartempty.png">购物车是空的
+			<router-link to="/index"  >去首页</router-link>
+		</div>
 	</div>
 </template>
 
@@ -133,8 +139,27 @@ export default {
 		         sessionStorage.setItem('cart', JSON.stringify(goumai)); 
 				 this.$router.push({ name:'/carttwo'});
 			},
+			
 			remove(){
-
+				  this.$Modal.confirm({
+                    title: '清空购物车提示',
+                    content: '<p>您确定清空购物车</p>',
+                    cancelText: '取消',
+                     onOk: () => {
+                       	this.$axios({
+							    method: 'post',
+							    url:'/order/shopping/clear',
+								}).then((res)=>{
+									if(res.code==200){
+										this.cartList=[];
+									}
+							});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('取消成功');
+                    }
+                });
+              	
 			},
             handleCheckAll () {
                 if (this.indeterminate) {
@@ -285,6 +310,13 @@ export default {
 				bottom: 0px;
 				left: 0;
 				width: 100%;
+		}
+	}
+	.cart-empty {
+		text-align: center;
+		font-size: 14px;
+		img{
+		max-width:100px;
 		}
 	}
 </style>

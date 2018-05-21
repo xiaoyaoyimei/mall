@@ -2,7 +2,10 @@
 	<div class="user">
 		<div class="user-header">
 			<div class="portrait">
-				 	<router-link :to="{path: '/user/myinfo'}"> <img :src="userinfo.iconUrl" class="tx" >		</router-link>
+				 	<router-link :to="{path: '/user/myinfo'}"  class="tx"> 
+				 		<img :src="userinfo.iconUrl"  v-if="userinfo.iconUrl">	
+				 	<img src="../../../assets/img/de-tx.jpg" v-else>
+				 	</router-link>
 				    <span class="color-white"  >
 				    </span>
 				<span class="shdz">
@@ -14,17 +17,12 @@
 		<div class="integral"><span>积分 0</span><router-link class="discount" :to="{ name: '/sort'}">去购物车抵扣     ></router-link></div></div>
 	 <div class="myorder">
 	 	<h3>我的订单<router-link :to="{ path: '/user/orderlist'}" tag="span" class="more">查看更多订单></router-link></h3>
-	  	<!--<router-link :to="{ path: '/user/orderlist', query: { tabname: '待付款' }}"><img  src="../../../assets/img/待付款.png"><p>待付款</p></router-link>
-		<router-link :to="{ path: '/user/orderlist', query: { tabname: '待发货'}}"><img  src="../../../assets/img/待发货.png"><p>待发货</p></router-link>
-		<router-link :to="{ path: '/user/orderlist', query: { tabname: '待收货' }}"><img  src="../../../assets/img/待收货.png"><p>待收货</p></router-link>
-		<router-link :to="{ path: '/user/orderlist', query: { tabname: '已完成' }}"> <img  src="../../../assets/img/已完成.png"><p>已完成</p></router-link>
-		<router-link :to="{ path: '/user/orderlist', query: { tabname: '售后' }}"> <img  src="../../../assets/img/售后.png"><p>售后</p></router-link>-->
    </div>
    <ul class="order-list"> 
    	<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
    		<router-link :to="{ path: '/user/couponcenter' }" tag="li"><img  src="../../../assets/img/a2.png">领券中心<i>></i></router-link>	
-   <router-link :to="{ path: '/user/mylove' }" tag="li"><img  src="../../../assets/img/a3.png">我的收藏<i>></i></li></router-link>	
-   	<li><img  src="../../../assets/img/a4.png">在线客服<i>></i></li>
+   			<router-link :to="{ path: '/user/mylove' }" tag="li"><img  src="../../../assets/img/a3.png">我的收藏<i>></i></li></router-link>	
+   		<li><img  src="../../../assets/img/a4.png">在线客服<i>></i></li>
    		<li><img  src="../../../assets/img/a5.png">联系我们<i>></i></li>
    		<li><img  src="../../../assets/img/a6.png">关于我们<i>></i></li>
    </ul>
@@ -32,6 +30,7 @@
 </template>
 
 <script>
+	
 	export default {
 	    data () {
 	        return {
@@ -71,7 +70,7 @@
  		padding-top:30px;
  		overflow:hidden;
  		padding-bottom:30px;
- 		.tx{
+ 		.tx img{
  			width:60px;
  			border:2px solid #fff;
  			border-radius: 60px;
