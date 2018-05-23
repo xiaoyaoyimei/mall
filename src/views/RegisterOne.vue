@@ -8,20 +8,11 @@
 	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
            <FormItem label="手机号" prop="loginName">
             <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.loginName'></Input>
-               <!--<Button type="primary" :loading="loadingtx"  @click="getTx">
-	        <span v-if="!loadingtx">获取图形码</span>
-	        <span v-else>Loading...</span>
-   			 </Button>-->
-          
         </FormItem>
            <FormItem label="图形验证码" prop="verificationCode">
-      <Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码"></Input>
-             <img  :src="verimg"  @click="getTx"/>
-                  <!--<Button type="primary" :loading="loadingDx"   @click="getDx">
-	        <span v-if="!loadingDx">获取短信验证码</span>
-	        <span v-else>Loading...</span>
-   			 </Button>-->
-        </FormItem>
+            <Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="w90"></Input>
+             <img  :src="verimg"  @click="getTx" class="txm"/>
+      		  </FormItem>
         <FormItem label="短信验证码" prop="shortMessage">
             <Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码"></Input>
         </FormItem>
@@ -69,7 +60,7 @@
                 },
                 ruleValidate: {
                     passWord:[
-                      { required: true, message: 'The passWord cannot be empty', trigger: 'blur' }
+                      { required: true, message: '密码不能为空', trigger: 'blur' }
                     ],
                     loginName:[
                       { required: true, validator: validateName, trigger: 'blur' }
@@ -78,7 +69,7 @@
                      { required: true, validator: validateYZM, trigger: 'blur' }
                     ],
                     shortMessage:[
-                     { required: true, message: 'The shortMessage cannot be empty', trigger: 'blur' }
+                     { required: true, message: '短信验证码', trigger: 'blur' }
                     ]
                },
           }
@@ -91,6 +82,7 @@
           			this.$Message.error('手机号不能为空!');
           			this.loadingDx = false;
           		}else{
+          			
           		this.$axios({
 					    method: 'post',
 					    url:'/customer/register/shortmessage',
@@ -102,6 +94,7 @@
 						     if (res.code !== 200) {
 		                 		 this.$Message.error(res.msg);
 		              		} 
+		              		
 							this.loadingDx = false;
 					});
 					}
@@ -124,7 +117,7 @@
 								              if (code !== 200) {
 								                this.$Message.error(res.msg);
 								              } else {
-								                this.$router.push({ path: '/Login' ,params: { loginName: this.regiForm.loginName }});
+								                this.$router.push({ path: '/Login' ,params: { loginName: this.regiForm.loginName ,passWord: this.regiForm.passWord}});
 								              }
 							});
 							}
@@ -139,9 +132,17 @@
 
 <style scoped="scoped" lang="scss">
 .login i{
-	font-size: 1.25rem;
+	font-size: 2.5rem;
 	color:#333;
 	font-weight: bold;
+}
+.w90{
+	width:9rem;
+	float: left;
+	margin-right:1rem;
+}
+.txm{
+	height:2.8rem;
 }
 </style>
 <style>

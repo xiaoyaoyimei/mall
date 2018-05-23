@@ -33,7 +33,7 @@
 </template>
 
 <script>
-	    import { validatePhone } from '@/utils/validate';
+	 import { validatePhone } from '@/utils/validate';
 	  export default {
         data () {
         	 const validateName = (rule, value, callback) => {
@@ -135,11 +135,10 @@
 
 <style scoped="scoped" lang="scss">
 	.reg{
-		padding: 20px;
+		padding: 2rem;
 		h3{
-			margin-bottom: 20px;
+			margin-bottom: 2rem;
 		}
-	
 	}
 	
 </style>

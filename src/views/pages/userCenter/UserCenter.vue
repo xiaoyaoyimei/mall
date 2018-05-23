@@ -16,7 +16,7 @@
 			</div>
 		<div class="integral"><span>积分 0</span><router-link class="discount" :to="{ name: '/sort'}">去购物车抵扣     ></router-link></div></div>
 	 <div class="myorder">
-	 	<h3>我的订单<router-link :to="{ path: '/user/orderlist'}" tag="span" class="more">查看更多订单></router-link></h3>
+	 	<h3><img src="../../../assets/img/order.png">我的订单<router-link :to="{ path: '/user/orderlist'}" tag="span" class="more">查看更多订单></router-link></h3>
    </div>
    <ul class="order-list"> 
    	<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
@@ -94,16 +94,22 @@
  	}
  }
 	.myorder {
-	 	background: #fff;
+	 
 	 	overflow: hidden;
 	 	h3{
-	 		border-bottom:1px solid $color-border;
-	 		padding: 10px 0;
+	 			background: #fff;
+	 		padding: 1rem ;
 	 		font-weight: normal;
-	 		text-indent: 10px;;
+	 		font-size: 1.4rem;
+	 		img{
+	 			width:2rem;
+	 			height: 2rem;
+	 			float: left;
+	 			margin-right: 1.5rem;
+	 		}
 	 	}
 	 	a{
-	 		padding: 10px 0;
+	 		padding: 1rem 0;
 	 		display: inline-block;
 	 		width:20%;
 	 		float: left;
@@ -119,7 +125,6 @@
 	 	.more{
 	 		float: right;
 	 		cursor: pointer;
-	 		margin-right:10px;
 	 	}
 	 	.integral{
 	 		background: rgba(168,168,168,0.1);

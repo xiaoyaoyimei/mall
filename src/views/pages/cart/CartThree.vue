@@ -1,7 +1,6 @@
 <template>
 	<div >
 			<div class="m_header_bar">
-			<router-link   class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">支付方式</span>
 			<router-link  to="/user/orderlist" tag="span" class="m_header_bar_menu">订单</router-link>
 		</div>
@@ -12,7 +11,7 @@
 			  	<li><img  src="../../../assets/img/alipay.png">支付宝支付<i><input type="radio" name="zffs"  v-model="formValidate.payType" value="alipay" > </i></li>
 			  </ul>
 		  </FormItem>
-		    <Button type="success" long  @click="handleSubmit('formValidate')">去支付</Button>
+		   <div  class="button_submit"> <Button type="success" long  @click="handleSubmit()">去支付</Button></div>
     	</Form>
     	<!--<form ref="formValidate"  action='/order/'>
 			  <ul class="order-list">
@@ -47,8 +46,8 @@
 	                // 将数据放在当前组件的数据内
 	                this.orderNo = routerParams;
 	          },
-         handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
+         handleSubmit () {
+                this.$refs['formValidate'].validate((valid) => {
                     if (valid) {
                         this.$axios({
 						    method: 'post',
@@ -70,5 +69,7 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-
+.button_submit {
+	margin: 0 1rem;
+}
 </style>

@@ -19,27 +19,28 @@
     	</Carousel>
         <ul class="ad-list">
   		 <li v-for="(item,index) in aditems" :key="index" >
-    			 <router-link :to="{name: '/sort',params:{keyword:child.linkUrl}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
+    			 <router-link :to="{name: '/typesort',params:{type:child.linkUrl}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
     			 	<img  :src="imageSrc+child.imgUrl"  :width="child.proportion | baifenhao" >
     				</router-link>
     			</li>			
     	</ul>
     	<div class="newpd">
-    		<img src="../../assets/img/xppd.jpg"><img src="../../assets/img/xstq.jpg"></div>
-    	<div class="activity-title">
-    		<h2>618 瑞家节</h2>
-    		<h6>预定抢半价    椅子超低价</h6>
-    	</div>
-     	<!--<div class="floor">
-       		<h3><a href="#">更多></a><img src=""新品系列</h3>
-	   		<Row  class="goodslist">
-				<Col  :xs="12"  :md="6"  v-for="(item,index) in productNew" :key="index">
-							<img  :src='imageSrc + item.model_img'>
-						<a title="迪锐克斯（DXRACER）F01电脑椅子 可转办公椅 人体工学椅 电竞椅 红黑 游戏椅子">{{item.model_name}}</a>
-						<h4 class="color-dx">￥{{item.sale_price}}</h4>
+    		<router-link :to="{path: '/newchannel'}"   >
+    			<img src="../../assets/img/xppd.jpg" >
+    				  </router-link>
+    			<img src="../../assets/img/xstq.jpg">
+    	  </div>
+    	  <span class="xptj">为你推荐</span>
+    	<Row  class="goodslist">
+				<Col  :xs="12"  :md="6"  v-for="(item,index) in proList" :key="index">
+					<label>{{item.promotionTitle}}</label>
+					<router-link  tag="a" :title='item.model_name' :to="{ path: '/sort/sortDetail',query:{id:item.id} }"><img  :src='item.model_img |imgfilter'>
+					<span>{{item.model_name}}</span>
+					<h4 >￥{{item.sale_price}}</h4>
+					</router-link>
 				</Col>
 			</Row>
-	    </div>-->
+    	  
 	</div>
 </template>
 
@@ -60,7 +61,8 @@
                 },
                 Items:[],
                 aditems:[],
-                productNew:[]
+                productNew:[],
+                proList:[]
                 
             }
         },
@@ -75,7 +77,7 @@
         	},
     	     getBanner(){
     	     	//判断是否已经登录
-    	     	 if(sessionStorage.getItem("token")!=undefined&&sessionStorage.getItem("token")!=""){
+    	     	 if(localStorage.getItem("token")!=undefined&&localStorage.getItem("token")!=""){
     	     	 	this.loginflag=false;
     	     	 }
     	      		  	this.$axios({
@@ -96,12 +98,13 @@
 						});
 								this.$axios({
 						    method: 'GET',
-						    url:'/index/product/new',
+						    url:'/index/index/product',
 						}).then((res)=>{
 							if(res.code=='200'){
-							 this.productNew=res.object;
+							 this.proList=res.object;
 							}
 						});
+						
     	      	},
     	  
     	},
@@ -123,9 +126,14 @@
     color: #fff;
     cursor: pointer;
  }
+  .newpd {
+  	overflow: hidden;
+  	margin-bottom: 10px;
+  }
  .newpd img{
  	width: 50%;
  	cursor: pointer;
+ 	float: left;
  }
   header{
 	 position:fixed;
@@ -134,9 +142,14 @@
 	 z-index:10;
 	 width:100%;
  }
-  /*.ad-list{
-  	display: flex;
-  }*/
+.xptj{
+	color:$color-dx;
+	text-align: center;
+	padding: 0.5rem;
+	display: block;
+	letter-spacing:1rem;
+	font-size: 1.6rem;
+}
 .activity-title{
 	text-align: center;
 	background: #fff;

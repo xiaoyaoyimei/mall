@@ -90,10 +90,11 @@
 							 if(res.length>0){
 							 	res.map(function (i) {
 							 		if(i.isDefault=='Y'&&JSON.stringify(_this.addressList) == "{}"){
-							 			_this.addressList=i
+							 			_this.addressList=i;
+							 			 _this.youdizhi=true
 							 		}
 							 	});
-								 this.youdizhi=true
+								
 							}
 						});
 		      },

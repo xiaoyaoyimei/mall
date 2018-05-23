@@ -1,7 +1,9 @@
 <template>
 	<div class="sort1 ">
 		<div class="header-home-wrapper sort-box">
-			<router-link to="/index"  class="icon-back"><Icon type="ios-arrow-back"></Icon></router-link>
+		    <router-link to="/index"  class="icon-back">
+				<Icon type="ios-arrow-back"></Icon>
+		    </router-link>
 		<div class="SearchBarWrapper">
 		<div class="search">
 		<img src="../../assets/img/search.png" class="search-form-icon">
@@ -13,29 +15,46 @@
 		<button class="search-button"  @click="getList()" type="button">搜索</button>
 		</div>
 		 <Row type="flex" justify="space-between" class="code-row-bg">
-        <Col span="4">综合</Col>
-        <Col span="4">销量</Col>
-        <Col span="4">价格</Col>
-        <Col span="4">筛选</Col>
-    </Row>
-		 <Scroll class='scroll' :on-reach-bottom="handleReachBottom" :height='600'>
-		<Row class="sRow product">
-				<Col :xs="12"  class="sMar"  :md="6"   v-for="(item, index) in productList" :key='index'>
-					<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
-						<img  :src='imageSrc + item.model_img'>
-						<p class="sP">{{item.series_name}}
-						</p>
-						<h6 class="sh6">{{item.sale_price}}<small class="sSmall">已售68件</small></h6>
-					</router-link>
-				</Col>
-		</Row>
-		</Scroll>
+	        <Col span="4" v-bind:class="{ active: isActive }">综合</Col>
+	        <Col span="4" v-bind:class="{ active: isActive }">销量</Col>
+	        <Col span="4" v-bind:class="{ active: isActive }">价格</Col>
+	        <Col span="4" v-bind:class="{ active: isActive }">筛选</Col>
+   	   	</Row>
+   	   <!--
+          	作者：1206902591@qq.com
+          	时间：2018-05-22
+          	描述：spin加载中
+          -->
+   	     <Col class="demo-spin-col" >
+		   	<Scroll class='scroll scrollheight' :on-reach-bottom="handleReachBottom"  >
+				<div class="product">
+						<div   class="spdetail"    v-for="(item, index) in productList" :key='index'>
+							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
+								<img  :src='imageSrc + item.model_img'>
+							   <div>	<p class="sP">{{item.model_name}}
+								</p>
+								<p>{{item.type_name}}</p>
+								<p>
+									<span v-if="item.promotionTitle !=null" class="promotion">{{item.promotionTitle}}</span>
+									<span v-else></span>
+								</p>
+								<h6 class="sh6">{{item.sale_price}}</h6>
+								</div>
+							</router-link>
+						</div>
+				</div>
+			</Scroll>
+		      <Spin fix size="large" v-if="spinShow">
+                <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+                <div>Loading</div>
+            </Spin>
+		</Col>
 		<back-top :height="50" :bottom="100">
     	</back-top>
 	</div>
 </template>
 <script>
-	// 节流函数
+		// 节流函数
 	const delay = (function() {
 	let timer = 0;
 	return function(callback, ms) {
@@ -51,41 +70,37 @@
 				startRow:0,
 				pageSize:10,
 				keyword:'',
+				spinShow:false,
+				isActive:false,
 			}
 			
 		},
 		name: 'scroll-top',
 		methods:{
-			getMockData () {
-            },
-            getTargetKeys () {
-
-            },
-            handleChange2 (newTargetKeys) {
-                this.targetKeys2 = newTargetKeys;
-            },
-            filterMethod (data, query) {
-                return data.label.indexOf(query) > -1;
-            },
 			getList(){
+				this.spinShow=true;
 				 let routerParams = this.$route.params.keyword;
+				  this.productList=[];
                 // 将数据放在当前组件的数据内
                 if(routerParams!=""&&routerParams!=undefined){
                  this.keyword = routerParams;
                 }
-				this.$axios({
+      
+                	  	this.$axios({
 					method: 'GET',
 					url:'/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
 				}).then((res)=>{
 					this.productList = res.itemsList;
+					this.spinShow=false;
 				})
+                
+			
 			},
 			top(){
 				document.querySelector(".ivu-scroll-container").scrollTop = 0; 
 			},
 			handleReachBottom (dir) {
 				this.startRow=this.startRow+10;
-				console.log(this.startRow)
                 return new Promise(resolve => {
                     this.$axios({
 						method: 'GET',
@@ -93,24 +108,21 @@
 						}).then((res)=>{
 							var arr = this.productList.concat(res.itemsList);
 							this.productList = arr;
-							console.log(this.productList)
-							
 						})
 						resolve();
                 });
 			},
-			async fetchData(val) {
+				async fetchData(val) {
 				const res = await this.$axios({
-					url: '写上你的URL',
+					url: '/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
 					method: 'GET',
-					params: { title: this.title },
 				});
-				this.search = res.list;
+				this.productList = res.itemsList;
 			},
 		},
 		watch: {
 		//watch title change
-			title() {
+			keyword() {
 			delay(() => {
 				this.fetchData();
 			}, 600);
@@ -124,6 +136,14 @@
 
 <style lang="scss" scoped="scoped">
  @import '@/styles/color.scss';
+ .promotion{
+ 	    border: 1px solid #d32122;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: #d32122;
+ }
  header{
 	 position:fixed;
 	 top:0px;
@@ -137,56 +157,17 @@
 }
 .code-row-bg{
 	background: #fff;
-	padding: 8px 0;
+	padding: 0.8rem 0;
 	text-align: center;
-	color:#222;
-	font-weight: 600;
-	 border-top: 1px solid #eee;
-	  border-bottom: 1px solid #eee;
+	color:#333;
+	  font-size: 1.4rem;
 }
 .top{
-	 padding: 10px;
+	   padding: 1rem;
         background: rgba(0, 153, 229, .7);
         color: #fff;
         text-align: center;
-        border-radius: 2px;
+        border-radius: 0.2rem;
     }
-.sMar{
-	margin-top:0.2em;
-	box-sizing:border-box;
-	margin-bottom: 5px;
-  background: #fff;
-	a{
-		margin-top:-0.2em;
-		box-sizing:border-box;
-		width:100%;
-		display: block;
-		padding: 5px;
-		img{
-			max-width:100%;
-		}
-	}
-}
-.sP{
-	color:$color-default;
-	text-align:left;
-	font-size:1.2em;
-	line-height:1.5em;
-	background-color:$color-white;
-}
-.sh6{
-	color:$color-dx;
-	text-align:left;
-	font-size:0.8em;
-	background-color:$color-white;
-	padding-bottom:0.5em;
-	overflow:hidden;
-}
-.sSmall{
-	color:$color-gray;
-	font-size:0.3em;
-	font-weight:normal;
-	float:right;
-	padding-right:0.25em;
-}
+
 </style>

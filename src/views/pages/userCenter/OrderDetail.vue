@@ -22,7 +22,7 @@
 		   		<p>
 		   			<span class="title">{{item.productTitle}}</span>
 		   			<span>{{item.productAttrs}}</span>
-		   			<span class="price">{{item.productFee}}</span></p>
+		   			<span class="price">￥{{item.productFee}}</span></p>
 		   	</li>
 		   	</ul>
 		   	  <div class="sp">
@@ -34,8 +34,9 @@
 		   			<span>发票内容：</span>
 		   		</div>
 		   	<ul class="sptotal">
-		   	<li>	<span class="t">商品总额</span><span class="s">{{orderdetail.shippingOrder.orderTotalFee}}</span></li>
+		   	<li>	<span class="t">商品总额</span><span class="s">{{orderdetail.shippingOrder.productFee}}</span></li>
 		   	<li>	<span class="t">运费</span><span class="s">+{{orderdetail.shippingOrder.postageFee}}</span></li>
+		   	 	<li>	<span class="t">商品优惠</span><span class="s">-{{orderdetail.shippingOrder.discountFee}}</span></li>
 		    		<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">{{orderdetail.shippingOrder.paiedFee}}</label></span></li></ul>
 		   </div>
 	</div>

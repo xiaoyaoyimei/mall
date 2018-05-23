@@ -10,14 +10,14 @@ mutations:{
 	set_token(state, payload) {  
 	state.token = payload.token  
 	state.userId = payload.userId  
-	sessionStorage.token = payload.token   
-	sessionStorage.userId = payload.userId   
+	localStorage.token = payload.token   
+	localStorage.userId = payload.userId   
 	},  
 	del_token(state) {  
 	state.token = ''  
 	state.userId = ''
-	sessionStorage.removeItem('token')  
-	sessionStorage.removeItem('userId')  
+	localStorage.removeItem('token')  
+	localStorage.removeItem('userId')  
 	},
 	}  
 })  

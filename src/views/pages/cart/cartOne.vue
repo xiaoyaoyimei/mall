@@ -11,20 +11,17 @@
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
 		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index"> 
         			<Col class='cartcheckbok' span="2">
-        			<Checkbox  :label="index"></Checkbox></Col>
+        			<Checkbox  :label="index" :key="index"></Checkbox></Col>
 					<Col span="4" ><img class='cartImg' :src="imageSrc+x.image"></Col>
-					<Col span="11">
+					<Col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
 						<p class='cart_gray'>{{x.productAttr}}</p>
-						<p class='cart_price'>￥{{x.salePrice}}</p>
-					</Col>
-					<Col span="7">
-						<p class='cart_qua'>
+						<div class='cart_price'>￥{{x.salePrice}}	
 							<div class="min-add">
 						    <Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
 						     <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
 						  <Icon type="plus-round" @click.native="jia(x,index)" class="add"></Icon>
-						</div>
+						</div></div>
 					</Col>
 				</Col>
 			</Checkbox-group>
@@ -48,8 +45,8 @@
 				</Row>
 			</div>
 			</div>
-				<div class="cart-empty"  v-else>
-			<div></div><img src="../../../assets/img/cartempty.png">购物车是空的
+			<div class="cart-empty"  v-else>
+			<img src="../../../assets/img/cartempty.png">购物车是空的
 			<router-link to="/index"  >去首页</router-link>
 		</div>
 	</div>
@@ -62,7 +59,7 @@ export default {
             	imageSrc:this.global_.imgurl,
                 indeterminate: true,
                 checkAll: false,
-				checkAllGroup: [],
+				checkAllGroup:[],
 				totalPrice:0,
 				cartList:[],
 				editface:true,
@@ -78,7 +75,7 @@ export default {
 					 if(this.temp.indexOf(index)<0){
 					     		this.temp.push(index)
 					     	}
-					     	   this.checkAllGroup=this.temp;
+					        this.checkAllGroup=this.temp;
 							this.checkAllGroupChange(this.temp);
 					},
 					//添加
@@ -123,8 +120,6 @@ export default {
 			edit(){
 				this.editface=!this.editface;
 			},
-			edit1(){
-			},
 			paymoney(){
 				if(this.checkAllGroup.length<1){
 					 this.$Message.warning('您尚未选择任何商品');
@@ -139,7 +134,6 @@ export default {
 		         sessionStorage.setItem('cart', JSON.stringify(goumai)); 
 				 this.$router.push({ name:'/carttwo'});
 			},
-			
 			remove(){
 				  this.$Modal.confirm({
                     title: '清空购物车提示',
@@ -212,6 +206,10 @@ export default {
 
 <style  lang="scss" >
  	@import '@/styles/color.scss';
+ 	 	.min-add{
+ 	    float: right;
+ 	    padding-right: 1rem;
+ 	    }
  	.min-add .min,.min-add .add{
  		    color: #333;
     font-weight: bold;
@@ -237,12 +235,12 @@ export default {
 		}
 		.cartCol{
 			background-color:$color-white;
-			margin-bottom:5px;
-			padding-bottom:10px;
+			margin-bottom:0.5rem;
+			padding-bottom:1rem;
+			padding-left: 1rem;
 			.cartcheckbok{
 				height:16px;
 				margin-top:5%;
-				padding-left:10px;
 				overflow:hidden;
 				.ivu-checkbox-wrapper{
 					width:16px;
@@ -256,15 +254,15 @@ export default {
 			}
 			.cartImg{
 				max-width:100%;
-				padding-top:15px;
+				padding-top:1.5rem;
 			}
 			.cart_black{
+				padding-right: 1rem;
 				color:$color-default;
 				text-align: left;
-			    padding-left: 20px;
 			    box-sizing: border-box;
-			    font-size: 14px;
-			    padding-top: 15px;
+			    font-size: 1.6rem;
+			    padding-top: 1.5rem;
 			    text-overflow: ellipsis;
 			    white-space: nowrap;
 			    overflow: hidden;
@@ -272,14 +270,12 @@ export default {
 			.cart_gray{
 				text-align:left;
 				color:$color-gray;
-				padding-left:20px;
 				box-sizing:border-box;
 				font-size:12px;
 			}
 			.cart_price{
-		   margin-top:5px;
+		    margin-top:5px;
 				color:$color-dx;
-				padding-left:20px;
 			}
 			.color-dx{
 				color:$color-dx;
@@ -290,7 +286,7 @@ export default {
 			}
 			.cartButton{
 				border-radius:0px;
-				padding:15px 25px;
+				padding:1.5rem 2.5rem;
 				.font-dx{
 					color:$color-white;
 				}
@@ -313,10 +309,17 @@ export default {
 		}
 	}
 	.cart-empty {
+		padding-top:1rem;
 		text-align: center;
-		font-size: 14px;
+		font-size: 1.6rem;
 		img{
-		max-width:100px;
+		max-width:10rem;
+		}
+		a{
+			display: block;
+			color:$color-dx;
+			margin-top: 1rem;
+			text-decoration: underline;
 		}
 	}
 </style>

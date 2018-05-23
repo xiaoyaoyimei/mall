@@ -2,7 +2,7 @@
 	<div class="order">
 		<div class="m_header_bar">
 			<router-link to="/user/address"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">添加新地址</span>
+			<span class="m_header_bar_title">新建收货地址</span>
 			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
 		</div>
 	<Form :model="addForm" ref="addForm" label-position="left" :label-width="100" :rules="ruleValidate"  style="background: #fff;"> 
@@ -101,14 +101,15 @@
   	padding:10px 0;
   	cursor: pointer;
   }
-  .address{
-  	text-align: center;
-  	color:#666;
-  	margin-top:60px;
-  }
   .ivu-form-item{
   	border-bottom: 1px solid #eee;
   	padding: 10px;
   	margin-bottom:0;
+  }
+  
+</style>
+<style>
+	.ivu-form .ivu-form-item-label{
+  	font-size:1.6rem
   }
 </style>

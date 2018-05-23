@@ -3,6 +3,7 @@
 		<div class="m_header_bar">
 			<Icon type="ios-arrow-back"  @click.native="back"  class="m_header_bar_back"></Icon>
 			<span class="m_header_bar_title">收货地址</span>
+			<span  class="m_header_bar_menu"></span>
 		</div>
 			<ul class="address">
 				<li v-for="(item, index) in addressList" >
@@ -17,7 +18,7 @@
 				</p>
 				</li>
 			</ul>
-			<router-link  to="/user/addaddress" class="addaddress" tag="div">添加新地址</router-link>
+			<router-link  to="/user/addaddress" class="addaddress" tag="div">+ 添加新地址</router-link>
 	</div>
 </template>
 
@@ -110,7 +111,7 @@
     bottom:0;
     background: #ed1844;
     width: 100%;color:#fff;
-    padding:10px 0;
+    padding:1rem 0;
     cursor: pointer;
     text-align: center;
     a{
@@ -118,12 +119,24 @@
     }
   }
   .address { 
-    background: #fff;
-    padding:10px;
-    font-size: 14px;
-         li p{
+    font-size: 1.6rem;
+         li 
+         {
+         	padding:1rem;
+         	  margin-bottom: 1rem;
+         	    background: #fff;
+         	  border-bottom:1px solid #eee;  
+         	p{
             display: flex;
-            padding:3px 0
+            padding:0.3rem 0;
+          
+            }
+            p:first-child{
+            	color:#222;
+            }
+            p:last-child{
+            	border-top:1px solid #eee;
+            	padding-top:1rem;
             }
             label{
                 cursor: pointer;
@@ -132,9 +145,10 @@
                 flex:1
                 }
                 i{
-                    margin-left:10px;
-                    margin-right:5px;
+                    margin-left:1rem;
+                    margin-right:0.5rem;
                     
                 }
+          }
           }
 </style>

@@ -32,8 +32,8 @@
         };
         return {
           loginForm: {
-            loginName: '18811996471',
-            passWord: '1'
+            loginName: '',
+            passWord: ''
           },
           loginRules: {
             loginName: [
@@ -59,7 +59,8 @@
 	        // 取到路由带过来的参数 
 	        let routerParams = this.$route.params.loginName
 	        // 将数据放在当前组件的数据内
-	        this.loginName = routerParams
+	        this.loginName = routerParams;
+	        this.passWord=this.$route.params.passWord;
      	 },
         handleLogin() {
           this.$refs.loginForm.validate(valid => {
