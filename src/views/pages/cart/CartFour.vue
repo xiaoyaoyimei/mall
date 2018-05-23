@@ -25,7 +25,7 @@
 							    url:'/order/alipay/check'+payparams,
 								}).then((res)=>{
 									if(res.code=='200'){
-											this.$router.push({push:'/order/detail',params:{orderNo:res.msg}})
+										 this.$router.push({ name:'/order/detail',params:{orderNo:res.msg}});
 									}
 							});
       },

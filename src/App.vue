@@ -18,6 +18,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   height:100vh;
   background: #f6f6f6;
+  font-size: 1.4rem;
 }
 ul,li{
 	list-style: none;

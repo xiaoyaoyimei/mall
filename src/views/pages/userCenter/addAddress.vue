@@ -95,15 +95,15 @@
   .addaddress{
   	position: fixed;
   	bottom:0;
-  	background: #ed1844;
+  	background: #d32122;
   	width: 100%;color:#fff;
   	text-align: center;
-  	padding:10px 0;
+  	padding:1rem 0;
   	cursor: pointer;
   }
   .ivu-form-item{
   	border-bottom: 1px solid #eee;
-  	padding: 10px;
+  	padding: 1rem;
   	margin-bottom:0;
   }
   

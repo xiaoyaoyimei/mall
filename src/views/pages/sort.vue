@@ -26,7 +26,7 @@
           	描述：spin加载中
           -->
    	     <Col class="demo-spin-col" >
-		   	<Scroll class='scroll scrollheight' :on-reach-bottom="handleReachBottom"  >
+		   	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height="600">
 				<div class="product">
 						<div   class="spdetail"    v-for="(item, index) in productList" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">

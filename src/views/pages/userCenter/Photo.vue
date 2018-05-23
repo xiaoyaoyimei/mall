@@ -29,8 +29,8 @@
         multiple
         type="drag"
        :action="uploadUrl"
-        style="display: inline-block;width:58px;">
-        <div style="width: 58px;height:58px;line-height: 58px;">
+        style="display: inline-block;width:5.8rem;">
+        <div style="width: :5.8rem;height::5.8rem;line-height: :5.8rem;">
             <Icon type="camera" size="20"></Icon>
         </div>
            </Upload> 
@@ -87,8 +87,7 @@
 
 <style scope='scope'>
 .series1 img{
-	margin-left:10px;
-  width:62px;
+	margin-left:1rem;
+  width:6.2rem;
 }
-
 </style>

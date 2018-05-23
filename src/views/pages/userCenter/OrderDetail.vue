@@ -18,7 +18,7 @@
 		 
 		   	<ul class="spitem">
 		    <li v-for="(item,index) in orderdetail.shippingOrderItems" :key="index">
-		   		<img :src="imageSrc+item.productItemImg">
+		   		<img :src="item.productItemImg | imgfilter">
 		   		<p>
 		   			<span class="title">{{item.productTitle}}</span>
 		   			<span>{{item.productAttrs}}</span>
@@ -35,9 +35,9 @@
 		   		</div>
 		   	<ul class="sptotal">
 		   	<li>	<span class="t">商品总额</span><span class="s">{{orderdetail.shippingOrder.productFee}}</span></li>
-		   	<li>	<span class="t">运费</span><span class="s">+{{orderdetail.shippingOrder.postageFee}}</span></li>
-		   	 	<li>	<span class="t">商品优惠</span><span class="s">-{{orderdetail.shippingOrder.discountFee}}</span></li>
-		    		<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">{{orderdetail.shippingOrder.paiedFee}}</label></span></li></ul>
+		   	<li>	<span class="t">运费</span><span class="s">{{orderdetail.shippingOrder.postageFee}}</span></li>
+		   	 	<li>	<span class="t">商品优惠</span><span class="s">{{orderdetail.shippingOrder.discountFee}}</span></li>
+		    		<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">￥{{orderdetail.shippingOrder.orderTotalFee}}</label></span></li></ul>
 		   </div>
 	</div>
 </template>
@@ -46,8 +46,12 @@
 	export default {
     data () {
       return {
-      	orderdetail:{},
-        imageSrc:this.global_.imgurl,
+      	orderdetail:{
+      		shippingOrder:{},
+      		shippingInvoice:{},
+      		shippingAddress:{},
+      		shippingOrderItems:[]
+      	},
         orderNo:'',
       }
     },
@@ -76,25 +80,26 @@
 
 <style scoped="scoped" lang="scss">
 	.detail {
+		font-size: 1.4rem;
 		.address{ 
 			background:#fff;
-			padding:10px;
+			padding:1rem;
 			li{
 			display: flex;
 			img{
-				width:24px;
-				height:24px;
-				margin-right:10px;
+				width:2.4rem;
+				height:2.4rem;
+				margin-right:1rem;
 			}
 		}
 		}
 	}
 	.spitem{
-		margin-top:10px;
+		margin-top:1rem;
 		background: #fff;
 		
 			li{
-			padding: 10px;
+			padding: 1rem;
 			display: flex;
 			p{
 				flex:1;
@@ -108,35 +113,35 @@
 				.price{
 					color:#222;
 					display: block;
-					margin-top:10px;
+					margin-top:1rem;
 					font-weight: bold;
 				}
 			}
 			
 		}
 		img{
-			max-width: 70px;
-			max-height: 70px;
-			margin-right:10px;
+			max-width: 7rem;
+			max-height: 7rem;
+			margin-right:1rem;
 		}
 	}
 	.sp{
-		margin-top:10px;
+		margin-top:1rem;
 		background: #fff;
-		padding: 10px;
+		padding: 1rem;
 		span{
 			display: block;
-			margin-bottom: 10px;
+			margin-bottom: 1rem;
 		}
 	}
 	.sptotal {
-		margin-top:10px;
+		margin-top:1rem;
 		background: #fff;
 		.border{
 			border-top:1px solid #eee;
 		}
 		li{
-			padding: 5px 10px;
+			padding: 0.5rem 1rem;
 		display: flex;
 		.t{
 			flex: 1;

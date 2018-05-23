@@ -1,9 +1,25 @@
 $color-primary: #67c23a;//#18c79c
 $color-border:#eee;
-$color-dx:#ed1844;
+$color-dx:#d32122;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
+.btn-orange{
+    background: #ff9600;
+    border: 0 none;
+}
+ .price{
+    font-size: 1.6rem;
+ }
+.clearfix{
+    overflow: hidden;
+}
+.color-dx{
+    color:#d32122
+}
+.demo-carousel{
+    text-align: center;
+}
   .demo-spin-icon-load{
         animation: ani-demo-spin 1s linear infinite;
     }
@@ -69,12 +85,10 @@ input, textarea{
     }
 }
 .SearchBarWrapper{
-        padding-left: 4rem;
-        padding-right:4rem;
+        padding-left: 4.4rem;
+        padding-right:4.4rem;
 }
 .search input{
-     font-size: .75rem;
-    line-height: .875rem;
      border: 0;
     display: inline-block;
     background: 0;
@@ -85,7 +99,6 @@ input, textarea{
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding-top:0.5rem;
     background: #fff;
 }
 .inputwrap{
@@ -110,8 +123,8 @@ input, textarea{
     border: 0 none;
     color:#fff;
     border-radius: 4px;
-    top:1rem;
-    padding: 0.3rem 0.5rem;
+    top:0.8rem;
+    padding: 0.2rem 0.5rem;
 }
 .search{
        position: relative;

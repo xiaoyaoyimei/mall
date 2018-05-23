@@ -14,7 +14,7 @@ let routes =  [
 						path: '/newchannel',
 						component:resolve => require(['@/views/pages/NewChannel.vue'], resolve),
 					},
-							{
+					{
 						name:'/typesort',
 						path: '/typesort',
 						component:resolve => require(['@/views/pages/TypeSort.vue'], resolve),
@@ -76,8 +76,8 @@ let routes =  [
 				 	   		component:resolve => require(['@/views/pages/userCenter/OrderList.vue'], resolve),
 				        },
 				     	{ 	meta:{requireAuth:true},
-				         	name:'orderdetail',
-				   			path: 'datail',
+				         	name:'/order/detail',
+				   			path: '/order/detail',
 				 	   		component:resolve => require(['@/views/pages/userCenter/OrderDetail.vue'], resolve),
 				      	},
 						{

@@ -126,13 +126,13 @@
 <style lang="scss" scoped="scoped">
  @import '@/styles/color.scss';
  .carttwo{
- 	margin-top:15px;
- 	padding: 10px;
+ 	margin-top:1.5rem;
+ 	padding: 1rem;
  	background: #fff;
  	
  }
  .cartCol{
- 	padding:10px 0;
+ 	padding:1rem 0;
  	width:100%;
  	overflow:hidden;
  	border-bottom:1px solid #eee;
@@ -143,40 +143,38 @@
  .address li{
  	display: flex;
  	background:#fff;
- 	padding:10px;
- 	font-size: 1.2em;
+ 	padding:1rem;
  	cursor: pointer;
  }
   .address p{
   	flex:1;
   	strong{
   		display: block;
-  		font-size: 1.125em;
-  		color:#222
+  		color:#333
   	}
   }
   .cart_gray span{
   	float: right;
 	   strong{ 
 	  	color:$color-dx;
-	  	font-size: 16px;
+	  	font-size: 1.6rem;
 	  }
   }
    		.cartfoot{
    				position: fixed;
 			    background: #fff;
 				border-top: 1px solid #eee;
-				height: 49px;
-				line-height:49px;
+				height: 4.9rem;
+				line-height:4.9rem;
 				bottom: 0px;
 				width: 100%;
-				padding-left:10px;
+				padding-left:1rem;
 				strong{
 					color:$color-dx;
-					font-size: 12px;
+					font-size: 1.2rem;
 					display:inline-block;
 					span{
-						font-size: 1.125rem;
+						font-size: 1.6rem;
 					}
 				}
 				button{

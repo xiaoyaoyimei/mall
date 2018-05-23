@@ -63,32 +63,32 @@
 	}
  .user-header{
  	background: url(../../../assets/img/bg.png) repeat scroll 0 0 ;
- 	height: 150px;
+ 	height: 15rem;
  	position:relative;
  	.portrait{
- 		padding-left:20px;
- 		padding-top:30px;
+ 		padding-left:2rem;
+ 		padding-top:3rem;
  		overflow:hidden;
- 		padding-bottom:30px;
+ 		padding-bottom:3rem;
  		.tx img{
- 			width:60px;
+ 			width:6rem;
  			border:2px solid #fff;
- 			border-radius: 60px;
+ 			border-radius: 6rem;
  			float: left;
- 			margin-right:20px;
- 			height:60px;
+ 			margin-right:2rem;
+ 			height:6rem;
  		}
  		.color-white{
  			color:$color-white;
- 			font-size: 16px;
+ 			font-size: 1.6rem;
  		}
  		.shdz{
  			float: right;
  			color:#fff;
  			img{
- 				width:20px;
+ 				width:2rem;
  				float: left;
- 				margin-right:20px;
+ 				margin-right:2rem;
  			}
  		}
  	}
@@ -116,10 +116,10 @@
 	 		text-align: center;
 	 		color:$color-default;
 	 		img{
-	 		   width:25px;
+	 		   width:2.5rem;
 	 		}
 	 	}
-	 	margin-bottom:10px
+	 	margin-bottom:1rem
 	}
 
 	 	.more{
@@ -131,8 +131,8 @@
 	 		width: 100%;
 	 		position:absolute;
 	 		bottom:0px;
-	 		padding: 10px 30px 10px 20px;
-	 		font-size: 14px;
+	 		padding: 1rem 3rem 1rem 2rem;
+	 		font-size: 1.4rem;
 	 		.discount{
 	 			float: right;
 	 			color: #666;

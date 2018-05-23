@@ -309,16 +309,15 @@ export default {
 		}
 	}
 	.cart-empty {
-		padding-top:1rem;
+		padding-top:2rem;
 		text-align: center;
 		font-size: 1.6rem;
 		img{
-		max-width:10rem;
+		max-width:8rem;
 		}
 		a{
-			display: block;
 			color:$color-dx;
-			margin-top: 1rem;
+			margin-left: 1.5rem;
 			text-decoration: underline;
 		}
 	}

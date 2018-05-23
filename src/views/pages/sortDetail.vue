@@ -4,18 +4,22 @@
 		<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
 		<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
             :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow">
+              <CarouselItem>
+              	  <iframe style="width:400px;height:400px" ref="video" frameborder=0 allowfullscreen></iframe>  
+              </CarouselItem>
                 <CarouselItem v-for="(item, index) in shangp.productImageList"  :key="index">
                         <div class="demo-carousel" ><img :src="item.listImg |imgfilter"></div>
                 </CarouselItem>
     	</Carousel>
     		<div class="xiangqiang">
-    		<h6>{{shangp.product.modelName}}</h6>
-    	<strong>￥{{shangp.product.salePrice}}</strong>
+    		<div>{{shangp.product.modelName}}</div>
+    	<strong>￥<label class="price">{{shangp.product.salePrice | pricefilter}}</label></strong>
     	</div>
     	<div class="choose" @click="modal2 = true">
-    		<span>已选<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
+    		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
     	</div>
     </div>
+    
        <Tabs class="spjs">
         <TabPane label="商品介绍">
         	<ul><li v-for="(item, index) in productimg"  :key="index"><img :src="item.imgUrl |imgfilter"></li></ul>
@@ -24,13 +28,13 @@
         		<ul class="gk">
         			<li v-for="(item, index) in productDesc"  :key="index">
         			<span class="title">{{item.attrCode}}:</span> <span class="neirong">{{item.attrValue}}</span></li></ul>
-        	</TabPane>
+        </TabPane>
     </Tabs>
     <div class="foot"> <button    :loading="modal_loading" @click="modal2 = true">加入购物车</button>
     	  <router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon>购物车</router-link>
     </div>
        	<!--弹窗选择商品尺寸颜色-->
-    	 <Modal v-model="modal2"  class="chooseModal" :mask-closable="false">
+    	 <Modal v-model="modal2"  class="chooseModal cartModal" :mask-closable="false">
          <div slot="header" >
          	 <div v-if="xiajia" class="xiajia"><Icon type="information-circled">
          	 </Icon>该商品已下架
@@ -56,14 +60,20 @@
         </dl>
         <div>数量 <InputNumber  :min="1" v-model="quantity"></InputNumber></div>
         <div slot="footer">
-        	 <Button  size="large"  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">立即购买</Button>
+        	 <Button  size="large"  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia" class="btn-orange">立即购买</Button>
             <Button  size="large"     disabled="disabled" v-if="xiajia">加入购物车</Button>
             <Button  size="large"  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">加入购物车</Button>
         </div>
     </Modal>
-</div>
+    </div>
 </template>
 <script>
+//	var player = new YKU.Player('youkuplayer',{
+//			styleid: '0',
+//			client_id: 'YOUR YOUKUOPENAPI CLIENT_ID',
+//			vid: 'XMzQ0MDIwMTAzMg==',
+//			newPlayer: true
+//});
     	export default {
         data () {
             return {
@@ -108,6 +118,23 @@
         },
           methods: {
           	//加入购物车
+          	getshipin(){
+          		     let youkuUrl = 'http://player.youku.com/embed/' + "XMzQ0MDIwMTAzMg=="
+						          this.$refs.video.src = youkuUrl  
+//        		   	this.$axios({
+//							    method: 'get',
+//							    url:'http://player.youku.com/embed/XMzQ0MDIwMTAzMg==',
+//								}).then((res)=>{
+//						        if (resresponseHeader.returnCode === 0) {  
+//						          let data = res.video  
+//						          //  保存数据  
+//						          this.video = data  
+//						          let id = data.source_id  
+//						          let youkuUrl = 'http://player.youku.com/embed/' + "XMzQ0MDIwMTAzMg=="
+//						          this.$refs.video.src = youkuUrl  
+//						          }
+//     					 })
+          		},
           	   atc () {
           	   	
                 this.modal_loading = true;
@@ -240,6 +267,7 @@
 				this.getProduct();
 				this.getProductDesc();
 				this.setdefault();
+				this.getshipin();
 		}
     }
 </script>
@@ -247,13 +275,13 @@
  @import '@/styles/color.scss'; 
  .spjs{
  	background: #fff;
+ 	padding: 5px 0 0;
+ 	width: 100%;
  }
  .spjs img{
  	max-width:100%;
  }
- .spjs li{
- 	
- }
+
  .gk li{
  	display: flex;
  	padding: 0.5rem 1rem;
@@ -314,10 +342,10 @@
  .xiangqiang{
  	background: #fff;
  	padding:  1rem;
- 	font-size: 1.4rem;
- 	h6{
+ 	font-size: 1.6rem;
+ 	div{
  		margin-bottom:0.5rem;
- 		color: #222;
+ 		color: #333;
  	}
  	strong{
  		color:$color-dx;
@@ -332,10 +360,11 @@
  	display: flex;
  	cursor: pointer;
  	span{
+ 		font-size: 1.4rem;
  		flex: 1;
  	}
  	i{
- 		color:#222;
+ 		color:#333;
  		font-size:1.4rem;
  		font-weight: bold;
  		font-style: normal;
@@ -393,6 +422,7 @@
           	padding-left:15px ;
           	padding-right: 15px;
           	cursor: pointer;
+          	font-size: 1.4rem;
           }
           .cart{
           	color:#666;
@@ -412,6 +442,32 @@
 }
 .cxtime{
 	color:#999;
-	margin-top: 10px;
+	margin-top: 1rem;
 }
+</style>
+<style>
+	.spjs .ivu-tabs-nav{
+		width:100%
+	}
+	.spjs .ivu-tabs-tab{
+		font-size: 1.6rem;
+		width:50%;
+		text-align: center;
+	}
+	.cartModal .ivu-modal-footer{
+		padding: 0;
+	}
+	.cartModal .ivu-modal-footer button{
+		width:50%;
+		height: 4.4rem;
+		float: left;
+		border-radius: 0;
+	}
+	.cartModal .ivu-modal-footer{
+		border-top:0;
+		overflow: hidden;
+	}
+	.cartModal .ivu-modal-footer button + button{
+		margin-left:0
+	}
 </style>

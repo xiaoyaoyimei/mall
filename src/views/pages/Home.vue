@@ -121,14 +121,14 @@
  }
  .m_header_bar_menu{
  	position: absolute;
-    right: 8px;
-    top: 10px;
+    right: 0.8rem;
+    top: 1rem;
     color: #fff;
     cursor: pointer;
  }
   .newpd {
   	overflow: hidden;
-  	margin-bottom: 10px;
+  	margin-bottom: 1rem;
   }
  .newpd img{
  	width: 50%;
@@ -153,30 +153,30 @@
 .activity-title{
 	text-align: center;
 	background: #fff;
-	padding: 20px 0;
+	padding: 2rem 0;
 	h6{
-		margin-top:10px;
+		margin-top:1rem;
 		color:$color-gray;
 		font-weight: 100;
 	}
 }
 			.floor{ 
-				margin-top:10px;
+				margin-top:1rem;
 				background: #fff;
 			   .goodslist div{
-				padding:10px;
+				padding:1rem;
 				}
 				p{
 					margin-top:8px;
 					margin-bottom:8px;
 				}
 				h3{
-				padding:10px 0;
+				padding:1rem 0;
 				border-top:1px solid #eee;
 				border-bottom:1px solid #eee;
 					a{
 						float: right;
-						margin-right: 15px;
+						margin-right: 1.5rem;
 						color:$color-dx;
 					}
 			}
@@ -185,7 +185,7 @@
 			.index {
 			 .series{ 
 		    	img{
-		        	max-width:70px;
+		        	max-width:7rem;
 		   		 }
 				}
 			}

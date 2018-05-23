@@ -1,15 +1,16 @@
 <template>
-		<div class="login">
-			<router-link to="/login"><Icon type="ios-arrow-left"></Icon></router-link>
-			<div class="ding">
-			<h3>注册</h3>
-            <h6>欢迎来到DXRACER</h6>
-            </div>
-	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
+		<div class="reg">
+          <div class="m_header_bar">
+            <router-link to="/login"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">手机快速注册</span>
+		</div>
+		<div class="content">
+		<p class="color-dx">欢迎来到DXRACER</p>
+	   <Form :model="regiForm" label-position="left" :label-width="120" :rules="ruleValidate" ref="regiForm">
            <FormItem label="手机号" prop="loginName">
             <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.loginName'></Input>
         </FormItem>
-           <FormItem label="图形验证码" prop="verificationCode">
+           <FormItem label="图形验证码" prop="verificationCode" class="clearfix">
             <Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="w90"></Input>
              <img  :src="verimg"  @click="getTx" class="txm"/>
       		  </FormItem>
@@ -20,10 +21,11 @@
             <Input v-model="regiForm.passWord" placeholder="请输入密码"></Input>
         </FormItem>
          <FormItem>
-            <Button type="primary" @click="handleSubmit('regiForm')">提交</Button>
+            <Button type="primary" @click="handleSubmit('regiForm')" :loading="loading">提交</Button>
             <Button type="ghost" @click="handleReset('regiForm')" style="margin-left: 8px">重置</Button>
         </FormItem>
     </Form>
+    </div>
     </div>
 </template>
 
@@ -42,12 +44,14 @@
 	        };
 	        const validateYZM=(rule, value, callback) => {
 	          if (value.length < 1) {
-	            callback(new Error('验证码不能为空'));
+	            callback(new Error('图形验证码不能为空'));
 	          } else{
+	          	//请求短信验证码
 	          	callback(this.getDx());
 	          }
 	        };
             return {
+            	loading:false,
             	loadingDx:false,
             	loadingtx:false,
             	txv:1,
@@ -104,15 +108,17 @@
           			this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
           	},
             handleSubmit (name) {
+            	this.loading=true;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
+                    		this.loading=false;
                     	let para = Object.assign({}, this.regiForm);
 		                    	this.$axios({
 							    method: 'post',
 							    url:'/customer/register',
 							    data:para,
 							}).then((res)=>{
-									this.loadingDx = false;
+								
 									      let { code, msg } = res;
 								              if (code !== 200) {
 								                this.$Message.error(res.msg);
@@ -131,18 +137,25 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-.login i{
-	font-size: 2.5rem;
-	color:#333;
-	font-weight: bold;
-}
-.w90{
-	width:9rem;
+.reg{ 
+	background: #fff;
+	font-size: 1.4rem;
+	height: 100vh;
+	p{
+		font-weight: normal;
+		font-size:2rem;
+		margin-top:1.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.content{
+		padding: 1rem;
+	}
+	.txm{
+		width:9rem;
 	float: left;
 	margin-right:1rem;
-}
-.txm{
-	height:2.8rem;
+	}
+	
 }
 </style>
 <style>
@@ -153,6 +166,6 @@
 			border:0 none;
 		}
 		.ivu-form .ivu-form-item-label{
-			font-size: 14px;
+			font-size: 1.4rem;
 		}
 </style>

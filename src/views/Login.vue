@@ -1,17 +1,17 @@
 <template>
     <div class="ding">
-    			<h3>登录</h3>
+    	<img   src="../assets/img/de-tx.jpg"/>
     <div id="canvascontainer" ref='can'></div>
     <Form ref="loginForm" autoComplete="on" :model="loginForm" :rules="loginRules"   label-position="left" :label-width="100">
-        <Form-item prop="loginName" label="账号">
-            <Input type="text" v-model="loginForm.loginName" placeholder="loginName" autoComplete="on">
+        <Form-item prop="loginName" label="用户名">
+            <Input type="text" v-model="loginForm.loginName" placeholder="请输入用户名" autoComplete="on">
             </Input>
         </Form-item>
         <Form-item prop="passWord" label="密码">
-            <Input type="password" v-model="loginForm.passWord" placeholder="passWord" @keyup.enter.native="handleLogin">
+            <Input type="password" v-model="loginForm.passWord" placeholder="请输入密码" @keyup.enter.native="handleLogin">
             </Input>
         </Form-item>
-             <Button type="primary" @click="handleLogin('loginForm')"  class="btn-login">登录</Button>
+             <Button type="primary" @click="handleLogin('loginForm')"  class="btn-login" :loading="loading">登录</Button>
             <router-link :to="{path: '/register'}" class="re">新用户注册</router-link>
     </Form>
     </div>
@@ -63,15 +63,16 @@
 	        this.passWord=this.$route.params.passWord;
      	 },
         handleLogin() {
+          this.logining = true;
           this.$refs.loginForm.validate(valid => {
             if (valid) {
+            	this.logining = false;
             	this.global_.loginName=this.loginForm.loginName;
             	this.global_.passWord=this.loginForm.passWord;
 				this.$axios.post('customer/login', {  
 				loginName: this.loginForm.loginName,  
 				passWord: this.loginForm.passWord  
 				}).then(res => {  
-					this.logining = false;
 	               	let { code, object } = res;
 		              if (code !== 200) {
 		                  this.$Message.error(object);
@@ -108,22 +109,28 @@
 <style scoped="scoped" lang="scss">
  @import '@/styles/color.scss';
 	.ding{
-		padding:30px 15px;
+		padding:3rem 1.5rem;
 		background: #fff;
 		overflow: hidden;
+		text-align: center;
+		img{
+			border-radius: 100%;
+			width: 10rem;
+			margin-bottom: 2rem;
+		}
 		h3{
 			color:$color-dx;
 		}
 		.btn-login{
 			width: 100%;
-			border-radius: 50px;
-			padding:10px 0;
+			border-radius: 5rem;
+			padding:0.8rem 0;
+			font-size: 1.4rem;
 		}
 		.re{
 			float: right;
-			margin-top:40px;
-			color:#333;
-			font-size:12px;
+			margin-top:1.5rem;
+			font-size:1.2rem;
 		}
 	}
 	</style>
@@ -133,9 +140,9 @@
 		}
 		 .ivu-input{
 			border:0 none;
-			font-size: 16px;
+			font-size: 1.6rem;
 		}
 		.ivu-form .ivu-form-item-label{
-			font-size: 16px;
+			font-size: 1.6rem;
 		}
 </style>

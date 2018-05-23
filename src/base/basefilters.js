@@ -15,5 +15,12 @@ var trim=(value)=>{
    value = value.toString()
    return  value.trim()
 }
-
-export { imgfilter, trim }
+//价格.00
+var pricefilter=(value)=>{
+		if (!value) {
+    return ''
+  }
+   value = value.toString()+'.00'
+   return  value
+}
+export { imgfilter, trim ,pricefilter}

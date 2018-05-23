@@ -47,7 +47,7 @@ export default {
 				}
     	},
 		seeDetail(value){
-			this.$router.push({name:'orderdetail',params:{orderNo:value}});  
+			this.$router.push({name:'/order/detail',params:{orderNo:value}});  
 		},
     	getStatusEnum(){
     			this.$axios({
@@ -87,58 +87,59 @@ export default {
  }
 .splist{
 	background: #f6f6f6;
+	font-size: 1.4rem;
 	li{
-	margin-bottom: 10px;
+	margin-bottom: 1rem;
 	background: #fff;
 	}
 	}
 
 	.splist .sphead{
 		overflow: hidden;
-		padding:10px;
+		padding:1rem;
 		background: #fafafa;
 		display: flex;
-
+     cursor:pointer;
 	}
 	.sphead img{
-		max-width:70px;
+		max-width:7rem;
 	}
 	.xq{
 	 color:#333;
-	 margin-right:10px
+	 margin-right:1rem
 	}
 	.price{
 		float: right;
 		text-align: right;
 	}
 	.orderno{
-		padding: 10px;
+		padding: 1rem;
 		font-weight: bold;
 	}
 	.sptitle{
 		border-top:1px solid #eee;
 		border-bottom:1px solid #eee;
-		height: 36px;
-		line-height: 36px;
+		height: 3.6rem;
+		line-height: 3.6rem;
 		text-align: right;
 		span{
-			margin-right:10px;
+			margin-right:1rem;
 			font-size: 14px;
 		}
 	}
 	.cz{
 		text-align:right;
-		padding: 5px;
+		padding: 0.5rem;
 		button{
-			margin-right: 5px;
+			margin-right: 0.5rem;
 		}
 	}
 	.btn{
-		padding: 3px 10px;
+		padding: 0.3rem 1rem;
 		background: #fff;
 		border-width:1px;
 		border-style:solid;
-		border-radius:10px;
+		border-radius:1rem;
 		cursor: pointer;
 	}
 	.btn-dx{
