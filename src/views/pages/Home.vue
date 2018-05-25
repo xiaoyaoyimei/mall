@@ -28,7 +28,9 @@
     		<router-link :to="{path: '/newchannel'}"   >
     			<img src="../../assets/img/xppd.jpg" >
     				  </router-link>
-    			<img src="../../assets/img/xstq.jpg">
+    			<router-link :to="{path: '/seckill'}"   >	  
+    			<img src="../../assets/img/miao.png">
+    			</router-link>
     	  </div>
     	  <span class="xptj">为你推荐</span>
     	<Row  class="goodslist">

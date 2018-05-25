@@ -1,27 +1,33 @@
 <template>
-    <div class="ding">
-    	<img   src="../assets/img/de-tx.jpg"/>
-    <div id="canvascontainer" ref='can'></div>
-    <Form ref="loginForm" autoComplete="on" :model="loginForm" :rules="loginRules"   label-position="left" :label-width="100">
-        <Form-item prop="loginName" label="用户名">
-            <Input type="text" v-model="loginForm.loginName" placeholder="请输入用户名" autoComplete="on">
-            </Input>
-        </Form-item>
-        <Form-item prop="passWord" label="密码">
-            <Input type="password" v-model="loginForm.passWord" placeholder="请输入密码" @keyup.enter.native="handleLogin">
-            </Input>
-        </Form-item>
-             <Button type="primary" @click="handleLogin('loginForm')"  class="btn-login" :loading="loading">登录</Button>
-            <router-link :to="{path: '/register'}" class="re">新用户注册</router-link>
-    </Form>
-    </div>
+    <div class="login-page">
+    	<div class="m_header_bar">
+            <span   class="m_header_bar_back" @click="routerBack()">
+            	<Icon type="ios-arrow-back"></Icon>
+            </span>
+			<span class="m_header_bar_title">迪瑞克斯登录</span>
+		</div>
+	<div class="ding">		
+	    	<img   src="../assets/img/de-tx.jpg"/>
+	    <Form ref="loginForm" autoComplete="on" :model="loginForm" :rules="loginRules"   label-position="left" :label-width="100">
+	        <Form-item prop="loginName" label="用户名">
+	            <Input type="text" v-model="loginForm.loginName" placeholder="请输入用户名" autoComplete="on">
+	            </Input>
+	        </Form-item>
+	        <Form-item prop="passWord" label="密码">
+	            <Input type="password" v-model="loginForm.passWord" placeholder="请输入密码" @keyup.enter.native="handleLogin">
+	            </Input>
+	        </Form-item>
+	             <Button type="primary" @click="handleLogin('loginForm')"  class="btn-login" :loading="loading">登录</Button>
+	            <router-link :to="{path: '/register'}" class="re">新用户注册</router-link>
+	    </Form>
+	    </div>
+	    </div>
 </template>
 
 <script>
 	import store from '@/store/store';
 	import { mapMutations } from 'vuex';
     export default {
-      name: 'login',
       data() {
         const validatePass = (rule, value, callback) => {
           if (value.length < 1) {
@@ -47,14 +53,13 @@
           showDialog: false
         }
       },
-         watch: {
-    // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
-      '$route': 'getParams'
-    },
     mounted() {
 			this.getParams();
 		},
       methods: {
+      	routerBack(){
+      		 this.$router.go(-1);
+      	},
       	 getParams () {
 	        // 取到路由带过来的参数 
 	        let routerParams = this.$route.params.loginName
@@ -106,17 +111,20 @@
       },
     }
 </script>
-<style scoped="scoped" lang="scss">
+<style lang="scss"  scoped="scoped">
  @import '@/styles/color.scss';
+ .login-page{
+ 	height: 100vh;
+ 	background: #fff;
+ }
 	.ding{
 		padding:3rem 1.5rem;
-		background: #fff;
 		overflow: hidden;
 		text-align: center;
 		img{
 			border-radius: 100%;
 			width: 10rem;
-			margin-bottom: 2rem;
+			margin-bottom: 3rem;
 		}
 		h3{
 			color:$color-dx;

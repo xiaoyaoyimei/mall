@@ -104,7 +104,6 @@
 </script>
 
 <style   lang="scss" scoped="scoped">
-
   .addaddress{
     position: fixed;
     bottom:0;

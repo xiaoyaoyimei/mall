@@ -2,15 +2,18 @@
 	<div class="user">
 		<div class="user-header">
 			<div class="portrait">
-				 	<router-link :to="{path: '/user/myinfo'}"  class="tx"> 
+				<router-link :to="{path: '/login'}"  class="tx" v-if="nologin">
+					<img src="../../../assets/img/nologintx.png">
+					<span>登录/注册></span>
+				</router-link>
+				 	<router-link :to="{path: '/user/myinfo'}"  class="tx" v-else> 
 				 		<img :src="userinfo.iconUrl"  v-if="userinfo.iconUrl">	
 				 	<img src="../../../assets/img/de-tx.jpg" v-else>
 				 	</router-link>
-				    <span class="color-white"  >
-				    </span>
 				<span class="shdz">
 					<router-link :to="{path: '/user/setting'}">
 						<img src="../../../assets/img/setting.png"/>
+						设置
 						</router-link>
 						</span>
 			</div>
@@ -34,6 +37,7 @@
 	export default {
 	    data () {
 	        return {
+	        	nologin:true,
 	        	userinfo:{
 					 iconUrl: '',
 					  },
@@ -41,12 +45,17 @@
 	      },
 	      methods:{
 	      	getUser(){
-	      				this.$axios({
+	      		if(localStorage.getItem('token')!=undefined){
+	      			this.nologin=false;
+	      			this.$axios({
 					    method: 'post',
 					    url:'/account',
 					}).then((res)=>{
-						this.userinfo = Object.assign({},res.data);
+						this.userinfo = Object.assign({},res);
 					});
+					}else{
+						this.nologin=true;
+					}
 			  }	      
 			 },
 	      mounted(){
@@ -56,7 +65,7 @@
 </script>
 
 <style lang="scss"> 
- @import '@/styles/color.scss';
+	 @import '@/styles/color.scss';
  /*头部样式*/
 	.user-header a{
 		color:#fff;
@@ -67,16 +76,19 @@
  	position:relative;
  	.portrait{
  		padding-left:2rem;
- 		padding-top:3rem;
+ 		padding-top:2rem;
  		overflow:hidden;
  		padding-bottom:3rem;
- 		.tx img{
- 			width:6rem;
- 			border:2px solid #fff;
- 			border-radius: 6rem;
- 			float: left;
- 			margin-right:2rem;
- 			height:6rem;
+ 		.tx 
+ 		{
+ 			line-height: 7.2rem;
+ 			img{
+	 			width:6rem;
+	 			border-radius: 6rem;
+	 			float: left;
+	 			margin-right:2rem;
+	 			height:6rem;
+ 			}
  		}
  		.color-white{
  			color:$color-white;
@@ -85,10 +97,12 @@
  		.shdz{
  			float: right;
  			color:#fff;
+ 			margin-right:2rem;
+ 			line-height: 2.4rem;
  			img{
  				width:2rem;
  				float: left;
- 				margin-right:2rem;
+ 				
  			}
  		}
  	}
@@ -100,7 +114,6 @@
 	 			background: #fff;
 	 		padding: 1rem ;
 	 		font-weight: normal;
-	 		font-size: 1.4rem;
 	 		img{
 	 			width:2rem;
 	 			height: 2rem;
@@ -132,7 +145,6 @@
 	 		position:absolute;
 	 		bottom:0px;
 	 		padding: 1rem 3rem 1rem 2rem;
-	 		font-size: 1.4rem;
 	 		.discount{
 	 			float: right;
 	 			color: #666;

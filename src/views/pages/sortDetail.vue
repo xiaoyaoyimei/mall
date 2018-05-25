@@ -119,8 +119,8 @@
           methods: {
           	//加入购物车
           	getshipin(){
-          		     let youkuUrl = 'http://player.youku.com/embed/' + "XMzQ0MDIwMTAzMg=="
-						          this.$refs.video.src = youkuUrl  
+//        		     let youkuUrl = 'http://player.youku.com/embed/' + "XMzQ0MDIwMTAzMg=="
+//						          this.$refs.video.src = youkuUrl  
 //        		   	this.$axios({
 //							    method: 'get',
 //							    url:'http://player.youku.com/embed/XMzQ0MDIwMTAzMg==',
@@ -136,7 +136,6 @@
 //     					 })
           		},
           	   atc () {
-          	   	
                 this.modal_loading = true;
                 	this.$axios({
 							    method: 'post',
@@ -228,6 +227,10 @@
 								}).then((res)=>{
 									if(res.code=='200'){
 										this.shangp=res.object;
+										 if(res.object.product.video!="")
+										 {
+						                 this.$refs.video.src = 'http://player.youku.com/embed/' + res.object.product.video;
+						                }
 									}
 							});
 			     },
@@ -267,7 +270,7 @@
 				this.getProduct();
 				this.getProductDesc();
 				this.setdefault();
-				this.getshipin();
+				//this.getshipin();
 		}
     }
 </script>

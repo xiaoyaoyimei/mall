@@ -25,12 +25,12 @@
 							    method: 'post',
 							    url:'/customer/logout',
 							}).then((res)=>{
-								     if (res.data.code !== 200) {
-				                 		 this.$Message.error(res.data.msg);
+								     if (res.code !== 200) {
+				                 		 this.$Message.error(res.msg);
 				              		} 
 				              		else{
-										sessionStorage.removeItem('token');
-				                       sessionStorage.removeItem('userId');
+										localStorage.removeItem('token');
+				                        localStorage.removeItem('userId');
 				    					_this.$router.push('/login');
 			    					}
 							});

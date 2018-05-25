@@ -4,6 +4,19 @@ $color-dx:#d32122;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
+.btn-dx{
+    background: $color-dx;
+    color:#fff;
+    border: 0 none;
+    padding: 0.4rem;
+}
+.ghost-dx{
+    background: 0 none;
+    border: 1px solid $color-dx;
+    padding: 3px 10px;
+    color: $color-dx;
+    cursor: pointer;
+}
 .btn-orange{
     background: #ff9600;
     border: 0 none;
@@ -149,6 +162,7 @@ input, textarea{
     height: 4.4rem;
     background-color: #fff;
     position: relative;
+    cursor: pointer;
      .m_header_bar_back{
         position: absolute;
         top:0;
@@ -202,15 +216,14 @@ input, textarea{
        .flex-ul{
            background: #fff;
             li{
+                cursor: pointer;
                 display: flex;
                 flex-direction: row;
                 border-bottom: 1px solid #eee;
                 height:4.5rem;
                 line-height: 4.5rem;
-                font-size: 1.4rem;
                 padding:0 1rem;
                 label{
-                    font-size: 16px;
                     cursor: pointer;
                 }
             }
@@ -220,6 +233,7 @@ input, textarea{
             
        }
     .bottom-buttom{
+        cursor: pointer;
         position: fixed;
         bottom: 0;
         text-align: center;
@@ -258,7 +272,6 @@ input, textarea{
             li{
                 padding:10px 0;
                 border-bottom:1px solid $color-border;
-                font-size: 1.4rem;
                 display: flex;
                 cursor: pointer;
             }
@@ -298,12 +311,10 @@ input, textarea{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-   font-size: 1.4rem;
     }
     h4{
-        padding-left: 10px;
+        padding-left: 1rem;
         color:$color-dx;
-        font-size: 1.6rem;
         font-weight: normal;
     }
 }
@@ -314,7 +325,7 @@ input, textarea{
         width:35%;
         height:35%
     }
-    div{
+    .right{
         width:65%;
         border-bottom: 1px solid #eee;
         background: #fff;
@@ -325,15 +336,13 @@ input, textarea{
         margin-top:1rem;
     color:$color-default;
     text-align:left;
-    font-size:1.4rem;
     background-color:$color-white;
     }
     .sh6{
     color:$color-dx;
     text-align:left;
-    font-size:1.4rem;
     background-color:$color-white;
-    padding-bottom:0.5em;
+    padding-bottom:0.5rem;
     overflow:hidden;
     margin-top: 0.5rem;
     }

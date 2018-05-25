@@ -15,6 +15,11 @@ let routes =  [
 						component:resolve => require(['@/views/pages/NewChannel.vue'], resolve),
 					},
 					{
+						name:'秒杀',
+						path: '/seckill',
+						component:resolve => require(['@/views/pages/SecKill.vue'], resolve),
+					},
+					{
 						name:'/typesort',
 						path: '/typesort',
 						component:resolve => require(['@/views/pages/TypeSort.vue'], resolve),
@@ -30,14 +35,14 @@ let routes =  [
 						path: '/user',
 						component:resolve => require(['@/views/pages/userCenter/UserCenter.vue'], resolve),
 					},
-					]
-				},
-					{
+						{
 						name:'/cart',
 						path: '/cart',
-						meta:{requireAuth:true},
 						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 					},
+					]
+				},
+				
 						{
 					name:'/carttwo',
 					path: '/carttwo',
@@ -62,7 +67,7 @@ let routes =  [
 					component:resolve=>require(['@/views/pages/SortDetail.vue'], resolve),
 					},
 				{
-				path: '/user',name:'/user',component: resolve => require(['@/container/UFull.vue'], resolve),
+				path: '/user',name:'/user',redirect: 'home',component: resolve => require(['@/container/UFull.vue'], resolve),
 				children:[
 				   		{
 				         	name:'home',
@@ -139,7 +144,7 @@ let routes =  [
 		 		   	component:resolve => require(['@/views/pages/userCenter/Photo.vue'],resolve)
 				},
 					{
-						meta:{requireAuth:true},
+					meta:{requireAuth:true},
 					name:'setting',
 			   		path:'setting',
 		 		   	component:resolve => require(['@/views/pages/userCenter/MySetting.vue'],resolve),

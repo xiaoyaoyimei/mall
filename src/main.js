@@ -66,7 +66,7 @@ store.commit('set_token',{token: localStorage.getItem('token'),userId:localStora
 const router = new VueRouter({  
 routes  
 });  
-router.beforeEach((to, from, next) => {  
+router.beforeEach((to, from, next) => { 
 		if (to.matched.some(r => r.meta.requireAuth)) { 
 			if (store.state.token!==null&&store.state.token!==undefined&&store.state.token!=="") {  
 			next();  
@@ -91,8 +91,8 @@ var app =new Vue({
   template: '<App/>'
 })
 //设置拦截器
-//axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
-axios.defaults.baseURL = 'http://test-shop.dxracer.com.cn:8084/mall/wap/';
+axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
+//axios.defaults.baseURL = 'http://test-shop.dxracer.com.cn:8084/mall/wap/';
 axios.interceptors.request.use(config => {  
 // 在发送请求之前做些什么  
 //判断是否存在token，如果存在将每个页面header都添加token  
@@ -111,54 +111,30 @@ return Promise.reject(error);
 });  
   
 // http response 拦截器  
-//axios.interceptors.response.use(  
-//	
-//response => { 
-//  // token 已过期，重定向到登录页面  
-//  if (response.data.code == 4){  
-//      localStorage.clear()  
-//      router.replace({  
-//                      path: '/login',  
-//                      query: {redirect: router.currentRoute.fullPath}  
-//                  })  
-//  }  
-//  return response.data
-//},  
-//error => {  
-//if (error.response) {  
-//		switch (error.response.status) {  
-//		case 401: 
-//		this.$store.commit('del_token');
-//		router.replace({  
-//		path: '/login',  
-//		query: {redirect: router.currentRoute.fullPath}//登录成功后跳入浏览的当前页面  
-//		});
-//}  
-//}  
-//return Promise.reject(error)  
-//}); 
-
-axios.interceptors.response.use(function (response) {  
+axios.interceptors.response.use(  
+	
+response => { 
     // token 已过期，重定向到登录页面  
     if (response.data.code == 4){  
         localStorage.clear()  
         router.replace({  
-                        path: '/signin',  
+                        path: '/login',  
                         query: {redirect: router.currentRoute.fullPath}  
                     })  
     }  
-    return response.data 
-}, function (error) {  
-	if (error.response) {
-      // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log('Error', error.message);
-    }
-    console.log(error.config);
-    // Do something with response error  
-    return Promise.reject(error)  
-})  
+    return response.data
+},  
+error => {  
+if (error.response) {  
+		switch (error.response.status) {  
+		case 401: 
+		this.$store.commit('del_token');
+		router.replace({  
+		path: '/login',  
+		query: {redirect: router.currentRoute.fullPath}//登录成功后跳入浏览的当前页面  
+		});
+}  
+}  
+return Promise.reject(error)  
+}); 
+

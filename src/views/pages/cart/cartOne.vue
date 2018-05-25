@@ -3,7 +3,7 @@
 		<div class="m_header_bar">
 			<router-link to="/sort"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">购物车</span>
-			<span  @click="edit" v-show="editface" class="m_header_bar_menu">编辑</span>
+			<span  @click="edit" v-show="editface" class="m_header_bar_menu" v-if="cartList.length>0">编辑</span>
 			<span  @click="edit" v-show="!editface"  class="m_header_bar_menu">完成</span>
 		</div>
 		<div v-if="cartList.length>0">
@@ -45,10 +45,18 @@
 				</Row>
 			</div>
 			</div>
-			<div class="cart-empty"  v-else>
-			<img src="../../../assets/img/cartempty.png">购物车是空的
+			<div class="cart-empty"   v-if="!nologin&&cartList.length==0">
+			<img src="../../../assets/img/cartempty.png">
+			<p>购物车是空的</p>
+			<br/>
 			<router-link to="/index"  >去首页</router-link>
-		</div>
+			</div>
+				<div class="cart-empty" v-if="nologin" >
+			<img src="../../../assets/img/cartempty.png">
+			<p>登录后可同步购物车中商品</p>
+			<br/>
+			<router-link to="/login"  > <button class="ghost-dx">登录</button></router-link>
+			</div>
 	</div>
 </template>
 
@@ -56,6 +64,7 @@
 export default {
         data () {
             return {
+            	nologin:true,
             	imageSrc:this.global_.imgurl,
                 indeterminate: true,
                 checkAll: false,
@@ -108,6 +117,8 @@ export default {
 						}
 					},
         	getCartList(){
+        		if(localStorage.getItem('token')!=undefined){
+        			this.nologin=false;
         			this.$axios({
 							    method: 'post',
 							    url:'/order/shopping/list',
@@ -116,6 +127,7 @@ export default {
 										this.cartList=res.object;
 									}
 							});
+					}
         	},
 			edit(){
 				this.editface=!this.editface;
@@ -205,7 +217,7 @@ export default {
 </script>
 
 <style  lang="scss" >
- 	@import '@/styles/color.scss';
+ @import '@/styles/color.scss';
  	 	.min-add{
  	    float: right;
  	    padding-right: 1rem;
@@ -300,10 +312,10 @@ export default {
 			    background: #fff;
 				border-top: 1px solid #eee;
 				position: fixed;
-				height: 49px;
-				line-height:49px;
+				height: 4.9rem;
+				line-height:4.9rem;
 				z-index: 31;
-				bottom: 0px;
+				bottom:5rem;
 				left: 0;
 				width: 100%;
 		}
