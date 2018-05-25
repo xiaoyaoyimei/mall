@@ -4,11 +4,92 @@ $color-dx:#d32122;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
+ .address li{
+    display: flex;
+    background:#fff;
+    padding:1rem;
+    cursor: pointer;
+ }
+  .address p{
+    flex:1;
+    strong{
+        display: block;
+        color:#333
+    }
+  }
+    .chooseAddress{
+            .zeroAddress{
+                background: #fff;
+                padding:10px
+            }
+        }
+ .spjs{
+    width: 100%;
+ }
+ .spjs img{
+    max-width:100%;
+ }
+
+ .gk li{
+    display: flex;
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    .title{
+        width:40%;
+        float: left;
+    }
+    .neirong{
+        width:60%;
+    }
+ }
+.font-14{
+    font-size: 1.4rem;
+}
+.foot {
+        background: #fff;
+        border-top:1px solid #eee;
+        position: fixed;
+        height: 5rem;
+        z-index: 31;
+        bottom: 0;
+        left: 0;
+        width:100%;
+        text-align:center;
+          button{
+            background: $color-dx;
+            color:#fff;
+            height: 100%;
+            border:0 none;
+            padding-left:15px ;
+            padding-right: 15px;
+            cursor: pointer;
+          }
+          .miaoshagou{
+              letter-spacing:1rem;
+              width: 100%;
+          }
+          .jrgwc{
+               float: right; 
+          }
+          .cart{
+            color:#666;
+            text-align: center;
+            margin-right: 3rem;
+            font-size: 1rem;
+            float: right;
+            margin-top: 1.5rem;
+            i{
+                display: block;
+                font-size: 2rem;
+            }
+          }
+}
 .btn-dx{
     background: $color-dx;
     color:#fff;
     border: 0 none;
     padding: 0.4rem;
+    cursor: pointer;
 }
 .ghost-dx{
     background: 0 none;
@@ -103,6 +184,7 @@ input, textarea{
 }
 .search input{
      border: 0;
+     font-size:1.2rem;
     display: inline-block;
     background: 0;
     text-indent: 2px;
@@ -117,7 +199,7 @@ input, textarea{
 .inputwrap{
         position: absolute;
     left: 0;
-    top: 0.2rem;
+    top: 0rem;
     width: 100%;
     padding-left:2.5rem;
     padding-right: 1rem;
@@ -301,6 +383,7 @@ input, textarea{
         background: $color-dx;
         color: #fff;
         padding: 5px;
+        font-size: 1.2rem;
     }
     img{
         max-width: 100%;

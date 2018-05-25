@@ -15,11 +15,6 @@ let routes =  [
 						component:resolve => require(['@/views/pages/NewChannel.vue'], resolve),
 					},
 					{
-						name:'秒杀',
-						path: '/seckill',
-						component:resolve => require(['@/views/pages/SecKill.vue'], resolve),
-					},
-					{
 						name:'/typesort',
 						path: '/typesort',
 						component:resolve => require(['@/views/pages/TypeSort.vue'], resolve),
@@ -42,7 +37,16 @@ let routes =  [
 					},
 					]
 				},
-				
+				{
+						name:'/seckill',
+						path: '/seckill',
+						component:resolve => require(['@/views/pages/SecKill.vue'], resolve),
+					},
+					{
+						name:'/secdetail',
+						path: '/secdetail',
+						component:resolve => require(['@/views/pages/SecDetail.vue'], resolve),
+					},
 						{
 					name:'/carttwo',
 					path: '/carttwo',

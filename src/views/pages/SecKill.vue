@@ -5,53 +5,90 @@
 			<span class="m_header_bar_title">秒杀</span>
 		</div>
 		<div class="floor">
-		
 				<div   class="spdetail"    v-for="(item, index) in pro" :key='index'>
-							<router-link :to="{ path: '/seckill',query:{id:item.id} }">
-								<img  :src='item.productItem.listImg |imgfilter'>
+							<router-link :to="{ params: '/secdetail',params:{skuId:item.id} }">
+							<img  :src='item.productItem.listImg |imgfilter'>
 							   <div class="right">	
 							   	<p class="sP">{{item.product.modelName}}</p>
-							   	<div> 
-							   		<span  >{{shijian}}{{czitem(item,item.crush.endTime)}}</span>
-							   		<!--	<count-down v-bind:endTime="Date(item.crush.endTime).getTime()" :callback="callback" endText="已经结束了"></count-down>-->
+							   	<div class="time"> 
+							   		<span v-if="item.switch=='0'" class="nostart">
+							   			距开始
+							   		</span>
+							   		  		<span v-else class="start">
+							   			距结束
+							   		</span>
+							   	     {{item.djs}}	
 							   	</div>
 								<div class="crush">
 									<div class="left">
 										<span>￥{{item.crush.salePrice}}</span>
 										<em>￥{{item.product.salePrice}}</em>
 									</div>
-									<div class="r"><button class="btn-dx">立即抢购</button>
-										  <Progress  :percent="percent(item.crush)"></Progress>
-									</div>
+									<div class="r">
+										<!--<router-link class="btn-dx" :to="{ name: '/secdetail',params:{skuId:item.skuId}}" tag="button">立即抢购</router-link>--></div>
 								</div>
+								<div> <Progress  :percent="percent(item.crush)"></Progress></div>
 								</div>
 							</router-link>
 						</div>
 	    </div>
-	</div>
+		
+    </div>
 </template>
-	
 <script>
-	import countDown from '@/components/SecDao'
-	export default {
-        data () {
-            return {
-                pro:[],
-                nowtime:new Date(),
-                shijian:''
+function InitTime(endtime){
+    var dd,hh,mm,ss = null;
+    var time = parseInt(endtime) - new Date().getTime();
+    if(time<=0){
+        return '结束'
+    }else{
+        dd = Math.floor(time / 60 / 60 / 24);
+        hh = Math.floor((time / 60 / 60) % 24);
+        mm = Math.floor((time / 60) % 60);
+        ss = Math.floor(time  % 60);
+        var str = dd+"天"+hh+"小时"+mm+"分"+ss+"秒";
+        return str;
+    }
+}
+export default {
+    data () {
+	return {
+		   pro:[],
+            active: 'tab-container1',
+            pinkFont:true,
+            // 上拉刷新、下拉加载
+            allLoaded: false, //如果为true,禁止上拉刷新
+            autoFill: false, //取消自动填充，
+            list: [],
+    	}
+      },
+    created() {
+    	this.getNewChannel();
+    },
+    mounted() {
+        setInterval( ()=> {
+            for (var key in this.pro) {
+            	var aaa ='';
+            	if(this.pro[key].switch=='0'){
+            		aaa= this.pro[key].crush["startTime"]
+            	}
+            	else{
+                 aaa = this.pro[key].crush["endTime"];
+                }
+                 aaa= new Date(aaa).getTime()
+                var bbb = new Date().getTime();
+                var rightTime = aaa - bbb;
+                if (rightTime > 0) {
+                    var dd = Math.floor(rightTime / 1000 / 60 / 60 / 24);
+                    var hh = Math.floor((rightTime / 1000 / 60 / 60) % 24);
+                    var mm = Math.floor((rightTime / 1000 / 60) % 60);
+                    var ss = Math.floor((rightTime / 1000) % 60);
+                }
+                this.pro[key]["djs"] = dd + "天" + hh + "小时" + mm + "分" + ss + "秒";
             }
-        },
-           components:{
-        	countDown
-        },
-        computed: {
-//		    percent: function () {
-//		    	return this.pro.map(item => item.crush.usedQuantity/item.crush.totalQuantity);
-//		     // return this.pro.crush.usedQuantity/this.pro.crush.totalQuantity
-//		    }
-  			},
-  		
-        methods: {
+        }, 1000);
+    },
+    methods: {
     	     getNewChannel(){
     	     	this.$axios({
 						    method: 'GET',
@@ -59,45 +96,22 @@
 						}).then((res)=>{
 							if(res.code=='200'){
 							 this.pro=res.object;
+							  var ssss=this.pro;
+						        ssss.map( (obj,index)=>{
+						         this.$set(  
+						                obj,"djs",InitTime(obj.crush["endTime"])  
+						            );
+						        })  
+							    this.pro = ssss; 
 							}
 						});
 						
     	      	},
     	      	percent(v){
-    	      		return v.usedQuantity/v.totalQuantity
+    	      		return v.usedQuantity/v.totalQuantity*100
     	      	},
-    	      	czitem(item,v){
-    	      		let timer = setInterval(function(){
-    	      			 var date1= new Date(v).getTime();  //结束时间
-								    var date2 = new Date();    //当前时间
-								    var date3 =date1- date2.getTime() ;   //时间差的毫秒数        
-								    //计算出相差天数  
-								   // var days=Math.floor(date3/(24*3600*1000))  
-								   if(date3>0){
-								    //计算出小时数  
-								    var leave1=date3%(24*3600*1000)    //计算天数后剩余的毫秒数  
-								    var hours=Math.floor(date3/(3600*1000))  
-								    //计算相差分钟数  
-								    var leave2=leave1%(3600*1000)        //计算小时数后剩余的毫秒数  
-								    var minutes=Math.floor(leave2/(60*1000))  
-								    //计算相差秒数  
-								    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数  
-								    var seconds=Math.round(leave3/1000)  
-								      hours+"小时 "+minutes+" 分钟"+seconds+" 秒";
-								   }
-								   else{
-								   	 clearInterval(timer);
-								     }
-    	      			   },2000);
-                       
-                         
-   // alert(" 相差 "+days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
-    	      	}
-    	},
-        mounted() {
-			this.getNewChannel();
-		}
     }
+}
 </script>
 <style scoped="scoped" lang="scss">
 .crush{
@@ -115,5 +129,25 @@
 		color:#999
 	}
 	}
+	.r{
+		text-align: right;
+	}
+}
+.time{
+	color:#d32122;
+	margin-top:1rem;
+	margin-bottom: 1rem;
+}
+.nostart,.start{
+	
+	color:#fff;
+	padding: 0.5rem;
+	margin-right: 1rem;
+}
+.nostart{
+	background: green;
+}
+.start{
+	background: red;
 }
 </style>

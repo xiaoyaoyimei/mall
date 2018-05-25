@@ -147,7 +147,7 @@
 .xptj{
 	color:$color-dx;
 	text-align: center;
-	padding: 0.5rem;
+	padding:0.7rem;
 	display: block;
 	letter-spacing:1rem;
 	font-size: 1.6rem;

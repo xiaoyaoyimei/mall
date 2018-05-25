@@ -13,7 +13,7 @@
     	</Carousel>
     		<div class="xiangqiang">
     		<div>{{shangp.product.modelName}}</div>
-    	<strong>￥<label class="price">{{shangp.product.salePrice | pricefilter}}</label></strong>
+    	<strong><label class="price">{{shangp.product.salePrice | pricefilter}}</label></strong>
     	</div>
     	<div class="choose" @click="modal2 = true">
     		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
@@ -30,8 +30,8 @@
         			<span class="title">{{item.attrCode}}:</span> <span class="neirong">{{item.attrValue}}</span></li></ul>
         </TabPane>
     </Tabs>
-    <div class="foot"> <button    :loading="modal_loading" @click="modal2 = true">加入购物车</button>
-    	  <router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon>购物车</router-link>
+    <div class="foot"> <button    :loading="modal_loading" @click="modal2 = true" class="jrgwc">加入购物车</button>
+    	  <router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon></router-link>
     </div>
        	<!--弹窗选择商品尺寸颜色-->
     	 <Modal v-model="modal2"  class="chooseModal cartModal" :mask-closable="false">
@@ -44,8 +44,8 @@
          	 </div>
             <div  v-if="firstshow" class='choosesp'>
              	<img :src="choosesp.img |imgfilter">
-             	<div><span><strong>￥{{choosesp.price}}</strong>商品编号:{{choosesp.itemNo}}</span> 
-             	<span class="cx" v-if="cxshow"><strong>￥{{choosesp.cuxiaoprice}}</strong>
+             	<div><span><strong>{{choosesp.price}}</strong>商品编号:{{choosesp.itemNo}}</span> 
+             	<span class="cx" v-if="cxshow"><strong>{{choosesp.cuxiaoprice}}</strong>
              		促销活动:<label>{{choosesp.activityName}}</label>
              		</span>
              	</div>
@@ -276,26 +276,9 @@
 </script>
 <style lang="scss" scoped="scoped">
  @import '@/styles/color.scss'; 
- .spjs{
- 	background: #fff;
- 	padding: 5px 0 0;
- 	width: 100%;
- }
- .spjs img{
- 	max-width:100%;
- }
-
- .gk li{
- 	display: flex;
- 	padding: 0.5rem 1rem;
- 	font-size: 1.4rem;
- 	.title{
- 		width:40%;
- 		float: left;
- 	}
- 	.neirong{
- 		width:60%;
- 	}
+ .sortDetail{
+ 	margin-bottom: 1rem;
+ 	overflow: hidden;
  }
  .xiajia{
     min-height: 6.5rem;
@@ -330,7 +313,7 @@
  	    background: rgba(64, 64, 64, 0.6);
     width: 3.2rem;
     height: 3.2rem;
-    line-height: 3.2rem;
+    line-height:2.2rem;
     border-radius: 3.2rem;
     display: inline-block;
     text-align: center;
@@ -363,12 +346,10 @@
  	display: flex;
  	cursor: pointer;
  	span{
- 		font-size: 1.4rem;
  		flex: 1;
  	}
  	i{
  		color:#333;
- 		font-size:1.4rem;
  		font-weight: bold;
  		font-style: normal;
  		margin-left:1rem
@@ -379,7 +360,6 @@
  	margin-bottom: 1.5rem;
  	dt{
  	margin-bottom:1rem;
- 	font-size: 1.4rem;
  	}
 	 dd{
 	  	border:1px solid $color-border;
@@ -405,41 +385,6 @@
     border-radius: 0.5rem;
     padding: 0.5rem;
  }
-
-    .foot {
-		background: #fff;
-		border-top:1px solid #eee;
-		position: fixed;
-		height: 5rem;
-		z-index: 31;
-		bottom: 0;
-		left: 0;
-        width:100%;
-        text-align:center;
-          button{
-          	float: right;
-          	background: $color-dx;
-          	color:#fff;
-          	height: 100%;
-          	border:0 none;
-          	padding-left:15px ;
-          	padding-right: 15px;
-          	cursor: pointer;
-          	font-size: 1.4rem;
-          }
-          .cart{
-          	color:#666;
-          	text-align: center;
-          	margin-right: 3rem;
-          	font-size: 1rem;
-          	float: right;
-          	margin-top: 0.5rem;
-          	i{
-          		display: block;
-          		font-size: 2rem;
-          	}
-          }
-}
 .demo-carousel img{
 	max-width: 100%;
 }

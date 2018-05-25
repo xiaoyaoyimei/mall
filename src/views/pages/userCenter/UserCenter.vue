@@ -18,10 +18,8 @@
 						</span>
 			</div>
 		<div class="integral"><span>积分 0</span><router-link class="discount" :to="{ name: '/sort'}">去购物车抵扣     ></router-link></div></div>
-	 <div class="myorder">
-	 	<h3><img src="../../../assets/img/order.png">我的订单<router-link :to="{ path: '/user/orderlist'}" tag="span" class="more">查看更多订单></router-link></h3>
-   </div>
-   <ul class="order-list"> 
+   <ul class="order-list">
+   	<router-link :to="{ path: '/user/orderlist'}" tag="li" ><img src="../../../assets/img/order.png">查看更多订单<i>></i></router-link>
    	<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
    		<router-link :to="{ path: '/user/couponcenter' }" tag="li"><img  src="../../../assets/img/a2.png">领券中心<i>></i></router-link>	
    			<router-link :to="{ path: '/user/mylove' }" tag="li"><img  src="../../../assets/img/a3.png">我的收藏<i>></i></li></router-link>	
@@ -33,7 +31,6 @@
 </template>
 
 <script>
-	
 	export default {
 	    data () {
 	        return {

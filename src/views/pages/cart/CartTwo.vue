@@ -14,9 +14,10 @@
 				</li>
 			   </ul>
                 <div  class="zeroAddress" v-else >
-                	<router-link :to="{ path: '/user/address' }">请选择收货地址
+                	<div @click="addAdd">
+                		请选择收货地址
                 	<Icon class='float float1' type="ios-arrow-right"></Icon>
-                  </router-link>
+                  </div>
                 </div>
             </div>
             <div class="carttwo">
@@ -55,10 +56,6 @@
 				productItemIds:[],
             }
         },
-  		watch: {
-            // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
-               '$route': 'getDD'
-          },
         methods: {
         	getDD(){
                 let routerParams = this.$route.params.address;
@@ -66,11 +63,6 @@
                 	this.addressList=routerParams;
                 	this.youdizhi=true
                 }
-        	},
-        	addAdd(){
-        		 sessionStorage.removeItem('fromc'); 
-		         sessionStorage.setItem('fromc','dingdan'); 
-        		 this.$router.push('/user/address') ;
         	},
 		      getCartList(){
 		        this.cartList =  JSON.parse(sessionStorage.getItem('cart')); 
@@ -81,6 +73,10 @@
 					    _this.productItemIds.push(item.id);
 				      });
 		      },
+		     addAdd(){
+        		 localStorage.setItem('fromc','dingdan')
+        		 this.$router.push({name: '/user/address'}) ;
+        	},
 		      getAddress(){
 		      	var _this=this;
 		      	  	this.$axios({
@@ -140,19 +136,7 @@
  		max-width: 100%;
  	}
  }
- .address li{
- 	display: flex;
- 	background:#fff;
- 	padding:1rem;
- 	cursor: pointer;
- }
-  .address p{
-  	flex:1;
-  	strong{
-  		display: block;
-  		color:#333
-  	}
-  }
+
   .cart_gray span{
   	float: right;
 	   strong{ 
@@ -188,11 +172,5 @@
 					cursor: pointer;
 				}
 		}
-		.chooseAddress{
-			.zeroAddress{
-				background: #fff;
-				color:#fff;
-				padding:10px
-			}
-		}
+	
 </style>

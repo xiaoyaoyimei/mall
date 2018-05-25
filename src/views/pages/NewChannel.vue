@@ -8,14 +8,14 @@
 				<div   class="spdetail"    v-for="(item, index) in productNew" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 								<img  :src='item.model_img |imgfilter'>
-							   <div>	<p class="sP">{{item.model_name}}
+							   <div class="right">	<p class="sP">{{item.model_name}}
 								</p>
-								<p>{{item.type_name}}</p>
+								<p class="font-14">{{item.type_name}}</p>
 								<p>
 									<span v-if="item.promotionTitle !=null" class="promotion">{{item.promotionTitle}}</span>
 									<span v-else></span>
 								</p>
-								<h6 class="sh6">{{item.sale_price}}</h6>
+								<p class="sh6">{{item.sale_price | pricefilter}}</p>
 								</div>
 							</router-link>
 						</div>

@@ -4,7 +4,7 @@
 			<Icon type="ios-arrow-back"  @click.native="back"  class="m_header_bar_back"></Icon>
 			<span class="m_header_bar_title">收货地址</span>
 		</div>
-			<ul class="address">
+			<ul class="addressul">
 				<li v-for="(item, index) in addressList" >
 				<p @click='chooseDD(item)'><span>{{item.person}} </span><span>{{item.phone}}</span></p>
 				<p><span>{{item.receiveProvince}}{{item.receiveCity}}{{item.receiveDistrict}}{{item.address}}</span></p>
@@ -57,17 +57,34 @@
 						});
        	   },
        	   chooseDD(value){
-       	   	
-       	   	    this.$router.push({name:'/carttwo',params:{address:value}})  
+       	   	 let fromc = localStorage.getItem('fromc');
+       	   	   if(fromc!=undefined){
+	       	   	  	    if(fromc=='miaosha'){
+	       	   	  	    	
+	       	   	  	    	this.$router.push({name:'/secdetail',params:{address:value}})  
+	       	   	  	    }else {
+	       	   	  	    	 this.$router.push({name:'/carttwo',params:{address:value}})  
+	       	   	  	    }
+       	   	  	    }else{
+       	   	  	    	return;
+       	   	  	    }
+       	   	   
        	   },
        	   back(){
-       	   	 if(sessionStorage.getItem('fromc')=='dingdan'){
-       	   	 		this.$router.push('/carttwo')  
-       	   	 		 sessionStorage.removeItem('fromc'); 
-       	   	 }else{
-       	   	 	this.$router.push('/user')  
-       	   	 }
+       	   	  let fromc = localStorage.getItem('fromc');
+       	   	  if(fromc!=undefined){
+	       	   	  	    if(fromc=='miaosha'){
+	       	   	  	    	this.$router.push('/secdetail')  
+	       	   	  	    }else {
+	       	   	  	    	this.$router.push('/carttwo');
+	       	   	  	    }
+       	   	  	    }
+       	   	  else{
+       	   	  	this.$router.push('/user');
+       	   	  }
        	   },
+       	   
+       	   
        	   updateDefault(value){
        	   	this.$axios({
 						    method: 'post',
@@ -116,7 +133,7 @@
         color:#fff;
     }
   }
-  .address { 
+  .addressul { 
     font-size: 1.6rem;
          li 
          {
