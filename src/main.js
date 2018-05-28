@@ -91,8 +91,8 @@ var app =new Vue({
   template: '<App/>'
 })
 //设置拦截器
-axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
-//axios.defaults.baseURL = 'http://test-shop.dxracer.com.cn:8084/mall/wap/';
+//axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
+axios.defaults.baseURL = 'http://test-shop.dxracer.com.cn:8084/mall/wap/';
 axios.interceptors.request.use(config => {  
 // 在发送请求之前做些什么  
 //判断是否存在token，如果存在将每个页面header都添加token  
@@ -115,7 +115,7 @@ axios.interceptors.response.use(
 	
 response => { 
     // token 已过期，重定向到登录页面  
-    if (response.data.code == 4){  
+    if (response.data.code == '401'){  
         localStorage.clear()  
         router.replace({  
                         path: '/login',  

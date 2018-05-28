@@ -1,6 +1,10 @@
 <template>
 	<div class="order">
-		<h2><router-link to="/user/myinfo"><Icon type="ios-arrow-thin-left"></Icon> </router-link>修改性别<span  @click="handleNick">保存</span></h2>
+			<div class="m_header_bar">
+			<router-link to="/user/myinfo"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span class="m_header_bar_title">修改性别</span>
+			<span  @click="handleNick" class="m_header_bar_menu">保存</span>
+		</div>
 		<div class="sex">
 			<p @click="handleNick('M')"><span>男</span> <Icon type="checkmark" v-if="'M'==this.sex"></Icon></p>
 			<p @click="handleNick('F')"><span>女</span><Icon type="checkmark" v-if="'F'==this.sex"></Icon></p>
@@ -29,7 +33,7 @@
 						    url:'/account/update',
 						    data:{"sex":value}
 						}).then((res)=>{
-							if(res.data.code=='200'){
+							if(res.code=='200'){
 							// this.$Message.success('性别修改成功');
 							 this.$router.push('/user/myinfo')  
 							}

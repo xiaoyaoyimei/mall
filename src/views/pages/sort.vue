@@ -12,7 +12,7 @@
 		 </div>
 		</div>
 		</div>
-		<button class="search-button"  @click="getList()" type="button">搜索</button>
+		<span class="search-button"  @click="getList()" >搜索</span>
 		</div>
 		 <Row type="flex" justify="space-between" class="code-row-bg">
 	        <Col span="4" v-bind:class="{ active: isActive }">综合</Col>
@@ -20,14 +20,16 @@
 	        <Col span="4" v-bind:class="{ active: isActive }">价格</Col>
 	        <Col span="4" v-bind:class="{ active: isActive }">筛选</Col>
    	   	</Row>
+   	   	     <div class="center" v-if="show">抱歉，没有找到商品</div>
    	   <!--
           	作者：1206902591@qq.com
           	时间：2018-05-22
           	描述：spin加载中
           -->
-   	     <Col class="demo-spin-col" >
-		   	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height="600">
-				<div class="product">
+     
+   	     <Col class="demo-spin-col"  v-else>
+		   	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height='scrollHeight'>
+				<div class="product" ref="con">
 						<div   class="spdetail"    v-for="(item, index) in productList" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 								<img  :src='imageSrc + item.model_img'>
@@ -65,6 +67,7 @@
     export default {
         data () {
             return {
+            	scrollHeight:500,
 				productList:[],
 				imageSrc:this.global_.imgurl,
 				startRow:0,
@@ -72,12 +75,14 @@
 				keyword:'',
 				spinShow:false,
 				isActive:false,
+				show:false
 			}
 			
 		},
 		name: 'scroll-top',
 		methods:{
 			getList(){
+				this.scrollHeight=window.screen.height;
 				this.spinShow=true;
 				 let routerParams = this.$route.params.keyword;
 				  this.productList=[];
@@ -90,8 +95,14 @@
 					method: 'GET',
 					url:'/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
 				}).then((res)=>{
+					if(res.total>0){
 					this.productList = res.itemsList;
 					this.spinShow=false;
+					this.show=false;
+					}
+					else{
+						this.show=true;
+					}
 				})
                 
 			
@@ -100,7 +111,7 @@
 				document.querySelector(".ivu-scroll-container").scrollTop = 0; 
 			},
 			handleReachBottom (dir) {
-				this.startRow=this.startRow+10;
+				this.startRow=this.startRow+this.pageSize;
                 return new Promise(resolve => {
                     this.$axios({
 						method: 'GET',
@@ -135,14 +146,14 @@
 </script>
 
 <style lang="scss" scoped="scoped">
- @import '@/styles/color.scss';
  .promotion{
- 	    border: 1px solid #d32122;
+ 	    border: 1px solid #f48940;
     display: inline-block;
-    padding: 2px 10px;
-    border-radius: 5px;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
     margin-top: 5px;
-    color: #d32122;
+    color: #f48940;
+    font-size: 1.4rem;
  }
  header{
 	 position:fixed;
@@ -168,6 +179,10 @@
         color: #fff;
         text-align: center;
         border-radius: 0.2rem;
-    }
+}
+.center{
+	margin: 3rem 0;
+	text-align: center;
+}
 
 </style>

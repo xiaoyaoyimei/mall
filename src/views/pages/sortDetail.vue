@@ -2,10 +2,10 @@
 <div>
 	<div class="sortDetail">
 		<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
-		<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
-            :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow">
+	<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
+            :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" ref="carousel">
               <CarouselItem>
-              	  <iframe style="width:400px;height:400px" ref="video" frameborder=0 allowfullscreen></iframe>  
+              	  <iframe  ref="video" frameborder=0 allowfullscreen ></iframe>  
               </CarouselItem>
                 <CarouselItem v-for="(item, index) in shangp.productImageList"  :key="index">
                         <div class="demo-carousel" ><img :src="item.listImg |imgfilter"></div>
@@ -19,7 +19,6 @@
     		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
     	</div>
     </div>
-    
        <Tabs class="spjs">
         <TabPane label="商品介绍">
         	<ul><li v-for="(item, index) in productimg"  :key="index"><img :src="item.imgUrl |imgfilter"></li></ul>
@@ -44,13 +43,13 @@
          	 </div>
             <div  v-if="firstshow" class='choosesp'>
              	<img :src="choosesp.img |imgfilter">
-             	<div><span><strong>{{choosesp.price}}</strong>商品编号:{{choosesp.itemNo}}</span> 
+             	<div><span><strong>{{choosesp.price | pricefilter}}</strong>商品编号:{{choosesp.itemNo}}</span> 
              	<span class="cx" v-if="cxshow"><strong>{{choosesp.cuxiaoprice}}</strong>
-             		促销活动:<label>{{choosesp.activityName}}</label>
+             		<label>{{choosesp.activityName}}</label>
              		</span>
              	</div>
             </div>
-            <div class="cxtime" v-if="cxshow"> 促销时间：{{choosesp.startTime}}-{{choosesp.endTime}}</div>
+            <!--<div class="cxtime" v-if="cxshow"> 促销时间：{{choosesp.startTime}}-{{choosesp.endTime}}</div>-->
          </div>
         <dl v-for="(item, index) in shangp.productAttrList"  :key="index">
           <dt>{{item.attrKey.catalogAttrValue}}</dt>
@@ -58,9 +57,16 @@
           	{{child.modelAttrValue}}
           </dd>
         </dl>
-        <div>数量 <InputNumber  :min="1" v-model="quantity"></InputNumber></div>
+        <div>
+        	<p>数量</p>
+        		<div class="min-add">
+			    	<Icon type="minus-round" @click.native="jian()" class="min"></Icon>
+			     	<input class="text-box" name="pricenum"  type="tel" v-model="quantity" v-on:input="changeNumber($event)" placeholder="数量" data-max="50" />
+			 		 <Icon type="plus-round" @click.native="jia()" class="add"></Icon>
+				</div>
+		</div>
         <div slot="footer">
-        	 <Button  size="large"  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia" class="btn-orange">立即购买</Button>
+        	 <Button  size="large"  type="error"  v-if="!xiajia" class="btn-orange">立即购买</Button>
             <Button  size="large"     disabled="disabled" v-if="xiajia">加入购物车</Button>
             <Button  size="large"  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">加入购物车</Button>
         </div>
@@ -104,6 +110,7 @@
             	},
             	productItemId:'',
             	quantity:1,
+            	max:100,
             	productId:'',
                 value3: 0,
                 setting: {
@@ -117,26 +124,31 @@
             }
         },
           methods: {
+          	        changeNumber: function(event){
+						var obj=event.target;
+						this.quantity = parseInt(obj.value);
+					},
+					//添加
+					jia:function(){
+						if(this.quantity>=this.max){
+						this.quantity=this.max
+						}else{
+						this.quantity=parseInt(this.quantity)+1; 
+						  }
+					},
+					
+					//减
+					jian:function(){
+						if(this.quantity==1){
+						this.quantity==1
+						}else{
+						this.quantity=parseInt(this.quantity)-1; 
+						}
+					},
           	//加入购物车
-          	getshipin(){
-//        		     let youkuUrl = 'http://player.youku.com/embed/' + "XMzQ0MDIwMTAzMg=="
-//						          this.$refs.video.src = youkuUrl  
-//        		   	this.$axios({
-//							    method: 'get',
-//							    url:'http://player.youku.com/embed/XMzQ0MDIwMTAzMg==',
-//								}).then((res)=>{
-//						        if (resresponseHeader.returnCode === 0) {  
-//						          let data = res.video  
-//						          //  保存数据  
-//						          this.video = data  
-//						          let id = data.source_id  
-//						          let youkuUrl = 'http://player.youku.com/embed/' + "XMzQ0MDIwMTAzMg=="
-//						          this.$refs.video.src = youkuUrl  
-//						          }
-//     					 })
-          		},
           	   atc () {
-                this.modal_loading = true;
+                 this.modal_loading = true;
+                if(localStorage.getItem('token')!=null&&localStorage.getItem('token')!=undefined){
                 	this.$axios({
 							    method: 'post',
 							    url:'/order/shopping/add',
@@ -145,11 +157,20 @@
 							    	quantity:this.quantity
 							    }
 								}).then((res)=>{
+									this.modal_loading = false;
 									if(res.code=='200'){
-										this.modal_loading = false;
+										
 										this.$router.push('/cart')  
 									}
+									else{
+										this.$Message.error(res.msg);
+										return ;
+									}
 						})
+					}else{
+						this.$router.push({  path: '/login', query: {redirect: this.$route.fullPath} })  
+					}
+                
             	},
             	chooseSP(e,pa,ch){
             		this.cxshow=false;
@@ -180,7 +201,6 @@
             	   var flag= false;
             	   if(jishu==this.shangp.productAttrList.length){
             	   	//读出选中商品的促销价格+促销类目
-            	   
             	   	    for (let chooseItem of this.shangp.productItemList) {
 							   if(chooseItem.productModelAttrs==chooseId){
 							   	this.choosesp.itemNo=chooseItem.itemNo,
@@ -229,7 +249,9 @@
 										this.shangp=res.object;
 										 if(res.object.product.video!="")
 										 {
-						                 this.$refs.video.src = 'http://player.youku.com/embed/' + res.object.product.video;
+										 	this.$refs.video.width=window.innerWidth;
+										 	this.$refs.video.height=window.innerWidth;
+										 	  this.$refs.video.src = 'http://player.youku.com/embed/' + res.object.product.video;
 						                }
 									}
 							});
@@ -248,20 +270,6 @@
 										this.productimg=res;
 							});
 			     },
-			     setdefault(){
-			     		//找出默认选中
-//										var result=this.product.productItemList[0].productModelAttrs.split(",");
-//									    let dditem=this.$refs['dditem'];
-//									     this.bigchoose="";
-//										for(let i=0;i<result.length;i++){
-//												for(let n=0;n<dditem.length;n++){
-//						            			if(dditem[n].getAttribute("title")==result[i]){
-//						            				dditem[n].setAttribute("class",'active');
-//						            				this.bigchoose +=dditem[n].innerHTML+',';
-//						            			}
-//						            		}
-//										}
-			     }
     	      	
     	     },
     	     
@@ -269,13 +277,10 @@
 				this.getParams();
 				this.getProduct();
 				this.getProductDesc();
-				this.setdefault();
-				//this.getshipin();
 		}
     }
 </script>
 <style lang="scss" scoped="scoped">
- @import '@/styles/color.scss'; 
  .sortDetail{
  	margin-bottom: 1rem;
  	overflow: hidden;
@@ -294,7 +299,8 @@
  	.cx{
  		margin-top:1rem;
  		label{
- 			color:#333;
+ 			color: #f58e1d;
+ 			padding: 0.2rem;
  		}
  	}
  }
@@ -305,12 +311,12 @@
   }
   strong{
   	margin-bottom: 0.5rem;
-  	color:$color-dx;
+  	color:#d32122;
   	display: block;
   	font-size: 1.4rem;
   }
  .back{
- 	    background: rgba(64, 64, 64, 0.6);
+ 	background: rgba(64, 64, 64, 0.6);
     width: 3.2rem;
     height: 3.2rem;
     line-height:2.2rem;
@@ -334,7 +340,7 @@
  		color: #333;
  	}
  	strong{
- 		color:$color-dx;
+ 		color:#d32122;
  		font-size: 1.1rem;
  	}
  }
@@ -362,7 +368,7 @@
  	margin-bottom:1rem;
  	}
 	 dd{
-	  	border:1px solid $color-border;
+	  	border:1px solid #eee;
 	  	float: left;
 	  	padding: 0.3rem 1rem;
 	  	margin-right: 1rem;
@@ -372,8 +378,8 @@
 	  	margin-bottom: 0.5rem;
 	  }
 	  dd.active{
-	  	color:$color-dx;
-	  	border-color:$color-dx;
+	  	color:#d32122;
+	  	border-color:#d32122;
 	  }
  }
  .choosesp img{

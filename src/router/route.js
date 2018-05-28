@@ -37,6 +37,11 @@ let routes =  [
 					},
 					]
 				},
+					{
+						name:'/search',
+						path: '/search',
+						component:resolve => require(['@/views/pages/Search.vue'], resolve),
+					},
 				{
 						name:'/seckill',
 						path: '/seckill',

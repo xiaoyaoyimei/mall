@@ -48,7 +48,12 @@
 					    method: 'post',
 					    url:'/account',
 					}).then((res)=>{
-						this.userinfo = Object.assign({},res);
+						if(res.code=='200'){
+							this.userinfo = Object.assign({},res);
+						}else{
+							this.$Message.error(res.msg);
+						}
+						
 					});
 					}else{
 						this.nologin=true;
@@ -62,7 +67,6 @@
 </script>
 
 <style lang="scss"> 
-	 @import '@/styles/color.scss';
  /*头部样式*/
 	.user-header a{
 		color:#fff;
@@ -88,7 +92,7 @@
  			}
  		}
  		.color-white{
- 			color:$color-white;
+ 			color:#fff;
  			font-size: 1.6rem;
  		}
  		.shdz{
@@ -124,7 +128,7 @@
 	 		width:20%;
 	 		float: left;
 	 		text-align: center;
-	 		color:$color-default;
+	 		color:#565656;
 	 		img{
 	 		   width:2.5rem;
 	 		}

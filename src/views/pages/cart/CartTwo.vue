@@ -25,12 +25,12 @@
 					<i-col span="6"><img class='cartImg' :src="imageSrc+x.image"></i-col>
 					<i-col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
-						<p class='cart_gray'>{{x.productAttr}} <span>￥ <strong>{{x.salePrice}}</strong>x{{x.quantity}}</span></p>
+						<p class='cart_gray'>{{x.productAttr}} <span> <strong>{{x.salePrice | pricefilter}}</strong>x{{x.quantity}}</span></p>
 					</i-col>
 				</Row>
 			</div>
          <div class='cartfoot'>
-			<strong>￥<span>{{totalPrice}}</span></strong>
+			<strong><span>{{totalPrice  | pricefilter }}</span></strong>
            <button  @click="confirm"  type="button"> 
 				提交订单
 			</button>

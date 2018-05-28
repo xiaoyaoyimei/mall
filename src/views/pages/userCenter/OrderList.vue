@@ -15,9 +15,9 @@
 				<p >{{child.productTitle}}</p>
 				<p class="color-gray">{{child.productAttrs}}</p>
 			</div>
-			<div class="price">￥{{child.orderFee}}<br/>x {{child.quantity}}</div>
+			<div class="price">{{child.orderFee  | pricefilter}}<br/>x {{child.quantity}}</div>
 			</div>
-			<div class="sptitle">合计：￥<span>{{x.order.orderTotalFee}}</span></div>
+			<div class="sptitle">合计：<span>{{x.order.orderTotalFee  | pricefilter}}</span></div>
 			</div>
 			<div class="cz" v-if="x.order.orderStatus=='01'"> <button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)">去支付</button></div>
 		</li>

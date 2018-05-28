@@ -112,7 +112,6 @@
     }
 </script>
 <style lang="scss"  scoped="scoped">
- @import '@/styles/color.scss';
  .login-page{
  	height: 100vh;
  	background: #fff;
@@ -127,7 +126,7 @@
 			margin-bottom: 3rem;
 		}
 		h3{
-			color:$color-dx;
+			color:#d32122;
 		}
 		.btn-login{
 			width: 100%;

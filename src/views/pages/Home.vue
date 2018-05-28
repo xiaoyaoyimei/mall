@@ -75,7 +75,7 @@
         },
         methods: {
         	gosearch(){
-        		this.$router.push('/sort');  
+        		this.$router.push('/search');  
         	},
     	     getBanner(){
     	     	//判断是否已经登录
@@ -117,7 +117,6 @@
 </script>
 
 <style lang="scss"  scoped="scoped">
- @import '@/styles/color.scss';
  .index img{
  	max-width: 100%;
  }
@@ -145,7 +144,7 @@
 	 width:100%;
  }
 .xptj{
-	color:$color-dx;
+	color:#d32122;
 	text-align: center;
 	padding:0.7rem;
 	display: block;
@@ -158,7 +157,7 @@
 	padding: 2rem 0;
 	h6{
 		margin-top:1rem;
-		color:$color-gray;
+		color:#999;
 		font-weight: 100;
 	}
 }
@@ -179,7 +178,7 @@
 					a{
 						float: right;
 						margin-right: 1.5rem;
-						color:$color-dx;
+						color:#d32122;
 					}
 			}
 			}

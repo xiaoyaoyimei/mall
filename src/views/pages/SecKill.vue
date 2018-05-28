@@ -4,7 +4,8 @@
 			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">秒杀</span>
 		</div>
-		<div class="floor">
+		<div v-if='show' class="center">暂无秒杀活动</div>
+		<div class="floor" v-else>
 				<div   class="spdetail"    v-for="(item, index) in pro" :key='index'>
 							<router-link :to="{ params: '/secdetail',params:{skuId:item.id} }">
 							<img  :src='item.productItem.listImg |imgfilter'>
@@ -25,7 +26,7 @@
 										<em>￥{{item.product.salePrice}}</em>
 									</div>
 									<div class="r">
-										<!--<router-link class="btn-dx" :to="{ name: '/secdetail',params:{skuId:item.skuId}}" tag="button">立即抢购</router-link>--></div>
+									</div>
 								</div>
 								<div> <Progress  :percent="percent(item.crush)"></Progress></div>
 								</div>
@@ -55,10 +56,7 @@ export default {
 	return {
 		   pro:[],
             active: 'tab-container1',
-            pinkFont:true,
-            // 上拉刷新、下拉加载
-            allLoaded: false, //如果为true,禁止上拉刷新
-            autoFill: false, //取消自动填充，
+            show:false,
             list: [],
     	}
       },
@@ -104,6 +102,9 @@ export default {
 						        })  
 							    this.pro = ssss; 
 							}
+							else{
+								this.show=true;
+							}
 						});
 						
     	      	},
@@ -114,6 +115,10 @@ export default {
 }
 </script>
 <style scoped="scoped" lang="scss">
+.center{
+	text-align: center;
+	margin-top:1rem;
+}
 .crush{
 	display: flex;
 	.left{

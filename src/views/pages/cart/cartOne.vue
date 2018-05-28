@@ -16,12 +16,13 @@
 					<Col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
 						<p class='cart_gray'>{{x.productAttr}}</p>
-						<div class='cart_price'>￥{{x.salePrice}}	
+						<div class='cart_price'>{{x.salePrice |pricefilter}}	
 							<div class="min-add">
-						    <Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
-						     <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
-						  <Icon type="plus-round" @click.native="jia(x,index)" class="add"></Icon>
-						</div></div>
+						    	<Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
+						     	 <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
+						 		 <Icon type="plus-round" @click.native="jia(x,index)" class="add"></Icon>
+							</div>
+						</div>
 					</Col>
 				</Col>
 			</Checkbox-group>
@@ -29,17 +30,17 @@
 			<div class='cartfoot'>
 				<Row>
 					<Col  class='cartCol' span="24">
-						<Col  span="4" class="center">
+						<Col  span="6" class="center">
 									<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
 						</Col>
 						<Col  span="8">
-							<P class='color-dx'>总计：￥{{totalPrice}}</P>
+							<P class='color-dx'>总计：{{totalPrice |pricefilter}}</P>
 						</Col>
-						<Col class='cartButton1' span="12"> 
+						<Col class='cartButton1' span="10"> 
 							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
 								结算({{zslcount}})
 							</i-button>
-							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">清空购物车</Button>
+							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">删除</Button>
 						</Col>
 					</Col>
 				</Row>
@@ -147,14 +148,20 @@ export default {
 				 this.$router.push({ name:'/carttwo'});
 			},
 			remove(){
+				 	var ids=[];
+				this.checkAllGroup.forEach((i) => {
+				  ids.push(this.cartList[i].id)
+				});
+				 let length=this.checkAllGroup.length;
 				  this.$Modal.confirm({
-                    title: '清空购物车提示',
-                    content: '<p>您确定清空购物车</p>',
+                    title: '删除提示',
+                    content: '<p><strong>确定要删除这'+length+'种商品？</strong></p>',
                     cancelText: '取消',
                      onOk: () => {
                        	this.$axios({
 							    method: 'post',
-							    url:'/order/shopping/clear',
+							    url:'/order/shopping/deleByIds',
+							    data:ids
 								}).then((res)=>{
 									if(res.code==200){
 										this.cartList=[];
@@ -216,37 +223,14 @@ export default {
     }
 </script>
 
-<style  lang="scss" >
- @import '@/styles/color.scss';
- 	 	.min-add{
- 	    float: right;
- 	    padding-right: 1rem;
- 	    }
- 	.min-add .min,.min-add .add{
- 		    color: #333;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right:5px;
-    font-size: 14px;
-    margin-left:3px;
- 	}
- 	.min-add .min,.min-add .add,.min-add input{
- 		display: inline-block;
- 	}
- 	.min-add input{
- 		font-size: 14px;
- 		width:50px;
- 		text-align: center;
- 		background: #f5f5f5;border:0 none;
- 		height:26px;
- 	}
+<style  lang="scss"  scoped="scoped">
 	.cart1{
 		margin-bottom:55px;
 		.center{
 			text-align: center;
 		}
 		.cartCol{
-			background-color:$color-white;
+			background-color:#fff;
 			margin-bottom:0.5rem;
 			padding-bottom:1rem;
 			padding-left: 1rem;
@@ -270,7 +254,7 @@ export default {
 			}
 			.cart_black{
 				padding-right: 1rem;
-				color:$color-default;
+				color:#565656;
 				text-align: left;
 			    box-sizing: border-box;
 			    font-size: 1.6rem;
@@ -281,16 +265,16 @@ export default {
 			}
 			.cart_gray{
 				text-align:left;
-				color:$color-gray;
+				color:#999;
 				box-sizing:border-box;
 				font-size:12px;
 			}
 			.cart_price{
 		    margin-top:5px;
-				color:$color-dx;
+				color:#d32122;
 			}
 			.color-dx{
-				color:$color-dx;
+				color:#d32122;
 				text-align:left;
 			}
 			.cartButton1{
@@ -300,7 +284,7 @@ export default {
 				border-radius:0px;
 				padding:1.5rem 2.5rem;
 				.font-dx{
-					color:$color-white;
+					color:#d32122;
 				}
 			}
 			.cartButton:nth-of-type(2n){
@@ -328,7 +312,7 @@ export default {
 		max-width:8rem;
 		}
 		a{
-			color:$color-dx;
+			color:#d32122;
 			margin-left: 1.5rem;
 			text-decoration: underline;
 		}
