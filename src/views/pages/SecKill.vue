@@ -146,8 +146,7 @@ export default {
 .nostart,.start{
 	
 	color:#fff;
-	padding: 0.5rem;
-	margin-right: 1rem;
+	padding: 0.2rem;
 }
 .nostart{
 	background: green;

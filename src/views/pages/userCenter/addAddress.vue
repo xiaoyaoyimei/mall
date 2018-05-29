@@ -5,7 +5,7 @@
 			<span class="m_header_bar_title">新建收货地址</span>
 			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
 		</div>
-	<Form :model="addForm" ref="addForm" label-position="left" :label-width="100" :rules="ruleValidate"  style="background: #fff;"> 
+	<Form :model="addForm" ref="addForm" :rules="ruleValidate"  style="background: #fff;"> 
         <FormItem label="收货人" prop="person">
             <Input v-model="addForm.person" placeholder="收货人"></Input>
         </FormItem>
@@ -110,14 +110,8 @@
   	cursor: pointer;
   }
   .ivu-form-item{
-  	border-bottom: 1px solid #eee;
-  	padding: 1rem;
+  	padding: 0.5rem 1rem;
   	margin-bottom:0;
   }
   
-</style>
-<style>
-	.ivu-form .ivu-form-item-label{
-  	font-size:1.6rem
-  }
 </style>

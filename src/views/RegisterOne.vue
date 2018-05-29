@@ -167,5 +167,6 @@
 		}
 		.ivu-form .ivu-form-item-label{
 			font-size: 1.4rem;
+			color:#787878;
 		}
 </style>

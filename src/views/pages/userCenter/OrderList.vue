@@ -22,7 +22,7 @@
 			<div class="sptitle">合计：<span>￥{{child.orderFee| pricefilter}}</span></div>
 			</div>
 			</div>
-			<div class="cz" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'"   ><button class="btn" @click="cancel(x.order.orderNo)">取消订单</button></div>
+			<div class="cz" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'"   ></div>
 			<div class="cz" v-if="x.order.orderStatus=='01'"> <button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)">去支付</button></div>
 		</li>
   	</ul>

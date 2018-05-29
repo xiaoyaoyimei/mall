@@ -5,7 +5,7 @@
 			<span class="m_header_bar_title">编辑地址</span>
 			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
 		</div>
-	<Form :model="editForm" ref="editForm" label-position="left" :label-width="100" :rules="ruleValidate"  style="background: #fff;"> 
+	<Form :model="editForm" ref="editForm"  :rules="ruleValidate"  style="background: #fff;"> 
         <FormItem label="收货人" prop="person">
             <Input v-model="editForm.person" placeholder="收货人"></Input>
         </FormItem>
@@ -123,8 +123,7 @@
   	margin-top:60px;
   }
   .ivu-form-item{
-  	border-bottom: 1px solid #eee;
-  	padding: 10px;
+  	padding: 0.5rem 1rem;
   	margin-bottom:0;
   }
 </style>

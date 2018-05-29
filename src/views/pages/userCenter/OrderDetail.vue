@@ -39,8 +39,10 @@
 		    		<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">￥{{orderdetail.shippingOrder.orderTotalFee|pricefilter}}</label></span></li></ul>
 		 
 		</div>
-		<div class="fixbottom"  v-show="orderdetail.shippingOrder.orderStatus=='01'">
-			<button class="btn-red" @click="quzhifu()">去支付</button></div>
+		<div class="fixbottom" 
+			 v-show="orderdetail.shippingOrder.orderStatus=='01'||orderdetail.shippingOrder.orderStatus=='02'">
+			 <button class="btn-white" @click="cancel()" >取消订单</button>
+			<button class="btn-red" @click="quzhifu()" v-show="orderdetail.shippingOrder.orderStatus=='01'">去支付</button></div>
 	</div>
 </template>
 
@@ -65,6 +67,27 @@
    }
 },
     methods: {
+    	     cancel(){
+                this.$Modal.confirm({
+                    content: '<p>确定取消该订单？</p>',
+                    onOk: () => {
+                         		this.$axios({
+					    method: 'post',
+					    url:'/order/cancel/'+this.orderNo,
+					}).then((res)=>{
+						if(res.code=='200'){
+							  this.$Message.info(res.msg);
+						}
+						else{
+							  this.$Message.info(res.msg);
+						}
+					});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('放弃取消');
+                    }
+                });
+            },
     		quzhifu(){
     		this.$router.push({name:'/cartthree',params:{orderNo: this.orderNo}});  
     	},
@@ -99,7 +122,7 @@
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	padding: 0.9rem 0;
+	padding: 0 0 0.9rem;
 	box-sizing:content-box;
 	height: 3.2rem;
 	background: #fff;
@@ -107,7 +130,7 @@
 	button{
 		height: 3.2rem;
 		margin-right:1rem;
-		padding: 0 0.8rem;
+		padding: 0  0.8rem;
 		cursor: pointer;
 	}
 	.btn-white{
@@ -122,6 +145,7 @@
 	
 }
 	.detail {
+		margin-bottom:5rem;
 		font-size: 1.4rem;
 		.address{ 
 			background:#fff;

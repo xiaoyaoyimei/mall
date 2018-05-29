@@ -141,15 +141,3 @@
 		}
 	}
 	</style>
-	<style>
-		.ivu-form-item:not(:last-child) {
-			border-bottom: 1px  solid #eee;
-		}
-		 .ivu-input{
-			border:0 none;
-			font-size: 1.6rem;
-		}
-		.ivu-form .ivu-form-item-label{
-			font-size: 1.6rem;
-		}
-</style>

@@ -16,7 +16,8 @@
 					<Col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
 						<p class='cart_gray'>{{x.productAttr}}</p>
-						<div class='cart_price'>{{x.salePrice |pricefilter}}	
+						<p><label v-if="x.promotionTitle !=null" class="promotion">{{x.promotionTitle}}</label></p>
+						<div class='cart_price'>￥{{x.salePrice |pricefilter}}	
 							<div class="min-add">
 						    	<Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
 						     	 <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />

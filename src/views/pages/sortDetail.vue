@@ -375,7 +375,7 @@
 	 dd{
 	  	border:1px solid #eee;
 	  	float: left;
-	  	padding: 0.3rem 1rem;
+	  	padding: 0.3rem 0.5rem;
 	  	margin-right: 1rem;
 	  	border-radius: 3rem;
 	  	color: #222;

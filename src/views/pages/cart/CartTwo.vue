@@ -25,12 +25,28 @@
 					<i-col span="6"><img class='cartImg' :src="imageSrc+x.image"></i-col>
 					<i-col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
-						<p class='cart_gray'>{{x.productAttr}} <span> <strong>{{x.salePrice | pricefilter}}</strong>x{{x.quantity}}</span></p>
+						<p  class='cart_attr'>
+								{{x.productAttr}} 		
+								</p >
+						<div class="cart_gray">
+						   <p>
+						   	<label class="promotion" v-if="x.promotionTitle !=null">{{x.promotionTitle}}</label>
+					        <span >￥{{x.salePrice | pricefilter}}x{{x.quantity}}</span>
+					       	<!--<em class="oldprice">￥{{x.salePrice | pricefilter}}</em>-->
+					       	 <span v-if="x.promotionTitle ==null&&xscoupon" class="color-dx">
+					       	 	￥{{couponprice(x.salePrice) | pricefilter}}x{{x.quantity}}
+					       	 </span>
+					       </p>
+						  </div>
 					</i-col>
 				</Row>
 			</div>
+			<div class="yhm"  v-show="couponshow">
+				<span>优惠券</span><input type="text" placeholder="优惠券" v-model.trim="couponCode"/>
+				<span @click='usecoupon'>使用</span>
+			</div>
          <div class='cartfoot'>
-			<strong><span>{{totalPrice  | pricefilter }}</span></strong>
+			<strong><span>￥{{totalPrice  | pricefilter }}</span></strong>
            <button  @click="confirm"  type="button"> 
 				提交订单
 			</button>
@@ -41,6 +57,9 @@
     export default {
         data () {
             return {
+            	xscoupon:false,
+            	jisuanmode:'',
+            	couponCode:'',
                 imageSrc:this.global_.imgurl,
                  indeterminate: true,
                 checkAll: false,
@@ -54,9 +73,43 @@
 				youdizhi:false,
 				tempcart:[],
 				productItemIds:[],
+				couponshow:true,
+				couponmsg:{
+					availableSku:'',
+					availableCatalog:'',
+					modeValue:'',
+					couponMode:''
+				}
             }
         },
         methods: {
+        	//总价计算
+        	jisuan(value){
+        		  let _this=this;
+        		  _this.jisuanmode=value;
+        		  _this.totalPrice=0;
+        		  if(_this.jisuanmode=='normol'){
+        		    this.cartList.forEach(function(item,index) {
+					    _this.totalPrice +=item.salePrice*item.quantity;
+				   });
+        		  }else if(_this.jisuanmode=='rate'){
+        		  	    this.cartList.forEach(function(item,index) {
+        		  	    	if(item.promotionTitle!=''&&item.promotionTitle!=null&&item.promotionTitle!=undefined){
+        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+        		  	    	}else{
+        		  	    		_this.totalPrice +=item.salePrice*(1-_this.couponmsg.modeValue)*item.quantity
+        		  	    	}
+				   });
+        		  }else{
+        		  	    this.cartList.forEach(function(item,index) {
+        		  	    	if(item.promotionTitle!=''&&item.promotionTitle!=null&&item.promotionTitle!=undefined){
+        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+        		  	    	}else{
+        		  	    		_this.totalPrice +=(item.salePrice-_this.couponmsg.modeValue)*item.quantity
+        		  	    	}
+				   });
+        		  }
+        	},
         	getDD(){
                 let routerParams = this.$route.params.address;
                 if(routerParams!=undefined){
@@ -67,11 +120,19 @@
 		      getCartList(){
 		        this.cartList =  JSON.parse(sessionStorage.getItem('cart')); 
 		        var _this=this;
-		        _this.productItemIds=[];
+		         _this.productItemIds=[];
+		          let n=0;
 		          this.cartList.forEach(function(item,index) {
-					    _this.totalPrice +=item.salePrice*item.quantity;
+		          	   if(item.promotionTitle!=''&&item.promotionTitle!=null){
+		          	     n+=1;
+		          	   }
 					    _this.productItemIds.push(item.id);
-				      });
+				   });
+				      if(this.cartList.length==n){
+				      	this.couponshow=false
+				      }else{
+				      		this.couponshow=true
+				      }
 		      },
 		     addAdd(){
         		 localStorage.setItem('fromc','dingdan')
@@ -97,7 +158,8 @@
             confirm(){
 	          	let para={
 						addressId:this.addressList.id,
-	                    productItemIds:this.productItemIds
+	                    productItemIds:this.productItemIds,
+	                     couponCode:this.couponCode
 	          	};
     	   	  	this.$axios({
 				    method: 'post',
@@ -110,22 +172,76 @@
 						 this.$Message.error(res.msg);
 					}
 				});
-            }
+           },
+           usecoupon(){
+           	this.xscoupon=false
+           	if(this.couponCode==''){
+           		this.$Message.error('优惠码不能为空');
+           		return;
+           	}
+           	    let para={
+						addressId:this.addressList.id,
+	                    productItemIds:this.productItemIds,
+	                    couponCode:this.couponCode
+	          	};
+           	  	this.$axios({
+				    method: 'post',
+				    url:'/promotion/coupon',
+				     data:para
+				}).then((res)=>{
+					if(res.code=='200'){
+						this.xscoupon=true;
+						this.couponmsg=Object.assign({}, res.object);
+						this.jisuan(this.couponmsg.couponMode)
+					}else{
+						this.xscoupon=false;
+						 this.$Message.error(res.object);
+					}
+				});
+          },
+          couponprice(value){
+          	let couponmsg=this.couponmsg;
+          	if(couponmsg.couponMode=='rate'){
+          		return value*(1-couponmsg.modeValue)
+          	}
+          	else{
+          		return value-couponmsg.modeValue
+          	}
+          }
         },
          mounted() {
          	this.getAddress();
          	this.getCartList();
          	this.getDD();
+         	this.jisuan('normol');
 		}
     }
 </script>
 <style lang="scss" scoped="scoped">
  @import '@/styles/color.scss';
- .carttwo{
- 	margin-top:1.5rem;
+ .paymoney{
+ 	margin-bottom: 6rem;
+ }
+ .oldprice{
+ 	text-decoration: line-through;
+ 	font-style: normal;
+ 	font-size: 1.4rem;
+ }
+ .carttwo, .yhm{
+ 	margin-top:1rem;
  	padding: 1rem;
  	background: #fff;
- 	
+ }
+ .yhm{
+ 	margin-bottom:1rem;
+ 	input{
+ 		margin-left: 1rem;
+ 		margin-right: 1rem;
+ 		width:10rem
+ 	}
+ }
+ .cart_attr{
+ 	font-size: 1.4rem;
  }
  .cartCol{
  	padding:1rem 0;
@@ -138,7 +254,7 @@
  }
 
   .cart_gray span{
-  	float: right;
+  	display: block;
 	   strong{ 
 	  	color:$color-dx;
 	  	font-size: 1.6rem;
