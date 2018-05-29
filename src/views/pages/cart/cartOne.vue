@@ -40,7 +40,7 @@
 							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
 								结算({{zslcount}})
 							</i-button>
-							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface">删除</Button>
+							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface" style="margin-right: 1rem;">删除</Button>
 						</Col>
 					</Col>
 				</Row>

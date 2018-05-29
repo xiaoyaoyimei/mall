@@ -77,9 +77,17 @@
 							    url:'/address/insert',
 							    data:para,
 								}).then((res)=>{
+									if(res.code=='200'){
 							        this.$Message.success('提交成功');
 									this.$refs['addForm'].resetFields();
 									this.$router.push('/user/address')  
+									}else if(res.code=='401'){
+										this.$Message.error(res.msg);
+										return ;
+									}else{
+										this.$Message.error(res.msg);
+										return ;
+									}
 							});
 					}
 				});

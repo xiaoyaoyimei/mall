@@ -14,7 +14,6 @@
 </script>
 
 <style scoped="scoped"  lang="scss">
- @import '@/styles/color.scss';
 .foot {
 		background: #fff;
 		border-top:1px solid #eee;
@@ -32,7 +31,7 @@
 		font-size:2.4rem
 	}
 	a.router-link-active{
-			color:$color-dx;
+			color:#d32122
 	}
 }
 </style>

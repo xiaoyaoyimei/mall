@@ -9,16 +9,20 @@
 	<li  v-for="(x,index) in cartList" :key="index"  >
 		   <div @click="seeDetail(x.order.orderNo)"> 
 		   	<div class="orderno">订单号:{{x.order.orderNo}} <span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></div>
-		   <div v-for="(child,i) in x.orderItems" :key="i" class="sphead">
+		   <div v-for="(child,i) in x.orderItems" :key="i">
+		   	<div  class="sphead">
 			<div class="img"><img  :src="child.productItemImg | imgfilter"></div>
 			<div class="xq">
 				<p >{{child.productTitle}}</p>
 				<p class="color-gray">{{child.productAttrs}}</p>
 			</div>
-			<div class="price">{{child.orderFee  | pricefilter}}<br/>x {{child.quantity}}</div>
+			<div class="price">￥{{childjun(child) | pricefilter}}<br/>x {{child.quantity}}</div>
 			</div>
-			<div class="sptitle">合计：<span>{{x.order.orderTotalFee  | pricefilter}}</span></div>
+			
+			<div class="sptitle">合计：<span>￥{{child.orderFee| pricefilter}}</span></div>
 			</div>
+			</div>
+			<div class="cz" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'"   ><button class="btn" @click="cancel(x.order.orderNo)">取消订单</button></div>
 			<div class="cz" v-if="x.order.orderStatus=='01'"> <button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)">去支付</button></div>
 		</li>
   	</ul>
@@ -36,6 +40,30 @@ export default {
     	}
    	 },
     methods: {
+    	      cancel(value){
+                this.$Modal.confirm({
+                    content: '<p>确定取消该订单？</p>',
+                    onOk: () => {
+                         		this.$axios({
+					    method: 'post',
+					    url:'/order/cancel/'+value,
+					}).then((res)=>{
+						if(res.code=='200'){
+							  this.$Message.info(res.msg);
+						}
+						else{
+							  this.$Message.info(res.msg);
+						}
+					});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('放弃取消');
+                    }
+                });
+            },
+    	    childjun (value) {
+	      return value.orderFee /value.quantity
+	    },
     	quzhifu(value){
     		this.$router.push({name:'/cartthree',params:{orderNo:value}});  
     	},
@@ -47,7 +75,7 @@ export default {
 				}
     	},
 		seeDetail(value){
-			this.$router.push({name:'/order/detail',params:{orderNo:value}});  
+			this.$router.push({name:'/order/detail',query:{orderNo:value}});  
 		},
     	getStatusEnum(){
     			this.$axios({
@@ -68,7 +96,6 @@ export default {
 							if(res.code=='200'){
 								this.cartList= res.object;
 							}
-							
 						});
 	     	 }
 	    },
@@ -106,7 +133,8 @@ export default {
 	}
 	.xq{
 	 color:#333;
-	 margin-right:1rem
+	 margin-right:1rem;
+	 flex: 1;
 	}
 	.price{
 		float: right;

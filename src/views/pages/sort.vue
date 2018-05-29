@@ -146,15 +146,7 @@
 </script>
 
 <style lang="scss" scoped="scoped">
- .promotion{
- 	    border: 1px solid #f48940;
-    display: inline-block;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.5rem;
-    margin-top: 5px;
-    color: #f48940;
-    font-size: 1.4rem;
- }
+
  header{
 	 position:fixed;
 	 top:0px;

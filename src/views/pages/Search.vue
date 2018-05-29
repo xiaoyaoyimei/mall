@@ -2,13 +2,13 @@
 	<div>
 	 <div class="Search">	
 	 	<div class="s-w"><Icon type="ios-search-strong" class="search-icon"></Icon>
-	 		<input placeholder="关键字" v-model='keyword'/><span @click="search()">搜索</span></div></div>
+	 		<input placeholder="关键字" v-model.trim='keyword' @keyup.13="search()"/><span @click="search()">搜索</span></div></div>
 	<div class="content">
 			<dl class="hot">
 				<dt>热搜</dt>
 				<dd>电竞椅</dd><dd>优惠</dd></dl>
 		<dl class="history"><dt>历史搜索</dt>
-			<dd  v-for="(item,index) in searchhistory" :key="index">{{item}}</dd>
+			<dd  v-for="(item,index) in arr" :key="index" @click='gosort(item)'>{{item}}</dd>
 		</dl>
 	</div>
 	<div class="delete-wrap" >
@@ -17,28 +17,65 @@
 </template>
 
 <script>
+	// 检索函数，判断新增的是否存在
+		function insertArray(arr, val, maxLen) {
+		const index = arr.indexOf(val)
+		if (index === 0) {
+		    return
+		}
+		if (index > 0) {
+		    arr.splice(index, 1)
+		}
+		arr.unshift(val)
+		if (maxLen && arr.length > maxLen) {
+		    arr.pop()
+		}
+		}
 		export default {
         data () {
             return {
             	keyword:'',
-            	searchhistory:[]
+            	arr:[],
+            	maxLen:20,
             }
         },
         methods:{
         	getSearchHistory(){
         		if(localStorage.getItem('searchhistory')!=null&&localStorage.getItem('searchhistory')!=undefined){
-        				this.searchhistory=JSON.parse(localStorage.getItem('searchhistory'))
+        				this.arr=JSON.parse(localStorage.getItem('searchhistory'));
         		}
         	},
         	search(){
-        		this.searchhistory.unshift(this.keyword);
-        		localStorage.setItem('searchhistory',JSON.stringify(this.searchhistory))
+        		let val=this.keyword;
+        		if(val==''){
+        			return
+        		}
+        		if(localStorage.getItem('searchhistory')!=null){
+        			this.arr=JSON.parse(localStorage.getItem('searchhistory'));
+        			insertArray(this.arr,val,this.maxLen);
+        		}else{
+        			insertArray(this.arr,val,this.maxLen);
+        		}
+        	    localStorage.setItem('searchhistory',JSON.stringify(this.arr));
         		this.$router.push({name:'/sort',params:{keyword:this.keyword}});  
         	},
         	clear(){
-        		this.searchhistory=[];
-        		localStorage.removeItem('searchhistory')
+        		    this.$Modal.confirm({
+                    content: '<p>确定清空历史记录？</p>',
+                    onOk: () => {
+                      this.arr=[];
+        				localStorage.removeItem('searchhistory')
+                    },
+                    onCancel: () => {
+                        this.$Message.info('取消成功');
+                    }
+                });
+        		
+        	},
+        	gosort(value){
+        		this.$router.push({name:'/sort',params:{keyword:value}}); 
         	}
+        	
         },
           mounted(){
           	this.getSearchHistory();
@@ -103,8 +140,9 @@
 			padding: 0.5rem 1rem;
 		}
 		dd{
+			cursor: pointer;
 			padding:  0.5rem 1rem;
-				border-bottom: 1px solid #eee;
+			border-bottom: 1px solid #eee;
 		}
 	}
 	.delete-wrap{

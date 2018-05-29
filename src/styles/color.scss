@@ -4,6 +4,14 @@ $color-dx:#d32122;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
+ .promotion{
+    display: inline-block;
+    background: #fcdadb;
+    padding: 0.2rem;
+    margin-top: 0.5rem;
+    color: #d32122;
+    font-size: 1.2rem;
+ }
 .cartCol .min-add{
     float: right;
     padding-right: 1rem;
@@ -244,7 +252,7 @@ input, textarea{
 .search{
        position: relative;
     background: #fff;
-    border-radius: 1.5rem;
+    border-radius: 0.5rem;
     height: 2.5rem;
     overflow: hidden;
 }

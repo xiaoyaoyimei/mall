@@ -48,12 +48,7 @@
 					    method: 'post',
 					    url:'/account',
 					}).then((res)=>{
-						if(res.code=='200'){
 							this.userinfo = Object.assign({},res);
-						}else{
-							this.$Message.error(res.msg);
-						}
-						
 					});
 					}else{
 						this.nologin=true;

@@ -1,37 +1,38 @@
 <template>
 <div>
-	<div class="sortDetail">
-		<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
-	<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
-            :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" ref="carousel">
-              <CarouselItem>
-              	  <iframe  ref="video" frameborder=0 allowfullscreen ></iframe>  
-              </CarouselItem>
-                <CarouselItem v-for="(item, index) in shangp.productImageList"  :key="index">
-                        <div class="demo-carousel" ><img :src="item.listImg |imgfilter"></div>
-                </CarouselItem>
-    	</Carousel>
-    		<div class="xiangqiang">
-    		<div>{{shangp.product.modelName}}</div>
-    	<strong><label class="price">{{shangp.product.salePrice | pricefilter}}</label></strong>
-    	</div>
-    	<div class="choose" @click="modal2 = true">
-    		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
-    	</div>
-    </div>
-       <Tabs class="spjs">
-        <TabPane label="商品介绍">
-        	<ul><li v-for="(item, index) in productimg"  :key="index"><img :src="item.imgUrl |imgfilter"></li></ul>
-        </TabPane>
-        <TabPane label="规格参数" >
-        		<ul class="gk">
-        			<li v-for="(item, index) in productDesc"  :key="index">
-        			<span class="title">{{item.attrCode}}:</span> <span class="neirong">{{item.attrValue}}</span></li></ul>
-        </TabPane>
-    </Tabs>
-    <div class="foot"> <button    :loading="modal_loading" @click="modal2 = true" class="jrgwc">加入购物车</button>
-    	  <router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon></router-link>
-    </div>
+		<div class="sortDetail">
+			<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
+				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
+		            :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" ref="carousel">
+		              <CarouselItem v-show="videoshow">
+		              	  <iframe  ref="video" frameborder=0 allowfullscreen  ></iframe>  
+		              </CarouselItem>
+		                <CarouselItem v-for="(item, index) in shangp.productImageList"  :key="index">
+		                        <div class="demo-carousel" ><img :src="item.listImg |imgfilter"></div>
+		                </CarouselItem>
+		    	</Carousel>
+	    		<div class="xiangqiang">
+	    		<div>{{shangp.product.modelName}}</div>
+	    	<strong><label class="price">{{shangp.product.salePrice | pricefilter}}</label></strong>
+	    	</div>
+	    	<div class="choose" @click="modal2 = true">
+	    		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
+	    	</div>
+	    </div>
+	       <Tabs class="spjs">
+	        <TabPane label="商品介绍">
+	        	<ul><li v-for="(item, index) in productimg"  :key="index"><img :src="item.imgUrl |imgfilter"></li></ul>
+	        </TabPane>
+	        <TabPane label="规格参数" >
+	        		<ul class="gk">
+	        			<li v-for="(item, index) in productDesc"  :key="index">
+	        			<span class="title">{{item.attrCode}}:</span> <span class="neirong">{{item.attrValue}}</span></li></ul>
+	        </TabPane>
+	    </Tabs>
+	    <div class="foot"> 
+	    	<button    :loading="modal_loading" @click="modal2 = true" class="jrgwc">加入购物车</button>
+	    	  <router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon></router-link>
+	    </div>
        	<!--弹窗选择商品尺寸颜色-->
     	 <Modal v-model="modal2"  class="chooseModal cartModal" :mask-closable="false">
          <div slot="header" >
@@ -43,8 +44,8 @@
          	 </div>
             <div  v-if="firstshow" class='choosesp'>
              	<img :src="choosesp.img |imgfilter">
-             	<div><span><strong>{{choosesp.price | pricefilter}}</strong>商品编号:{{choosesp.itemNo}}</span> 
-             	<span class="cx" v-if="cxshow"><strong>{{choosesp.cuxiaoprice}}</strong>
+             	<div><span><strong>￥{{choosesp.price | pricefilter}}</strong>商品编号:{{choosesp.itemNo}}</span> 
+             	<span class="cx" v-if="cxshow"><strong>￥{{choosesp.cuxiaoprice}}</strong>
              		<label>{{choosesp.activityName}}</label>
              		</span>
              	</div>
@@ -66,9 +67,9 @@
 				</div>
 		</div>
         <div slot="footer">
-        	 <Button  size="large"  type="error"  v-if="!xiajia" class="btn-orange">立即购买</Button>
-            <Button  size="large"     disabled="disabled" v-if="xiajia">加入购物车</Button>
-            <Button  size="large"  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">加入购物车</Button>
+        	 <!--<Button  size="large"  type="error"  v-if="!xiajia" class="btn-orange">立即购买</Button>-->
+            <Button  size="large"   long  disabled="disabled" v-if="xiajia">加入购物车</Button>
+            <Button  size="large"  long  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">加入购物车</Button>
         </div>
     </Modal>
     </div>
@@ -83,6 +84,7 @@
     	export default {
         data () {
             return {
+            	videoshow:false,
             	xiajia:false,
             	firstshow:false,
             	selectedId:-1,
@@ -241,6 +243,8 @@
 			        this.productId=routerParams;
 			    },
 			     getProduct(){
+			     	let _this=this;
+			     	_this.videoshow=false;
 			     		this.$axios({
 							    method: 'post',
 							    url:'/product/'+this.productId,
@@ -249,9 +253,10 @@
 										this.shangp=res.object;
 										 if(res.object.product.video!="")
 										 {
-										 	this.$refs.video.width=window.innerWidth;
-										 	this.$refs.video.height=window.innerWidth;
-										 	  this.$refs.video.src = 'http://player.youku.com/embed/' + res.object.product.video;
+										 	_this.$refs.video.width=window.innerWidth;
+										 	_this.$refs.video.height=window.innerWidth;
+										 	_this.$refs.video.src = 'http://player.youku.com/embed/' + res.object.product.video;
+										 	_this.videoshow=true;
 						                }
 									}
 							});
@@ -299,8 +304,8 @@
  	.cx{
  		margin-top:1rem;
  		label{
- 			color: #f58e1d;
- 			padding: 0.2rem;
+ 			 background: #fcdadb;
+ 			   color: #d32122;
  		}
  	}
  }
@@ -412,7 +417,6 @@
 		padding: 0;
 	}
 	.cartModal .ivu-modal-footer button{
-		width:50%;
 		height: 4.4rem;
 		float: left;
 		border-radius: 0;

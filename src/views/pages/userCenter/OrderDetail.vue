@@ -10,7 +10,7 @@
 			<li>
 			<img src="../../../assets/img/地址.png">
 		    <div> 
-		    <p>{{orderdetail.shippingAddress.receiverName}} <strong>{{orderdetail.shippingAddress.receiverMobile}}</strong></p>
+		    <p>{{orderdetail.shippingAddress.receiverName}} <b>{{orderdetail.shippingAddress.receiverMobile}}</b></p>
 		    <p>{{orderdetail.shippingAddress.receiverState}}{{orderdetail.shippingAddress.receiverCity}}{{orderdetail.shippingAddress.receiverDistrict}}{{orderdetail.shippingAddress.receiverAddress}}</p>
 			</div>
 			</li>
@@ -22,27 +22,30 @@
 		   		<p>
 		   			<span class="title">{{item.productTitle}}</span>
 		   			<span>{{item.productAttrs}}</span>
-		   			<span class="price">￥{{item.productFee}}</span></p>
+		   			<span class="price">￥{{productFeejun(item)|pricefilter}}</span></p>
 		   	</li>
 		   	</ul>
 		   	  <div class="sp">
 		   		<span>订单编号：{{orderdetail.shippingOrder.orderNo}}</span>
-		   		<span>下单时间：{{orderdetail.shippingOrder.createTime}}</span>
+		   		<span>下单时间：{{orderdetail.shippingOrder.createTime | formatDate}}</span>
 		   		
 		   			<span>发票类型：{{orderdetail.shippingInvoice}}</span>
 		   			<span>发票抬头：</span>
 		   			<span>发票内容：</span>
 		   		</div>
 		   	<ul class="sptotal">
-		   	<li>	<span class="t">商品总额</span><span class="s">{{orderdetail.shippingOrder.productFee}}</span></li>
-		   	<li>	<span class="t">运费</span><span class="s">{{orderdetail.shippingOrder.postageFee}}</span></li>
-		   	 	<li>	<span class="t">商品优惠</span><span class="s">{{orderdetail.shippingOrder.discountFee}}</span></li>
-		    		<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">￥{{orderdetail.shippingOrder.orderTotalFee}}</label></span></li></ul>
-		   </div>
+		   	<li>	<span class="t">商品总额</span><span class="s">￥{{orderdetail.shippingOrder.productFee|pricefilter}}</span></li>
+		   	 	<li>	<span class="t">商品优惠</span><span class="s">￥{{orderdetail.shippingOrder.discountFee|pricefilter}}</span></li>
+		    		<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">￥{{orderdetail.shippingOrder.orderTotalFee|pricefilter}}</label></span></li></ul>
+		 
+		</div>
+		<div class="fixbottom"  v-show="orderdetail.shippingOrder.orderStatus=='01'">
+			<button class="btn-red" @click="quzhifu()">去支付</button></div>
 	</div>
 </template>
 
 <script>
+	import { formatDate } from '@/assets/js/date.js'
 	export default {
     data () {
       return {
@@ -55,10 +58,22 @@
         orderNo:'',
       }
     },
+    filters: {
+    formatDate(time) {
+    var date = new Date(time);
+    return formatDate(date, 'yyyy-MM-dd hh:mm');
+   }
+},
     methods: {
+    		quzhifu(){
+    		this.$router.push({name:'/cartthree',params:{orderNo: this.orderNo}});  
+    	},
+    	productFeejun(item){
+    		return item.productFee/item.quantity
+    	},
     	  getParams () {
                 // 取到路由带过来的参数 
-                let routerParams = this.$route.params.orderNo;
+                let routerParams = this.$route.query.orderNo;
                 // 将数据放在当前组件的数据内
                 this.orderNo = routerParams;
           },
@@ -69,7 +84,7 @@
 					}).then((res)=>{
 						this.orderdetail = res;
 					});
-     	 }
+     	 },
     },
          mounted() {
          	    this.getParams();
@@ -79,6 +94,33 @@
 </script>
 
 <style scoped="scoped" lang="scss">
+.fixbottom{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 0.9rem 0;
+	box-sizing:content-box;
+	height: 3.2rem;
+	background: #fff;
+	text-align: right;
+	button{
+		height: 3.2rem;
+		margin-right:1rem;
+		padding: 0 0.8rem;
+		cursor: pointer;
+	}
+	.btn-white{
+		background: #fff;
+		border: 1px solid #eee;
+	}
+	.btn-red{
+		background: red;
+		border: 1px solid red;
+		color: #fff;
+	}
+	
+}
 	.detail {
 		font-size: 1.4rem;
 		.address{ 
