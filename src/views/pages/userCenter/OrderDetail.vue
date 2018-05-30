@@ -149,7 +149,6 @@
 		font-size: 1.4rem;
 		.address{ 
 			background:#fff;
-			padding:1rem;
 			li{
 			display: flex;
 			img{
@@ -163,9 +162,8 @@
 	.spitem{
 		margin-top:1rem;
 		background: #fff;
-		
 			li{
-			padding: 1rem;
+			padding: 0.5rem;
 			display: flex;
 			p{
 				flex:1;
@@ -194,14 +192,14 @@
 	.sp{
 		margin-top:1rem;
 		background: #fff;
-		padding: 1rem;
+		padding: 1rem 1rem 0;
 		span{
 			display: block;
-			margin-bottom: 1rem;
+			margin-bottom: 0.5rem;
 		}
 	}
 	.sptotal {
-		margin-top:1rem;
+		border-top:1px solid #eee;
 		background: #fff;
 		.border{
 			border-top:1px solid #eee;

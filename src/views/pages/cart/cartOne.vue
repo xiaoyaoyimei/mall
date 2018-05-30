@@ -17,7 +17,8 @@
 						<p class='cart_black'>{{x.productName}}</p>
 						<p class='cart_gray'>{{x.productAttr}}</p>
 						<p><label v-if="x.promotionTitle !=null" class="promotion">{{x.promotionTitle}}</label></p>
-						<div class='cart_price'>￥{{x.salePrice |pricefilter}}	
+						<div class='cart_price'>
+							￥{{x.salePrice |pricefilter}}	
 							<div class="min-add">
 						    	<Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
 						     	 <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
@@ -79,7 +80,22 @@ export default {
             }
 		},
         methods: {
-
+              addcart(x){
+              		this.$axios({
+							    method: 'post',
+							    url:'/order/shopping/add',
+							    data:{
+							    	productItemId:x.id,
+							    	quantity:x.quantity
+							   	 }
+								}).then((res)=>{
+									if(res.code=='200'){
+										this.getCartList();
+									}else{
+										 this.$Message.warning(res.object);
+									}
+							});
+              },
         	changeNumber: function(event,x,index){
 					var obj=event.target;
 					x.quantity = parseInt(obj.value);
@@ -88,10 +104,10 @@ export default {
 					     	}
 					        this.checkAllGroup=this.temp;
 							this.checkAllGroupChange(this.temp);
+							this.addcart(x)
 					},
 					//添加
 					jia:function(x,index){
-					
 						if(x.quantity>=x.max){
 						x.quantity=x.max
 						}else{
@@ -99,9 +115,10 @@ export default {
 							 if(this.temp.indexOf(index)<0){
 					     		this.temp.push(index)
 					     	}
-					     	   this.checkAllGroup=this.temp;
+					        this.checkAllGroup=this.temp;
 							this.checkAllGroupChange(this.temp);
 						  }
+						this.addcart(x)
 					},
 					
 					//减
@@ -116,6 +133,7 @@ export default {
 						x.quantity=parseInt(x.quantity)-1; 
 				 		this.checkAllGroup=this.temp;
 						this.checkAllGroupChange(this.temp);
+						this.addcart(x)
 						}
 					},
         	getCartList(){
@@ -142,7 +160,6 @@ export default {
 				var goumai=[];
 				this.checkAllGroup.forEach((i) => {
 				  goumai.push(this.cartList[i])
-				 // this.cartList.splice(i, 1);
 				});
 				 sessionStorage.removeItem('cart'); 
 		         sessionStorage.setItem('cart', JSON.stringify(goumai)); 

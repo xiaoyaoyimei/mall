@@ -57,8 +57,9 @@
     export default {
         data () {
             return {
+            	
+            	orderfail:false,
             	xscoupon:false,
-            	jisuanmode:'',
             	couponCode:'',
                 imageSrc:this.global_.imgurl,
                  indeterminate: true,
@@ -85,29 +86,74 @@
         methods: {
         	//总价计算
         	jisuan(value){
-        		  let _this=this;
-        		  _this.jisuanmode=value;
-        		  _this.totalPrice=0;
-        		  if(_this.jisuanmode=='normol'){
-        		    this.cartList.forEach(function(item,index) {
+        		let _this=this;
+        		  //刚进入购物车页面
+        		if(value==undefined){
+        			  this.cartList.forEach(function(item,index) {
 					    _this.totalPrice +=item.salePrice*item.quantity;
 				   });
-        		  }else if(_this.jisuanmode=='rate'){
-        		  	    this.cartList.forEach(function(item,index) {
-        		  	    	if(item.promotionTitle!=''&&item.promotionTitle!=null&&item.promotionTitle!=undefined){
-        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
-        		  	    	}else{
-        		  	    		_this.totalPrice +=item.salePrice*(1-_this.couponmsg.modeValue)*item.quantity
-        		  	    	}
-				   });
-        		  }else{
-        		  	    this.cartList.forEach(function(item,index) {
-        		  	    	if(item.promotionTitle!=''&&item.promotionTitle!=null&&item.promotionTitle!=undefined){
-        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
-        		  	    	}else{
-        		  	    		_this.totalPrice +=(item.salePrice-_this.couponmsg.modeValue)*item.quantity
-        		  	    	}
-				   });
+        		}
+        		//使用优惠券
+        		else{
+        		  let couponmethod=value;
+	        		  if(couponmethod.availableSku==""&&couponmethod.availableCatalog==""){
+	        		      _this.totalPrice=0;
+		        	      if(couponmethod.couponMode=='rate'){
+		        		  	    this.cartList.forEach(function(item,index) {
+		        		  	    	if(item.promotionTitle!=''&&item.promotionTitle!=null&&item.promotionTitle!=undefined){
+		        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+		        		  	    	}else{
+		        		  	    		_this.totalPrice +=item.salePrice*(1-couponmethod.modeValue)*item.quantity
+		        		  	    	}
+						   });
+		        		  }else{
+		        		  	    this.cartList.forEach(function(item,index) {
+		        		  	    	if(item.promotionTitle!=''&&item.promotionTitle!=null&&item.promotionTitle!=undefined){
+		        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+		        		  	    	}else{
+		        		  	    		_this.totalPrice +=(item.salePrice-couponmethod.modeValue)*item.quantity
+		        		  	    	}
+						   });
+		        		  }
+	        		  }else if(couponmethod.availableSku!=""){
+	        		  	   _this.totalPrice=0;
+		        	      if(couponmethod.couponMode=='rate'){
+		        		  	    this.cartList.forEach(function(item,index) {
+		        		  	    	if(item.id==couponmethod.availableCatalog){
+		        		  	    		_this.totalPrice +=item.salePrice*(1-couponmethod.modeValue)*item.quantity
+		        		  	    	}else{
+		        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+		        		  	    	}
+						   		});
+		        		  }else{
+		        		  	    this.cartList.forEach(function(item,index) {
+		        		  	    	if(item.id==couponmethod.availableCatalog){
+		        		  	    		_this.totalPrice +=(item.salePrice-couponmethod.modeValue)*item.quantity
+		        		  	    	}else{
+		        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+		        		  	    	}
+						   });
+	        		  	}
+	        		  }else{
+	        		  	 _this.totalPrice=0;
+		        	      if(couponmethod.couponMode=='rate'){
+		        		  	    this.cartList.forEach(function(item,index) {
+		        		  	    	if(item.productType==couponmethod.availableSku){
+		        		  	    		_this.totalPrice +=item.salePrice*(1-couponmethod.modeValue)*item.quantity
+		        		  	    	}else{
+		        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+		        		  	    	}
+						   		});
+		        		  }else{
+		        		  	    this.cartList.forEach(function(item,index) {
+		        		  	    	if(item.productType==couponmethod.availableSku){
+		        		  	    		_this.totalPrice +=(item.salePrice-couponmethod.modeValue)*item.quantity
+		        		  	    	}else{
+		        		  	    		_this.totalPrice +=item.salePrice*item.quantity;
+		        		  	    	}
+						   });
+	        		  	}
+	        		  }
         		  }
         	},
         	getDD(){
@@ -169,17 +215,21 @@
 					if(res.code=='200'){
 						 this.$router.push({name:'/cartthree',params: { orderNo: res.msg}});  
 					}else{
-						 this.$Message.error(res.msg);
+				   this.$Modal.error({
+				   	title:'失败提示',
+                    content: res.msg,
+               		 });
 					}
 				});
            },
+           //使用优惠券
            usecoupon(){
            	this.xscoupon=false
            	if(this.couponCode==''){
            		this.$Message.error('优惠码不能为空');
            		return;
            	}
-           	    let para={
+           	let para={
 						addressId:this.addressList.id,
 	                    productItemIds:this.productItemIds,
 	                    couponCode:this.couponCode
@@ -192,10 +242,10 @@
 					if(res.code=='200'){
 						this.xscoupon=true;
 						this.couponmsg=Object.assign({}, res.object);
-						this.jisuan(this.couponmsg.couponMode)
+						this.jisuan(this.couponmsg);
 					}else{
 						this.xscoupon=false;
-						 this.$Message.error(res.object);
+						this.$Message.error(res.object);
 					}
 				});
           },
@@ -213,7 +263,7 @@
          	this.getAddress();
          	this.getCartList();
          	this.getDD();
-         	this.jisuan('normol');
+         	this.jisuan();
 		}
     }
 </script>

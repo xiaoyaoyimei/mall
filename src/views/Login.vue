@@ -25,8 +25,6 @@
 </template>
 
 <script>
-	import store from '@/store/store';
-	import { mapMutations } from 'vuex';
     export default {
       data() {
         const validatePass = (rule, value, callback) => {
@@ -84,13 +82,8 @@
 		              } else {
 					        this.$Message.success('登录成功');
 							let data = res;  
-							//根据store中set_token方法将token保存至localStorage/sessionStorage中，data["Authentication-Token"]，获取token的value值  
-							this.$store.commit('set_token',{token:data.object["token"],userId:data.object["userId"]});  
-//							 ...mapMutations({
-//   							 'set_token',{token:data.object["token"]} // 将 `this.add()` 映射为 `this.$store.commit('increment')`
-// 								 })
-
-							if (store.state.token) {  
+							this.$store.commit('LOGIN',{token:data.object["token"],userId:data.object["userId"]});  
+							if (this.$store.state.token) {  
 							this.$router.push(this.$route.query.redirect || '/')
 							} else {  
 								this.$router.replace('/login');  
