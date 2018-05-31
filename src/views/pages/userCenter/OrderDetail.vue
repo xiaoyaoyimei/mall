@@ -77,6 +77,7 @@
 					}).then((res)=>{
 						if(res.code=='200'){
 							  this.$Message.info(res.msg);
+							  this.$router.go(0);
 						}
 						else{
 							  this.$Message.info(res.msg);
@@ -88,8 +89,8 @@
                     }
                 });
             },
-    		quzhifu(){
-    		this.$router.push({name:'/cartthree',params:{orderNo: this.orderNo}});  
+    	quzhifu(){
+    		this.$router.push({name:'/cartthree',query:{orderNo: this.orderNo}});  
     	},
     	productFeejun(item){
     		return item.productFee/item.quantity

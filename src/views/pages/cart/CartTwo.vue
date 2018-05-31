@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="carttwo">
-		 		<Row  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index" :gutter="16"> 
+		 		<Row  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index" > 
 					<i-col span="6"><img class='cartImg' :src="imageSrc+x.image"></i-col>
 					<i-col span="18">
 						<p class='cart_black'>{{x.productName}}</p>
@@ -213,10 +213,10 @@
 				    data:para
 				}).then((res)=>{
 					if(res.code=='200'){
-						 this.$router.push({name:'/cartthree',params: { orderNo: res.msg}});  
+						 this.$router.push({name:'/cartthree',query: { orderNo: res.msg}});  
 					}else{
 				   this.$Modal.error({
-				   	title:'失败提示',
+				   	title:'加入购物车失败',
                     content: res.msg,
                		 });
 					}

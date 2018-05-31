@@ -21,8 +21,7 @@
 			</div>
 			<div class="sptitle">合计：<span>￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 			</div>
-			<div class="cz" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'"   ></div>
-			<div class="cz" v-if="x.order.orderStatus=='01'"> <button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)">去支付</button></div>
+			<div class="cz" > <button  type="button"  class="btn "  @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button><button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">去支付</button></div>
 		</li>
   	</ul>
 	</div>
@@ -64,7 +63,7 @@ export default {
 	      return value.orderFee /value.quantity
 	    },
     	quzhifu(value){
-    		this.$router.push({name:'/cartthree',params:{orderNo:value}});  
+    		this.$router.push({name:'/cartthree',query:{orderNo:value}});  
     	},
     	statusfilter(value){
     			for(var i = 0 ;i < this.statusList.length;i++){

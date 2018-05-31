@@ -149,7 +149,6 @@
 					},
           	//加入购物车
           	   atc () {
-          	   	
                  this.modal_loading = true;
 	                if(localStorage.getItem('token')!=null&&localStorage.getItem('token')!=undefined){
 	                	this.$axios({
@@ -160,7 +159,6 @@
 								    	quantity:this.quantity
 								    }
 									}).then((res)=>{
-										debugger
 										this.modal_loading = false;
 										if(res.code=='200'){
 											
@@ -242,11 +240,11 @@
             	   }
             	   //计算库存
               						for(let kucunitem of this.shangp.inventory){
-							   	      if(kucunitem.productItemId==this.productItemId){
+							   	      if(kucunitem.skuId==this.productItemId){
 							   	      	 this.choosesp.kucun=kucunitem.quantity-kucunitem.lockQuantity
 							   	      }
 							       }
-              						if(this.choosesp.kucun==0){
+              						if(this.choosesp.kucun<=0){
               							this.kucunshow=true;
               						}
             	},
