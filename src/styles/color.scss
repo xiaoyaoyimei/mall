@@ -136,9 +136,7 @@ margin-left:3px;
  .price{
     font-size: 1.6rem;
  }
-.clearfix{
-    overflow: hidden;
-}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 .color-dx{
     color:#d32122
 }

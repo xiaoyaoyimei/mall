@@ -43,7 +43,7 @@
 			</div>
 			<div class="yhm"  v-show="couponshow">
 				<span>优惠券</span><input type="text" placeholder="优惠券" v-model.trim="couponCode"/>
-				<span @click='usecoupon'>使用</span>
+				<span @click='usecoupon' class="use">使用</span>
 			</div>
          <div class='cartfoot'>
 			<strong><span>￥{{totalPrice  | pricefilter }}</span></strong>
@@ -338,5 +338,12 @@
 					cursor: pointer;
 				}
 		}
-	
+		.yhm input{
+			height: 32px;
+		}
+	.use{
+		background: #333;
+		color: #fff;
+		padding: 0 0.5rem;
+	}
 </style>

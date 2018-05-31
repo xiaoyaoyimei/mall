@@ -5,8 +5,8 @@ import router from '@/router/route'
 // axios 配置
 axios.defaults.timeout = 5000;
 //设置拦截器
-//axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
-axios.defaults.baseURL = 'http://test-shop.dxracer.com.cn:8084/mall/wap/';
+axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
+//axios.defaults.baseURL = 'http://test-shop.dxracer.com.cn:8084/mall/wap/';
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
@@ -37,7 +37,7 @@ axios.interceptors.response.use(
                     })
             }
         }
-        // console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
+        console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
         return Promise.reject(error.response.data)
     });
 

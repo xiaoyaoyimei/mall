@@ -6,16 +6,22 @@
 		</div>
 		<div class="content">
 		<p class="color-dx">欢迎来到DXRACER</p>
-	   <Form :model="regiForm" label-position="left" :label-width="120" :rules="ruleValidate" ref="regiForm">
+	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
            <FormItem label="手机号" prop="loginName">
             <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.loginName'></Input>
         </FormItem>
-           <FormItem label="图形验证码" prop="verificationCode" class="clearfix">
-            <Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="w90"></Input>
-             <img  :src="verimg"  @click="getTx" class="txm"/>
+           <FormItem label="图形码" prop="verificationCode" class="clearfix">
+            <div class="clearfix">
+            	<Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="txm"  ></Input>
+               <img  :src="verimg"  @click="getTx"  class="tx"/>
+               <img src="../assets/img/refresh.png">
+             </div>
       		  </FormItem>
-        <FormItem label="短信验证码" prop="shortMessage">
-            <Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码"></Input>
+        <FormItem label="短信码" prop="shortMessage">
+             <div class="clearfix">
+             	<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="txm"></Input>
+             	<button  class="dxm" @click="getDx()"> 获取短信码</button>
+             </div>
         </FormItem>
      <FormItem label="密码" prop="passWord">
             <Input v-model="regiForm.passWord" placeholder="请输入密码"></Input>
@@ -104,8 +110,20 @@
 					}
           	},
           	getTx(){
-          			this.txv++;
-          			this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
+          		//验证用户名是否存在
+          		 	this.$axios({
+							    method: 'post',
+							    url:'/customer/validate',
+							    data:{userName:this.regiForm.loginName},
+							}).then((res)=>{
+								if(res.code=='200'){
+									this.txv++;
+          							this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
+								}else{
+									  this.$Message.error(res.msg);
+								}
+							});
+          			
           	},
             handleSubmit (name) {
             	this.loading=true;
@@ -148,14 +166,22 @@
 		margin-bottom: 1.5rem;
 	}
 	.content{
-		padding: 1rem;
+		padding: 1rem 0.5rem;
 	}
 	.txm{
-		width:9rem;
+		width:11rem;
 	float: left;
 	margin-right:1rem;
 	}
-	
+	.tx,.dxm{
+		height: 32px;
+	}.dxm{
+		line-height: 32px;
+		background: #333;
+		color:#fff;
+		border: 0 none;
+		padding: 0 2px;
+	}
 }
 </style>
 <style>

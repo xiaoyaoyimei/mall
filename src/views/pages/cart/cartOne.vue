@@ -35,10 +35,10 @@
 						<Col  span="6" class="center">
 									<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
 						</Col>
-						<Col  span="8">
+						<Col  span="10">
 							<P class='color-dx'>总计：{{totalPrice |pricefilter}}</P>
 						</Col>
-						<Col class='cartButton1' span="10"> 
+						<Col class='cartButton1' span="8"> 
 							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
 								结算({{zslcount}})
 							</i-button>
@@ -145,6 +145,8 @@ export default {
 								}).then((res)=>{
 									if(res.code=='200'){
 										this.cartList=res.object;
+									}else if(res.code=='401'){
+										alert(res.msg)
 									}
 							});
 					}

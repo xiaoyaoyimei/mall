@@ -29,8 +29,7 @@
 				                 		 this.$Message.error(res.msg);
 				              		} 
 				              		else{
-										localStorage.removeItem('token');
-				                        localStorage.removeItem('userId');
+										this.$store.commit('LOGOUT');  
 				    					_this.$router.push('/login');
 			    					}
 							});

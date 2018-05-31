@@ -36,21 +36,24 @@
        	<!--弹窗选择商品尺寸颜色-->
     	 <Modal v-model="modal2"  class="chooseModal cartModal" :mask-closable="false">
          <div slot="header" >
-         	 <div v-if="xiajia" class="xiajia"><Icon type="information-circled">
-         	 </Icon>该商品已下架
+         	 <div v-if="xiajia" class="xiajia">
+         	 	<Icon type="information-circled"></Icon>该商品已下架
          	 </div>
-       	 <div v-if="!xiajia&&!firstshow" class="xiajia"><Icon type="information-circled">
-         	</Icon>请选择商品 
+       	 <div v-if="!xiajia&&!firstshow" class="xiajia">
+       	 	<Icon type="information-circled"></Icon>请选择商品 
          	 </div>
-            <div  v-if="firstshow" class='choosesp'>
+            <div  v-if="firstshow" class='chooseproduct'>
              	<img :src="choosesp.img |imgfilter">
-             	<div><span><strong>￥{{choosesp.price | pricefilter}}</strong>商品编号:{{choosesp.itemNo}}</span> 
-             	<span class="cx" v-if="cxshow"><strong>￥{{choosesp.cuxiaoprice}}</strong>
+             	<div class="small-xq"><strong>￥{{choosesp.price | pricefilter}}</strong>
+             		商品编号:{{choosesp.itemNo}}
+             	<em>库存:{{choosesp.kucun}}</em> 
+             	<!--促销-->
+             	<span class="cx" v-if="cxshow">
+             		<strong>￥{{choosesp.cuxiaoprice}}</strong>
              		<label>{{choosesp.activityName}}</label>
              		</span>
              	</div>
             </div>
-            <!--<div class="cxtime" v-if="cxshow"> 促销时间：{{choosesp.startTime}}-{{choosesp.endTime}}</div>-->
          </div>
         <dl v-for="(item, index) in shangp.productAttrList"  :key="index">
           <dt>{{item.attrKey.catalogAttrValue}}</dt>
@@ -67,23 +70,19 @@
 				</div>
 		</div>
         <div slot="footer">
-        	 <!--<Button  size="large"  type="error"  v-if="!xiajia" class="btn-orange">立即购买</Button>-->
-            <Button  size="large"   long  disabled="disabled" v-if="xiajia">加入购物车</Button>
-            <Button  size="large"  long  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia">加入购物车</Button>
+        	<Button v-if="kucunshow" size="large"   long  disabled="disabled">暂时无货，到货通知</Button>
+            <Button  size="large"   long  disabled="disabled" v-if="xiajia">该商品已下架</Button>
+            <Button  size="large"  long  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia&&!kucunshow">加入购物车</Button>
         </div>
     </Modal>
     </div>
 </template>
 <script>
-//	var player = new YKU.Player('youkuplayer',{
-//			styleid: '0',
-//			client_id: 'YOUR YOUKUOPENAPI CLIENT_ID',
-//			vid: 'XMzQ0MDIwMTAzMg==',
-//			newPlayer: true
-//});
     	export default {
         data () {
             return {
+            	//库存是否为0添加购物车显示按钮
+            	kucunshow:false,
             	videoshow:false,
             	xiajia:false,
             	firstshow:false,
@@ -95,7 +94,8 @@
             		promotions:[],
             		productImageList:[],
             		productItemList:[],
-            		productAttrList:[]
+            		inventory:[],
+            		productAttrList:[],
             	},
             	productDesc:[],
             	productimg:[],
@@ -108,7 +108,8 @@
             		cuxiaoprice:'',
             		activityName:'',
             		startTime:'',
-            		endTime:''
+            		endTime:'',
+            		kucun:'',
             	},
             	productItemId:'',
             	quantity:1,
@@ -138,7 +139,6 @@
 						this.quantity=parseInt(this.quantity)+1; 
 						  }
 					},
-					
 					//减
 					jian:function(){
 						if(this.quantity==1){
@@ -149,38 +149,42 @@
 					},
           	//加入购物车
           	   atc () {
+          	   	
                  this.modal_loading = true;
-                if(localStorage.getItem('token')!=null&&localStorage.getItem('token')!=undefined){
-                	this.$axios({
-							    method: 'post',
-							    url:'/order/shopping/add',
-							    data:{
-							    	productItemId:this.productItemId,
-							    	quantity:this.quantity
-							    }
-								}).then((res)=>{
-									this.modal_loading = false;
-									if(res.code=='200'){
-										
-										this.$router.push('/cart')  
-									}
-									else{
-										this.$Message.error(res.msg);
-										return ;
-									}
-						})
-					}else{
-						this.$router.push({  path: '/login', query: {redirect: this.$route.fullPath} })  
-					}
-                
+	                if(localStorage.getItem('token')!=null&&localStorage.getItem('token')!=undefined){
+	                	this.$axios({
+								    method: 'post',
+								    url:'/order/shopping/add',
+								    data:{
+								    	productItemId:this.productItemId,
+								    	quantity:this.quantity
+								    }
+									}).then((res)=>{
+										debugger
+										this.modal_loading = false;
+										if(res.code=='200'){
+											
+											this.$router.push('/cart')  
+										}
+										else{
+											this.$Message.error(res.msg);
+											return ;
+										}
+							})
+						}else{
+							this.$router.push({  path: '/login', query: {redirect: this.$route.fullPath} })  
+						}
             	},
+            	//选择商品
             	chooseSP(e,pa,ch){
+            		this.kucunshow=false;
             		this.cxshow=false;
             		var chooseId="",jishu=0;
        	            let  p=e.target.parentNode.children;
        	            for(let i =1;i<p.length;i++) {
        	            	p[i].className="";
 					}
+       	            //商品属性高亮
        	             e.target.className="active"; 
             		if(pa.attrKey.isColorAttr=='Y'){
             			this.choosesp.img=ch.listImg;
@@ -199,10 +203,10 @@
             		//商品详情页已选显示
             	   chooseId=(chooseId.slice(chooseId.length-1)==',')?chooseId.slice(0,-1):chooseId;
             	   this.bigchoose=(this.bigchoose.slice(this.bigchoose.length-1)==',')?this.bigchoose.slice(0,-1):this.bigchoose;
-            	   
             	   var flag= false;
+            	   //只有选择完属性才可以 读出选中商品的促销价格+促销类目
             	   if(jishu==this.shangp.productAttrList.length){
-            	   	//读出选中商品的促销价格+促销类目
+            	   	//通过选择属性读出productItemId
             	   	    for (let chooseItem of this.shangp.productItemList) {
 							   if(chooseItem.productModelAttrs==chooseId){
 							   	this.choosesp.itemNo=chooseItem.itemNo,
@@ -224,6 +228,7 @@
 							   }else{
 							   		flag= false
 							   }
+
 							}
             	   	    if(flag == false){
             	   	    	this.choosesp.itemNo="";
@@ -235,7 +240,15 @@
             	   	    	this.firstshow=true
             	   	    }
             	   }
-            		
+            	   //计算库存
+              						for(let kucunitem of this.shangp.inventory){
+							   	      if(kucunitem.productItemId==this.productItemId){
+							   	      	 this.choosesp.kucun=kucunitem.quantity-kucunitem.lockQuantity
+							   	      }
+							       }
+              						if(this.choosesp.kucun==0){
+              							this.kucunshow=true;
+              						}
             	},
     	      	getParams () {
 	       			 // 取到路由带过来的参数 
@@ -299,7 +312,7 @@
     	margin-right:1rem;
     }
  }
- .choosesp{
+ .chooseproduct{
  	display: flex;
  	.cx{
  		margin-top:1rem;
@@ -308,12 +321,24 @@
  			   color: #d32122;
  		}
  	}
+ 	.small-xq{
+ 		padding-left: 6rem;
+ 		em{
+ 			display: block;
+ 			color:red;
+ 			font-style: normal;
+ 			margin-top:0.5rem;
+ 		}
+ 	};
+ 	img{
+ 	width: 6rem;
+    height: 6rem;
+    background: #fff;
+    position: absolute;
+    top: -25px;
  }
-  .choosesp span {
-  	margin-left:1rem;
-  	color:#999;
-  	display: block;
-  }
+ }
+
   strong{
   	margin-bottom: 0.5rem;
   	color:#d32122;
@@ -377,7 +402,6 @@
 	  	float: left;
 	  	padding: 0.3rem 0.5rem;
 	  	margin-right: 1rem;
-	  	border-radius: 3rem;
 	  	color: #222;
 	  	cursor: pointer;
 	  	margin-bottom: 0.5rem;
@@ -387,15 +411,7 @@
 	  	border-color:#d32122;
 	  }
  }
- .choosesp img{
- 	width: 6.5rem;
-    height: 6.5rem;
-    background: #fff;
-    position: relative;
-    top: -25px;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
- }
+
 .demo-carousel img{
 	max-width: 100%;
 }
