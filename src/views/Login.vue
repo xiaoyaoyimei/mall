@@ -66,10 +66,9 @@
 	        this.passWord=this.$route.params.passWord;
      	 },
         handleLogin() {
-          this.logining = true;
+          this.loading = true;
           this.$refs.loginForm.validate(valid => {
             if (valid) {
-            	this.logining = false;
             	this.global_.loginName=this.loginForm.loginName;
             	this.global_.passWord=this.loginForm.passWord;
 				this.$axios.post('customer/login', {  
@@ -79,7 +78,9 @@
 	               	let { code, object } = res;
 		              if (code !== 200) {
 		                  this.$Message.error(object);
+		              	 this.loading = false;
 		              } else {
+		              		this.loading = false;
 					        this.$Message.success('登录成功');
 							let data = res;  
 							this.$store.commit('LOGIN',{token:data.object["token"],userId:data.object["userId"]});  

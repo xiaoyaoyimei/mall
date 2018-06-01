@@ -23,7 +23,7 @@
         :show-upload-list="false"
         :on-success="handleSuccess"
         :format="['jpg','jpeg','png']"
-        :max-size="2048"
+        :max-size="5120"
         :on-format-error="handleFormatError"
         :on-exceeded-size="handleMaxSize"
         multiple
@@ -57,7 +57,7 @@
                handleMaxSize (file) {
                 this.$Notice.warning({
                     title: '文件过大',
-                    desc: '该  ' + file.name + ' 文件过大, 请小于 2M.'
+                    desc: '该  ' + file.name + ' 文件过大, 请小于 5M.'
                 });
             },
           handleSuccess(res){

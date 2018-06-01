@@ -25,12 +25,20 @@ axios.interceptors.response.use(
     response => {
         return response.data;
     },
+    
     error => {
+    	if(error){
+    		        store.commit('LOGOUT');
+                    router.replace({
+                        path: 'login',
+                        query: {redirect: router.currentRoute.fullPath}
+                    })
+    	}
         if (error.response) {
             switch (error.response.status) {
                 case 401:
                     // 401 清除token信息并跳转到登录页面
-                    store.commit(types.LOGOUT);
+                    store.commit('LOGOUT');
                     router.replace({
                         path: 'login',
                         query: {redirect: router.currentRoute.fullPath}
