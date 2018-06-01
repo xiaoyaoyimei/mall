@@ -8,8 +8,8 @@
 		<div class="tp">
 		<img :src="detail.productItem.listImg | imgfilter"/>
 		<p class="jg">
-		<span>{{detail.crush.salePrice | pricefilter}}</span>
-		<span class="yj">{{detail.productItem.salePrice | pricefilter}}</span>	
+		<span>￥{{detail.crush.salePrice | pricefilter}}</span>
+		<span class="yj">￥{{detail.productItem.salePrice | pricefilter}}</span>	
 		</p>
 		</div>
 		      <div class="chooseAddress">
@@ -109,22 +109,23 @@
 				    data:para
 				}).then((res)=>{
 					if(res.code=='200'){
-						 this.$router.push({name:'/cartthree',params: { orderNo: res.msg}});  
+						 this.$router.push({name:'/cartthree',query: { orderNo: res.msg}});  
 					}else{
-						 this.$Message.error(res.msg);
+						 this.$Message.error(res.object);
+						 return;
 					}
 				});
            },
 	      	getDetail(){
-	      		if(this.$route.params.skuId!=null&&this.$route.params.skuId!=undefined){
-	      			  sessionStorage.setItem('temp',this.$route.params.skuId);
+	      		if(this.$route.query.skuId!=null&&this.$route.query.skuId!=undefined){
+	      			  sessionStorage.setItem('temp',this.$route.query.skuId);
 	      		}
 	      		   if(sessionStorage.getItem('temp')!="undefined"&&sessionStorage.getItem('temp')!=null){
 	      		   	this.temp=sessionStorage.getItem('temp');
 	      		   }
 	      		   else{
-	      		   	 sessionStorage.setItem('temp',this.$route.params.skuId);
-	      		   	 this.temp  =this.$route.params.skuId;
+	      		   	 sessionStorage.setItem('temp',this.$route.query.skuId);
+	      		   	 this.temp  =this.$route.query.skuId;
 	      		   }
 	      			this.$axios({
 					    method: 'get',
@@ -175,7 +176,6 @@
 		position: absolute;
 		bottom:0;
 		left: 0;
-		text-align: center;
 		padding: 5px;
 		span{
 		color:#fff;

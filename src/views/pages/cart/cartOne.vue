@@ -36,7 +36,7 @@
 									<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
 						</Col>
 						<Col  span="10">
-							<P class='color-dx'>总计：{{totalPrice |pricefilter}}</P>
+							<P class='color-dx'>总计：￥{{totalPrice |pricefilter}}</P>
 						</Col>
 						<Col class='cartButton1' span="8"> 
 							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
@@ -168,11 +168,16 @@ export default {
 				 this.$router.push({ name:'/carttwo'});
 			},
 			remove(){
-				 	var ids=[];
+					 let length=this.checkAllGroup.length;
+				 if(length==0){
+				 	 this.$Message.info('请选择您想要删除的商品');
+				 	 return;
+				 }
+				var ids=[];
 				this.checkAllGroup.forEach((i) => {
 				  ids.push(this.cartList[i].id)
 				});
-				 let length=this.checkAllGroup.length;
+			
 				  this.$Modal.confirm({
                     title: '删除提示',
                     content: '<p><strong>确定要删除这'+length+'种商品？</strong></p>',
@@ -184,7 +189,8 @@ export default {
 							    data:ids
 								}).then((res)=>{
 									if(res.code==200){
-										this.cartList=[];
+									this.$Message.info(res.object);
+									this.getCartList()
 									}
 							});
                     },

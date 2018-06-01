@@ -7,19 +7,19 @@
 		</div>
 	<Form :model="addForm" ref="addForm" :rules="ruleValidate"  style="background: #fff;"> 
         <FormItem label="收货人" prop="person">
-            <Input v-model="addForm.person" placeholder="收货人"></Input>
+            <Input v-model="addForm.person" placeholder="收货人" ></Input>
         </FormItem>
         <FormItem label="手机号" prop="phone">
-            <Input v-model="addForm.phone" placeholder="联系电话"></Input>
+            <Input v-model="addForm.phone" placeholder="联系电话" ></Input>
         </FormItem>
         <FormItem label="固定电话" >
-            <Input v-model="addForm.tel" placeholder="固定电话"></Input>
+            <Input v-model="addForm.tel" placeholder="固定电话" ></Input>
         </FormItem>
         <FormItem label="所在地区"  prop="selectedOptionsAddr">
         	 <Cascader  v-model="addForm.selectedOptionsAddr" :data="addressOption"></Cascader>
         </FormItem>
          <FormItem label="详细地址" prop="address">
-            <Input v-model="addForm.address" placeholder="详细地址"></Input>
+            <Input v-model="addForm.address" placeholder="详细地址" ></Input>
         </FormItem>
     </Form>
 	</div>
@@ -45,7 +45,7 @@
 	                        { required: true, message: '手机号不能为空', trigger: 'blur' },
 	                    ],
                         selectedOptionsAddr: [
-                        { required: true, type: 'array',message: '请选择省市区', trigger: 'blur' }
+                        { required: true, message: '请选择省市区', trigger: 'blur' }
                     	],
                     	address:[
 	                        { required: true, message: '详细地址不能为空', trigger: 'blur' },

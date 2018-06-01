@@ -202,6 +202,12 @@
 						});
 		      },
             confirm(){
+            	if(this.addressList.id==undefined){
+            	 this.$Modal.error({
+                     content: '收货地址不能为空',
+               		 });
+               		 return ;
+            	}
 	          	let para={
 						addressId:this.addressList.id,
 	                    productItemIds:this.productItemIds,
@@ -345,5 +351,6 @@
 		background: #333;
 		color: #fff;
 		padding: 0 0.5rem;
+		font-size: 2rem;
 	}
 </style>

@@ -38,7 +38,7 @@
 					<label>{{item.promotionTitle}}</label>
 					<router-link  tag="a" :title='item.model_name' :to="{ path: '/sort/sortDetail',query:{id:item.id} }"><img  :src='item.model_img |imgfilter'>
 					<span>{{item.model_name}}</span>
-					<h4 >￥{{item.sale_price}}</h4>
+					<h4 >￥{{item.sale_price |pricefilter}}</h4>
 					</router-link>
 				</Col>
 			</Row>

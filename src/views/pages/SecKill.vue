@@ -7,7 +7,7 @@
 		<div v-if='show' class="center">暂无秒杀活动</div>
 		<div class="floor" v-else>
 				<div   class="spdetail"    v-for="(item, index) in pro" :key='index'>
-							<router-link :to="{ params: '/secdetail',params:{skuId:item.id} }">
+							<router-link :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
 							<img  :src='item.productItem.listImg |imgfilter'>
 							   <div class="right">	
 							   	<p class="sP">{{item.product.modelName}}</p>
@@ -39,7 +39,7 @@
 <script>
 function InitTime(endtime){
     var dd,hh,mm,ss = null;
-    var time = parseInt(endtime) - new Date().getTime();
+    var time = new Date((endtime)).getTime() - new Date().getTime();
     if(time<=0){
         return '结束'
     }else{
