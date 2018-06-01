@@ -4,7 +4,8 @@
 			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">新品频道</span>
 		</div>
-		<div class="floor">
+			<div v-if='show' class="center">暂无任何新品,敬请期待</div>
+		<div class="floor" v-else>
 				<div   class="spdetail"    v-for="(item, index) in productNew" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 								<img  :src='item.model_img |imgfilter'>
@@ -18,14 +19,7 @@
 								<p class="sh6">{{item.sale_price | pricefilter}}</p>
 								</div>
 							</router-link>
-						</div>
-	   		<!--<Row  class="goodslist">
-				<Col  :xs="12"  :md="6"  v-for="(item,index) in productNew" :key="index">
-							<img  :src='item.model_img |imgfilter'>
-						<a title="">{{item.model_name}}</a>
-						<h4 class="color-dx">￥{{item.sale_price}}</h4>
-				</Col>
-			</Row>-->
+				</div>
 	    </div>
 	</div>
 </template>
@@ -34,8 +28,8 @@
 	export default {
         data () {
             return {
-                productNew:[]
-                
+                productNew:[],
+                show:true
             }
         },
         methods: {
@@ -47,6 +41,9 @@
 							if(res.code=='200'){
 							 this.productNew=res.object;
 							}
+							if( res.object.length>0){
+								this.show=false
+							}
 						});
 						
     	      	},
@@ -56,5 +53,8 @@
 		}
     }
 </script>
-<style>
+<style  scoped="scoped">
+	.center{
+		text-align: center;
+	}
 </style>
