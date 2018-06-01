@@ -139,6 +139,7 @@ export default {
         	getCartList(){
         		if(localStorage.getItem('token')!=undefined){
         			this.nologin=false;
+        			this.cartList=[];
         			this.$axios({
 							    method: 'post',
 							    url:'/order/shopping/list',
