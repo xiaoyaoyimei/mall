@@ -15,7 +15,7 @@
 					<span > 
 		   <label v-if="!show">
 		   	<DatePicker type="date" confirm placeholder="Select date" style="width: 200px"
-		   @on-ok="handleOk"  :value="userinfo.birthday"  @on-change="handleChange"></DatePicker>
+		    @on-ok="handleOk"  :value="userinfo.birthday"  @on-change="handleChange"></DatePicker>
 		   </label>
 		   <label @click="xshow">	<span  v-if="show" >{{userinfo.birthday}}</span> ></label>
 			</span> 

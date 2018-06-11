@@ -16,7 +16,8 @@
 	    	<strong><label class="price">{{shangp.product.salePrice | pricefilter}}</label></strong>
 	    	</div>
 	    	<div class="choose" @click="modal2 = true">
-	    		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span><Icon type="ios-more"></Icon>
+	    		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span>
+	    		<Icon type="ios-more"></Icon>
 	    	</div>
 	    </div>
 	       <Tabs class="spjs">
@@ -31,7 +32,7 @@
 	    </Tabs>
 	    <div class="foot"> 
 	    	<button    :loading="modal_loading" @click="modal2 = true" class="jrgwc">加入购物车</button>
-	    	  <router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon></router-link>
+	    	<router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon></router-link>
 	    </div>
        	<!--弹窗选择商品尺寸颜色-->
     	 <Modal v-model="modal2"  class="chooseModal cartModal" :mask-closable="false">
