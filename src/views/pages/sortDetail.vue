@@ -90,6 +90,16 @@
             	selectedId:-1,
             	modal2: false,
             	modal_loading:false,
+            	//商品最原始数据
+            	oldshangp:{
+            		product:{},
+            		promotions:[],
+            		productImageList:[],
+            		productItemList:[],
+            		inventory:[],
+            		productAttrList:[],
+            	},
+            	//请求product之后的商品数据
             	shangp:{
             		product:{},
             		promotions:[],
@@ -185,9 +195,6 @@
 					}
        	            //商品属性高亮
        	             e.target.className="active"; 
-            		if(pa.attrKey.isColorAttr=='Y'){
-            			this.choosesp.img=ch.listImg;
-            		}
             		let dditem=this.$refs['dditem'];
             		 this.bigchoose="";
             		for(let n=0;n<dditem.length;n++){
@@ -208,6 +215,7 @@
             	   	//通过选择属性读出productItemId
             	   	    for (let chooseItem of this.shangp.productItemList) {
 							   if(chooseItem.productModelAttrs==chooseId){
+							   	this.choosesp.img=chooseItem.listImg;
 							   	this.choosesp.itemNo=chooseItem.itemNo,
 							   	this.choosesp.price=chooseItem.salePrice,
 							   	this.productItemId=chooseItem.id;
@@ -239,12 +247,14 @@
             	   	    	this.firstshow=true
             	   	    }
             	   }
-            	   //计算库存
+            	    //计算库存（库存需大于0才显示）
+            	   if(this.shangp.inventory.length>0){
               						for(let kucunitem of this.shangp.inventory){
 							   	      if(kucunitem.skuId==this.productItemId){
 							   	      	 this.choosesp.kucun=kucunitem.quantity-kucunitem.lockQuantity
 							   	      }
 							       }
+              					}
               						if(this.choosesp.kucun<=0){
               							this.kucunshow=true;
               						}
@@ -262,7 +272,7 @@
 							    url:'/product/'+this.productId,
 								}).then((res)=>{
 									if(res.code=='200'){
-										this.shangp=res.object;
+											this.shangp= Object.assign({},this.oldshangp,res.object);
 										 if(res.object.product.video!="")
 										 {
 										 	_this.$refs.video.width=window.innerWidth;

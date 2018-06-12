@@ -60,6 +60,8 @@
 			<br/>
 			<router-link to="/login"  > <button class="ghost-dx">登录</button></router-link>
 			</div>
+			<!--加载中-->
+			 <Spin size="large" fix v-if="spinShow"></Spin>
 	</div>
 </template>
 
@@ -67,6 +69,7 @@
 export default {
         data () {
             return {
+            	 spinShow:true,
             	nologin:true,
             	imageSrc:this.global_.imgurl,
                 indeterminate: true,
@@ -146,6 +149,7 @@ export default {
 								}).then((res)=>{
 									if(res.code=='200'){
 										this.cartList=res.object;
+										this.spinShow=false;
 									}else if(res.code=='401'){
 										alert(res.msg)
 									}
@@ -261,6 +265,7 @@ export default {
 			margin-bottom:0.5rem;
 			padding-bottom:1rem;
 			padding-left: 1rem;
+			font-size: 1.4rem;
 			.cartcheckbok{
 				height:16px;
 				margin-top:5%;

@@ -19,13 +19,6 @@
 								</div>
 							</router-link>
 						</div>
-	   		<!--<Row  class="goodslist">
-				<Col  :xs="12"  :md="6"  v-for="(item,index) in productNew" :key="index">
-							<img  :src='item.model_img |imgfilter'>
-						<a title="">{{item.model_name}}</a>
-						<h4 class="color-dx">￥{{item.sale_price}}</h4>
-				</Col>
-			</Row>-->
 	    </div>
 	</div>
 </template>

@@ -17,7 +17,7 @@
 						</router-link>
 						</span>
 			</div>
-		<div class="integral"><span>积分 0</span><router-link class="discount" :to="{ name: '/sort'}">去购物车抵扣     ></router-link></div></div>
+</div>
    <ul class="order-list">
    	<router-link :to="{ path: '/user/orderlist'}" tag="li" ><img src="../../../assets/img/order.png">查看更多订单<i>></i></router-link>
    	<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
@@ -65,6 +65,7 @@
  /*头部样式*/
 	.user-header a{
 		color:#fff;
+		font-size: 1.4rem;
 	}
  .user-header{
  	background: url(../../../assets/img/bg.png) repeat scroll 0 0 ;
@@ -104,7 +105,6 @@
  	}
  }
 	.myorder {
-	 
 	 	overflow: hidden;
 	 	h3{
 	 			background: #fff;
@@ -134,16 +134,5 @@
 	 	.more{
 	 		float: right;
 	 		cursor: pointer;
-	 	}
-	 	.integral{
-	 		background: rgba(168,168,168,0.1);
-	 		width: 100%;
-	 		position:absolute;
-	 		bottom:0px;
-	 		padding: 1rem 3rem 1rem 2rem;
-	 		.discount{
-	 			float: right;
-	 			color: #666;
-	 		}
 	 	}
 </style>

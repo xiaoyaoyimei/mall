@@ -1,5 +1,11 @@
 <template>
 	<div class="sort1 ">
+		  <!--<button v-on:click="tshow = !tshow">
+    Toggle
+  </button>
+  <transition name="fade">
+    <p v-if="tshow">hello</p>
+  </transition>-->
 		<div class="header-home-wrapper sort-box">
 		    <router-link to="/index"  class="icon-back">
 				<Icon type="ios-arrow-back"></Icon>
@@ -67,6 +73,7 @@
     export default {
         data () {
             return {
+            	tshow:true,
             	scrollHeight:500,
 				productList:[],
 				imageSrc:this.global_.imgurl,
@@ -75,38 +82,105 @@
 				keyword:'',
 				spinShow:false,
 				isActive:false,
-				show:false
+				show:false,
+				    searchfilter:{
+                	catalog:'',
+                	type:'',
+               		series:'',
+                	brand:'',
+                },
+				
 			}
 			
 		},
 		name: 'scroll-top',
 		methods:{
-			getList(){
-				this.scrollHeight=window.screen.height;
-				this.spinShow=true;
-				 let routerParams = this.$route.params.keyword;
-				  this.productList=[];
-                // 将数据放在当前组件的数据内
-                if(routerParams!=""&&routerParams!=undefined){
-                 this.keyword = routerParams;
-                }
-      
-                	  	this.$axios({
+						  getParams () {
+			  	if(this.$route.query.typeid!=undefined){
+			        this.getList('type',this.$route.query.typeid,this.$route.query.typeindex)
+			       }
+		      },
+            getTop(){
+            	this.$axios({
 					method: 'GET',
-					url:'/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
+					url:'/product/catalog',
+				}).then((res)=>{
+					this.catalog = res;
+				})
+            	   this.$axios({
+					method: 'GET',
+					url:'/product/brand',
+				}).then((res)=>{
+					this.brand = res;
+				})
+				  this.$axios({
+					method: 'GET',
+					url:'/product/series',
+				}).then((res)=>{
+					this.series = res;
+				})
+				  this.$axios({
+					method: 'GET',
+					url:'/product/type',
+				}).then((res)=>{
+					this.type = res;
+				})
+				this.spinShow=false
+            },
+            	getList(type,value,index){
+            		this.scrollHeight=window.screen.height;
+				if(type=='catalog'){
+					this.catalogindex=index;
+					this.searchfilter.catalog=value
+				}
+				if(type=='type'){
+					this.typeindex=index;
+					this.searchfilter.type=value
+				}
+				if(type=='series'){
+					this.seriesindex=index;
+					this.searchfilter.series=value
+				}
+				if(type=='brand'){
+					this.brandindex=index;
+					this.searchfilter.brand=value
+				}
+                this.$axios({
+					method: 'GET',
+					url:'/product/search?catalog='+this.searchfilter.catalog+'&series='+this.searchfilter.series+'&type='+this.searchfilter.type+'&brand='+this.searchfilter.brand+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
 				}).then((res)=>{
 					if(res.total>0){
 					this.productList = res.itemsList;
-					this.spinShow=false;
-					this.show=false;
-					}
-					else{
-						this.show=true;
+					this.totalSize=res.total;
 					}
 				})
-                
-			
 			},
+//			getList(){
+//				this.scrollHeight=window.screen.height;
+//				this.spinShow=true;
+//				 let routerParams = this.$route.params.keyword;
+//				  this.productList=[];
+//              // 将数据放在当前组件的数据内
+//              if(routerParams!=""&&routerParams!=undefined){
+//               this.keyword = routerParams;
+//              }
+//    
+//              	  	this.$axios({
+//					method: 'GET',
+//					url:'/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
+//				}).then((res)=>{
+//					if(res.total>0){
+//					this.productList = res.itemsList;
+//					this.spinShow=false;
+//					this.show=false;
+//					}
+//					else{
+//						this.show=true;
+//					}
+//				})
+//              
+//			
+//			},
 			top(){
 				document.querySelector(".ivu-scroll-container").scrollTop = 0; 
 			},
@@ -140,6 +214,7 @@
 			},
 		},
 		 mounted(){
+		 	this.getParams();
 			  this.getList();
 	      }
     }
@@ -163,7 +238,10 @@
 	padding: 0.8rem 0;
 	text-align: center;
 	color:#333;
-	  font-size: 1.4rem;
+	font-size: 1.4rem;
+	div{
+		cursor: pointer;
+	}
 }
 .top{
 	   padding: 1rem;
@@ -177,4 +255,14 @@
 	text-align: center;
 }
 
+
+.fade-enter-active, .fade-leave-active {
+  transition: background .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active 在低于版本 2.1.8 中 */ {
+  background:red;
+}
+.fade-enter-to,fade-leave{
+	  background: blue;
+}
 </style>

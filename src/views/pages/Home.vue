@@ -19,10 +19,10 @@
     	</Carousel>
         <ul class="ad-list">
   		 <li v-for="(item,index) in aditems" :key="index" >
-    			 <router-link :to="{name: '/typesort',params:{type:child.linkUrl}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
+    		 <router-link :to="{name: '/sort',query:{typeid:child.id}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
     			 	<img  :src="imageSrc+child.imgUrl"  :width="child.proportion | baifenhao" >
-    				</router-link>
-    			</li>			
+    		</router-link>
+    	</li>			
     	</ul>
     	<div class="newpd">
     		<router-link :to="{path: '/newchannel'}"   >

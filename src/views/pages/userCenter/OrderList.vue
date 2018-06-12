@@ -28,13 +28,12 @@
 </template>
 
 <script>
-	
 export default {
     data() {
     	 const temp=[] ;
       return {
         cartList:[],
-       statusList:[]
+      	statusList:[]
     	}
    	 },
     methods: {
@@ -48,6 +47,7 @@ export default {
 					}).then((res)=>{
 						if(res.code=='200'){
 							  this.$Message.info(res.msg);
+							  this.getOrder();
 						}
 						else{
 							  this.$Message.info(res.msg);
@@ -60,7 +60,7 @@ export default {
                 });
             },
     	    childjun (value) {
-	      return value.orderFee /value.quantity
+	        return value.orderFee /value.quantity
 	    },
     	quzhifu(value){
     		this.$router.push({name:'/cartthree',query:{orderNo:value}});  

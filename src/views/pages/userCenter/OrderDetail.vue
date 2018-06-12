@@ -28,7 +28,6 @@
 		   	  <div class="sp">
 		   		<span>订单编号：{{orderdetail.shippingOrder.orderNo}}</span>
 		   		<span>下单时间：{{orderdetail.shippingOrder.createTime | formatDate}}</span>
-		   		
 		   			<span>发票类型：{{orderdetail.shippingInvoice}}</span>
 		   			<span>发票抬头：</span>
 		   			<span>发票内容：</span>

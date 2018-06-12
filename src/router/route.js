@@ -1,4 +1,8 @@
 const _import = require('./_import_' + process.env.NODE_ENV);
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import store from '@/store/store'
+Vue.use(VueRouter)
 let routes =  [
 				{path: '/',redirect: '/index'},
 			    {path: '/login', name: 'login',component:  resolve => require(['@/views/Login.vue'], resolve)},
@@ -165,5 +169,27 @@ let routes =  [
             component:resolve => require(['@/views/errorPages/404.vue'],resolve)
        		 },
 			]
+if (localStorage.getItem('token')) {  
+store.commit('LOGIN',{token: localStorage.getItem('token'),userId:localStorage.getItem('userId')})  
+}  
+const router = new VueRouter({
+    routes
+});
 
-export default routes;
+router.beforeEach((to, from, next) => {  
+		if (to.matched.some(r => r.meta.requireAuth)) { 
+			if (store.state.token) {  
+			next();  
+			}  
+			else {  
+			next({  
+					path: '/login',  
+					query: {redirect: to.fullPath}  
+			})  
+			}  
+		}  
+		else {  
+		next();  
+		}  
+}) 
+export default router;

@@ -4,6 +4,11 @@ $color-dx:#d32122;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
  .promotion{
     display: inline-block;
     background: #fcdadb;
@@ -246,6 +251,7 @@ input, textarea{
     top:0.8rem;
     font-size: 1.4rem;
     padding: 0.2rem 0.5rem;
+    cursor: pointer;
 }
 .search{
        position: relative;
@@ -377,6 +383,7 @@ input, textarea{
     .order-list{
             padding:0 10px;
             background: #fff;
+            font-size: 1.6rem;
             li{
                 padding:10px 0;
                 border-bottom:1px solid $color-border;
@@ -405,29 +412,40 @@ input, textarea{
 .goodslist div{
     background: #fff;
     position: relative;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 5px;
+    a{
+        display: block;
+    }
     label{
         background: $color-dx;
         color: #fff;
         padding: 5px;
         font-size: 1.2rem;
+        position: absolute;
+        left: 0;
+        top: 0;
     }
     img{
         max-width: 100%;
     }
     span{
         display: block;
-    padding: 0.5rem 1rem 0;
+    padding: 0.5rem 0 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     }
     h4{
-        padding-left: 1rem;
         color:$color-dx;
         font-weight: normal;
+        text-align: left;
+        padding: 0.5rem 0;
     }
 }
 .spdetail a{
+     font-size: 1.6rem;
     display: flex;
     background: #fff;
     img{

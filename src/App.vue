@@ -9,15 +9,18 @@ export default {
   name: 'App'
 }
 </script>
-<style src='./styles/color.scss' lang="scss"></style>
+<style lang="less">
+@import './my-theme/index.less';
+</style>
 <style lang="scss" >
+  @import '@/styles/color.scss';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height:100vh;
   background: #f6f6f6;
-  font-size: 1.6rem;
+  font-size: 1rem;
 }
 ul,li{
 	list-style: none;

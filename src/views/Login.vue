@@ -69,8 +69,6 @@
           this.loading = true;
           this.$refs.loginForm.validate(valid => {
             if (valid) {
-            	this.global_.loginName=this.loginForm.loginName;
-            	this.global_.passWord=this.loginForm.passWord;
 				this.$axios.post('customer/login', {  
 				loginName: this.loginForm.loginName,  
 				passWord: this.loginForm.passWord  

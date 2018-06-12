@@ -14,6 +14,7 @@
 		  </FormItem>
 		   <div  class="button_submit"> <Button type="success" long  @click="handleSubmit()">去支付</Button></div>
     	</Form>
+    	
     	<div id="zhifu" ref="zhifu"></div>
 		    	   <Modal v-model="payshow" width="240" :mask-closable="false">
 		        <div >
@@ -24,6 +25,15 @@
 		              <Button type="error"  @click="level()">确认离开</Button>
 		        </div>
 		    </Modal>
+		       <Modal v-model="weixinshow" width="240" :closable="false" :mask-closable="false">
+		        <div >
+		            <p style="text-align:center;font-size: 1.4rem;">请确认微信支付是否已完成</p>
+		        </div>
+		        <div slot="footer" style="text-align:center" class="weixin_btn">
+		        	 <Button    @click="level()" long type="success">已完成支付</Button>
+		              <Button  @click="continueshow" long type="error">支付遇到问题,重新支付</Button>
+		        </div>
+		    </Modal>
      </div>
 </template>
 
@@ -32,6 +42,7 @@
         data () {
             return {
             	payshow:false,
+            	weixinshow:false,
             	orderNo:'',
             	formValidate:{
             			payType:'',
@@ -49,6 +60,7 @@
         	},
         	continueshow(){
         		this.payshow=false;
+        		this.weixinshow=false;
         	},
         	level(){
         		this.$router.push({name:'/order/detail',query:{orderNo:this.orderNo}});  
@@ -62,6 +74,7 @@
         	 handleSubmit () {
                 this.$refs['formValidate'].validate((valid) => {
                     if (valid) {
+                    		if(this.formValidate.payType=='alipay'){
                         this.$axios({
 						    method: 'post',
 						    url:'/order/'+this.formValidate.payType+'/'+this.orderNo,
@@ -69,6 +82,18 @@
 							this.$refs['zhifu'].innerHTML=res;
 							document.getElementsByName('punchout_form')[0].submit()
 						});
+						}else{
+							  this.weixinshow=true;
+							   this.$axios({
+								    method: 'get',
+								    url:'/order/weixin/h5/'+this.orderNo+'?wxH5Type=Wap&wxH5App_name=http://test-shop.dxracer.com.cn&wxH5Package_name=迪锐克斯官方商城',
+								}).then((res)=>{
+									if(res.code=='200'){
+										var redirect_url = encodeURIComponent('http://test-shop.dxracer.com.cn/#/orderlist');
+									    window.open(res.msg+'&redirect_url='+redirect_url);
+									  }
+								});
+						}
                     } else {
                         this.$Message.error('Fail!');
                     }
@@ -84,5 +109,11 @@
 <style scoped="scoped" lang="scss">
 .button_submit {
 	margin: 0 1rem;
+}
+.weixin_btn button{
+	margin-bottom: 15px;
+}
+.weixin_btnr button + button{
+	margin-right: 0;
 }
 </style>
