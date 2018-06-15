@@ -86,10 +86,11 @@
 							  this.weixinshow=true;
 							   this.$axios({
 								    method: 'get',
-								    url:'/order/weixin/h5/'+this.orderNo+'?wxH5Type=Wap&wxH5App_name=http://test-shop.dxracer.com.cn&wxH5Package_name=迪锐克斯官方商城',
+								    url:'/order/weixin/h5/'+this.orderNo,
 								}).then((res)=>{
 									if(res.code=='200'){
-										var redirect_url = encodeURIComponent('http://test-shop.dxracer.com.cn/#/orderlist');
+										let urlo=window.location.origin;
+										var redirect_url = encodeURIComponent(urlo+'/#/user/orderlist');
 									    window.open(res.msg+'&redirect_url='+redirect_url);
 									  }
 								});

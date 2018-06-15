@@ -83,15 +83,13 @@
        	   	  	this.$router.push('/user');
        	   	  }
        	   },
-       	   
-       	   
        	   updateDefault(value){
-       	   	this.$axios({
-						    method: 'post',
-						    url:'/address/updateDefault?id='+value+'&isDefault=Y',
-						}).then((res)=>{
-								this.getAddressList();
-						})
+	       	   	this.$axios({
+							    method: 'post',
+							    url:'/address/updateDefault?id='+value+'&isDefault=Y',
+							}).then((res)=>{
+									this.getAddressList();
+							})
        	   },
        	   handleDelete(value){
        	   	   this.$Modal.confirm({
@@ -112,7 +110,7 @@
                     }
                 });
        	   		
-       	   }
+       	   	}
 	      },
 	      mounted(){
 	      	this.getAddressList();

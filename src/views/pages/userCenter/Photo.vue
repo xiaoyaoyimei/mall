@@ -1,15 +1,14 @@
 <template>
 	<div class="order photo">
-
        	<div class="m_header_bar">
 			<router-link to="/user/myinfo"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">修改头像  </span>
 			 <span  @click="handlePhoto" class="m_header_bar_menu">保存</span>
 		</div>
-		<div class="flex-center">
+		<div class="flex-center" style="margin-top:2rem">
 			 <div class="demo-upload-list" v-for="item in uploadList">
 						    <template v-if="item.status === 'finished'">
-						            <img :src="item.url"  class="origin_tx"/>
+						            <img :src="item.url "  class="origin_tx"/>
 						            <div class="demo-upload-list-cover">
 						                <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
 						            </div>

@@ -92,7 +92,6 @@
           			this.$Message.error('手机号不能为空!');
           			this.loadingDx = false;
           		}else{
-          			
           		this.$axios({
 					    method: 'post',
 					    url:'/customer/register/shortmessage',
@@ -111,10 +110,13 @@
           	},
           	getTx(){
           		//验证用户名是否存在
+          		if(this.regiForm.loginName==""){
+          			  this.$Message.error('手机号不能为空');
+          			  return 
+          		}
           		 	this.$axios({
 							    method: 'post',
-							    url:'/customer/validate',
-							    data:{userName:this.regiForm.loginName},
+							    url:'/customer/validate?userName='+this.regiForm.loginName,
 							}).then((res)=>{
 								if(res.code=='200'){
 									this.txv++;

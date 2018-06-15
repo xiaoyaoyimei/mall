@@ -6,6 +6,7 @@
 			<span class="m_header_bar_menu"></span>
 		</div>
 		<div class="detail">
+			<div class="status">{{statusfilter(orderdetail.shippingOrder.orderStatus)}}</div>
 		  	<ul class="address" >
 			<li>
 			<img src="../../../assets/img/地址.png">
@@ -15,7 +16,6 @@
 			</div>
 			</li>
 		   </ul>
-		 
 		   	<ul class="spitem">
 		    <li v-for="(item,index) in orderdetail.shippingOrderItems" :key="index">
 		   		<img :src="item.productItemImg | imgfilter">
@@ -26,23 +26,31 @@
 		   	</li>
 		   	</ul>
 		   	  <div class="sp">
-		   		<span>订单编号：{{orderdetail.shippingOrder.orderNo}}</span>
-		   		<span>下单时间：{{orderdetail.shippingOrder.createTime | formatDate}}</span>
-		   			<span>发票类型：{{orderdetail.shippingInvoice}}</span>
-		   			<span>发票抬头：</span>
-		   			<span>发票内容：</span>
+		   			<span>订单编号：{{orderdetail.shippingOrder.orderNo}}</span>
+		   			<span>下单时间：{{orderdetail.shippingOrder.createTime | formatDate}}</span>
+		   			<span>收票人：{{orderdetail.shippingInvoice.receivePerson}}</span>
+		   			<span>发票抬头：{{orderdetail.shippingInvoice.invoiceTitle}}</span>
+		   			<span class="mb10 clearfix pb15">发票类型：{{orderdetail.shippingInvoice.invoiceType}}  
+		   			<span>
+		   			<router-link class="btn btn-dx btn-invoice" 
+		   				:to="{ name: '/addInvoice',
+		   				query:{orderNo:orderdetail.shippingOrder.orderNo},
+		   				params:{shippingInvoice:orderdetail.shippingInvoice} }" 
+		   				v-if="orderdetail.shippingInvoice==''||orderdetail.shippingInvoice.invoiceStatus=='created'">
+		   		     	编辑发票</router-link></span></span>
+		   		   
 		   		</div>
 		   	<ul class="sptotal">
-		   	<li>	<span class="t">商品总额</span><span class="s">￥{{orderdetail.shippingOrder.productFee|pricefilter}}</span></li>
-		   	 	<li>	<span class="t">商品优惠</span><span class="s">￥{{orderdetail.shippingOrder.discountFee|pricefilter}}</span></li>
-		    		<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">￥{{orderdetail.shippingOrder.orderTotalFee|pricefilter}}</label></span></li></ul>
-		 
+		   	    <li><span class="t">商品总额</span><span class="s">￥{{orderdetail.shippingOrder.productFee|pricefilter}}</span></li>
+		   	 	<li><span class="t">商品优惠</span><span class="s">￥{{orderdetail.shippingOrder.discountFee|pricefilter}}</span></li>
+		    	<li class="border"> <span class="t"></span><span>实付款：<label class="zjg">￥{{orderdetail.shippingOrder.orderTotalFee|pricefilter}}</label></span></li>
+		   	</ul>
 		</div>
-		<div class="fixbottom" 
-			 v-show="orderdetail.shippingOrder.orderStatus=='01'||orderdetail.shippingOrder.orderStatus=='02'">
+		<div class="fixbottom" v-show="orderdetail.shippingOrder.orderStatus=='01'||orderdetail.shippingOrder.orderStatus=='02'">
 			 <button class="btn-white" @click="cancel()" >取消订单</button>
-			<button class="btn-red" @click="quzhifu()" v-show="orderdetail.shippingOrder.orderStatus=='01'">去支付</button></div>
-	</div>
+			<button class="btn-red" @click="quzhifu()" v-show="orderdetail.shippingOrder.orderStatus=='01'">去支付</button>
+		</div>
+	    </div>
 </template>
 
 <script>
@@ -50,6 +58,7 @@
 	export default {
     data () {
       return {
+      	statusList:[],
       	orderdetail:{
       		shippingOrder:{},
       		shippingInvoice:{},
@@ -65,7 +74,25 @@
     return formatDate(date, 'yyyy-MM-dd hh:mm');
    }
 },
+
     methods: {
+    	  	getStatusEnum(){
+    			this.$axios({
+						    method: 'get',
+						    url:'/order/enums',
+						}).then((res)=>{
+							if(res.code=='200'){
+							this.statusList = res.object;
+							}
+						});
+    		},
+    	 	statusfilter(value){
+    			for(var i = 0 ;i < this.statusList.length;i++){
+					if(this.statusList[i].key == value){
+						return this.statusList[i].value;
+					}
+				}
+    		},
     	     cancel(){
                 this.$Modal.confirm({
                     content: '<p>确定取消该订单？</p>',
@@ -112,6 +139,7 @@
          mounted() {
          	    this.getParams();
 				this.getOrder();
+				this.getStatusEnum();
 		}
   }
 </script>
@@ -219,5 +247,25 @@
 			font-size: 18px;
 		}
 	}
+}
+.pb15{
+	padding-bottom: 15px;
+}
+.mb10{
+	margin-bottom: 10px;
+}
+.btn-invoice{
+		float: right;
+}
+.btn-invoice:hover{
+	color:#fff;
+}
+.status{
+	background: #f60;
+	height: 7rem;
+	color:#fff;
+	font-size: 1.6rem;
+	padding-top: 2rem;
+	padding-left: 2rem;
 }
 </style>

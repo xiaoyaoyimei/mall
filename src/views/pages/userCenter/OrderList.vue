@@ -8,7 +8,8 @@
   	<ul class="splist">
 	<li  v-for="(x,index) in cartList" :key="index"  >
 		   <div @click="seeDetail(x.order.orderNo)"> 
-		   	<div class="orderno">订单号:{{x.order.orderNo}} <span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></div>
+		   	<div class="orderno">订单号:{{x.order.orderNo}} 
+		   		<span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></div>
 		   <div v-for="(child,i) in x.orderItems" :key="i">
 		   	<div  class="sphead">
 			<div class="img"><img  :src="child.productItemImg | imgfilter"></div>
@@ -28,13 +29,19 @@
 </template>
 
 <script>
-export default {
+	import store from '@/store/store'
+	export default {
     data() {
     	 const temp=[] ;
-      return {
-        cartList:[],
-      	statusList:[]
+     	 return {
+	        cartList:[],
+	      	statusList:[]
     	}
+   	 },
+   	 computed: {
+   	 	token(){
+   	 		return store.state.token
+   	 	}
    	 },
     methods: {
     	      cancel(value){
@@ -87,7 +94,8 @@ export default {
 						});
     	},
 	      getOrder(){
-	      			this.$axios({
+	      	      if(this.token!=null){
+	      	      		this.$axios({
 						    method: 'get',
 						    url:'/order/list',
 						}).then((res)=>{
@@ -95,6 +103,12 @@ export default {
 								this.cartList= res.object;
 							}
 						});
+	      	      }else{
+	      	      			router.replace({
+                        path: 'login',
+                       query: {redirect: router.currentRoute.fullPath}
+                    	})
+	      	      }
 	     	 }
 	    },
          mounted() {

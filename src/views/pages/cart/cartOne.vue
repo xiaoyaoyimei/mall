@@ -9,7 +9,7 @@
 		<div v-if="cartList.length>0">
 		<Row>
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
-		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index"> 
+		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
         			<Col class='cartcheckbok' span="2">
         			<Checkbox  :label="index" :key="index"></Checkbox></Col>
 					<Col span="4" ><img class='cartImg' :src="imageSrc+x.image"></Col>
@@ -18,7 +18,7 @@
 						<p class='cart_gray'>{{x.productAttr}}</p>
 						<p><label v-if="x.promotionTitle !=null" class="promotion">{{x.promotionTitle}}</label></p>
 						<div class='cart_price'>
-							￥{{x.salePrice |pricefilter}}	
+							￥{{x.salePrice |pricefilter}}
 							<div class="min-add">
 						    	<Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
 						     	 <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
@@ -38,8 +38,8 @@
 						<Col  span="10">
 							<P class='color-dx'>总计：￥{{totalPrice |pricefilter}}</P>
 						</Col>
-						<Col class='cartButton1' span="8"> 
-							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface"> 
+						<Col class='cartButton1' span="8">
+							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface">
 								结算({{zslcount}})
 							</i-button>
 							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface" style="margin-right: 1rem;">删除</Button>
@@ -47,6 +47,7 @@
 					</Col>
 				</Row>
 			</div>
+			<Spin size="large" fix v-if="spinShow"></Spin>
 			</div>
 			<div class="cart-empty"   v-if="!nologin&&cartList.length==0">
 			<img src="../../../assets/img/cartempty.png">
@@ -61,7 +62,6 @@
 			<router-link to="/login"  > <button class="ghost-dx">登录</button></router-link>
 			</div>
 			<!--加载中-->
-			 <Spin size="large" fix v-if="spinShow"></Spin>
 	</div>
 </template>
 
@@ -114,7 +114,7 @@ export default {
 						if(x.quantity>=x.max){
 						x.quantity=x.max
 						}else{
-						x.quantity=parseInt(x.quantity)+1; 
+						x.quantity=parseInt(x.quantity)+1;
 							 if(this.temp.indexOf(index)<0){
 					     		this.temp.push(index)
 					     	}
@@ -123,7 +123,7 @@ export default {
 						  }
 						this.addcart(x)
 					},
-					
+
 					//减
 					jian:function(x,index){
                            //删除的时候库存最小为1。所以无需删去选中的index
@@ -133,7 +133,7 @@ export default {
 						if(x.quantity==1){
 						x.quantity==1
 						}else{
-						x.quantity=parseInt(x.quantity)-1; 
+						x.quantity=parseInt(x.quantity)-1;
 				 		this.checkAllGroup=this.temp;
 						this.checkAllGroupChange(this.temp);
 						this.addcart(x)
@@ -141,17 +141,15 @@ export default {
 					},
         	getCartList(){
         		if(localStorage.getItem('token')!=undefined){
-        			this.nologin=false;
+			  			this.nologin=false;
         			this.cartList=[];
         			this.$axios({
 							    method: 'post',
 							    url:'/order/shopping/list',
 								}).then((res)=>{
+									this.spinShow=false;
 									if(res.code=='200'){
 										this.cartList=res.object;
-										this.spinShow=false;
-									}else if(res.code=='401'){
-										alert(res.msg)
 									}
 							});
 					}
@@ -168,8 +166,8 @@ export default {
 				this.checkAllGroup.forEach((i) => {
 				  goumai.push(this.cartList[i])
 				});
-				 sessionStorage.removeItem('cart'); 
-		         sessionStorage.setItem('cart', JSON.stringify(goumai)); 
+				 sessionStorage.removeItem('cart');
+		         sessionStorage.setItem('cart', JSON.stringify(goumai));
 				 this.$router.push({ name:'/carttwo'});
 			},
 			remove(){
@@ -182,7 +180,7 @@ export default {
 				this.checkAllGroup.forEach((i) => {
 				  ids.push(this.cartList[i].id)
 				});
-			
+
 				  this.$Modal.confirm({
                     title: '删除提示',
                     content: '<p><strong>确定要删除这'+length+'种商品？</strong></p>',
@@ -203,7 +201,7 @@ export default {
                         this.$Message.info('取消成功');
                     }
                 });
-              	
+
 			},
             handleCheckAll () {
                 if (this.indeterminate) {
@@ -278,7 +276,7 @@ export default {
 			.cart_qua{
 				font-size:14px;
 				padding-top:50px;
-				
+
 			}
 			.cartImg{
 				max-width:100%;
@@ -322,7 +320,7 @@ export default {
 			.cartButton:nth-of-type(2n){
 				margin-left:-5px;
 			}
-			
+
 		}
 		.cartfoot{
 			    background: #fff;

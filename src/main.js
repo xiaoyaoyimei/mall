@@ -7,7 +7,8 @@ import store from '@/store/store'
 import iView from 'iview';
 import axios from './http'
 import '@/my-theme/index.less'
-
+//开启调试模式
+Vue.config.devtools = true
 //设置全局变量
 import global_ from '@/base/baseParam';
 Vue.config.productionTip = false
@@ -20,7 +21,7 @@ import * as custom from '@/base/basefilters/'
 Object.keys(custom).forEach(key => {
     Vue.filter(key, custom[key])
 })
-// 页面刷新时，重新赋值token  
+// 页面刷新时，重新赋值token
 /* eslint-disable no-new */
 var app =new Vue({
   el: '#app',

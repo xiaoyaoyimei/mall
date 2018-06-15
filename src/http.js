@@ -5,8 +5,9 @@ import router from '@/router/route'
 // axios 配置
 axios.defaults.timeout = 5000;
 //设置拦截器
-//axios.defaults.baseURL = 'http://10.0.0.2:8081/mall/wap/';
-axios.defaults.baseURL = '/wap/';
+console.log(process.env.API_HOST);
+axios.defaults.baseURL = process.env.API_HOST+'/wap';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
@@ -14,6 +15,7 @@ axios.interceptors.request.use(
           config.headers['token'] = store.state.token;
 		  config.headers['loginUserId']=store.state.userId  
         }
+        config.data=JSON.stringify(config.data);
         return config;
     },
     err => {
