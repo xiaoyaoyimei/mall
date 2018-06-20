@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	 '/wap': {
-                target: _host,
+                target: '"http://test-shop.dxracer.com.cn:8084/mall"',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/wap': '/wap'

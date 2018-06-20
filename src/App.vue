@@ -25,10 +25,10 @@ ul,li{
 	list-style: none;
 }
 .ivu-tabs-nav .ivu-tabs-tab-active,.ivu-tabs-nav .ivu-tabs-tab:hover{
-	color:#d32122
+	color:#0099ff
 }
 .ivu-tabs-ink-bar{
-	background:#d32122
+	background:#0099ff
 }
 outline{
 	border: 0 none;

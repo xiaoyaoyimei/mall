@@ -18,20 +18,20 @@
     	<div id="zhifu" ref="zhifu"></div>
 		    	   <Modal v-model="payshow" width="240" :mask-closable="false">
 		        <div >
-		            <p style="color:#f60;text-align:center">确认离开收银台？请尽快完成支付</p>
+		            <p style="color:#f60;text-align:center;font-size: 1.6rem;">确认离开收银台？请尽快完成支付</p>
 		        </div>
 		        <div slot="footer" style="text-align:center">
-		        	 <Button    @click="continueshow">继续支付</Button>
+		        	 <Button    @click="continueshow" class="mr10">继续支付</Button>
 		              <Button type="error"  @click="level()">确认离开</Button>
 		        </div>
 		    </Modal>
 		       <Modal v-model="weixinshow" width="240" :closable="false" :mask-closable="false">
 		        <div >
-		            <p style="text-align:center;font-size: 1.4rem;">请确认微信支付是否已完成</p>
+		            <p style="text-align:center;font-size: 1.6rem;">请确认微信支付是否已完成</p>
 		        </div>
 		        <div slot="footer" style="text-align:center" class="weixin_btn">
-		        	 <Button    @click="level()" long type="success">已完成支付</Button>
-		              <Button  @click="continueshow" long type="error">支付遇到问题,重新支付</Button>
+		               <Button    @click="level()" type="success" class="mr10">已完成支付</Button>
+		              <Button type="error"  @click="continueshow">支付遇到问题,重新支付</Button>
 		        </div>
 		    </Modal>
      </div>
@@ -114,7 +114,7 @@
 .weixin_btn button{
 	margin-bottom: 15px;
 }
-.weixin_btnr button + button{
-	margin-right: 0;
+.mr10{
+	margin-right: 1rem;
 }
 </style>

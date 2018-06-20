@@ -7,6 +7,7 @@ let routes =  [
 				{path: '/',redirect: '/index'},
 			    {path: '/login', name: 'login',component:  resolve => require(['@/views/Login.vue'], resolve)},
 			    {path: '/register',name: '注册',component:  resolve => require(['@/views/RegisterOne.vue'], resolve)},
+			     {path: '/forget',name: '忘记密码',component:  resolve => require(['@/views/Forget.vue'], resolve)},
        			{path: '/index',component: resolve => require(['@/container/Full.vue'], resolve),
 					children: [{
 						name:'首页',
@@ -23,8 +24,7 @@ let routes =  [
 						path: '/sort',
 						component:resolve => require(['@/views/pages/Sort.vue'], resolve),
 					},
-				
-						{
+					{
 						name:'用户中心',
 						path: '/user',
 						component:resolve => require(['@/views/pages/userCenter/UserCenter.vue'], resolve),

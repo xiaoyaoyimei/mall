@@ -2,13 +2,12 @@
 		<div class="reg">
           <div class="m_header_bar">
             <router-link to="/login"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">手机快速注册</span>
+			<span class="m_header_bar_title">找回密码</span>
 		</div>
 		<div class="content">
-		<p class="color-dx">欢迎来到DXRACER</p>
 	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
-           <FormItem label="手机号" prop="loginName">
-            <Input v-model.trim="regiForm.loginName" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.loginName'></Input>
+           <FormItem label="手机号" prop="mobile">
+            <Input v-model.trim="regiForm.mobile" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.mobile'></Input>
         </FormItem>
            <FormItem label="图形码" prop="verificationCode" class="clearfix">
             <div class="clearfix">
@@ -27,11 +26,11 @@
              </div>
         </FormItem>
      <FormItem label="密码" prop="passWord">
-            <Input v-model="regiForm.passWord" placeholder="请输入密码"></Input>
+            <Input v-model="regiForm.passWord" placeholder="请输入新密码"></Input>
         </FormItem>
          <FormItem>
-            <Button type="primary" @click="handleSubmit('regiForm')" >提交</Button>
-            <Button type="ghost" @click="handleReset('regiForm')" style="margin-left: 8px">重置</Button>
+            <Button type="primary" @click="handleSubmit()" >提交</Button>
+            <Button type="ghost" @click="handleReset()" style="margin-left: 8px">重置</Button>
         </FormItem>
     </Form>
     </div>
@@ -39,7 +38,7 @@
 </template>
 
 <script>
-	    import { validatePhone } from '@/utils/validate';
+	  import { validatePhone } from '@/utils/validate';
 	  export default {
         data () {
         	 const validateName = (rule, value, callback) => {
@@ -59,7 +58,7 @@
 	          }
 	        };
             return {
-            	time: 180, // 发送验证码倒计时
+                time: 180, // 发送验证码倒计时
             	sendMsgDisabled: false,
             	txv:1,
             	verimg:'',
@@ -72,9 +71,9 @@
                 ruleValidate: {
                     passWord:[
                       { required: true, message: '密码不能为空', trigger: 'blur' },
-                      { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' },
+                        { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
                     ],
-                    loginName:[
+                    mobile:[
                       { required: true, validator: validateName, trigger: 'blur' }
                     ],
                     verificationCode:[
@@ -88,7 +87,7 @@
         },
           methods:{
           	getDx(){
-          	let verificationCode=this.regiForm.verificationCode;
+          	   let verificationCode=this.regiForm.verificationCode;
           		if(verificationCode==null||verificationCode==''){
           			this.$Message.error('图形码不能为空!');
           		}else{
@@ -106,54 +105,61 @@
 					    method: 'post',
 					    url:'/customer/register/shortmessage',
 					    data:{
-					    		 "mobile":loginName,
+					    		 "mobile":this.regiForm.mobile,
 					    		  "verificationCode":this.regiForm.verificationCode
 					    	},
 					}).then((res)=>{
 						     if (res.code !== 200) {
 		                 		 this.$Message.error(res.msg);
 		              		} 
-							this.loadingDx = false;
 					});
 					}
           	},
           	getTx(){
           		//验证用户名是否存在
-          		if(this.regiForm.loginName==""){
+          		if(this.regiForm.mobile==""){
           			  this.$Message.error('手机号不能为空');
           			  return 
           		}
-      		 	this.$axios({
-						    method: 'post',
-						    url:'/customer/validate?userName='+this.regiForm.loginName,
-						}).then((res)=>{
-							if(res.code=='200'){
-								this.txv++;
-      							this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
-							}else{
-								  this.$Message.error(res.msg);
-							}
-				});
+          		 	this.$axios({
+							    method: 'post',
+							    url:'/customer/validate?userName='+this.regiForm.mobile,
+							}).then((res)=>{
+								if(res.code=='500'){
+									this.txv++;
+          							this.verimg=this.$axios.defaults.baseURL+'/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
+								}else{
+									  this.$Message.error(res.msg);
+								}
+							});
           			
           	},
-            handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
+            handleSubmit () {
+            	if(this.regiForm.mobile==""){
+          			  this.$Message.error('手机号不能为空');
+          			  return 
+          		}
+                this.$refs['regiForm'].validate((valid) => {
                     if (valid) {
-                    	let para = Object.assign({}, this.regiForm);
+                    	let para = {
+                    		mobile:this.regiForm.mobile,
+                    		password:this.regiForm.passWord,
+                    		shortMessage:this.regiForm.shortMessage,
+                    	}
 		                    	this.$axios({
 							    method: 'post',
-							    url:'/customer/register',
+							    url:'/customer/reset/password',
 							    data:para,
 							}).then((res)=>{
 									      let { code, msg } = res;
 								              if (code !== 200) {
-								                this.$Message.error(res.msg);
+								                this.$Message.error(res.object);
 								              } else {
-								                this.$router.push({ path: '/Login' ,query: { loginName: this.regiForm.loginName}});
+								                this.$router.push({ path: '/Login' ,query: { loginName: this.regiForm.mobile }});
 								              }
 							});
-							}
-                      })
+						}
+                     })
             },
             handleReset (name) {
                 this.$refs[name].resetFields();
@@ -183,7 +189,9 @@
 	}
 	.tx,.dxm{
 		height: 32px;
-	}.dxm{
+	}
+	.dxm{
+		cursor:pointer;
 		line-height: 32px;
 		background: #333;
 		color:#fff;

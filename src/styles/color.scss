@@ -1,6 +1,6 @@
-$color-primary: #67c23a;//#18c79c
+$color-primary: #0099ff;//#18c79c
 $color-border:#eee;
-$color-dx:#d32122;
+$color-dx:#0099ff;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
@@ -16,6 +16,9 @@ $color-gray:#999;
 }
 .font-15{
     font-size: 1.5rem;
+}
+.font-16{
+    font-size: 1.6rem;
 }
  .promotion{
     display: inline-block;
@@ -103,8 +106,8 @@ margin-left:3px;
             color:#fff;
             height: 100%;
             border:0 none;
-            padding-left:15px ;
-            padding-right: 15px;
+            padding-left:2rem ;
+            padding-right: 2rem;
             cursor: pointer;
           }
           .miaoshagou{
@@ -151,7 +154,7 @@ margin-left:3px;
  }
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 .color-dx{
-    color:#d32122
+    color:#0099ff
 }
 .demo-carousel{
     text-align: center;
@@ -164,12 +167,7 @@ margin-left:3px;
         50%  { transform: rotate(180deg);}
         to   { transform: rotate(360deg);}
     }
-    .demo-spin-col{
-        height: 100%;
-        position: relative;
-        border: 1px solid #eee;
-    }
-    
+
 .ivu-icon-ios-arrow-back{
     font-size:2.8rem;
     position: relative;
@@ -238,12 +236,13 @@ input, textarea{
     background: #fff;
 }
 .inputwrap{
-        position: absolute;
+    position: absolute;
     left: 0;
     top: 0.2rem;
     width: 100%;
     padding-left:2.5rem;
     padding-right: 1rem;
+    padding-top: 0.2rem;
 }
 .login-ing
 {    height: 100%;
@@ -457,8 +456,8 @@ input, textarea{
     display: flex;
     background: #fff;
     img{
-        width:35%;
-        height:35%
+        width:30%;
+        height:30%
     }
     .right{
         width:65%;

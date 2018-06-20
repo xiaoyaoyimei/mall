@@ -1,6 +1,6 @@
 <template>
-	<div>
-	<div class="m_header_bar">
+	<div class="font-16">
+	<div  class="m_header_bar">
 			<router-link to="/seckill"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">秒杀详情</span>
 		</div>

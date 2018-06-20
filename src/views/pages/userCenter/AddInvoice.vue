@@ -51,13 +51,23 @@
 </template>
 
 <script>
-	   export default {
+	import { validatePhone } from '@/utils/validate';
+	export default {
     data () {
+    		 	 const validateName = (rule, value, callback) => {
+	          if (value==undefined) {
+	            callback(new Error('手机号不能为空'));
+	          } else if (!validatePhone(value)) {
+	                 callback(new Error('请输入正确的手机号'));
+	          }else{
+	          	callback();
+	          }
+	        };
         return {
         	 orderNo:'',
         	 addressOption: [],
         	 tempinvoice:{},
-			  invoiceForm: {
+			 invoiceForm: {
 			  					orderNo:this.orderNo,
 			  					invoiceTitle:'',
 								invoiceType:'增值税普通发票',
@@ -73,7 +83,7 @@
 		            ruleValidate: {
 	                    invoiceTitle: [ { required: true, message: '发票抬头不能为空', trigger: 'blur' }],
 	                    receiveAddress:[ { required: true, message: '详细地址不能为空', trigger: 'blur' }],
-	                    receivePhone:[{ required: true, message: '收票人手机不能为空', trigger: 'blur' }],
+	                    receivePhone:[{ required: true, validator: validateName, trigger: 'blur'}],
 	                    receivePerson:[{ required: true, message: '收票人姓名不能为空', trigger: 'blur' }],
 	                    selectedOptionsAddr: [ { required: true, type: 'array',message: '请选择省市区', trigger: 'change' }],
                    },
@@ -86,26 +96,27 @@
     	      	},
     	      	getParams () {
 				        // 取到路由带过来的参数 
-			        let routerParams = this.$route.query.orderNo;
-			        this.invoiceForm.orderNo=routerParams;
-			        this.getInvoice(routerParams);
+			        this.invoiceForm.orderNo=this.$route.query.orderNo;
+			        this.getInvoice(this.$route.query.orderNo);
 				},
 				getInvoice(value){
 					  	this.$axios({
 						    method: 'get',
 						    url:'/order/'+value,
 						}).then((res)=>{
-							let old=res.shippingInvoice;
-							this.invoiceForm.invoiceTitle=old.invoiceTitle;
-				         this.invoiceForm.invoiceType=old.invoiceType;
-				         this.invoiceForm.receivePerson=old.receivePerson;
-				         this.invoiceForm.receivePhone=old.receivePhone;
-				         this.invoiceForm.selectedOptionsAddr=[old.receiveProvince,old.receiveCity,old.receiveDistrict];
-			        	 this.invoiceForm.bankName=old.bankName;
-			        	 this.invoiceForm.bankNo=old.bankNo;
-			        	 this.invoiceForm.invoiceCode=old.invoiceCode;
-			        	 this.invoiceForm.receiveAddress=old.receiveAddress;
-			        	 this.invoiceForm.registerAddress=old.registerAddress;
+							if(res.shippingInvoice!=""){
+								let old=res.shippingInvoice;
+								this.invoiceForm.invoiceTitle=old.invoiceTitle;
+						         this.invoiceForm.invoiceType=old.invoiceType;
+						         this.invoiceForm.receivePerson=old.receivePerson;
+						         this.invoiceForm.receivePhone=old.receivePhone;
+						         this.invoiceForm.selectedOptionsAddr=[old.receiveProvince,old.receiveCity,old.receiveDistrict];
+					        	 this.invoiceForm.bankName=old.bankName;
+					        	 this.invoiceForm.bankNo=old.bankNo;
+					        	 this.invoiceForm.invoiceCode=old.invoiceCode;
+					        	 this.invoiceForm.receiveAddress=old.receiveAddress;
+					        	 this.invoiceForm.registerAddress=old.registerAddress;
+			        		}
 						});
 				},
     	      	getAddressOption(){

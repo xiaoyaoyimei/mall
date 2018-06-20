@@ -13,7 +13,7 @@
 		    	</Carousel>
 	    		<div class="xiangqiang">
 	    		<div>{{shangp.product.modelName}}</div>
-	    	<strong><label class="price">{{shangp.product.salePrice | pricefilter}}</label></strong>
+	    	   <strong><label class="price">￥{{shangp.product.salePrice | pricefilter}}</label></strong>
 	    	</div>
 	    	<div class="choose" @click="modal2 = true">
 	    		<span>选择规格<i v-if="!xiajia">{{bigchoose}}</i></span>
@@ -32,7 +32,7 @@
 	    </Tabs>
 	    <div class="foot"> 
 	    	<button    :loading="modal_loading" @click="modal2 = true" class="jrgwc">加入购物车</button>
-	    	<router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon></router-link>
+	    	<router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon>购物车</router-link>
 	    </div>
        	<!--弹窗选择商品尺寸颜色-->
     	 <Modal v-model="modal2"  class="chooseModal cartModal" :mask-closable="false">
@@ -172,7 +172,6 @@
 									}).then((res)=>{
 										this.modal_loading = false;
 										if(res.code=='200'){
-											
 											this.$router.push('/cart')  
 										}
 										else{
@@ -280,6 +279,8 @@
 										 	_this.$refs.video.src = 'http://player.youku.com/embed/' + res.object.product.video;
 										 	_this.videoshow=true;
 						                }
+									}else{
+										
 									}
 							});
 			     },
@@ -327,7 +328,7 @@
  		margin-top:1rem;
  		label{
  			 background: #fcdadb;
- 			   color: #d32122;
+ 			   color: #0099ff;
  		}
  	}
  	.small-xq{
@@ -350,7 +351,7 @@
 
   strong{
   	margin-bottom: 0.5rem;
-  	color:#d32122;
+  	color:#0099ff;
   	display: block;
   	font-size: 1.4rem;
   }
@@ -358,7 +359,7 @@
  	background: rgba(64, 64, 64, 0.6);
     width: 3.2rem;
     height: 3.2rem;
-    line-height:2.2rem;
+    line-height:3.2rem;
     border-radius: 3.2rem;
     display: inline-block;
     text-align: center;
@@ -379,7 +380,7 @@
  		color: #333;
  	}
  	strong{
- 		color:#d32122;
+ 		color:#0099ff;
  		font-size: 1.1rem;
  	}
  }
@@ -416,8 +417,8 @@
 	  	margin-bottom: 0.5rem;
 	  }
 	  dd.active{
-	  	color:#d32122;
-	  	border-color:#d32122;
+	  	color:#0099ff;
+	  	border-color:#0099ff;
 	  }
  }
 

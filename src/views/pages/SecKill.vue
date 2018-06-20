@@ -28,7 +28,12 @@
 									<div class="r">
 									</div>
 								</div>
-								<div> <Progress  :percent="percent(item.crush)"></Progress></div>
+								<div>
+										  <Progress :percent="100" v-if="item.saledshow">
+									        <span>已售完</span>
+									    </Progress>
+									<Progress  :percent="percent(item.crush)" v-else>  
+									</Progress></div>
 								</div>
 							</router-link>
 						</div>
@@ -96,9 +101,11 @@ export default {
 							 this.pro=res.object;
 							  var ssss=this.pro;
 						        ssss.map( (obj,index)=>{
-						         this.$set(  
-						                obj,"djs",InitTime(obj.crush["endTime"])  
-						            );
+						         this.$set(obj,"djs",InitTime(obj.crush["endTime"])  );
+						         //判断是否已经售完
+						         if(obj.crush.usedQuantity==obj.crush.totalQuantity){
+						           this.$set( obj,"saledshow",true)  ;
+						          }
 						        })  
 							    this.pro = ssss; 
 							}

@@ -32,8 +32,8 @@
     			<img src="../../assets/img/miao.png">
     			</router-link>
     	  </div>
-    	  <span class="xptj">为你推荐</span>
-    	<Row  class="goodslist">
+    	  <span class="xptj" v-if="proList.lenght>0">为你推荐</span>
+    	     <Row  class="goodslist">
 				<Col  :xs="12"  :md="6"  v-for="(item,index) in proList" :key="index">
 					<label>{{item.promotionTitle}}</label>
 					<router-link  tag="a" :title='item.model_name' :to="{ path: '/sort/sortDetail',query:{id:item.id} }"><img  :src='item.model_img |imgfilter'>

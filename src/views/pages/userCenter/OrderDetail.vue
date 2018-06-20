@@ -31,13 +31,13 @@
 		   			<span>收票人：{{orderdetail.shippingInvoice.receivePerson}}</span>
 		   			<span>发票抬头：{{orderdetail.shippingInvoice.invoiceTitle}}</span>
 		   			<span class="mb10 clearfix pb15">发票类型：{{orderdetail.shippingInvoice.invoiceType}}  
-		   			<span>
+		   			<span v-if="orderdetail.shippingOrder.orderStatus!='04'">
 		   			<router-link class="btn btn-dx btn-invoice" 
 		   				:to="{ name: '/addInvoice',
 		   				query:{orderNo:orderdetail.shippingOrder.orderNo},
-		   				params:{shippingInvoice:orderdetail.shippingInvoice} }" 
-		   				v-if="orderdetail.shippingInvoice==''||orderdetail.shippingInvoice.invoiceStatus=='created'">
-		   		     	编辑发票</router-link></span></span>
+		   				params:{shippingInvoice:orderdetail.shippingInvoice} }" v-if="orderdetail.shippingInvoice==''||orderdetail.shippingInvoice.invoiceStatus=='created'">
+		   		     	编辑发票</router-link></span>
+		   			</span>
 		   		   
 		   		</div>
 		   	<ul class="sptotal">
@@ -150,11 +150,12 @@
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	padding: 0 0 0.9rem;
+	padding: 0.9rem 0;
 	box-sizing:content-box;
 	height: 3.2rem;
 	background: #fff;
 	text-align: right;
+	border-top:1px solid #0099ff;
 	button{
 		height: 3.2rem;
 		margin-right:1rem;
@@ -166,8 +167,8 @@
 		border: 1px solid #eee;
 	}
 	.btn-red{
-		background: red;
-		border: 1px solid red;
+		background: #0099ff;
+		border: 1px solid #0099ff;
 		color: #fff;
 	}
 	
@@ -243,7 +244,7 @@
 			font-weight: bold;
 		}
 		.zjg{
-			color:#d32122;
+			color:#0099ff;
 			font-size: 18px;
 		}
 	}

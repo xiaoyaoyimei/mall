@@ -31,7 +31,7 @@
 						<div class="cart_gray">
 						   <p>
 						   	<label class="promotion" v-if="x.promotionTitle !=null">{{x.promotionTitle}}</label>
-					        <span >￥{{x.salePrice | pricefilter}}x{{x.quantity}}</span>
+					        <span class="color-dx">￥{{x.salePrice | pricefilter}}x{{x.quantity}}</span>
 					       	<!--<em class="oldprice">￥{{x.salePrice | pricefilter}}</em>-->
 					       	 <span v-if="x.promotionTitle ==null&&xscoupon" class="color-dx">
 					       	 	￥{{couponprice(x.salePrice) | pricefilter}}x{{x.quantity}}
@@ -46,7 +46,7 @@
 				<span @click='usecoupon' class="use">使用</span>
 			</div>
          <div class='cartfoot'>
-			<strong><span>￥{{totalPrice  | pricefilter }}</span></strong>
+			<strong><span class="color-dx">￥{{totalPrice  | pricefilter }}</span></strong>
            <button  @click="confirm"  type="button"> 
 				提交订单
 			</button>
@@ -277,6 +277,7 @@
  @import '@/styles/color.scss';
  .paymoney{
  	margin-bottom: 6rem;
+ 	font-size: 1.6rem;
  }
  .oldprice{
  	text-decoration: line-through;
@@ -345,12 +346,15 @@
 				}
 		}
 		.yhm input{
-			height: 32px;
+			font-size: 1.2rem;
+			padding-left: 0.3rem;
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+			border:1px solid #ccc;
 		}
 	.use{
 		background: #333;
 		color: #fff;
-		padding: 0 0.5rem;
-		font-size: 2rem;
+		padding:  0.5rem;
 	}
 </style>

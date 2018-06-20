@@ -39,10 +39,10 @@
 							<P class='color-dx'>总计：￥{{totalPrice |pricefilter}}</P>
 						</Col>
 						<Col class='cartButton1' span="8">
-							<i-button class='cartButton'  @click.prevent.native="paymoney" type="error" v-show="editface">
+							<button class='cartButton'  @click="paymoney"  v-show="editface">
 								结算({{zslcount}})
-							</i-button>
-							 <Button  type="ghost" shape="circle"  @click.prevent.native="remove" v-show="!editface" style="margin-right: 1rem;">删除</Button>
+							</button>
+							 <button   @click="remove" v-show="!editface" class="btn-del">删除</button>
 						</Col>
 					</Col>
 				</Row>
@@ -301,24 +301,31 @@ export default {
 			}
 			.cart_price{
 		    margin-top:5px;
-				color:#d32122;
+				color:#0099ff;
 			}
 			.color-dx{
-				color:#d32122;
+				color:#0099ff;
 				text-align:left;
 			}
 			.cartButton1{
 				text-align:right;
-			}
-			.cartButton{
-				border-radius:0px;
-				padding:1.5rem 2.5rem;
-				.font-dx{
-					color:#d32122;
+				button{
+					border: 0 none;
+					padding-left:20px;
+					padding-right: 20px;
 				}
-			}
-			.cartButton:nth-of-type(2n){
-				margin-left:-5px;
+				.btn-del{
+					background: #fff;
+					color:#333;
+					border:1px solid #ccc;
+					height: 3rem;
+					line-height: 3rem;
+					margin-right: 1rem;
+					border-radius: 1.5rem;
+				}
+				.btn-del:hover{
+					background: #f5f5f5;
+				}
 			}
 
 		}
@@ -333,6 +340,10 @@ export default {
 				left: 0;
 				width: 100%;
 		}
+		.cartButton{
+			color:#fff;
+			background: #0099ff;
+		}
 	}
 	.cart-empty {
 		padding-top:2rem;
@@ -342,7 +353,7 @@ export default {
 		max-width:8rem;
 		}
 		a{
-			color:#d32122;
+			color:#0099ff;
 			margin-left: 1.5rem;
 			text-decoration: underline;
 		}

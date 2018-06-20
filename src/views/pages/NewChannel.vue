@@ -16,7 +16,7 @@
 									<span v-if="item.promotionTitle !=null" class="promotion">{{item.promotionTitle}}</span>
 									<span v-else></span>
 								</p>
-								<p class="sh6">{{item.sale_price | pricefilter}}</p>
+								<p class="sh6">￥{{item.sale_price | pricefilter}}</p>
 								</div>
 							</router-link>
 				</div>

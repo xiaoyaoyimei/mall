@@ -1,11 +1,5 @@
 <template>
 	<div class="sort1 ">
-		  <!--<button v-on:click="tshow = !tshow">
-    Toggle
-  </button>
-  <transition name="fade">
-    <p v-if="tshow">hello</p>
-  </transition>-->
 		<div class="header-home-wrapper sort-box">
 		    <router-link to="/index"  class="icon-back">
 				<Icon type="ios-arrow-back"></Icon>
@@ -18,7 +12,7 @@
 		 </div>
 		</div>
 		</div>
-		<span class="search-button"  @click="getList()" >搜索</span>
+		<span class="search-button" @click="fetchData()" >搜索</span>
 		</div>
 		 <Row type="flex" justify="space-between" class="code-row-bg">
 	        <Col span="4" v-bind:class="{ active: isActive }">综合</Col>
@@ -28,15 +22,15 @@
    	   	</Row>
    	   	   <div class="flex-center" v-if="show">
    	   	   	<img src="../../assets/img/search_0.png">
-   	   	   		<span class="font-15 mt15">没有符合该搜索条件的商品</span>
+   	   	   		<span class="font-15 mt15">没有符合该搜索条件的商品,请重新检索</span>
    	   	   	</div>
-   	     <Col class="demo-spin-col"  v-else>
-		   	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height='scrollHeight'>
-				<div class="product" ref="con">
+   	     <Col class="demo-spin-col"  v-else >
+		    	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height='scrollheight'>
+					 <div class="product" ref="con">
 						<div   class="spdetail"    v-for="(item, index) in productList" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 								<img  :src='imageSrc + item.model_img'>
-							   <div class="right">	<p class="sP">{{item.model_name}}
+							     <div class="right">	<p class="sP">{{item.model_name}}
 								</p>
 								<p class="font-14">{{item.type_name}}</p>
 								<p >
@@ -47,7 +41,8 @@
 								</div>
 							</router-link>
 						</div>
-				</div>
+					</div>
+					<div class="center">{{bottomtext}}</div>
 			</Scroll>
 		      <Spin fix size="large" v-if="spinShow">
                 <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
@@ -87,8 +82,10 @@
     export default {
         data () {
             return {
+            	//总条数，控制是否再次请求后台数据
+            	totalSize:0,
+            	bottomtext:'',
 				filterModal:false,
-            	scrollHeight:500,
 				productList:[],
 				imageSrc:this.global_.imgurl,
 				startRow:0,
@@ -111,9 +108,9 @@
                 typeindex:-1,
                 seriesindex:-1,
                 brandindex:-1,
+                scrollheight:0
 			}
 		},
-		name: 'scroll-top',
 		methods:{
 			selected(i,value,t){
 				if(t=='catalog'){
@@ -132,8 +129,8 @@
 			},
 			//筛选搜索
 			   ok(){
-				this.getList();
-				this.filterModal = false;
+					this.getList();
+					this.filterModal = false;
 			    },
 			    //筛选重置搜索条件
 				reset(){
@@ -141,13 +138,10 @@
 					this.typeindex=-1;
 					this.seriesindex=-1;
 					this.brandindex=-1;
-					this.searchfilter.catalog='';
-					this.searchfilter.series='';
-					this.searchfilter.type='';
-					this.searchfilter.brand='';
 				},
 			   getParams () {
-			  	if(this.$route.query.type!=undefined){
+			     	this.scrollheight= document.body.offsetHeight-135;
+			  	 if(this.$route.query.type!=undefined){
 			        this.getList('type',this.$route.query.type,this.$route.query.typeindex)
 			       }
 		      },
@@ -178,13 +172,21 @@
 				})
 				this.spinShow=false
             },
-            	getList(){
-            		this.productLis=[],
-            		this.scrollHeight=window.screen.height;
+            getList(){
+            		this.productList=[],
+            		this.startRow=0;
 	                this.$axios({
 						method: 'GET',
 						url:'/product/search?catalog='+this.searchfilter.catalog+'&series='+this.searchfilter.series+'&type='+this.searchfilter.type+'&brand='+this.searchfilter.brand+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
 					}).then((res)=>{
+							this.searchfilter.catalog='';
+							this.searchfilter.series='';
+							this.searchfilter.type='';
+							this.searchfilter.brand='';
+							this.catalogindex=-1;
+							this.typeindex=-1;
+							this.seriesindex=-1;
+							this.brandindex=-1;
 						if(res.total>0){
 							this.show=false;
 							this.productList = res.itemsList;
@@ -197,38 +199,51 @@
 			top(){
 				document.querySelector(".ivu-scroll-container").scrollTop = 0;
 			},
-			handleReachBottom (dir) {
+			handleReachBottom () {
 				this.startRow=this.startRow+this.pageSize;
+				let _this=this;
+				if(_this.productList.length<this.totalSize){
                 return new Promise(resolve => {
                     this.$axios({
 						method: 'GET',
 						url:'/product/search?startRow='+this.startRow+'&pageSize='+this.pageSize,
 						}).then((res)=>{
-							var arr = this.productList.concat(res.itemsList);
-							this.productList = arr;
+							_this.productList=_this.productList.concat(res.itemsList);
 						})
 						resolve();
                 });
+                }else{
+                	 this.bottomtext='没有更多了';
+                }
+              
 			},
-				async fetchData(val) {
+				async fetchData() {
+					this.productList=[],
+            		this.startRow=0;	
 				const res = await this.$axios({
-					url: '/product/search?keyword='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
+					url: '/product/search?keyWord='+this.keyword+'&startRow='+this.startRow+'&pageSize='+this.pageSize,
 					method: 'GET',
 				});
-				this.productList = res.itemsList;
+				if(res.total>0){
+							this.show=false;
+							this.productList = res.itemsList;
+							this.totalSize=res.total;
+						}else{
+							this.show=true;
+				}
 			},
 		},
 		watch: {
 		//watch title change
 			keyword() {
-			delay(() => {
-				this.fetchData();
-			}, 600);
+				delay(() => {
+					this.fetchData();
+				}, 600);
 			},
 		},
 		 mounted(){
 		 		this.getParams();
-			  this.getList();
+			     this.getList();
 				this.getTop();
 	      }
     }
@@ -242,9 +257,8 @@
 	 z-index:10;
 	 width:100%;
  }
-.scroll {
-	position: relative;
-	height: 600px;
+.scroll{
+	  height: calc(100vh - 135px);     
 }
 .code-row-bg{
 	background: #fff;

@@ -31,7 +31,7 @@
 		font-size:2.4rem
 	}
 	a.router-link-active{
-			color:#d32122
+			color:#0099ff
 	}
 }
 </style>
