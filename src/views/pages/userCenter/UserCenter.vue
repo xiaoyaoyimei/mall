@@ -8,7 +8,7 @@
 				</router-link>
 				 	<router-link :to="{path: '/user/myinfo'}"  class="tx" v-else> 
 				 		<img :src="userinfo.iconUrl"  v-if="userinfo.iconUrl">	
-				 	<img src="../../../assets/img/de-tx.jpg" v-else>
+				 	    <img src="../../../assets/img/de-tx.jpg" v-else>{{this.userinfo.nickName}}
 				 	</router-link>
 				<span class="shdz">
 					<router-link :to="{path: '/user/setting'}">
@@ -78,12 +78,12 @@
  		padding-bottom:3rem;
  		.tx 
  		{
- 			line-height: 7.2rem;
+ 			line-height: 3.2rem;
  			img{
 	 			width:6rem;
 	 			border-radius: 6rem;
 	 			float: left;
-	 			margin-right:2rem;
+	 			margin-right:1.5rem;
 	 			height:6rem;
  			}
  		}
@@ -95,7 +95,7 @@
  			float: right;
  			color:#fff;
  			margin-right:2rem;
- 			line-height: 2.4rem;
+ 			line-height: 2rem;
  			img{
  				width:2rem;
  				float: left;

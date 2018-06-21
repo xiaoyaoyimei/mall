@@ -2,7 +2,7 @@
 	<div class="order">
 		<div class="m_header_bar">
 			<router-link to="/user/myinfo"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">修改昵称  </span>
+			 <span class="m_header_bar_title">修改昵称  </span>
 			 <span  @click="handleNick" class="m_header_bar_menu">保存</span>
 		</div>
 	<div class="user-con-wrap">
@@ -28,8 +28,16 @@
         this.name = routerParams
       },
       handleNick(){
-      	var self=this;
-	      	this.fang_.editUser(self,{'nickName':this.name});
+      		this.$axios({
+						    method: 'post',
+						    url:'/account/update',
+						    data:{'nickName':this.name}
+						}).then((res)=>{
+							if(res.code=='200'){
+							 this.$Message.success('修改成功');
+							 this.$router.push({ name:'/user/myinfo'});
+							}
+						});
       }
     },
     watch: {

@@ -29,7 +29,7 @@
             <Input v-model="regiForm.passWord" placeholder="请输入新密码"></Input>
         </FormItem>
          <FormItem>
-            <Button type="primary" @click="handleSubmit()" >提交</Button>
+            <Button type="primary" @click="handleSubmit()" >找回密码</Button>
             <Button type="ghost" @click="handleReset()" style="margin-left: 8px">重置</Button>
         </FormItem>
     </Form>

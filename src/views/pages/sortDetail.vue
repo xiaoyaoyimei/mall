@@ -73,7 +73,7 @@
         <div slot="footer">
         	<Button v-if="kucunshow" size="large"   long  disabled="disabled">暂时无货，到货通知</Button>
             <Button  size="large"   long  disabled="disabled" v-if="xiajia">该商品已下架</Button>
-            <Button  size="large"  long  :loading="modal_loading" @click="atc" type="error"  v-if="!xiajia&&!kucunshow">加入购物车</Button>
+            <Button  size="large"  long  :loading="modal_loading" @click="atc" class="btn-dx"  v-if="!xiajia&&!kucunshow">加入购物车</Button>
         </div>
     </Modal>
     </div>

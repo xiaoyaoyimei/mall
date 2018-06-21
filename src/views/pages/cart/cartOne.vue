@@ -260,11 +260,9 @@ export default {
 		}
 		.cartCol{
 			background-color:#fff;
-			margin-bottom:0.5rem;
-			padding-bottom:1rem;
-			padding-left: 1rem;
 			font-size: 1.4rem;
 			.cartcheckbok{
+				padding-left: 0.5rem;
 				height:16px;
 				margin-top:5%;
 				overflow:hidden;

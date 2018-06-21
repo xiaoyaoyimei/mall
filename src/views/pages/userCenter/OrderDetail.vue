@@ -103,7 +103,7 @@
 					}).then((res)=>{
 						if(res.code=='200'){
 							  this.$Message.info(res.msg);
-							  this.$router.go(0);
+							  this.getOrder();
 						}
 						else{
 							  this.$Message.info(res.msg);
@@ -111,7 +111,6 @@
 					});
                     },
                     onCancel: () => {
-                        this.$Message.info('放弃取消');
                     }
                 });
             },
@@ -171,7 +170,6 @@
 		border: 1px solid #0099ff;
 		color: #fff;
 	}
-	
 }
 	.detail {
 		margin-bottom:5rem;

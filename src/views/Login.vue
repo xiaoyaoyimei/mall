@@ -37,7 +37,7 @@
 	          } else if (!validatePhone(value)) {
 	                 callback(new Error('请输入正确的手机号'));
 	          }else{
-	          	callback(this.getTx());
+	          	callback();
 	          }
 	        };
         const validatePass = (rule, value, callback) => {
@@ -68,6 +68,7 @@
 			this.getParams();
 		},
       methods: {
+      	
       	routerBack(){
       		 this.$router.go(-1);
       	},
