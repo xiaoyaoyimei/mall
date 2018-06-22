@@ -7,7 +7,7 @@
 			<span  @click="edit" v-show="!editface"  class="m_header_bar_menu">完成</span>
 		</div>
 		<div v-if="cartList.length>0">
-		<Row>
+		<Row class="P15">
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
 		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
         			<Col class='cartcheckbok' span="2">
@@ -21,7 +21,7 @@
 							￥{{x.salePrice |pricefilter}}
 							<div class="min-add">
 						    	<Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
-						     	 <input class="text-box" name="pricenum"  type="tel" v-model="x.quantity*1" v-on:input="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
+						     	 <input class="text-box" name="pricenum"  type="text" v-model="x.quantity*1" v-on:blur="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
 						 		 <Icon type="plus-round" @click.native="jia(x,index)" class="add"></Icon>
 							</div>
 						</div>
@@ -101,6 +101,12 @@ export default {
               },
         	changeNumber: function(event,x,index){
 					var obj=event.target;
+					 let n = /^[1-9]\d*$/; 
+			        if(!n.test(obj)){
+			            this.$Message.warning('商品数量须大于0个，请输入正整数');
+			            obj.value=1
+			            return ;
+			        }
 					x.quantity = parseInt(obj.value);
 					 if(this.temp.indexOf(index)<0){
 					     		this.temp.push(index)
@@ -253,14 +259,18 @@ export default {
 </script>
 
 <style  lang="scss"  scoped="scoped">
+.P15{
+	padding:15px;
+		background-color:#fff;
+			font-size: 1.6rem;
+}
 	.cart1{
 		margin-bottom:55px;
 		.center{
 			text-align: center;
 		}
 		.cartCol{
-			background-color:#fff;
-			font-size: 1.4rem;
+		
 			.cartcheckbok{
 				padding-left: 0.5rem;
 				height:16px;
@@ -281,7 +291,6 @@ export default {
 				padding-top:1.5rem;
 			}
 			.cart_black{
-				padding-right: 1rem;
 				color:#565656;
 				text-align: left;
 			    box-sizing: border-box;
@@ -309,8 +318,8 @@ export default {
 				text-align:right;
 				button{
 					border: 0 none;
-					padding-left:20px;
-					padding-right: 20px;
+					padding-left:2rem;
+					padding-right: 2rem;
 				}
 				.btn-del{
 					background: #fff;
@@ -337,6 +346,7 @@ export default {
 				bottom:5rem;
 				left: 0;
 				width: 100%;
+				font-size: 1.6rem;
 		}
 		.cartButton{
 			color:#fff;

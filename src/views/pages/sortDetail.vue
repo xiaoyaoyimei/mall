@@ -2,15 +2,24 @@
 <div>
 		<div class="sortDetail">
 			<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
-				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots"
-		            :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" ref="carousel">
-		              <CarouselItem v-show="videoshow">
-		              	  <iframe  ref="video" frameborder=0 allowfullscreen  ></iframe>  
-		              </CarouselItem>
-		                <CarouselItem v-for="(item, index) in shangp.productImageList"  :key="index">
-		                        <div class="demo-carousel" ><img :src="item.listImg |imgfilter"></div>
-		                </CarouselItem>
-		    	</Carousel>
+					<div class="video-wrap" >
+						<div  ref="video-wrap"  v-show=" 0== num"  class="video-height">
+								<div  v-show="videoshow" class="video">
+								  <iframe  ref="video" frameborder=0 allowfullscreen ></iframe>  
+						    </div>
+						</div>
+					<div v-show=" 1== num"  class="swiper" >
+					<wc-swiper  v-if="shangp.productImageList.length" :autoplay='false'>
+					   <wc-slide v-for="(item, index) in shangp.productImageList" :key="index">
+					  	<img :src="item.listImg |imgfilter">
+					   </wc-slide>
+					</wc-swiper>
+					</div>
+					<div class="controls">
+						<button :class="num==1?'active':''" @click="toggletab(1)">图片</button>
+						<button  v-show="videoshow" :class="num==0?'active':''" @click="toggletab(0)">视频</button></div>
+					</div>
+				
 	    		<div class="xiangqiang">
 	    		<div>{{shangp.product.modelName}}</div>
 	    	   <strong><label class="price">￥{{shangp.product.salePrice | pricefilter}}</label></strong>
@@ -31,7 +40,7 @@
 	        </TabPane>
 	    </Tabs>
 	    <div class="foot"> 
-	    	<button    :loading="modal_loading" @click="modal2 = true" class="jrgwc">加入购物车</button>
+	    	<button     @click="modal2 = true" class="jrgwc">加入购物车</button>
 	    	<router-link :to="{ path: '/cart' }" class="cart">    <Icon type="android-cart"></Icon>购物车</router-link>
 	    </div>
        	<!--弹窗选择商品尺寸颜色-->
@@ -66,14 +75,14 @@
         	<p>数量</p>
         		<div class="min-add">
 			    	<Icon type="minus-round" @click.native="jian()" class="min"></Icon>
-			     	<input class="text-box" name="pricenum"  type="tel" v-model="quantity" v-on:input="changeNumber($event)" placeholder="数量" data-max="50" />
+			     	<input class="text-box" name="pricenum"  type="tel" v-model="quantity" v-on:blur="changeNumber($event)" placeholder="数量" data-max="50" />
 			 		 <Icon type="plus-round" @click.native="jia()" class="add"></Icon>
 				</div>
 		</div>
         <div slot="footer">
         	<Button v-if="kucunshow" size="large"   long  disabled="disabled">暂时无货，到货通知</Button>
             <Button  size="large"   long  disabled="disabled" v-if="xiajia">该商品已下架</Button>
-            <Button  size="large"  long  :loading="modal_loading" @click="atc" class="btn-dx"  v-if="!xiajia&&!kucunshow">加入购物车</Button>
+            <Button  size="large"  long  @click="atc" class="btn-dx"  v-if="!xiajia&&!kucunshow">加入购物车</Button>
         </div>
     </Modal>
     </div>
@@ -83,13 +92,13 @@
         data () {
             return {
             	//库存是否为0添加购物车显示按钮
+            	num:1,
             	kucunshow:false,
             	videoshow:false,
             	xiajia:false,
             	firstshow:false,
             	selectedId:-1,
             	modal2: false,
-            	modal_loading:false,
             	//商品最原始数据
             	oldshangp:{
             		product:{},
@@ -101,7 +110,7 @@
             	},
             	//请求product之后的商品数据
             	shangp:{
-            		product:{},
+            		product:{salePrice:0},
             		promotions:[],
             		productImageList:[],
             		productItemList:[],
@@ -126,20 +135,25 @@
             	quantity:1,
             	max:100,
             	productId:'',
-                value3: 0,
-                setting: {
-                    autoplay: false,
-                    autoplaySpeed: 2000,
-                    dots: 'inside',
-                    radiusDot: false,
-                    trigger: 'click',
-                    arrow: 'hover'
-                },
             }
         },
           methods: {
-          	        changeNumber: function(event){
+          	        	//切换num的值切换支付方式
+		        	toggletab(num){
+		        		this.num=num;
+		        		if(this.num==0){
+		        			this.$refs.video.src = 'http://player.youku.com/embed/' + this.shangp.product.video;
+		        			this.$refs.video.flashvars ="isAutoPlay=true";
+		        		}
+		        	},
+		          	    changeNumber: function(event){
 						var obj=event.target;
+						 let n = /^[1-9]\d*$/; 
+				        if(!n.test(obj)){
+				            this.$Message.warning('商品数量须大于0个，请输入正整数');
+				            obj.value=1
+				            return ;
+				        }
 						this.quantity = parseInt(obj.value);
 					},
 					//添加
@@ -160,7 +174,10 @@
 					},
           	//加入购物车
           	   atc () {
-                 this.modal_loading = true;
+                 if(this.productItemId==""){
+                 	this.$Message.error('请选择商品属性');
+                 	return ;
+                 }
 	                if(localStorage.getItem('token')!=null&&localStorage.getItem('token')!=undefined){
 	                	this.$axios({
 								    method: 'post',
@@ -170,7 +187,6 @@
 								    	quantity:this.quantity
 								    }
 									}).then((res)=>{
-										this.modal_loading = false;
 										if(res.code=='200'){
 											this.$router.push('/cart')  
 										}
@@ -271,16 +287,16 @@
 							    url:'/product/'+this.productId,
 								}).then((res)=>{
 									if(res.code=='200'){
-											this.shangp= Object.assign({},this.oldshangp,res.object);
-										 if(res.object.product.video!="")
-										 {
-										 	_this.$refs.video.width=window.innerWidth;
-										 	_this.$refs.video.height=window.innerWidth;
-										 	_this.$refs.video.src = 'http://player.youku.com/embed/' + res.object.product.video;
+										this.shangp= Object.assign({},this.oldshangp,res.object);
+										 if(res.object.product.video!=""){
 										 	_this.videoshow=true;
+										 	_this.$refs['video-wrap'].style.width=window.innerWidth+'px';
+										    _this.$refs['video-wrap'].style.height=	window.innerWidth+'px';
+										    _this.$refs.video.width=window.innerWidth;
+											_this.$refs.video.height=window.innerWidth;
 						                }
 									}else{
-										
+										_this.videoshow=false;
 									}
 							});
 			     },
@@ -312,6 +328,7 @@
  .sortDetail{
  	margin-bottom: 1rem;
  	overflow: hidden;
+ 	font-size: 1.6rem;
  }
  .xiajia{
     min-height: 6.5rem;
@@ -356,7 +373,7 @@
   	font-size: 1.4rem;
   }
  .back{
- 	background: rgba(64, 64, 64, 0.6);
+ 	background: rgba(32, 32, 32, 0.6);
     width: 3.2rem;
     height: 3.2rem;
     line-height:3.2rem;
@@ -368,7 +385,7 @@
     position: absolute;
     left: 1rem;
     top: 1rem;
-    z-index: 1;
+    z-index: 11;
     cursor: pointer;
  	}
  .xiangqiang{
@@ -428,6 +445,47 @@
 .cxtime{
 	color:#999;
 	margin-top: 1rem;
+}
+.cartModal{
+	font-size:1.6rem
+}
+.foot{
+	font-size: 1.6rem;
+}
+.video-wrap{
+	position: relative;
+	/*height: 38rem;*/
+	.swiper{
+		img{
+			max-width: 100%;
+		}
+	}
+	.controls{
+		position:absolute;
+		bottom: 3rem;
+		left:10rem;
+		z-index: 10;
+		button{
+			background: #fff;
+			color:#666;
+			border:1px solid #666;
+			margin-left: 1.5rem;
+			padding:0 0.7rem;
+			font-size: 1.2rem;
+			border-radius: 0.5rem;
+		}
+		.active{
+			background: #0099ff;
+			color:#fff;
+			border-color:#0099ff;
+		}
+	}
+}
+.video{
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:1;
 }
 </style>
 <style>

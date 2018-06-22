@@ -25,7 +25,6 @@
 		left: 0;
 		width:100%;
 		text-align: center;
-		font-size: 1rem;
 	i{
 		display: block;
 		font-size:2.4rem

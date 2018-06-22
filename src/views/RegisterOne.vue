@@ -165,7 +165,7 @@
 <style scoped="scoped" lang="scss">
 .reg{ 
 	background: #fff;
-	font-size: 1.4rem;
+	font-size: 1.6rem;
 	height: 100vh;
 	p{
 		font-weight: normal;
@@ -193,9 +193,6 @@
 }
 </style>
 <style>
-		.ivu-form-item:not(:last-child) {
-			border-bottom: 1px  solid #eee;
-		}
 		 .ivu-input{
 			border:0 none;
 		}

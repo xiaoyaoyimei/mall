@@ -5,7 +5,7 @@
 			<span class="m_header_bar_title">修改头像  </span>
 			 <span  @click="handlePhoto" class="m_header_bar_menu">保存</span>
 		</div>
-		<div class="flex-center" style="margin-top:2rem">
+		<div style="margin-top:1rem;text-align: center;">
 			 <div class="demo-upload-list" v-for="item in uploadList">
 						    <template v-if="item.status === 'finished'">
 						            <img :src="item.url "  class="origin_tx"/>
@@ -28,8 +28,8 @@
 						        :on-exceeded-size="handleMaxSize"
 						        type="drag"
 						        :action="uploadUrl"
-						         style="display: inline-block;width:5.8rem;">
-						        <div style="width:5.8rem;height:5.8rem;line-height:5.8rem;">
+						         style="display: inline-block;width:8rem;">
+						        <div style="width:8rem;height:8rem;line-height:8rem;">
 						            <Icon type="camera" size="20"></Icon>
 						        </div>
 						    </Upload> 
@@ -70,7 +70,8 @@
             },
         	handleSuccess(res){
             if(res.code == '200'){
-				this.uploadList[0].url=this.global_.imgurl+res.msg
+				this.uploadList[0].url=this.global_.imgurl+res.msg;
+				this.iconUrl=this.global_.imgurl+res.msg;
               }          
           	},
           handlePhoto(){
@@ -81,6 +82,7 @@
 						}).then((res)=>{
 							if(res.code=='200'){
 							 this.$Message.success('修改头像成功');
+							  this.$router.push('/user/myinfo');
 							}
 						});
           },
@@ -102,10 +104,10 @@
 <style scope='scope'>
  .demo-upload-list{
         display: inline-block;
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height:80px;
         text-align: center;
-        line-height: 60px;
+        line-height: 80px;
         border: 1px solid transparent;
         border-radius: 4px;
         overflow: hidden;

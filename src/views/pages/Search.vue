@@ -6,7 +6,7 @@
 	<div class="content">
 			<dl class="hot">
 				<dt>热搜</dt>
-				<dd>电竞椅</dd><dd>优惠</dd></dl>
+				<dd  @click='gosort("电竞椅")'>电竞椅</dd></dl>
 		<dl class="history"><dt>历史搜索</dt>
 			<dd  v-for="(item,index) in arr" :key="index" @click='gosort(item)'>{{item}}</dd>
 		</dl>
@@ -57,7 +57,7 @@
         			insertArray(this.arr,val,this.maxLen);
         		}
         	    localStorage.setItem('searchhistory',JSON.stringify(this.arr));
-        		this.$router.push({name:'/sort',params:{keyword:this.keyword}});  
+        		this.$router.push({path:'/sort',query:{keyword:this.keyword}});  
         	},
         	clear(){
         		    this.$Modal.confirm({
@@ -73,7 +73,7 @@
         		
         	},
         	gosort(value){
-        		this.$router.push({name:'/sort',params:{keyword:value}}); 
+        		this.$router.push({path:'/sort',query:{keyword:value}}); 
         	}
         	
         },
@@ -98,8 +98,9 @@
 	}
 	.search-icon{
 		position: absolute;
-		top:0.5rem;
+		top:0.8rem;
 		left: 1rem;
+		font-size: 1.6rem;
 	}
 	.s-w input{
 		border: 0 none;

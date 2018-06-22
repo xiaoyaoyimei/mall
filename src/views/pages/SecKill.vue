@@ -4,7 +4,10 @@
 			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">秒杀</span>
 		</div>
-		<div v-if='show' class="center">暂无秒杀活动</div>
+			<div  class="flex-center" v-if="show">
+			<img src="../../assets/img/lightning.png">
+			<p>暂无秒杀活动 敬请期待</p>
+		</div>
 		<div class="floor" v-else>
 				<div   class="spdetail"    v-for="(item, index) in pro" :key='index'>
 							<router-link :to="{ name: '/secdetail',query:{skuId:item.skuId} }">

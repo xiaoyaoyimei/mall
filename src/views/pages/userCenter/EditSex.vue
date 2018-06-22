@@ -34,8 +34,8 @@
 						    data:{"sex":value}
 						}).then((res)=>{
 							if(res.code=='200'){
-							// this.$Message.success('性别修改成功');
-							 this.$router.push('/user/myinfo')  
+							this.$Message.success('性别修改成功');
+							 this.$router.push('/user/myinfo');
 							}
 						});
       }

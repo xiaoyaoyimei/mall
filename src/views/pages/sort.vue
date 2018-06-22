@@ -32,7 +32,7 @@
 								<img  :src='imageSrc + item.model_img'>
 							     <div class="right">	<p class="sP">{{item.model_name}}
 								</p>
-								<p class="font-14">{{item.type_name}}</p>
+								<p class="font-14">{{item.model_no}}</p>
 								<p >
 									<span v-if="item.promotionTitle !=null" class="promotion">{{item.promotionTitle}}</span>
 									<span v-else></span>
@@ -43,14 +43,13 @@
 						</div>
 					</div>
 					<div class="center">{{bottomtext}}</div>
-			</Scroll>
+			  </Scroll>
 		      <Spin fix size="large" v-if="spinShow">
                 <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
                 <div>Loading</div>
             </Spin>
 		</Col>
-		<back-top :height="50" :bottom="100">
-    	</back-top>
+	
 			<Modal	v-model="filterModal"	title="筛选条件" >
 				<div class="filter-tj">	
 					<dl><dt>类型</dt><dd @click="selected(-1,'','catalog')" :class="{active: catalogindex == '-1'}">全部</dd>
@@ -66,7 +65,6 @@
                <Button   @click="reset">重置</Button>
                <Button type="error"   @click="ok">搜索</Button>
               </div>
-
 				</Modal>
 	</div>
 </template>
@@ -140,10 +138,14 @@
 					this.brandindex=-1;
 				},
 			   getParams () {
-			     	this.scrollheight= document.body.offsetHeight-135;
-			  	 if(this.$route.query.type!=undefined){
-			        this.getList('type',this.$route.query.type,this.$route.query.typeindex)
-			       }
+			     	this.scrollheight= document.body.offsetHeight-130;
+				  	 if(this.$route.query.type!=undefined){
+				        this.getList('type',this.$route.query.type,this.$route.query.typeindex)
+				       }
+				  	  if(this.$route.query.keyword!=undefined){
+				  	  	this.keyword=this.$route.query.keyword;
+				        this.fetchData();
+				       }
 		      },
             getTop(){
             	this.$axios({
@@ -195,9 +197,6 @@
 							this.show=true;
 						}
 					})
-			},
-			top(){
-				document.querySelector(".ivu-scroll-container").scrollTop = 0;
 			},
 			handleReachBottom () {
 				this.startRow=this.startRow+this.pageSize;
@@ -258,7 +257,7 @@
 	 width:100%;
  }
 .scroll{
-	  height: calc(100vh - 135px);     
+	  height: calc(100vh - 105px);     
 }
 .code-row-bg{
 	background: #fff;
@@ -295,7 +294,7 @@
     cursor: pointer;
 }
 .filter-tj dd.active{
-	border-color:#D32122;
+	border-color:#0099ff;
 }
 //动态效果
 

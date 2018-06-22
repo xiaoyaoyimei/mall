@@ -68,9 +68,8 @@
 			this.getParams();
 		},
       methods: {
-      	
       	routerBack(){
-      		 this.$router.go(-1);
+      		 this.$router.push('/');
       	},
       	 getParams () {
 	        // 取到路由带过来的参数 
@@ -118,6 +117,7 @@
  .login-page{
  	height: 100vh;
  	background: #fff;
+ 	font-size: 1.6rem;
  }
 	.ding{
 		padding:3rem 1.5rem;
@@ -129,7 +129,7 @@
 			margin-bottom: 3rem;
 		}
 		h3{
-			color:#d32122;
+			color:#0099ff;
 		}
 		.btn-login{
 			width: 100%;

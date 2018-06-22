@@ -7,6 +7,10 @@ import store from '@/store/store'
 import iView from 'iview';
 import axios from './http'
 import '@/my-theme/index.less'
+// 在入口文件中引入(暂时不支持单组件引入的方式):
+import wcSwiper from 'wc-swiper'
+import 'wc-swiper/style.css'
+Vue.use(wcSwiper);
 //开启调试模式
 Vue.config.devtools = true
 //设置全局变量

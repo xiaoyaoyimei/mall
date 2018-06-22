@@ -21,8 +21,8 @@
 		   		<img :src="item.productItemImg | imgfilter">
 		   		<p>
 		   			<span class="title">{{item.productTitle}}</span>
-		   			<span>{{item.productAttrs}}</span>
-		   			<span class="price">￥{{productFeejun(item)|pricefilter}}</span></p>
+		   			<span>{{item.productAttrs}} 数量:{{item.quantity}}</span>
+		   			<span class="price">￥{{productFeejun(item)|pricefilter}}   </span></p>
 		   	</li>
 		   	</ul>
 		   	  <div class="sp">
@@ -71,7 +71,7 @@
     filters: {
     formatDate(time) {
     var date = new Date(time);
-    return formatDate(date, 'yyyy-MM-dd hh:mm');
+    return formatDate(date, 'yyyy-MM-dd hh:mm:ss');
    }
 },
 
@@ -268,3 +268,6 @@
 	padding-left: 2rem;
 }
 </style>
+<style>.ivu-icon-ios-arrow-left{
+	font-size: 3rem;
+}</style>

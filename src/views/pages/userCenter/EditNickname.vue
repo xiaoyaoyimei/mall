@@ -35,7 +35,7 @@
 						}).then((res)=>{
 							if(res.code=='200'){
 							 this.$Message.success('修改成功');
-							 this.$router.push({ name:'/user/myinfo'});
+							 this.$router.push('/user/myinfo');
 							}
 						});
       }

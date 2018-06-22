@@ -124,6 +124,11 @@ let routes =  [
 				   		path:'mycoupon',
 			 		   	component:resolve => require(['@/views/pages/userCenter/MyCoupon.vue'],resolve)
 						},
+						{
+						name:'about',
+				   		path:'about',
+			 		   	component:resolve => require(['@/views/pages/userCenter/About.vue'],resolve)
+						},
 				{
 					name:'couponcenter',
 			   		path:'couponcenter',

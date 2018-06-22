@@ -134,6 +134,10 @@ margin-left:3px;
     padding: 0.4rem;
     cursor: pointer;
 }
+.btn-dx:hover{
+     background: #24a8fc;
+     color:#fff
+}
 .ghost-dx{
     background: 0 none;
     border: 1px solid $color-dx;
@@ -340,6 +344,7 @@ input, textarea{
                 height:4.5rem;
                 line-height: 4.5rem;
                 padding:0 1rem;
+                font-size: 1.4rem;
                 label{
                     cursor: pointer;
                 }
@@ -403,13 +408,6 @@ input, textarea{
                 right: 1.5rem;
                 font-size: 1.6rem;
             }
-        }
-        .ivu-icon-ios-arrow-left{
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-        .flex-ul li span:last-child{
-             font-size: 1.8rem;
         }
 
 .goodslist div{
