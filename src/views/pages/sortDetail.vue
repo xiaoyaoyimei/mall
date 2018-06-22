@@ -15,9 +15,9 @@
 					   </wc-slide>
 					</wc-swiper>
 					</div>
-					<div class="controls">
+					<div class="controls" v-show="videoshow">
 						<button :class="num==1?'active':''" @click="toggletab(1)">图片</button>
-						<button  v-show="videoshow" :class="num==0?'active':''" @click="toggletab(0)">视频</button></div>
+						<button  :class="num==0?'active':''" @click="toggletab(0)">视频</button></div>
 					</div>
 				
 	    		<div class="xiangqiang">
@@ -325,6 +325,7 @@
     }
 </script>
 <style lang="scss" scoped="scoped">
+
  .sortDetail{
  	margin-bottom: 1rem;
  	overflow: hidden;
@@ -463,7 +464,8 @@
 	.controls{
 		position:absolute;
 		bottom: 3rem;
-		left:10rem;
+		left:50%;
+		margin-left: -55px;
 		z-index: 10;
 		button{
 			background: #fff;

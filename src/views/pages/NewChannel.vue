@@ -4,8 +4,10 @@
 			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">新品频道</span>
 		</div>
-			<div v-if='show' class="center">暂无任何新品,敬请期待</div>
-		<div class="floor" v-else>
+			<div v-if='show' class="center">
+				<img src="../../assets/img/new.png">
+				<p>暂无任何新品,敬请期待</p></div>
+		<div class="floor product" v-else>
 				<div   class="spdetail"    v-for="(item, index) in productNew" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 								<img  :src='item.model_img |imgfilter'>

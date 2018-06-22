@@ -5,7 +5,7 @@
 				<div class="search">
 				<img src="../../assets/img/search.png" class="search-form-icon">
 				<div class="inputwrap" @click="gosearch()">
-				 <input   placeholder="搜索" class="search-form-input"></input>
+				 <input   value="请输入关键字搜索" class="search-form-input" type="button"></input>
 				 </div>
 				</div>
 		    </div>

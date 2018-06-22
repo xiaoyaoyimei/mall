@@ -445,8 +445,8 @@ input, textarea{
         padding: 0.5rem 0;
     }
 }
-.spdetail a{
-     font-size: 1.6rem;
+.product{
+    .spdetail a{
     display: flex;
     background: #fff;
     img{
@@ -461,10 +461,10 @@ input, textarea{
         padding-right: 1rem;
     }
     .sP{
+            font-size: 1.4rem;
         margin-top:1rem;
-    color:$color-default;
     text-align:left;
-    background-color:$color-white;
+    color:#333
     }
     .sh6{
     color:$color-dx;
@@ -473,5 +473,7 @@ input, textarea{
     padding-bottom:0.5rem;
     overflow:hidden;
     margin-top: 0.5rem;
+    font-size: 1.6rem;
     }
+}
 }

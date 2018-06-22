@@ -6,8 +6,9 @@ import router from '@/router/route'
 axios.defaults.timeout = 5000;
 //设置拦截器
 console.log(process.env.API_HOST);
-axios.defaults.baseURL = process.env.API_HOST+'/wap/';
-//axios.defaults.baseURL = '/mall/wap/';
+//axios.defaults.baseURL = process.env.API_HOST+'/wap/';
+//axios.defaults.baseURL = '/wap/';
+axios.defaults.baseURL = '/mall/wap/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 // http request 拦截器
 axios.interceptors.request.use(

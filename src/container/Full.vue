@@ -2,7 +2,7 @@
 <div class="layout">
         <Layout>
             <Layout >
-                <Content class='layout' :style="{ minHeight: '280px',marginBottom:'50px'}">
+                <Content class='layout' :style="{ minHeight: '280px'}">
                  <transition name="slidemode">  <router-view/></transition>
                 </Content>
             </Layout>

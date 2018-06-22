@@ -2,8 +2,8 @@
 	<div>
 	 <div class="Search">	
 	 	<div class="s-w"><Icon type="ios-search-strong" class="search-icon"></Icon>
-	 		<input placeholder="关键字" v-model.trim='keyword' @keyup.13="search()"/><span @click="search()">搜索</span></div></div>
-	<div class="content">
+	 		<input  ref="keyword" placeholder="关键字" v-model.trim='keyword' @keyup.13="search()" /><span @click="search()">搜索</span></div></div>
+	<div class="content"> 
 			<dl class="hot">
 				<dt>热搜</dt>
 				<dd  @click='gosort("电竞椅")'>电竞椅</dd></dl>
@@ -47,17 +47,20 @@
         	},
         	search(){
         		let val=this.keyword;
-        		if(val==''){
-        			return
-        		}
-        		if(localStorage.getItem('searchhistory')!=null){
-        			this.arr=JSON.parse(localStorage.getItem('searchhistory'));
-        			insertArray(this.arr,val,this.maxLen);
+        		if(val==""){
+        			this.$router.push({path:'/sort',query:{keyword:this.keyword}});  
         		}else{
-        			insertArray(this.arr,val,this.maxLen);
+        			if(localStorage.getItem('searchhistory')!=null){
+		        			this.arr=JSON.parse(localStorage.getItem('searchhistory'));
+		        			insertArray(this.arr,val,this.maxLen);
+		        		}else{
+		        			insertArray(this.arr,val,this.maxLen);
+		        		}
+		        	    localStorage.setItem('searchhistory',JSON.stringify(this.arr));
+        	    		this.$router.push({path:'/sort',query:{keyword:this.keyword}});  
         		}
-        	    localStorage.setItem('searchhistory',JSON.stringify(this.arr));
-        		this.$router.push({path:'/sort',query:{keyword:this.keyword}});  
+        		
+        		
         	},
         	clear(){
         		    this.$Modal.confirm({
@@ -78,6 +81,7 @@
         	
         },
           mounted(){
+          	 this.$refs.keyword.focus();
           	this.getSearchHistory();
           }
        }
@@ -158,6 +162,7 @@
 		background: #fff;
 		border: 1px solid #eee;
 		padding: 0.5rem;
+		font-size: 1.4rem;
 	
 	}
 	.delete i{

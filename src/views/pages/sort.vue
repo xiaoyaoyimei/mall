@@ -1,18 +1,17 @@
 <template>
 	<div class="sort1 ">
-		<div class="header-home-wrapper sort-box">
-		    <router-link to="/index"  class="icon-back">
+	     <div class="m_header_bar">
+			<router-link to="/index"  class="m_header_bar_back">
 				<Icon type="ios-arrow-back"></Icon>
 		    </router-link>
-		<div class="SearchBarWrapper">
-		<div class="search">
-		<img src="../../assets/img/search.png" class="search-form-icon">
-		<div class="inputwrap">
-		 <input   placeholder="搜索" class="search-form-input" v-model="keyword"></input>
-		 </div>
-		</div>
-		</div>
-		<span class="search-button" @click="fetchData()" >搜索</span>
+			<span class="m_header_bar_title">	
+				<div class="new-search"> 	
+					<img src="../../assets/img/search.png" > 
+					<input   placeholder="请输入关键字搜索"  v-model="keyword" @click="gosearch()" type="text"></input>
+				</div>
+			</span>
+				<Icon type="android-menu" class="m_header_bar_menu"  @click.native="toggle()" v-if="styleshow"></Icon>
+				<Icon type="android-apps" class="m_header_bar_menu"  @click.native="toggle()" v-else></Icon>
 		</div>
 		 <Row type="flex" justify="space-between" class="code-row-bg">
 	        <Col span="4" v-bind:class="{ active: isActive }">综合</Col>
@@ -24,9 +23,9 @@
    	   	   	<img src="../../assets/img/search_0.png">
    	   	   		<span class="font-15 mt15">没有符合该搜索条件的商品,请重新检索</span>
    	   	   	</div>
-   	     <Col class="demo-spin-col"  v-else >
+   	     <Col class="demo-spin-col"  v-else  style="top:82px">
 		    	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height='scrollheight'>
-					 <div class="product" ref="con">
+					 <div  ref="con" :class="styleshow?'product':'column-style'">
 						<div   class="spdetail"    v-for="(item, index) in productList" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 								<img  :src='imageSrc + item.model_img'>
@@ -63,7 +62,7 @@
 				</div>
 				    <div slot="footer">
                <Button   @click="reset">重置</Button>
-               <Button type="error"   @click="ok">搜索</Button>
+               <Button  class="bg-dx"   @click="ok">搜索</Button>
               </div>
 				</Modal>
 	</div>
@@ -106,10 +105,14 @@
                 typeindex:-1,
                 seriesindex:-1,
                 brandindex:-1,
-                scrollheight:0
+                scrollheight:0,
+                styleshow:true,
 			}
 		},
 		methods:{
+			toggle(){
+				this.styleshow=!this.styleshow;		
+			},
 			selected(i,value,t){
 				if(t=='catalog'){
 					this.catalogindex=i;
@@ -138,7 +141,7 @@
 					this.brandindex=-1;
 				},
 			   getParams () {
-			     	this.scrollheight= document.body.offsetHeight-130;
+			     	this.scrollheight= document.body.offsetHeight-131;
 				  	 if(this.$route.query.type!=undefined){
 				        this.getList('type',this.$route.query.type,this.$route.query.typeindex)
 				       }
@@ -213,9 +216,13 @@
                 });
                 }else{
                 	 this.bottomtext='没有更多了';
+                	 return;
                 }
               
 			},
+				gosearch(){
+        		this.$router.push('/search');  
+        	},
 				async fetchData() {
 					this.productList=[],
             		this.startRow=0;	
@@ -249,15 +256,69 @@
 </script>
 
 <style lang="scss" scoped="scoped">
- header{
-	 position:fixed;
-	 top:0px;
-	 left:0px;
-	 z-index:10;
-	 width:100%;
- }
+.m_header_bar{
+	position: fixed;
+	width: 100%;
+}
+.code-row-bg{
+	position: fixed;
+	top: 44px;
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+}
+.m_header_bar .m_header_bar_menu{
+	font-size: 2.8rem;
+}
+.new-search{
+	position: relative;
+	img{
+		width: 1.8rem;
+		height: 1.8rem;
+		position: absolute;
+		left: 1rem;
+		top:1.2rem;
+	}
+	input{
+		height: 32px;
+		line-height: 32px;
+		width: 100%;
+		padding-left: 3rem;
+		font-size: 1.4rem;
+	}
+}
+.column-style{
+	overflow: hidden;
+	.spdetail{
+		width:50%;
+		float: left;
+			a{
+			max-width: 100%;
+			background: #fff;
+			display: block;
+			margin-bottom: 5px;
+			margin-right: 5px;
+			.right{
+				padding-left: 5px;
+			}
+			.sP{
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+				color:#333;
+				font-size: 1.4rem;
+			}
+			img{
+				max-width: 100%;
+			}
+			.sh6{
+				color:#0099ff;
+				font-size: 1.6rem;
+			}
+		}
+	}
+}
 .scroll{
-	  height: calc(100vh - 105px);     
+	  height: calc(100vh - 131px);     
 }
 .code-row-bg{
 	background: #fff;
@@ -280,6 +341,11 @@
 	margin: 3rem 0;
 	text-align: center;
 }
+.bg-dx{
+	background: #0099ff;
+	color:#fff;
+	border-color:#0099ff;
+}
 .filter-tj  dt{
 	margin-bottom: 0.5rem;
 	font-size: 1.6rem;
@@ -296,7 +362,6 @@
 .filter-tj dd.active{
 	border-color:#0099ff;
 }
-//动态效果
 
 .fade-enter-active, .fade-leave-active {
   transition: background .5s;
