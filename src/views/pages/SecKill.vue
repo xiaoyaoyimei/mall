@@ -8,7 +8,7 @@
 			<img src="../../assets/img/lightning.png">
 			<p>暂无秒杀活动 敬请期待</p>
 		</div>
-		<div class="floor" v-else>
+		<div class="product" v-else>
 				<div   class="spdetail"    v-for="(item, index) in pro" :key='index'>
 							<router-link :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
 							<img  :src='item.productItem.listImg |imgfilter'>

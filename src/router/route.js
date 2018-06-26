@@ -1,4 +1,5 @@
 const _import = require('./_import_' + process.env.NODE_ENV);
+console.log(process.env.NODE_ENV);
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store/store'
@@ -9,7 +10,8 @@ let routes =  [
 			    {path: '/register',name: '注册',component:  resolve => require(['@/views/RegisterOne.vue'], resolve)},
 			     {path: '/forget',name: '忘记密码',component:  resolve => require(['@/views/Forget.vue'], resolve)},
        			{path: '/index',component: resolve => require(['@/container/Full.vue'], resolve),
-					children: [{
+					children: [
+					{
 						name:'首页',
 						path: '/index',
 						component:resolve => require(['@/views/pages/Home.vue'], resolve),
@@ -129,11 +131,17 @@ let routes =  [
 				   		path:'about',
 			 		   	component:resolve => require(['@/views/pages/userCenter/About.vue'],resolve)
 						},
-				{
+						{
+						meta:{requireAuth:true},
+						name:'changepwd',
+				   		path:'changepwd',
+			 		   	component:resolve => require(['@/views/pages/userCenter/ChangePwd.vue'],resolve)
+						},
+					{
 					name:'couponcenter',
 			   		path:'couponcenter',
 		 		   	component:resolve => require(['@/views/pages/userCenter/CouponCenter.vue'],resolve)
-				},
+					},
 					{
 						meta:{requireAuth:true},
 					name:'mylove',

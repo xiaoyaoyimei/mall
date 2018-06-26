@@ -21,7 +21,7 @@
 							￥{{x.salePrice |pricefilter}}
 							<div class="min-add">
 						    	<Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
-						     	 <input class="text-box" name="pricenum"  type="text" v-model="x.quantity*1" v-on:blur="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
+						     	 <input class="text-box" name="pricenum"  type="text" v-model.lazy="x.quantity" v-on:blur="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
 						 		 <Icon type="plus-round" @click.native="jia(x,index)" class="add"></Icon>
 							</div>
 						</div>
@@ -102,7 +102,7 @@ export default {
         	changeNumber: function(event,x,index){
 					var obj=event.target;
 					 let n = /^[1-9]\d*$/; 
-			        if(!n.test(obj)){
+			        if(!n.test(obj.value)){
 			            this.$Message.warning('商品数量须大于0个，请输入正整数');
 			            obj.value=1
 			            return ;
@@ -110,10 +110,10 @@ export default {
 					x.quantity = parseInt(obj.value);
 					 if(this.temp.indexOf(index)<0){
 					     		this.temp.push(index)
-					     	}
-					        this.checkAllGroup=this.temp;
-							this.checkAllGroupChange(this.temp);
-							this.addcart(x)
+					   }
+				        this.checkAllGroup=this.temp;
+						this.checkAllGroupChange(this.temp);
+						this.addcart(x)
 					},
 					//添加
 					jia:function(x,index){
@@ -260,7 +260,7 @@ export default {
 
 <style  lang="scss"  scoped="scoped">
 .P15{
-	padding:15px;
+	padding:0 10px 15px;
 		background-color:#fff;
 			font-size: 1.6rem;
 }

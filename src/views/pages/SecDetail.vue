@@ -4,7 +4,7 @@
 			<router-link to="/seckill"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">秒杀详情</span>
 		</div>
-	<div class="detail">
+	 <div class="detail">
 		<div class="tp">
 		<img :src="detail.productItem.listImg | imgfilter"/>
 		<p class="jg">

@@ -3,7 +3,7 @@
 		<div class="sortDetail">
 			<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
 					<div class="video-wrap" >
-						<div  ref="video-wrap"  v-show=" 0== num"  class="video-height">
+						<div  ref="videoWrap"  v-show=" 0== num"  class="video-height">
 								<div  v-show="videoshow" class="video">
 								  <iframe  ref="video" frameborder=0 allowfullscreen ></iframe>  
 						    </div>
@@ -75,7 +75,7 @@
         	<p>数量</p>
         		<div class="min-add">
 			    	<Icon type="minus-round" @click.native="jian()" class="min"></Icon>
-			     	<input class="text-box" name="pricenum"  type="tel" v-model="quantity" v-on:blur="changeNumber($event)" placeholder="数量" data-max="50" />
+			     	<input class="text-box" name="pricenum"  type="tel" v-model.lazy="quantity" v-on:blur="changeNumber($event)" placeholder="数量" data-max="50" />
 			 		 <Icon type="plus-round" @click.native="jia()" class="add"></Icon>
 				</div>
 		</div>
@@ -149,7 +149,7 @@
 		          	    changeNumber: function(event){
 						var obj=event.target;
 						 let n = /^[1-9]\d*$/; 
-				        if(!n.test(obj)){
+				        if(!n.test(obj.value)){
 				            this.$Message.warning('商品数量须大于0个，请输入正整数');
 				            obj.value=1
 				            return ;
@@ -290,8 +290,8 @@
 										this.shangp= Object.assign({},this.oldshangp,res.object);
 										 if(res.object.product.video!=""){
 										 	_this.videoshow=true;
-										 	_this.$refs['video-wrap'].style.width=window.innerWidth+'px';
-										    _this.$refs['video-wrap'].style.height=	window.innerWidth+'px';
+										 	_this.$refs.videoWrap.style.width=window.innerWidth+'px';
+										    _this.$refs.videoWrap.style.height=	window.innerWidth+'px';
 										    _this.$refs.video.width=window.innerWidth;
 											_this.$refs.video.height=window.innerWidth;
 						                }
@@ -426,7 +426,7 @@
  	margin-bottom:1rem;
  	}
 	 dd{
-	  	border:1px solid #eee;
+	  	border:1px solid #ccc;
 	  	float: left;
 	  	padding: 0.3rem 0.5rem;
 	  	margin-right: 1rem;
@@ -455,7 +455,6 @@
 }
 .video-wrap{
 	position: relative;
-	/*height: 38rem;*/
 	.swiper{
 		img{
 			max-width: 100%;
@@ -465,7 +464,7 @@
 		position:absolute;
 		bottom: 3rem;
 		left:50%;
-		margin-left: -55px;
+		margin-left: -70px;
 		z-index: 10;
 		button{
 			background: #fff;

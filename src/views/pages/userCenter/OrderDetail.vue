@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
 		<div class="m_header_bar">
 			<router-link   class="m_header_bar_back" to="/user/orderlist"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">订单详情</span>

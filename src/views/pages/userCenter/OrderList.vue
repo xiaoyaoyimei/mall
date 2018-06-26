@@ -1,11 +1,11 @@
-<template>
+<template >
 	<div class="order">
 		<div class="m_header_bar">
 			<router-link   class="m_header_bar_back" to="/user"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">我的订单</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
-  	<ul class="splist">
+  	<ul class="splist box-content">
 	<li  v-for="(x,index) in cartList" :key="index"  >
 		   <div @click="seeDetail(x.order.orderNo)"> 
 		   	<div class="orderno">订单号:{{x.order.orderNo}} 
@@ -15,14 +15,16 @@
 			<div class="img"><img  :src="child.productItemImg | imgfilter"></div>
 			<div class="xq">
 				<p >{{child.productTitle}}</p>
-				<p class="color-gray">{{child.productAttrs}}</p>
+				<p class="color-gray font-12">{{child.productAttrs}}<br/>{{child.productItemNo}}</p>
 			</div>
 			<div class="price">￥{{childjun(child) | pricefilter}}<br/>x {{child.quantity}}</div>
 			</div>
 			</div>
 			<div class="sptitle">合计：<span>￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 			</div>
-			<div class="cz" > <button  type="button"  class="btn "  @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button><button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">去支付</button></div>
+			<div class="cz" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'"> 
+				<button  type="button"  class="btn "  @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button>
+				<button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">去支付</button></div>
 		</li>
   	</ul>
 	</div>
@@ -119,9 +121,8 @@
 </script>
 
 <style scoped="scoped" lang="scss">
- @import '@/styles/color.scss';
  .orderstatus{
- 	color:$color-dx;
+ 	color:#0099ff;
  	float: right;
  }
 .splist{
@@ -158,7 +159,6 @@
 	}
 	.sptitle{
 		border-top:1px solid #eee;
-		border-bottom:1px solid #eee;
 		height: 3.6rem;
 		line-height: 3.6rem;
 		text-align: right;
@@ -168,6 +168,7 @@
 		}
 	}
 	.cz{
+		border-top:1px solid #eee;
 		text-align:right;
 		padding: 0.5rem;
 		button{
@@ -183,8 +184,8 @@
 		cursor: pointer;
 	}
 	.btn-dx{
-		border-color:$color-dx;
-		color:$color-dx;
+		border-color:#0099ff;
+		color:#0099ff;
 		
 	}
 </style>

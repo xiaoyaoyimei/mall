@@ -7,6 +7,7 @@
 		</div>
 			<ul class="flex-ul">
 			<li><router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link><span >></span></li>
+			<li><router-link :to="{ path: '/user/changepwd'}" tag="span"> 修改密码</router-link><span >></span></li>
 		</ul>
 		<div  class="bottom-buttom" @click="logout">退出登录</div>
    </div>

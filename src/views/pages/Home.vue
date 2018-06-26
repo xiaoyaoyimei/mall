@@ -26,7 +26,7 @@
     	</ul>
     	<div class="newpd">
     		<router-link :to="{path: '/newchannel'}"   >
-    			<img src="../../assets/img/xppd.jpg" >
+    			<img src="../../assets/img/xppd.png" >
     				  </router-link>
     			<router-link :to="{path: '/seckill'}"   >	  
     			<img src="../../assets/img/miao.png">
