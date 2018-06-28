@@ -14,7 +14,7 @@
 		<Carousel  v-model="value3" :autoplay="setting.autoplay"    :autoplay-speed="setting.autoplaySpeed"
         :dots="setting.dots"  :radius-dot="setting.radiusDot"  :trigger="setting.trigger" :arrow="setting.arrow">
         	<CarouselItem  v-for="(item, index) in Items"  :key="index">
-           		 	<div class="demo-carousel"><img :src="imageSrc+item.phoneUrl"></div>
+           		 	<div class="demo-carousel"><a :href="item.linkUrl"><img :src="imageSrc+item.phoneUrl"></a></div>
         	</CarouselItem>
     	</Carousel>
         <ul class="ad-list">
