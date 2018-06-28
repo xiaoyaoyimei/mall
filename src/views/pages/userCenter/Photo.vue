@@ -44,8 +44,8 @@
         data () {
             return {
             	visible:false,
-            	   	uploadList: [
-	        	 {'url':''}
+            	uploadList: [
+	        	 	{'url':''}
 	        	 ],
                  iconUrl:'',
                  uploadUrl:this.$axios.defaults.baseURL+'upload/upload?path=account'

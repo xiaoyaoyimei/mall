@@ -131,6 +131,11 @@ let routes =  [
 				   		path:'about',
 			 		   	component:resolve => require(['@/views/pages/userCenter/About.vue'],resolve)
 						},
+								{
+						name:'contentus',
+				   		path:'contentus',
+			 		   	component:resolve => require(['@/views/pages/userCenter/ContentUs.vue'],resolve)
+						},
 						{
 						meta:{requireAuth:true},
 						name:'changepwd',

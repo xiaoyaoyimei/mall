@@ -131,6 +131,7 @@
 					    this.time--;
 					 }
 					 let self=this;
+					 
                       this.t= setTimeout(() => {
                                 self.startTime();
                         }, 	1000);

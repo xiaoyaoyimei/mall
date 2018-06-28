@@ -19,13 +19,14 @@
 			</div>
 </div>
    <ul class="order-list">
-   	<router-link :to="{ path: '/user/orderlist'}" tag="li" ><img src="../../../assets/img/order.png">我的订单<i>></i></router-link>
+   	<router-link :to="{ path: '/user/orderlist'}" tag="li" >
+   		<img src="../../../assets/img/order.png"><span>我的订单</span><Icon type="ios-arrow-forward"></Icon></router-link>
    	<!--<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
    		<router-link :to="{ path: '/user/couponcenter' }" tag="li"><img  src="../../../assets/img/a2.png">领券中心<i>></i></router-link>	
    			<router-link :to="{ path: '/user/mylove' }" tag="li"><img  src="../../../assets/img/a3.png">我的收藏<i>></i></li></router-link>	-->
-   		<li><img  src="../../../assets/img/a4.png">在线客服<i>></i></li>
-   		<li><img  src="../../../assets/img/a5.png">联系我们<i>></i></li>
-   		<router-link :to="{ path: '/user/about' }" tag="li"><img  src="../../../assets/img/a6.png">关于我们<i>></i></li></router-link>
+   		<!--<li><img  src="../../../assets/img/a4.png">在线客服<Icon type="ios-arrow-forward"></Icon></li>-->
+   		<router-link :to="{ path: '/user/contentus' }" tag="li"><img  src="../../../assets/img/a5.png"><span>联系我们</span><Icon type="ios-arrow-forward"></Icon></router-link>
+   		<router-link :to="{ path: '/user/about' }" tag="li"><img  src="../../../assets/img/a6.png"><span>关于我们</span><Icon type="ios-arrow-forward"></Icon></li></router-link>
    </ul>
    </div>
 </template>

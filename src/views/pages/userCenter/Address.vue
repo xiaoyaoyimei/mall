@@ -4,7 +4,7 @@
 			<Icon type="ios-arrow-back"  @click.native="back"  class="m_header_bar_back"></Icon>
 			<span class="m_header_bar_title">收货地址</span>
 		</div>
-			<ul class="addressul">
+			<ul class="addressul box-content">
 				<li v-for="(item, index) in addressList" >
 				<p @click='chooseDD(item)'><span>{{item.person}} </span><span>{{item.phone}}</span></p>
 				<p><span>{{item.receiveProvince}}{{item.receiveCity}}{{item.receiveDistrict}}{{item.address}}</span></p>
@@ -17,7 +17,7 @@
 				</p>
 				</li>
 			</ul>
-			<router-link  to="/user/addaddress" class="addaddress" tag="div">+ 添加新地址</router-link>
+			<router-link  to="/user/addaddress" class="addaddress" tag="div">添加新地址</router-link>
 	</div>
 </template>
 
@@ -122,7 +122,7 @@
   .addaddress{
     position: fixed;
     bottom:0;
-    background: #ed1844;
+    background: #0099ff;
     width: 100%;color:#fff;
     padding:1rem 0;
     cursor: pointer;

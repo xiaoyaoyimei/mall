@@ -10,6 +10,13 @@ $color-gray:#999;
     align-items: center;
     flex-direction: column;
     min-height: 400px;
+    p{
+        line-height: 3rem;
+        font-size: 1.4rem;
+    }
+    a{
+        text-decoration: underline;
+    }
 }
 .mt15{
     margin-top:1.5rem;
@@ -110,7 +117,6 @@ margin-left:3px;
             cursor: pointer;
           }
           .miaoshagou{
-              background: #c8206f;
               letter-spacing:1rem;
               width: 100%;
           }
@@ -282,14 +288,14 @@ input, textarea{
     margin: 0 .3125rem 0 .625rem;
 }
 .order{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    width: 100%;
-    height: 100%;
+//  display: -webkit-box;
+//  -webkit-box-orient: vertical;
+//  width: 100%;
+//  height: 100%;
 }
 .box-content{
-        -webkit-box-flex: 1;
-    overflow-y: scroll;
+//      -webkit-box-flex: 1;
+//  overflow-y: scroll;
 }
 
     .m_header_bar{
@@ -412,17 +418,16 @@ input, textarea{
                 border-bottom:1px solid $color-border;
                 display: flex;
                 cursor: pointer;
+                position: relative;
             }
             img{
                 height: 2rem;
                 width:2rem;
                 margin-right:1.5rem;
             }
-            i{
-                position: fixed;
-                right: 1.5rem;
-                font-size: 1.6rem;
-            }
+           span{
+               flex:1;
+           }
         }
 
 .goodslist div{

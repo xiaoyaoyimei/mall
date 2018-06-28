@@ -26,6 +26,7 @@
 </template>
 
 <script>
+		 import tx from "@/assets/img/de-tx.jpg";
 		export default {
 	    data () {
 	        return {
@@ -33,7 +34,7 @@
 	        		birthday: "",
 					sex: "",
 					nickName: "",
-					iconUrl: "",
+					iconUrl: tx,
 					},
 					 show:true
 	        	}

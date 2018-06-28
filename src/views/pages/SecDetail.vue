@@ -7,12 +7,19 @@
 	 <div class="detail">
 		<div class="tp">
 		<img :src="detail.productItem.listImg | imgfilter"/>
+		<div class="cursh-wrap">
 		<p class="jg">
-		<span>￥{{detail.crush.salePrice | pricefilter}}</span>
-		<span class="yj">￥{{detail.productItem.salePrice | pricefilter}}</span>	
+		<span class="color-dx">秒杀价:￥{{detail.crush.salePrice | pricefilter}}</span>
+		<span class="yj">原价:￥{{detail.productItem.salePrice | pricefilter}}</span>	
 		</p>
+		<div class="djs" >
+		 		<p v-if="detail.switch==0">距开始还有</p>
+		 		<p v-else>距结束还剩</p>
+		 		<span>{{ `${day}天 ${hr}:${min}:${sec}` }}</span>
+	    </div>
+	    </div>
 		</div>
-		<p>倒计时</p>
+					 	
 		  <div class="chooseAddress">
             	<ul class="address" v-if="youdizhi">
 				<li>
@@ -53,6 +60,8 @@
 		export default {
 	    data () {
 	        return {
+	        	day: 0, hr: 0, min: 0, sec: 0,
+	        	jsqtime:0,
 	        	detail:{
 	        		productItem:{salePrice:0},
 	        		product:{},
@@ -72,6 +81,28 @@
 	      },
 	      methods:{
 	      	//获取address中传来的数据
+	      	       countdown: function () {
+                const end = Date.parse(new Date(this.jsqtime));
+                const now = Date.parse(new Date());
+                const msec = end - now;
+                //当秒杀开始时
+                if(msec==0){
+                	this.detail.switch=1;
+                	this.jsqtime = this.detail.crush["endTime"];
+                }
+                let day = parseInt(msec / 1000 / 60 / 60 / 24);
+                let hr = parseInt(msec / 1000 / 60 / 60 % 24);
+                let min = parseInt(msec / 1000 / 60 % 60);
+                let sec = parseInt(msec / 1000 % 60);
+                this.day = day;
+                this.hr = hr > 9 ? hr : '0' + hr;
+                this.min = min > 9 ? min : '0' + min;
+                this.sec = sec > 9 ? sec : '0' + sec;
+                let self=this;
+                  this.t= setTimeout(() => {
+                                self.countdown();
+                        }, 	1000);
+               },
 	      	getDD(){
                 let routerParams = this.$route.params.address;
                 if(routerParams!=undefined){
@@ -134,6 +165,14 @@
 					}).then((res)=>{
 						if(res.code=='200'){
 						this.detail = res.object;
+						if(this.detail.switch=='0'){
+			            		this.jsqtime=this.detail.crush["startTime"]
+			            	}
+			            	else{
+			                 	this.jsqtime = this.detail.crush["endTime"];
+			                 }
+			            	//计时器
+			            	 this.countdown();
 						this.proId=res.object.productItem.productId;
 								this.$axios({
 							    method: 'post',
@@ -156,7 +195,10 @@
 	      	this.getAddress();
 			  this.getDetail()
 			  this.getDD();
-	      }
+	      },
+	          destroyed () {
+               clearTimeout(this.t)
+        },
     }
 </script>
 
@@ -172,14 +214,10 @@
 		}
 	}
 	.jg {
-		color: #fff;
-		background: #d71777;
-		position: absolute;
-		bottom:0;
-		left: 0;
-		padding: 5px;
+		background: #fff;
+		padding: 1rem;
+		flex: 1;
 		span{
-		color:#fff;
 		display: block;
 		}
 		.yj{
@@ -204,6 +242,15 @@
 	background: #f5f5f5;
 	cursor: not-allowed;
 	color:#787878;
+}
+.djs{
+	background:#b92567;
+	color: #fff;
+	padding: 0.5rem;
+}
+.cursh-wrap{
+	display: flex;
+    border: 1px solid #b92567;
 }
 </style>
 <style>
