@@ -107,19 +107,34 @@
 									//短信验证码180秒倒计时
 				      			let _this = this;
 							    _this.sendMsgDisabled = true;
-							    _this.t = setInterval(function() {
-							     if ((_this.time--) <= 0) {
-							      _this.time = 180;
-							      _this.sendMsgDisabled = false;
-							   	   clearTimeout(_this.t);
-							     }
-							    }, 1000);
+							    _this.startTime();
+//							    _this.t = setInterval(function() {
+//							     if ((_this.time--) <= 0) {
+//							      _this.time = 180;
+//							      _this.sendMsgDisabled = false;
+//							   	   clearTimeout(_this.t);
+//							     }
+//							    }, 1000);
 		              		} else{
 		              			 this.$Message.error(res.msg);
 		              		}
 					});
 					}
           	},
+          	 startTime(){
+          	 	if(this.time==0){
+          	 		  this.time = 180;
+				      this.sendMsgDisabled = false;
+				      clearTimeout(this.t);
+          	 		}
+					else{
+					    this.time--;
+					 }
+					 let self=this;
+                      this.t= setTimeout(() => {
+                                self.startTime();
+                        }, 	1000);
+				},
           	getTx(){
           		//验证用户名是否存在
           		if(this.regiForm.loginName==""){
@@ -133,8 +148,8 @@
 							if(res.code=='200'){
 								this.txv++;
 								let urlo=window.location.origin;
-          						this.verimg=urlo+'/mall/wap/customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
-      							//this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
+          						//this.verimg=urlo+'/mall/wap/customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
+      							this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
 							}else{
 								  this.$Message.error(res.msg);
 							}

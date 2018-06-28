@@ -15,13 +15,10 @@
 							   <div class="right">	
 							   	<p class="sP">{{item.product.modelName}}</p>
 							   	<div class="time"> 
-							   		<span v-if="item.switch=='0'" class="nostart">
-							   			距开始
-							   		</span>
-							   		  		<span v-else class="start">
-							   			距结束
-							   		</span>
-							   	     {{item.djs}}	
+							   		<p class="color-dx">开始时间:{{item.crush.startTime}}
+							   		</p>
+							   		<p>结束时间:{{item.crush.endTime}}
+							   		</p>
 							   	</div>
 								<div class="crush">
 									<div class="left">
@@ -45,20 +42,6 @@
     </div>
 </template>
 <script>
-function InitTime(endtime){
-    var dd,hh,mm,ss = null;
-    var time = new Date((endtime)).getTime() - new Date().getTime();
-    if(time<=0){
-        return '结束'
-    }else{
-        dd = Math.floor(time / 60 / 60 / 24);
-        hh = Math.floor((time / 60 / 60) % 24);
-        mm = Math.floor((time / 60) % 60);
-        ss = Math.floor(time  % 60);
-        var str = dd+"天"+hh+"小时"+mm+"分"+ss+"秒";
-        return str;
-    }
-}
 export default {
     data () {
 	return {
@@ -69,31 +52,9 @@ export default {
             list: [],
     	}
       },
-    created() {
-    	this.getNewChannel();
-    },
+
     mounted() {
-        setInterval( ()=> {
-            for (var key in this.pro) {
-            	var aaa ='';
-            	if(this.pro[key].switch=='0'){
-            		aaa= this.pro[key].crush["startTime"]
-            	}
-            	else{
-                 aaa = this.pro[key].crush["endTime"];
-                }
-                 aaa= new Date(aaa).getTime()
-                var bbb = new Date().getTime();
-                var rightTime = aaa - bbb;
-                if (rightTime > 0) {
-                    var dd = Math.floor(rightTime / 1000 / 60 / 60 / 24);
-                    var hh = Math.floor((rightTime / 1000 / 60 / 60) % 24);
-                    var mm = Math.floor((rightTime / 1000 / 60) % 60);
-                    var ss = Math.floor((rightTime / 1000) % 60);
-                }
-                this.pro[key]["djs"] = dd + "天" + hh + "小时" + mm + "分" + ss + "秒";
-            }
-        }, 1000);
+      this.getNewChannel()
     },
     methods: {
     	     getNewChannel(){
@@ -103,15 +64,6 @@ export default {
 						}).then((res)=>{
 							if(res.code=='200'){
 							 this.pro=res.object;
-							  var ssss=this.pro;
-						        ssss.map( (obj,index)=>{
-						         this.$set(obj,"djs",InitTime(obj.crush["endTime"])  );
-						         //判断是否已经售完
-						         if(obj.crush.usedQuantity==obj.crush.totalQuantity){
-						           this.$set( obj,"saledshow",true)  ;
-						          }
-						        })  
-							    this.pro = ssss; 
 							}
 							else{
 								this.show=true;
@@ -123,9 +75,7 @@ export default {
     	      		return v.usedQuantity/v.totalQuantity*100
     	      	},
     },
-      destroyed: function () {
-          	clearTimeout( this.t );
-		},
+     
 }
 </script>
 <style scoped="scoped" lang="scss">
@@ -138,9 +88,9 @@ export default {
 	.left{
 		flex:1;
 		span{
-		color:#D32112;
-		display: block;
+		color:#0099ff;
 		font-weight: 600;
+		font-size: 1.4rem;
 			}
 	 em{
 		text-decoration: line-through;

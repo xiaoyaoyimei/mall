@@ -12,7 +12,8 @@
 		<span class="yj">￥{{detail.productItem.salePrice | pricefilter}}</span>	
 		</p>
 		</div>
-		      <div class="chooseAddress">
+		<p>倒计时</p>
+		  <div class="chooseAddress">
             	<ul class="address" v-if="youdizhi">
 				<li>
 					<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
@@ -43,7 +44,8 @@
         </TabPane>
     </Tabs>
 	    <div class="foot"> 
-	    	<button :loading="loading" @click="confirm" class="miaoshagou">马上抢</button>
+	    	<button type="button" @click="confirm" class="miaoshagou" v-if="detail.switch==1" >马上抢</button>
+	    	<button class="btn-disabled" type="button" v-else>尚未开始</button>
   		  </div>  
 	</div>
 </template>
@@ -52,9 +54,9 @@
 	    data () {
 	        return {
 	        	detail:{
-	        		productItem:{},
+	        		productItem:{salePrice:0},
 	        		product:{},
-	        		crush:{}
+	        		crush:{salePrice:0}
 	        	},
 	        	skuId:'',
 	        	quantity:1,
@@ -65,6 +67,7 @@
 	        	productimg:[],
 	        	temp:'',
 	        	addressList:{},
+	        	
 	        }
 	      },
 	      methods:{
@@ -81,6 +84,8 @@
         		 this.$router.push({name: '/user/address'}) ;
         	},
 		    getAddress(){
+		    		let token=localStorage.getItem('token');
+		    		if(token!=undefined&&token!=null){
 		      	var _this=this;
 		      	  	this.$axios({
 						    method: 'post',
@@ -96,6 +101,7 @@
 								
 							}
 						});
+						}
 		      },
 		      confirm(){
 	          	let para={
@@ -109,6 +115,7 @@
 				    data:para
 				}).then((res)=>{
 					if(res.code=='200'){
+						 localStorage.removeItem('skuId');
 						 this.$router.push({name:'/cartthree',query: { orderNo: res.msg}});  
 					}else{
 						 this.$Message.error(res.object);
@@ -117,19 +124,13 @@
 				});
            },
 	      	getDetail(){
-	      		if(this.$route.query.skuId!=null&&this.$route.query.skuId!=undefined){
-	      			  sessionStorage.setItem('temp',this.$route.query.skuId);
-	      		}
-	      		   if(sessionStorage.getItem('temp')!="undefined"&&sessionStorage.getItem('temp')!=null){
-	      		   	this.temp=sessionStorage.getItem('temp');
-	      		   }
-	      		   else{
-	      		   	 sessionStorage.setItem('temp',this.$route.query.skuId);
-	      		   	 this.temp  =this.$route.query.skuId;
-	      		   }
+		      		if(this.$route.query.skuId!=null&&this.$route.query.skuId!=undefined){
+		      			   this.temp=this.$route.query.skuId;
+		      			   localStorage.setItem('skuId',this.temp);
+		      		}
 	      			this.$axios({
 					    method: 'get',
-					    url:'/promotion/crush/'+  this.temp,
+					    url:'/promotion/crush/'+  localStorage.getItem('skuId'),
 					}).then((res)=>{
 						if(res.code=='200'){
 						this.detail = res.object;
@@ -198,15 +199,16 @@
 	.chooseAddress{
 		margin-top: 10px;;
 	}
-
+.btn-disabled{
+	width:100%;
+	background: #f5f5f5;
+	cursor: not-allowed;
+	color:#787878;
+}
 </style>
 <style>
-	.spjs .ivu-tabs-nav{
-		width:100%
-	}
 	.spjs .ivu-tabs-tab{
 		font-size: 1.6rem;
-		width:50%;
 		text-align: center;
 	}
 	</style>
