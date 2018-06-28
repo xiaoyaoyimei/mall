@@ -20,9 +20,11 @@
         <FormItem label="短信码" prop="shortMessage">
              <div class="clearfix">
              	<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="txm"></Input>
-             		<Button>
-						<span v-if="sendMsgDisabled">{{time+'秒后获取'}}</span>
-						<span v-if="!sendMsgDisabled"  @click="getDx">获取短信码</span>
+             		<Button v-if="sendMsgDisabled">
+						<span >{{time+'秒后获取'}}</span>
+						</Button>
+							<Button v-else  @click.native="getDx">
+						<span>获取短信码</span>
 					</Button>
              </div>
         </FormItem>
@@ -59,6 +61,7 @@
 	          }
 	        };
             return {
+            	t:'',
             	time: 180, // 发送验证码倒计时
             	sendMsgDisabled: false,
             	txv:1,
@@ -92,28 +95,28 @@
           		if(verificationCode==null||verificationCode==''){
           			this.$Message.error('图形码不能为空!');
           		}else{
-          			  		//短信验证码180秒倒计时
-      			let _this = this;
-			    _this.sendMsgDisabled = true;
-			    let interval = setInterval(function() {
-			     if ((_this.time--) <= 0) {
-			      _this.time = 180;
-			      _this.sendMsgDisabled = false;
-			   	   clearTimeout(interval);
-			     }
-			    }, 1000);
           		this.$axios({
 					    method: 'post',
 					    url:'/customer/register/shortmessage',
 					    data:{
-					    		 "mobile":loginName,
+					    		 "mobile":this.regiForm.loginName,
 					    		  "verificationCode":this.regiForm.verificationCode
 					    	},
 					}).then((res)=>{
-						     if (res.code !== 200) {
-		                 		 this.$Message.error(res.msg);
-		              		} 
-							this.loadingDx = false;
+						     if (res.code == 200) {
+									//短信验证码180秒倒计时
+				      			let _this = this;
+							    _this.sendMsgDisabled = true;
+							    _this.t = setInterval(function() {
+							     if ((_this.time--) <= 0) {
+							      _this.time = 180;
+							      _this.sendMsgDisabled = false;
+							   	   clearTimeout(_this.t);
+							     }
+							    }, 1000);
+		              		} else{
+		              			 this.$Message.error(res.msg);
+		              		}
 					});
 					}
           	},
@@ -121,7 +124,7 @@
           		//验证用户名是否存在
           		if(this.regiForm.loginName==""){
           			  this.$Message.error('手机号不能为空');
-          			  return 
+          			  return ;
           		}
       		 	this.$axios({
 						    method: 'post',
@@ -129,7 +132,9 @@
 						}).then((res)=>{
 							if(res.code=='200'){
 								this.txv++;
-      							this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
+								let urlo=window.location.origin;
+          						this.verimg=urlo+'/mall/wap/customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
+      							//this.verimg=this.$axios.defaults.baseURL+'customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
 							}else{
 								  this.$Message.error(res.msg);
 							}
@@ -149,7 +154,7 @@
 								              if (code !== 200) {
 								                this.$Message.error(res.msg);
 								              } else {
-								                this.$router.push({ path: '/Login' ,query: { loginName: this.regiForm.loginName}});
+								                this.$router.push({ path: '/login' ,query: { loginName: this.regiForm.loginName}});
 								              }
 							});
 							}
@@ -158,7 +163,10 @@
             handleReset (name) {
                 this.$refs[name].resetFields();
             }
-        }
+        }, 
+        destroyed: function () {
+          	clearTimeout( this.t );
+		},
        }
 </script>
 

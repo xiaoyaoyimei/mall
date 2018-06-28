@@ -62,6 +62,7 @@ function InitTime(endtime){
 export default {
     data () {
 	return {
+		t:'',
 		   pro:[],
             active: 'tab-container1',
             show:false,
@@ -121,7 +122,10 @@ export default {
     	      	percent(v){
     	      		return v.usedQuantity/v.totalQuantity*100
     	      	},
-    }
+    },
+      destroyed: function () {
+          	clearTimeout( this.t );
+		},
 }
 </script>
 <style scoped="scoped" lang="scss">

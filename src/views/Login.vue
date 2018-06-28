@@ -73,7 +73,7 @@
       	},
       	 getParams () {
 	        // 取到路由带过来的参数 
-	        this.loginName = this.$route.query.loginName
+	        this.loginForm.loginName = this.$route.query.loginName
      	 },
         handleLogin() {
           this.loading = true;
@@ -91,12 +91,13 @@
 		              		this.loading = false;
 					        this.$Message.success('登录成功');
 							let data = res;  
-							this.$store.commit('LOGIN',{token:data.object["token"],userId:data.object["userId"]});  
-							if (this.$store.state.token) {  
-							this.$router.push(this.$route.query.redirect || '/')
-							} else {  
-								this.$router.replace('/login');  
-							}  
+							this.$store.commit('LOGIN',{token:data.object["token"],userId:data.object["userId"]}); 
+								this.$router.push('/')
+//							if (this.$store.state.token) {  
+//							this.$router.push(this.$route.query.redirect || '/')
+//							} else {  
+//								this.$router.replace('/login');  
+//							}  
 		              }
 				}).catch(error => {  
 						this.loading = false  
