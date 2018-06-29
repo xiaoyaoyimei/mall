@@ -4,13 +4,16 @@ import router from '@/router/route'
 
 // axios 配置
 axios.defaults.timeout = 5000;
+console.log("-----"+process.env.NODE_ENV+process.env.API_HOST)
 //设置拦截器
-//axios.defaults.baseURL = process.env.API_HOST+'/wap/';
-axios.defaults.baseURL = '/mall/wap/';
+//axios.defaults.baseURL = process.env.API_HOST;
+axios.defaults.baseURL = '/wap/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.withCredentials=true;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
+    	
         if (store.state.token) {
           config.headers['token'] = store.state.token;
 		  config.headers['loginUserId']=store.state.userId  

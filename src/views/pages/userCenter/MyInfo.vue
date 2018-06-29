@@ -48,7 +48,10 @@
 					    method: 'post',
 					    url:'/account',
 					}).then((res)=>{
-						this.userinfo =res;
+						this.userinfo=Object.assign({},res);
+						if(this.userinfo.iconUrl==""){
+							this.userinfo.iconUrl=tx;
+						}
 					});
 	      	},
 	      	 handleChange(date) {

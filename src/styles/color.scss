@@ -4,6 +4,37 @@ $color-dx:#0099ff;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
+.column-style{
+    overflow: hidden;
+    .spdetail{
+        width:50%;
+        float: left;
+            a{
+            max-width: 100%;
+            background: #fff;
+            display: block;
+            margin-bottom: 5px;
+            margin-right: 5px;
+            .right{
+                padding-left: 5px;
+            }
+            .sP{
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                color:#333;
+                font-size: 1.4rem;
+            }
+            img{
+                max-width: 100%;
+            }
+            .sh6{
+                color:#0099ff;
+                font-size: 1.6rem;
+            }
+        }
+    }
+}
 .flex-center{
     display: flex;
     justify-content: center;

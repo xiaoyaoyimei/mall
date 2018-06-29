@@ -1,7 +1,8 @@
 <template>
 <div>
 		<div class="sortDetail">
-			<router-link to="/sort" tag='span' class='back'> <Icon type="ios-arrow-left"></Icon></router-link>
+			<router-link to="/sort" tag='span' class='back'>
+				<Icon type="ios-arrow-left"></Icon></router-link>
 					<div class="video-wrap" >
 						<div  ref="videoWrap"  v-show=" 0== num"  class="video-height">
 								<div  v-show="videoshow" class="video">

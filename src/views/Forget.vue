@@ -197,7 +197,7 @@
 		margin-bottom: 1.5rem;
 	}
 	.content{
-		padding: 1rem 0.5rem;
+		padding: 1.5rem;
 	}
 	.txm{
 		width:11rem;
@@ -216,16 +216,4 @@
 		padding: 0 2px;
 	}
 }
-</style>
-<style>
-		.ivu-form-item:not(:last-child) {
-			border-bottom: 1px  solid #eee;
-		}
-		 .ivu-input{
-			border:0 none;
-		}
-		.ivu-form .ivu-form-item-label{
-			font-size: 1.4rem;
-			color:#787878;
-		}
 </style>

@@ -10,9 +10,8 @@
 					<input   placeholder="请输入关键字搜索"  v-model="keyword" @click="gosearch()" type="text"></input>
 				</div>
 			</span>
-				<Icon type="android-menu" class="m_header_bar_menu"  @click.native="toggle()" v-if="styleshow"></Icon>
-				<Icon type="android-apps" class="m_header_bar_menu"  @click.native="toggle()" v-else></Icon>
-		</div>
+				<Icon :type="styleshow?'android-menu':'android-apps'"  class="m_header_bar_menu"  @click.native="toggle()"></Icon>
+			</div>
 		 <Row type="flex" justify="space-between" class="code-row-bg">
 	        <Col span="4" v-bind:class="{ active: isActive }">综合</Col>
 	        <Col span="4" v-bind:class="{ active: isActive }">销量</Col>
@@ -48,7 +47,6 @@
                 <div>Loading</div>
             </Spin>
 		</Col>
-	
 			<Modal	v-model="filterModal"	title="筛选条件" >
 				<div class="filter-tj">	
 					<dl><dt>类型</dt><dd @click="selected(-1,'','catalog')" :class="{active: catalogindex == '-1'}">全部</dd>
@@ -284,37 +282,6 @@
 		width: 100%;
 		padding-left: 3rem;
 		font-size: 1.4rem;
-	}
-}
-.column-style{
-	overflow: hidden;
-	.spdetail{
-		width:50%;
-		float: left;
-			a{
-			max-width: 100%;
-			background: #fff;
-			display: block;
-			margin-bottom: 5px;
-			margin-right: 5px;
-			.right{
-				padding-left: 5px;
-			}
-			.sP{
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				overflow: hidden;
-				color:#333;
-				font-size: 1.4rem;
-			}
-			img{
-				max-width: 100%;
-			}
-			.sh6{
-				color:#0099ff;
-				font-size: 1.6rem;
-			}
-		}
 	}
 }
 .scroll{

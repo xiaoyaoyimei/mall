@@ -11,16 +11,16 @@
 		    </div>
 		<router-link :to="{path: '/login'}" tag="span" class="m_header_bar_menu"  v-if="loginflag">登录</router-link>
 		</div>
-		<Carousel  v-model="value3" :autoplay="setting.autoplay"    :autoplay-speed="setting.autoplaySpeed"
-        :dots="setting.dots"  :radius-dot="setting.radiusDot"  :trigger="setting.trigger" :arrow="setting.arrow">
-        	<CarouselItem  v-for="(item, index) in Items"  :key="index">
-           		 	<div class="demo-carousel"><a :href="item.linkUrl"><img :src="imageSrc+item.phoneUrl"></a></div>
-        	</CarouselItem>
-    	</Carousel>
+			<wc-swiper  v-if="Items.length" :autoplay='false'>
+					   <wc-slide v-for="(item, index) in Items" :key="index">
+					  	<a :href="item.linkUrl"><img :src="item.phoneUrl | imgfilter"></a>
+					   </wc-slide>
+					</wc-swiper>
+		
         <ul class="ad-list">
   		 <li v-for="(item,index) in aditems" :key="index" >
     		 <router-link :to="{name: '/sort',query:{type:child.linkUrl,typeindex:index}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
-    			 	<img  :src="imageSrc+child.imgUrl"  :width="child.proportion | baifenhao" >
+    			 	<img  :src="child.imgUrl | imgfilter"  :width="child.proportion | baifenhao" >
     		</router-link>
     	</li>			
     	</ul>
@@ -50,22 +50,11 @@
 	export default {
         data () {
             return {
-                value3: 0,
-                imageSrc:this.global_.imgurl,
                 loginflag:true,
-                setting: {
-                    autoplay: false,
-                    autoplaySpeed: 2000,
-                    dots: 'inside',
-                    radiusDot: false,
-                    trigger: 'click',
-                    arrow: 'hover'
-                },
                 Items:[],
                 aditems:[],
                 productNew:[],
                 proList:[]
-                
             }
         },
         filters:{

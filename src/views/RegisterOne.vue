@@ -108,13 +108,7 @@
 				      			let _this = this;
 							    _this.sendMsgDisabled = true;
 							    _this.startTime();
-//							    _this.t = setInterval(function() {
-//							     if ((_this.time--) <= 0) {
-//							      _this.time = 180;
-//							      _this.sendMsgDisabled = false;
-//							   	   clearTimeout(_this.t);
-//							     }
-//							    }, 1000);
+
 		              		} else{
 		              			 this.$Message.error(res.msg);
 		              		}
@@ -198,7 +192,7 @@
 		margin-bottom: 1.5rem;
 	}
 	.content{
-		padding: 1rem 0.5rem;
+		padding: 1.5rem;
 	}
 	.txm{
 		width:11rem;
