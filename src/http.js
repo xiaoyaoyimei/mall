@@ -8,7 +8,7 @@ import qs from 'qs'
 // axios 配置
 axios.defaults.timeout = 5000;
 //dev-环境
-//axios.defaults.baseURL = 'https://m.shop.dxracer.cn/mall/wap/';
+//axios.defaults.baseURL = '/wap/';
 //pro-环境
 axios.defaults.baseURL = '/mall/wap/';
 //axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';

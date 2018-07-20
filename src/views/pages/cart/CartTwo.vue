@@ -57,7 +57,6 @@
     export default {
         data () {
             return {
-            	
             	orderfail:false,
             	xscoupon:false,
             	couponCode:'',

@@ -106,6 +106,7 @@
 						});
 						}else{   
 							var ua = window.navigator.userAgent.toLowerCase();
+							//微信浏览器
 							if (ua.match(/MicroMessenger/i) == 'micromessenger') {
 							     this.$axios({
 								    method: 'get',
