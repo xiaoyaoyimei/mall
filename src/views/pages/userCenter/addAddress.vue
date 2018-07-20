@@ -31,11 +31,11 @@
         return {
         	  addressOption: [],
 			  addForm: {
-		                    person: '',
-		                    phone: '',
-		                    selectedOptionsAddr:[],
-		                    address:'',
-		                    tel:'',
+	                    person: '',
+	                    phone: '',
+	                    selectedOptionsAddr:[],
+	                    address:'',
+	                    tel:'',
 		                },
 		            ruleValidate: {
 	                    person: [
@@ -45,7 +45,7 @@
 	                        { required: true, message: '手机号不能为空', trigger: 'blur' },
 	                    ],
                         selectedOptionsAddr: [
-                        { required: true, message: '请选择省市区', trigger: 'blur' }
+                        { required: true, message: '请选择省市区', trigger: 'change' }
                     	],
                     	address:[
 	                        { required: true, message: '详细地址不能为空', trigger: 'blur' },

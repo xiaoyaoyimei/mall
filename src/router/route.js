@@ -33,7 +33,7 @@ let routes =  [
 					},
 						{
 						name:'/cart',
-						path: '/cart',
+						path: '/',
 						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 					},
 					]

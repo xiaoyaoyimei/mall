@@ -1,24 +1,27 @@
 import axios from 'axios'
 import store from '@/store/store'
 import router from '@/router/route'
+import Promise from 'es6-promise'
+Promise.polyfill()
+import qs from 'qs'
 
 // axios 配置
 axios.defaults.timeout = 5000;
-console.log("-----"+process.env.NODE_ENV+process.env.API_HOST)
-//设置拦截器
-//axios.defaults.baseURL = process.env.API_HOST;
-axios.defaults.baseURL = '/wap/';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.withCredentials=true;
+//dev-环境
+//axios.defaults.baseURL = 'https://m.shop.dxracer.cn/mall/wap/';
+//pro-环境
+axios.defaults.baseURL = '/mall/wap/';
+//axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+//axios.defaults.withCredentials=true;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-    	
+
         if (store.state.token) {
           config.headers['token'] = store.state.token;
-		  config.headers['loginUserId']=store.state.userId  
+		  config.headers['loginUserId']=store.state.userId
         }
-        config.data=JSON.stringify(config.data);
+
         return config;
     },
     err => {
@@ -28,10 +31,10 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-    	   
+    	   console.log(response)
            	if(response.data.code=='401'){
     		router.replace({
-                        path: 'login',
+                        path: '/login',
                        query: {redirect: router.currentRoute.fullPath}
                     })
     	}

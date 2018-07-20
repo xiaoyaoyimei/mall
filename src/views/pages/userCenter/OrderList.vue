@@ -27,9 +27,11 @@
 			</div>
 			<div class="sptitle">合计：<span>￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 			</div>
-			<div class="cz" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'"> 
+			<div class="cz" > 
 				<button  type="button"  class="btn "  @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button>
-				<button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">去支付</button></div>
+				<button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">去支付</button>
+					<button   class="btn btn-dx"  @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>
+			</div>
 		</li>
   	</ul>
 	</div>
@@ -70,6 +72,29 @@
                     },
                     onCancel: () => {
                         this.$Message.info('放弃取消');
+                    }
+                });
+            },
+              	  qianshou(value){
+                this.$Modal.confirm({
+                    content: '<p>确定签收该订单？</p>',
+                    onOk: () => {
+                      this.$axios({
+					    method: 'post',
+					    url:'/order/receive/'+value,
+					}).then((res)=>{
+						if(res.code=='200'){
+							  this.$Message.info(res.msg);
+							  this.getOrder();
+						}
+						else{
+							  this.$Message.info(res.msg);
+							  
+						}
+					});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('放弃签收');
                     }
                 });
             },

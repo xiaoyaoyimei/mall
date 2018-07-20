@@ -43,7 +43,7 @@
 	                        { required: true, message: '收货人不能为空', trigger: 'blur' }
 	                    ],
 	                    phone: [
-	                        { required: true, message: '手机号不能为空', trigger: 'blur' },
+	                        { required: true, message: '手机号不能为空', trigger: 'change' },
 	                    ],
                         selectedOptionsAddr: [
                         { required: true, type: 'array',message: '请选择省市区', trigger: 'blur' }
