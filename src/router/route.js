@@ -1,5 +1,4 @@
 const _import = require('./_import_' + process.env.NODE_ENV);
-console.log(process.env.NODE_ENV);
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store/store'
@@ -33,7 +32,7 @@ let routes =  [
 					},
 						{
 						name:'/cart',
-						path: '/',
+						path: '/cart',
 						component:resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 					},
 					]
@@ -90,6 +89,24 @@ let routes =  [
 				   			path: 'orderlist',
 				 	   		component:resolve => require(['@/views/pages/userCenter/OrderList.vue'], resolve),
 				        },
+				         {
+				            meta:{requireAuth:true},	
+				         	name:'rufundlist',
+				   			path: 'rufundlist',
+				 	   		component:resolve => require(['@/views/pages/userCenter/RefundList.vue'], resolve),
+				        },
+				        {
+				            meta:{requireAuth:true},	
+				         	name:'refund',
+				   			path: 'refund',
+				 	   		component:resolve => require(['@/views/pages/userCenter/Refund.vue'], resolve),
+				        },
+				             {
+				            meta:{requireAuth:true},	
+				         	name:'/refund/logisticsInfo',
+				   			path: '/refund/logisticsInfo',
+				 	   		component:resolve => require(['@/views/pages/userCenter/LogisticsInfo.vue'], resolve),
+				        },
 				     	{ 	
 				     		meta:{requireAuth:true},
 				         	name:'/order/detail',
@@ -142,6 +159,7 @@ let routes =  [
 				   		path:'changepwd',
 			 		   	component:resolve => require(['@/views/pages/userCenter/ChangePwd.vue'],resolve)
 						},
+						
 					{
 					name:'couponcenter',
 			   		path:'couponcenter',

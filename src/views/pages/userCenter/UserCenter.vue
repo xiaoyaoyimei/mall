@@ -21,6 +21,8 @@
    <ul class="order-list">
    	<router-link :to="{ path: '/user/orderlist'}" tag="li" >
    		<img src="../../../assets/img/order.png"><span>我的订单</span><Icon type="ios-arrow-forward"></Icon></router-link>
+   		  	<router-link :to="{ path: '/user/rufundlist'}" tag="li" >
+   		<img src="../../../assets/img/a2.png"><span>售后订单</span><Icon type="ios-arrow-forward"></Icon></router-link>
    	<!--<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
    		<router-link :to="{ path: '/user/couponcenter' }" tag="li"><img  src="../../../assets/img/a2.png">领券中心<i>></i></router-link>	
    			<router-link :to="{ path: '/user/mylove' }" tag="li"><img  src="../../../assets/img/a3.png">我的收藏<i>></i></li></router-link>	-->

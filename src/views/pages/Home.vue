@@ -32,10 +32,9 @@
     			<img src="../../assets/img/miao.png">
     			</router-link>
     	  </div>
-    	  <span class="xptj" v-if="proList.lenght>0">为你推荐</span>
+    	  <span class="xptj" v-if="proList.length>0">新品好货</span>
     	     <Row  class="goodslist">
 				<Col  :xs="12"  :md="6"  v-for="(item,index) in proList" :key="index">
-					<label>{{item.promotionTitle}}</label>
 					<router-link  tag="a" :title='item.model_name' :to="{ path: '/sort/sortDetail',query:{id:item.id} }"><img  :src='item.model_img |imgfilter'>
 					<span>{{item.model_name}}</span>
 					<h4 >￥{{item.sale_price |pricefilter}}</h4>
@@ -89,7 +88,7 @@
 						});
 								this.$axios({
 						    method: 'GET',
-						    url:'/index/index/product',
+						    url:'/index/product/new',
 						}).then((res)=>{
 							if(res.code=='200'){
 							 this.proList=res.object;
@@ -179,6 +178,13 @@
 		   		 }
 				}
 			}
+}
+.goodslist div{
+	border-right: 5px solid #f4f6f8;
+	box-sizing: border-box;
+}
+.goodslist div:nth-child(2n){
+	border-right-color:transparent;
 }
 </style>
 <style>

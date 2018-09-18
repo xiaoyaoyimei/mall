@@ -30,7 +30,9 @@
 			<div class="cz" > 
 				<button  type="button"  class="btn "  @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button>
 				<button  type="button"  class="btn btn-dx"  @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">去支付</button>
-					<button   class="btn btn-dx"  @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>
+				<button   class="btn btn-dx"  @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>
+				<!--<button   class="btn btn-dx"  @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='07'">退款退货</button>-->
+				<router-link class="btn":to="{ path: '/user/refund', query: {rforder:x.order.orderNo}}" v-if="x.canRefund==true">退款退货</router-link>
 			</div>
 		</li>
   	</ul>
@@ -210,7 +212,7 @@
 		background: #fff;
 		border-width:1px;
 		border-style:solid;
-		border-radius:1rem;
+		border-radius:0.5rem;
 		cursor: pointer;
 	}
 	.btn-dx{
@@ -218,4 +220,5 @@
 		color:#0099ff;
 		
 	}
+
 </style>
