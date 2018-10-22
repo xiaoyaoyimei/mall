@@ -28,6 +28,7 @@
 		   	  <div class="sp">
 		   			<span>订单编号：{{orderdetail.shippingOrder.orderNo}}</span>
 		   			<span>下单时间：{{orderdetail.shippingOrder.createTime | formatDate}}</span>
+		   			<span v-if="orderdetail.shippingOrder.receiveTime!=''">签收时间：{{orderdetail.shippingOrder.receiveTime | formatDate}}</span>
 		   			<span>收票人：{{orderdetail.shippingInvoice.receivePerson}}</span>
 		   			<span>发票抬头：{{orderdetail.shippingInvoice.invoiceTitle}}</span>
 		   			<span class="mb10 clearfix pb15">发票类型：{{orderdetail.shippingInvoice.invoiceType}}  

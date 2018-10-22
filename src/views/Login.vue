@@ -100,6 +100,7 @@
 //							}  
 		              }
 				}).catch(error => {  
+					alert(error);
 						this.loading = false  
 						this.loginBtn = "登录"  
 						this.$Message.error('系统异常');
@@ -135,7 +136,6 @@
 		}
 		.btn-login{
 			width: 100%;
-			border-radius: 5rem;
 			padding:0.8rem 0;
 			font-size: 1.4rem;
 		}

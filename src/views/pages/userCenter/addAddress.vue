@@ -2,10 +2,9 @@
 	<div class="order">
 		<div class="m_header_bar">
 			<router-link to="/user/address"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">新建收货地址</span>
-			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
+			<span class="m_header_bar_title">新增地址</span>
 		</div>
-	<Form :model="addForm" ref="addForm" :rules="ruleValidate"  style="background: #fff;"> 
+	<Form :model="addForm" ref="addForm" :rules="ruleValidate"  style="background: #fff;padding:15px 15px 15px 0" :label-width="100"> 
         <FormItem label="收货人" prop="person">
             <Input v-model="addForm.person" placeholder="收货人" ></Input>
         </FormItem>
@@ -21,7 +20,9 @@
          <FormItem label="详细地址" prop="address">
             <Input v-model="addForm.address" placeholder="详细地址" ></Input>
         </FormItem>
+          <FormItem>    <Button  type="primary" @click="addSubmit" long >保存</Button></FormItem>
     </Form>
+
 	</div>
 </template>
 
@@ -44,9 +45,9 @@
 	                    phone: [
 	                        { required: true, message: '手机号不能为空', trigger: 'blur' },
 	                    ],
-                        selectedOptionsAddr: [
-                        { required: true, message: '请选择省市区', trigger: 'change' }
-                    	],
+               		 selectedOptionsAddr: [
+                        { required: true, type: 'array',message: '请选择省市区', trigger: 'change' }
+                    ],
                     	address:[
 	                        { required: true, message: '详细地址不能为空', trigger: 'blur' },
 	                    ]
@@ -64,8 +65,10 @@
 						});
     	      	},
     	      	addSubmit(){
+    	      		
     	      		   this.$refs['addForm'].validate((valid) => {
 					if (valid) {
+
 							let temp=this.addForm;
 							temp.receiveProvince=this.addForm.selectedOptionsAddr[0];
 							temp.receiveCity=this.addForm.selectedOptionsAddr[1];
@@ -108,10 +111,6 @@
   	text-align: center;
   	padding:1rem 0;
   	cursor: pointer;
-  }
-  .ivu-form-item{
-  	padding: 0.5rem 1rem;
-  	margin-bottom:0;
   }
   
 </style>

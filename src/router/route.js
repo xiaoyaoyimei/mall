@@ -211,7 +211,9 @@ if (localStorage.getItem('token')) {
 store.commit('LOGIN',{token: localStorage.getItem('token'),userId:localStorage.getItem('userId')})  
 }  
 const router = new VueRouter({
-    routes
+// mode: 'history',
+  root: '/',
+  routes
 });
 
 router.beforeEach((to, from, next) => {  

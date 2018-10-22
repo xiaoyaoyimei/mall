@@ -3,9 +3,8 @@
 			<div class="m_header_bar">
 			<router-link to="/user/address"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">编辑地址</span>
-			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
 		</div>
-	<Form :model="editForm" ref="editForm"  :rules="ruleValidate"  style="background: #fff;"> 
+	<Form :model="editForm" ref="editForm"  :rules="ruleValidate"   style="background: #fff;padding:15px 15px 15px 0" :label-width="100"> 
         <FormItem label="收货人" prop="person">
             <Input v-model="editForm.person" placeholder="收货人"></Input>
         </FormItem>
@@ -21,6 +20,7 @@
          <FormItem label="详细地址" prop="address">
             <Input v-model="editForm.address" placeholder="详细地址"></Input>
         </FormItem>
+         <FormItem>    <Button  type="primary" @click="addSubmit" long >保存</Button></FormItem>
     </Form>
 	</div>
 </template>
@@ -45,9 +45,9 @@
 	                    phone: [
 	                        { required: true, message: '手机号不能为空', trigger: 'change' },
 	                    ],
-                        selectedOptionsAddr: [
-                        { required: true, type: 'array',message: '请选择省市区', trigger: 'blur' }
-                    	],
+	                     selectedOptionsAddr: [
+                        { required: true, type: 'array',message: '请选择省市区', trigger: 'change' }
+                    ],
                     	address:[
 	                        { required: true, message: '详细地址不能为空', trigger: 'blur' },
 	                    ]

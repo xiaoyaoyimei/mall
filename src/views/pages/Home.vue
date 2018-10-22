@@ -20,7 +20,7 @@
         <ul class="ad-list">
   		 <li v-for="(item,index) in aditems" :key="index" >
     		 <router-link :to="{name: '/sort',query:{type:child.linkUrl,typeindex:index}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
-    			 	<img  :src="child.imgUrl | imgfilter"  :width="child.proportion | baifenhao" >
+    			 	<img  :src="imageSrc+child.imgUrl" :width="child.proportion | baifenhao" >
     		</router-link>
     	</li>			
     	</ul>
@@ -35,7 +35,8 @@
     	  <span class="xptj" v-if="proList.length>0">新品好货</span>
     	     <Row  class="goodslist">
 				<Col  :xs="12"  :md="6"  v-for="(item,index) in proList" :key="index">
-					<router-link  tag="a" :title='item.model_name' :to="{ path: '/sort/sortDetail',query:{id:item.id} }"><img  :src='item.model_img |imgfilter'>
+					<router-link  tag="a" :title='item.model_name' :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
+						<img   :src="imageSrc+item.model_img" />
 					<span>{{item.model_name}}</span>
 					<h4 >￥{{item.sale_price |pricefilter}}</h4>
 					</router-link>
@@ -49,6 +50,7 @@
 	export default {
         data () {
             return {
+            	imageSrc:this.global_.imgurl,
                 loginflag:true,
                 Items:[],
                 aditems:[],

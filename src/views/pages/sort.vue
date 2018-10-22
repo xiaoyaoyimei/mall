@@ -9,6 +9,7 @@
 					<img src="../../assets/img/search.png" > 
 					<input   placeholder="请输入关键字搜索"  v-model="keyword" @click="gosearch()" type="text"></input>
 				</div>
+				
 			</span>
 				<Icon :type="styleshow?'android-menu':'android-apps'"  class="m_header_bar_menu"  @click.native="toggle()"></Icon>
 			</div>
