@@ -1,13 +1,14 @@
 $color-primary: #ff0000; //#18c79c
 $color-border:#eee;
+$color-border-red:#ff0000;
 $color-dx:#ff0000;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
 $color-black:#111;
-        .mt10 {
-            margin-top: 1rem;
-        }
+.mt10 {
+    margin-top: 1rem;
+}
 .color-black {
     color: $color-black;
 }
@@ -376,6 +377,7 @@ textarea {
     width: 2.5rem;
     height: 2.5rem;
     background-position: -17.9rem -11.4rem;	
+}
 .header-home-wrapper {
     width: 100%;
     height: auto;
@@ -687,7 +689,6 @@ textarea {
         padding: 0 1rem;
     }
 }
-
 .splist .sphead {
     border-top: 1px solid #eee;
     overflow: hidden;
@@ -695,31 +696,26 @@ textarea {
     display: flex;
     cursor: pointer;
 }
-
 .sphead img {
     width: 5rem;
     height: 5rem;
     border-radius: 1rem;
     margin-right: 1rem;
 }
-
 .title {
     width: 15rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .xq {
     margin-right: 1rem;
     flex: 1;
 }
-
 .price {
     float: right;
     text-align: right;
 }
-
 .orderno {
     padding: 1rem 0;
     color: #999;
@@ -730,7 +726,6 @@ textarea {
         margin-bottom: 5px;
     }
 }
-
 .sptitle {
     border-top: 1px solid #eee;
     height: 3.6rem;
@@ -740,7 +735,6 @@ textarea {
         margin-right: 1rem;
     }
 }
-
 .cz {
     //      border-top:1px solid #eee;
     //      text-align:right;
@@ -749,7 +743,6 @@ textarea {
         margin-right: 0.5rem;
     }
 }
-
 .btn {
     padding: 0.3rem 1rem;
     background: #fff;
@@ -792,24 +785,24 @@ textarea {
      background: red;
 }
 .btn-red-fixed,
-.btn-red,.btn-blue {
+.btn-red, .btn-blue {
    height: 4rem;
     text-align: center;
     width: 100%;
     color: #fff;
     font-size: 1.6rem;
     border: 0 none;
-}.btn-blue{
+}
+.btn-blue{
     background: #0099ff;
     border-radius: 0.5rem;
 }
-    .form_wrap{
-        margin-top: 10px;
-            background: #fff;
-            font-size: 16px;
-        
-    }
-    .btn-wrap{
-        margin:3rem 3rem 0;
-    }
-
+.form_wrap{
+    margin-top: 10px;
+        background: #fff;
+        font-size: 16px;
+    
+}
+.btn-wrap{
+    margin:3rem 3rem 0;
+}
