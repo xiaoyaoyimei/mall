@@ -35,11 +35,12 @@ export default {
 <style lang="scss" >
   @import '@/styles/color.scss';
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family:'microsoft yahei', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height:100vh;
-  background: #f6f6f6;
+  background: #f0f0f0;
+  color: #666;
 }
 ul,li{
 	list-style: none;
@@ -53,4 +54,27 @@ ul,li{
 outline{
 	border: 0 none;
 }
+.ivu-scroll-container{
+		height:calc(100vh - 50px)!important;
+	}
+	    .form_wrap .ivu-form-item{
+        margin-bottom: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left:1rem
+    }
+    .form_wrap >.ivu-form-item:not(:last-child){
+    	 border-bottom: 1px solid #eee;
+    }
+  .form_wrap   .ivu-form-item-error-tip{
+         padding-left:1rem
+    }
+.form_wrap  .ivu-input,.ivu-form-item-error .ivu-input:hover{
+        border-color:#fff;
+        font-size: 1.6rem;
+        transition:0 none;
+    }
+    .form_wrap   .ivu-input:focus{
+        box-shadow:none;
+    }
 </style>

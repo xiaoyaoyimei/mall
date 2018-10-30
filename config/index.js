@@ -9,12 +9,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-    	 '/wap': {
-               // target: "https://shop.dxracer.cn/mall/",
-               target: "http://10.0.0.79:8080/mall/",
+    	 '/mall/wap': {
+               target: "http://10.0.0.28:8080/",
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/wap': '/wap'
+                    '^/mall/wap': '/mall/wap'
                 }
             }
     },

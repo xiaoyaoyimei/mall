@@ -1,33 +1,43 @@
 <template>
 	<div class="order">
-		<div class="m_header_bar">
+		<div class="m_header_bar bg-red">
 			<router-link class="m_header_bar_back" to="/user">
 				<Icon type="ios-arrow-back"></Icon>
 			</router-link>
 			<span class="m_header_bar_title">我的订单</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
-
-		<ul class="splist box-content" v-if="cartList.length>0">
+		<div class="switchStatus">
+		<span  @click="changeStatus('00')" :class="{red:'00' == numactive}" >全部订单</span>
+				<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待付款</span>
+				<span @click="changeStatus('02')" :class="{red:'02' == numactive}">已付款</span>
+				<span @click="changeStatus('05')" :class="{red:'05' == numactive}">待发货</span>
+				<span @click="changeStatus('06')" :class="{red:'06' == numactive}">已发货</span>
+				</div>
+		<Scroll  v-show="!noorderShow">
+		<ul class="splist box-content">
 			<li v-for="(x,index) in cartList" :key="index">
 				<div @click="seeDetail(x.order.orderNo)">
-					<div class="orderno">订单号:{{x.order.orderNo}}<span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span>
-					</div>
 					<div class="orderno">
-						下单时间:{{x.order.createTime| formatDate}}
+						<p><span class="color-black">订单编号:{{x.order.orderNo}}</span><span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></p>
+						<p>下单时间:{{x.order.createTime| formatDate}}</p>
 					</div>
-					
-					<div v-for="(child,i) in x.orderItems" :key="i">
+
+					<div v-for="(child,i) in x.orderItems" :key="i" class="order-wrap">
 						<div class="sphead">
-							<div class="img"><img :src="child.productItemImg | imgfilter"></div>
+						<img :src="child.productItemImg | imgfilter">
 							<div class="xq">
-								<p>{{child.productTitle}}</p>
-								<p class="color-gray font-12">{{child.productAttrs}}<br/>{{child.productItemNo}}</p>
+								<p class="color-black">{{child.productItemNo}}</p>
+								<p class="title">{{child.productTitle}}</p>
+								<p class="color-gray font-12">{{child.productAttrs}}</p>
 							</div>
-							<div class="price">￥{{childjun(child) | pricefilter}}<br/>x {{child.quantity}}</div>
+							<div class="price">
+							<span class="color-black">	￥{{childjun(child) | pricefilter}}</span>
+								<br/>x {{child.quantity}}</div>
 						</div>
 					</div>
-					<div class="sptitle"><span style="float: left;margin-left:10px;color: #f60;">{{refundfilter(x.order.orderStatus)}}</span>合计：<span>￥{{x.order.orderTotalFee| pricefilter}}</span></div>
+					<div class="sptitle"><span style="float: left;margin-left:10px;color: #f60;">{{refundfilter(x.order.orderStatus)}}</span>
+						<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 				</div>
 				<div class="cz">
 					<button type="button" class="btn " @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button>
@@ -37,12 +47,11 @@
 				</div>
 			</li>
 		</ul>
-		<div class="flex-center box-content" v-else>
+		</Scroll>
+		<div class="flex-center  empty" v-show="noorderShow">
 			<img src="../../../assets/img/order_empty.png" style="max-width: 8rem;">
-			<p>暂无任何订单,赶紧去下单吧</p>
-			<p>
-				<router-link to="/" class="color-dx">去首页</router-link>
-			</p>
+			<p>您还没有相关的订单</p>
+				<router-link to="/" class="color-dx">去购物</router-link>
 		</div>
 	</div>
 </template>
@@ -54,9 +63,13 @@
 		data() {
 			const temp = [];
 			return {
+				numactive:'00',
 				cartList: [],
 				statusList: [],
-				refundenums:[],
+				refundenums: [],
+				status: '01',
+				noorderShow: false,
+				height:500
 			}
 		},
 		computed: {
@@ -133,7 +146,7 @@
 				}
 
 			},
-				refundfilter(value) {
+			refundfilter(value) {
 				for(var i = 0; i < this.refundenums.length; i++) {
 					if(this.refundenums[i].key == value) {
 						return this.refundenums[i].value;
@@ -159,7 +172,7 @@
 					}
 
 				});
-					this.$axios({
+				this.$axios({
 					method: 'get',
 					url: '/order/enums',
 				}).then((res) => {
@@ -169,14 +182,30 @@
 
 				});
 			},
+				changeStatus(v) {
+				this.numactive = v;
+				this.status = v;
+				this.spinShow=true;
+				this.getOrder()
+			},
 			getOrder() {
 				if(this.token != null) {
+					let url = '';
+					if(this.status != undefined&&this.status != '00') {
+						status = this.status;
+						url = `/order/list?orderStatus=${status}`
+					} else {
+						url = '/order/list'
+					}
 					this.$axios({
 						method: 'get',
-						url: '/order/list',
+						url: url,
 					}).then((res) => {
 						if(res.code == '200') {
 							this.cartList = res.object;
+							this.noorderShow = false;
+						} else {
+							this.noorderShow = true;
 						}
 					});
 				} else {
@@ -190,6 +219,8 @@
 			}
 		},
 		mounted() {
+			this.status = this.$route.query.status
+			this.numactive=this.status;
 			this.getOrder();
 			this.getStatusEnum();
 		}
@@ -197,5 +228,26 @@
 </script>
 
 <style scoped="scoped" lang="scss">
+.switchStatus{
+	height: 40px;
+	background: #fff;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 1px solid #eee;
+	}
+.switchStatus span{
+	width:20%;
+	text-align: center;
+	display: inline-block;
+	float: left;
+	height: 40px;
+	line-height:40px;
+}
+.switchStatus span.red{
+	color: #f00;
+}
+.switchStatus> span:not(:last-child){
+	border-right: 1px solid #eee;
+}
 
 </style>

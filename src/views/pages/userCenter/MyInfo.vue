@@ -7,8 +7,8 @@
 		</div>
 		<ul class="flex-ul">
 			<li><span>头像</span><router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" tag="span"> 
-				<img :src='userinfo.iconUrl' style='vertical-align:middle;width:3.5rem;max-height:4rem'> ></router-link></li>
-			<li><span>用户名</span><span ></span></li>
+				<img :src='userinfo.iconUrl | imgfilter' style='vertical-align:middle;width:3.5rem;max-height:4rem'> ></router-link></li>
+			<!--<li><span>用户名</span><span ></span></li>-->
 			<li><span>昵称</span> <router-link :to="{ path: '/user/editnick', query: { nickname: userinfo.nickName }}" tag="span"> {{userinfo.nickName}}  ></router-link></li>
 			<li><span>性别</span><router-link :to="{ path: '/user/editsex', query: { sex: userinfo.sex }}" tag="span">
 			<label v-if="userinfo.sex === 'M'">男</label>	<label  v-else-if="userinfo.sex === 'F'">女</label>	<label  v-else>保密</label>	  > </span></router-link></li>

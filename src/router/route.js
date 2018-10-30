@@ -202,6 +202,19 @@ let routes =  [
 				}	
 			],
 			},
+			{
+				path: '/help',name:'/help',component: resolve => require(['@/container/UFull.vue'], resolve),
+				children:[
+				   		{
+				         	name:'yszc',
+				   			path: 'yszc',
+				 	   		component:resolve => require(['@/views/pages/help/yszc.vue'], resolve),
+				        },
+				        ]
+			},
+					{
+				path: '/advice',name:'/advice',component: resolve => require(['@/views/Advice.vue'], resolve),
+			},
 			 {
             path: '/*',
             component:resolve => require(['@/views/errorPages/404.vue'],resolve)

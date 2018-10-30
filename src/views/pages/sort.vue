@@ -24,7 +24,7 @@
    	   	   		<span class="font-15 mt15">没有符合该搜索条件的商品,请重新检索</span>
    	   	   	</div>
    	     <Col class="demo-spin-col"  v-else  style="top:82px">
-		    	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height='scrollheight'>
+		    	<Scroll class='scroll' :on-reach-bottom="handleReachBottom"  :height='scrollheight' >
 					 <div  ref="con" :class="styleshow?'product':'column-style'">
 						<div   class="spdetail"    v-for="(item, index) in productList" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
@@ -340,4 +340,5 @@
 .fade-enter-to,fade-leave{
 	  background: blue;
 }
+
 </style>

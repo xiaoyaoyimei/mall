@@ -1,7 +1,7 @@
 <template>
 	<div class="order">
 		<div class="m_header_bar">
-			<router-link to="/user/myinfo"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<router-link to="/user/setting"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			 <span class="m_header_bar_title">修改昵称  </span>
 			 <span  @click="handleNick" class="m_header_bar_menu">保存</span>
 		</div>

@@ -2,23 +2,26 @@
 	<div class="order">
 		<div class="m_header_bar">
 			<Icon type="ios-arrow-back"  @click.native="back"  class="m_header_bar_back"></Icon>
-			<span class="m_header_bar_title">收货地址</span>
+			<span class="m_header_bar_title">管理收货地址</span>
+			<span></span>
 		</div>
-			<ul class="addressul box-content">
+		<Scroll>
+			<ul class="addressul">
 				<li v-for="(item, index) in addressList" >
-				<p @click='chooseDD(item)'><span>{{item.person}} </span><span>{{item.phone}}</span></p>
+				<p @click='chooseDD(item)' class="font-16"><span>{{item.person}} </span><span>{{item.phone}}</span></p>
 				<p><span>{{item.receiveProvince}}{{item.receiveCity}}{{item.receiveDistrict}}{{item.address}}</span></p>
 				<p>
-					<span> <Checkbox v-model="item.isDefault" @click.native="updateDefault(item.id)">设为默认</Checkbox></span>
+					<span> <Radio  v-model="item.isDefault" @click.native="updateDefault(item.id)">设为默认</Radio></span>
 					<span>
-					<router-link :to="{ path: '/user/editaddress', query: {old:item}}" tag="label"> <Icon type="edit"></Icon>编辑</router-link>
-						<label @click="handleDelete(item.id)"><Icon type="trash-a" ></Icon>删除</label>
+					<router-link :to="{ path: '/user/editaddress', query: {old:item}}" tag="button">编辑</router-link>
+						<button @click="handleDelete(item.id)">删除</button>
 					</span>
 				</p>
 				</li>
 			</ul>
-			<router-link  to="/user/addaddress" class="addaddress" tag="div">添加新地址</router-link>
-	</div>
+			</Scroll>
+			<div><router-link  to="/user/addaddress"  class="btn-red-fixed" >添加收货地址</router-link>
+	</div></div>
 </template>
 
 <script>
@@ -119,20 +122,8 @@
 </script>
 
 <style   lang="scss" scoped="scoped">
-  .addaddress{
-    position: fixed;
-    bottom:0;
-    background: #0099ff;
-    width: 100%;color:#fff;
-    padding:1rem 0;
-    cursor: pointer;
-    text-align: center;
-    a{
-        color:#fff;
-    }
-  }
   .addressul { 
-    font-size: 1.6rem;
+  	margin-bottom: 5rem;
          li 
          {
          	padding:1rem;
@@ -151,8 +142,15 @@
             	border-top:1px solid #eee;
             	padding-top:1rem;
             }
-            label{
+            button{
                 cursor: pointer;
+                background: #fff;
+                border:1px solid #eee;
+                padding: 0.3rem 1rem;
+                border-radius: 3px;
+            }
+            button:first-child{
+            	margin-right: 0.5rem;
             }
             span:first-child{
                 flex:1

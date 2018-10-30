@@ -92,6 +92,7 @@
 					        this.$Message.success('登录成功');
 							let data = res;  
 							this.$store.commit('LOGIN',{token:data.object["token"],userId:data.object["userId"]}); 
+							
 								this.$router.push('/')
 //							if (this.$store.state.token) {  
 //							this.$router.push(this.$route.query.redirect || '/')
