@@ -229,7 +229,6 @@
 </template>
 
 <script>
-	import Bus from '@/assets/js/bus.js'
 	export default {
 		data() {
 			return {
