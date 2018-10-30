@@ -1,530 +1,103 @@
-$color-primary: #0099ff;//#18c79c
+$color-primary: #67c23a;//#18c79c
 $color-border:#eee;
-$color-dx:#0099ff;
+$color-border-red:#f2191a;
+$color-dx:#ed1844;
 $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
-.column-style{
-    overflow: hidden;
-    .spdetail{
-        width:50%;
-        float: left;
-            a{
-            max-width: 100%;
-            background: #fff;
-            display: block;
-            margin-bottom: 5px;
-            margin-right: 5px;
-            .right{
-                padding-left: 5px;
-            }
-            .sP{
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-                color:#333;
-                font-size: 1.4rem;
-            }
-            img{
-                max-width: 100%;
-            }
-            .sh6{
-                color:#0099ff;
-                font-size: 1.6rem;
-            }
-        }
-    }
-}
-.flex-center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 400px;
-    p{
-        line-height: 3rem;
-        font-size: 1.4rem;
-    }
-    a{
-        text-decoration: underline;
-    }
-}
-.mt15{
-    margin-top:1.5rem;
-}
-.font-15{
-    font-size: 1.5rem;
-}
-.font-16{
-    font-size: 1.6rem;
-}
- .promotion{
-    display: inline-block;
-    background: #fcdadb;
-    padding: 0.2rem;
-    margin-top: 0.5rem;
-    color: #d32122;
-    font-size: 1.2rem;
- }
-.cartCol .min-add{
-    float: right;
-    padding-right: 1rem;
-    }
-.min-add .min,.min-add .add{
-        color: #333;
-font-weight: bold;
-cursor: pointer;
-margin-right:5px;
-font-size: 14px;
-margin-left:3px;
-}
-.min-add .min,.min-add .add,.min-add input{
-    display: inline-block;
-}
-.min-add input{
-    font-size: 14px;
-    width:50px;
-    text-align: center;
-    background: #f5f5f5;
-    border:0 none;
-    height:26px;
-}
- .address li{
-    display: flex;
-    background:#fff;
-    padding:1rem;
-    cursor: pointer;
- }
-  .address p{
-    flex:1;
-    strong{
-        display: block;
-        color:#333
-    }
-  }
-    .chooseAddress{
-            .zeroAddress{
-                background: #fff;
-                padding:10px
-            }
-        }
- .spjs{
-    width: 100%;
- }
- .spjs img{
-    max-width:100%;
- }
- .gk li{
-    display: flex;
-    padding: 0.5rem 1rem;
-    font-size: 1.4rem;
-    .title{
-        width:40%;
-    }
- }
-.font-14{
-    font-size: 1.4rem;
-}
-.font-12{
-    font-size: 1.2rem;
-}
-.foot {
-        background: #fff;
-        border-top:1px solid #eee;
-        position: fixed;
-        height: 5rem;
-        z-index: 31;
-        bottom: 0;
-        left: 0;
-        width:100%;
-        text-align:center;
-          button{
-            background: $color-dx;
-            color:#fff;
-            height: 100%;
-            border:0 none;
-            padding-left:2rem ;
-            padding-right: 2rem;
-            cursor: pointer;
-          }
-          .miaoshagou{
-              letter-spacing:1rem;
-              width: 100%;
-          }
-          .jrgwc{
-               float: right; 
-          }
-          .cart{
-            color:#666;
-            text-align: center;
-            margin-right: 3rem;
-            font-size: 1rem;
-            float: right;
-            margin-top: 1rem;
-            i{
-                display: block;
-                font-size: 2rem;
-            }
-          }
-}
-.btn-dx{
-    background: $color-dx;
-    color:#fff;
-    border: 0 none;
-    padding: 0.4rem;
-    cursor: pointer;
-}
-.btn-dx:hover{
-     background: #24a8fc;
-     color:#fff
-}
-.ghost-dx{
-    background: 0 none;
-    border: 1px solid $color-dx;
-    padding: 3px 10px;
-    color: $color-dx;
-    cursor: pointer;
-}
-.btn-orange{
-    background: #ff9600;
-    border: 0 none;
-}
- .price{
-    font-size: 1.6rem;
- }
-.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
-.color-dx{
-    color:#0099ff
-}
-.demo-carousel{
-    text-align: center;
-}
-  .demo-spin-icon-load{
-        animation: ani-demo-spin 1s linear infinite;
-    }
-    @keyframes ani-demo-spin {
-        from { transform: rotate(0deg);}
-        50%  { transform: rotate(180deg);}
-        to   { transform: rotate(360deg);}
-    }
-
-.ivu-icon-ios-arrow-back{
-    font-size:2.8rem;
-    position: relative;
-    top: 0.5rem;
-}
-input, textarea{
-    outline:0;
-}
-.user-con-wrap{
-    margin:1rem;
-}
-//登录注册头部
-.ding{
-    padding-top:2.5rem;
-    h3{
-        font-weight: bold;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-    h6{
-        font-size: 1.4rem;
-        margin-bottom: 2rem;
-    }
-}
-.color-gray{
-    color:#999;
+.clearfix:after {
+    content: " ";
+    display: block;
+    ;
+    line-height: 0;
+    height: 0;
+    visibility: hidden;
+    clear: both;
 }
 
-.header-home-wrapper{
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-    z-index: 28;
-   padding-top:0.6rem;
+.icon-home{
+    width: 0.68rem;
+    height:0.63rem;
+    background-position: -1rem -0.27rem;
 }
-.home-box{
-     position: fixed;
+.icon-home-red{
+    width: 0.68rem;
+    height:0.63rem;
+    background-position: -1rem -1.07rem;
 }
-.sort-box{
-    position: relative;
-    padding-bottom: 0.6rem;
-    .icon-back{
-        position: absolute;
-        left:1.5rem;
-        color:#666;
-        top:0rem;
-        font-size: 1.6rem;
-    }
+.icon-sort-red{
+    width: 0.63rem;
+    height:0.63rem;
+    background-position: -1.92rem -1.02rem;   
 }
-.SearchBarWrapper{
-        padding-left: 4.4rem;
-        padding-right:4.4rem;
+.icon-sort{
+    width: 0.68rem;
+    height:0.63rem;
+    background-position: -1.92rem -0.27rem;   
 }
-.search input{
-     border: 0;
-     font-size:1.2rem;
-    display: inline-block;
-    background: 0;
-    text-indent: 2px;
-    width: 100%;
-    vertical-align: middle;
-    color: #999;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background: #fff;
+.icon-cart{
+    width: 0.68rem;
+    height:0.65rem;
+    background-position: -2.83rem -0.27rem;   
 }
-.inputwrap{
-    position: absolute;
-    left: 0;
-    top: 0.2rem;
-    width: 100%;
-    padding-left:2.5rem;
-    padding-right: 1rem;
-    padding-top: 0.2rem;
+.icon-cart-red{
+    width: 0.68rem;
+    height:0.65rem;
+    background-position: -2.83rem -1.07rem;   
 }
-.login-ing
-{    height: 100%;
-    position: absolute;
-    right: 1rem;
-    top: 1.2rem;
-    color:#fff;
+.icon-my{
+    width: 0.68rem;
+    height:0.63rem;
+    background-position: -3.75rem -0.27rem;   
 }
-.search-button{
-    position: absolute;
-    right: 5px;
-    border-radius: 4px;
-    top:0.8rem;
-    font-size: 1.4rem;
-    padding: 0.2rem 0.5rem;
-    cursor: pointer;
+.icon-my-red{
+    width: 0.68rem;
+    height:0.63rem;
+    background-position: -3.75rem -1.07rem;   
 }
-.search{
-       position: relative;
-    background: #fff;
-    border-radius: 0.5rem;
-    height: 2.5rem;
-    overflow: hidden;
+.icon-dx-write{
+    width: 1.19rem;
+    height: 1.19rem;
+    background-position: -1.05rem -3.28rem;
 }
-.search-form-icon{
-    display: inline-block;
-    position: relative;
-    float: left;
-    vertical-align: top;
-    width: 1.6rem;
-    height: 1.6rem;
-    background-size: contain;
-    top: .4rem;
-    margin: 0 .3125rem 0 .625rem;
+.icon-search{
+    width: 0.67rem;
+    height: 0.61rem;
+    background-position: -5.5rem -1.74rem;
 }
-.order{
-//  display: -webkit-box;
-//  -webkit-box-orient: vertical;
-//  width: 100%;
-//  height: 100%;
+.icon-dx-back{
+    width: 0.67rem;
+    height: 0.61rem;
+    background-position: -2.43rem -4.74rem;
 }
-.box-content{
-//      -webkit-box-flex: 1;
-//  overflow-y: scroll;
+.icon-xinpin{
+    width: 1rem;
+    height: 1rem;
+    background-position: -3.44rem -3.38rem;
 }
-
-    .m_header_bar{
-    display: flex;
-    height: 4.4rem;
-    background-color: #fff;
-    position: relative;
-    cursor: pointer;
-    width: 100%;
-     .m_header_bar_back{
-        position: absolute;
-        top:0;
-       display: block;
-        width: 4.4rem;
-        height: 4.4rem;
-        line-height: 4.4rem;
-        text-align: center;
-        color: #999;
-        }
-        .m_header_bar_title{
-            padding-left: 4.4rem;
-             padding-right: 4.4rem;
-                height: 4.4rem;
-        line-height: 4.4rem;
-        font-size:1.8rem;
-        color: #333;
-        text-align: center;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        }
-        .m_header_bar_menu{
-             display: block;
-    width: 4.4rem;
-    height: 4.4rem;
-    line-height: 4.4rem;
-    font-size: 1.4rem;
-    position: absolute;
-    right: 0;
-    cursor: pointer;
-    text-align: center;
-        }
-    }
-     .m_header_bar:after{
-        content: "";
-    position: absolute;
-    z-index: 1;
-    pointer-events: none;
-    background-color: #e5e5e5;
-    height: 1px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    }
-    .order{
-       .flex-ul{
-           background: #fff;
-            li{
-                cursor: pointer;
-                display: flex;
-                flex-direction: row;
-                border-bottom: 1px solid #eee;
-                height:4.5rem;
-                line-height: 4.5rem;
-                padding:0 1rem;
-                font-size: 1.4rem;
-                label{
-                    cursor: pointer;
-                }
-            }
-            li> span:first-child{
-                flex:1;
-            }
-            
-       }
-    .bottom-buttom{
-        cursor: pointer;
-        position: fixed;
-        bottom: 0;
-        text-align: center;
-        color: #fff;
-        background: $color-dx;
-        width: 100%;
-        padding-top:0.8rem;
-        padding-bottom: 0.8rem;
-    }
+.icon-jianyi{
+    width: 1rem;height: 1rem;
+    background-position: -8.28rem -3.35rem;
+}
+.icon-youhuima{
+    width: 1rem;
+    height: 1rem;
+    background-position:-3.41rem -5.76rem;
+}
+.icon-zhoubian{
+    width: 1rem;
+    height: 1rem;
+    background-position:-7.14rem -2.04rem;   
+}
+.icon-rexiao{
+    width: 0.35rem;
+    height: 0.35rem;
     
+    background-position: -0.51rem -0.88rem;
 }
-    .login{
-        padding:3rem 1.5rem;
-        background: #fff;
-        overflow: hidden;
-        h3{
-            color:$color-dx;
-            font-weight: 100;
-        }
-        .btn-login{
-            width: 100%;
-            border-radius: 5rem;
-            padding:1rem 0;
-        }
-        .re{
-            float: right;
-            margin-top:4rem;
-            color:#333;
-            font-size:1.2rem;
-        }
-    }
+.icon-like{
+    width: 0.5rem;
+    height: 0.5rem;
+    background-position: -3.58rem -2.28rem;	
 
-    .order-list{
-            padding:0 10px;
-            background: #fff;
-            font-size: 1.6rem;
-            li{
-                padding:10px 0;
-                border-bottom:1px solid $color-border;
-                display: flex;
-                cursor: pointer;
-                position: relative;
-            }
-            img{
-                height: 2rem;
-                width:2rem;
-                margin-right:1.5rem;
-            }
-           span{
-               flex:1;
-           }
-        }
-
-.goodslist div{
-    background: #fff;
-    position: relative;
-    font-size: 1.6rem;
-    text-align: center;
-    margin-bottom: 5px;
-    a{
-        display: block;
-    }
-    label{
-        background: $color-dx;
-        color: #fff;
-        padding: 5px;
-        font-size: 1.2rem;
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
-    img{
-        max-width: 100%;
-    }
-    span{
-        display: block;
-    padding: 0.5rem 0 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    }
-    h4{
-        color:$color-dx;
-        font-weight: normal;
-        text-align: left;
-        padding: 0.5rem 0;
-    }
-}
-.product{
-    .spdetail a{
-    display: flex;
-    background: #fff;
-    img{
-        width:30%;
-        height:30%
-    }
-    .right{
-        width:65%;
-        border-bottom: 1px solid #eee;
-        background: #fff;
-        margin-left:1rem;
-        padding-right: 1rem;
-    }
-    .sP{
-            font-size: 1.4rem;
-        margin-top:1rem;
-    text-align:left;
-    color:#333
-    }
-    .sh6{
-    color:$color-dx;
-    text-align:left;
-    background-color:$color-white;
-    padding-bottom:0.5rem;
-    overflow:hidden;
-    margin-top: 0.5rem;
-    font-size: 1.6rem;
-    }
-}
 }
