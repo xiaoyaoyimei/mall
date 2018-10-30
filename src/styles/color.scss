@@ -5,9 +5,10 @@ $color-default:#333;
 $color-white:#fff;
 $color-gray:#999;
 $color-black:#111;
-        .mt10 {
-            margin-top: 1rem;
-        }
+.mt10 {
+    margin-top: 1rem;
+}
+
 .color-black {
     color: $color-black;
 }
@@ -274,20 +275,6 @@ textarea {
     margin: 1rem;
 }
 
-//登录注册头部
-.ding {
-    padding-top: 2.5rem;
-    h3 {
-        font-weight: bold;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-    h6 {
-        font-size: 1.4rem;
-        margin-bottom: 2rem;
-    }
-}
-
 .color-gray {
     color: #999;
 }
@@ -388,9 +375,11 @@ textarea {
     background: #f00;
     color: #fff;
 }
-.m_header_bar.bg-blue{
+
+.m_header_bar.bg-blue {
     background: #0099ff;
 }
+
 .bg-red .ivu-icon-ios-arrow-back {
     color: #fff;
 }
@@ -704,28 +693,68 @@ textarea {
     position: fixed;
     bottom: 0;
 }
-.btn-red{
-     background: red;
+
+.btn-red {
+    background: red;
 }
+
 .btn-red-fixed,
-.btn-red,.btn-blue {
-   height: 4rem;
+.btn-red,
+.btn-blue {
+    height: 4rem;
     text-align: center;
     width: 100%;
     color: #fff;
     font-size: 1.6rem;
     border: 0 none;
-}.btn-blue{
+}
+
+.btn-blue {
     background: #0099ff;
     border-radius: 0.5rem;
 }
-    .form_wrap{
-        margin-top: 10px;
-            background: #fff;
-            font-size: 16px;
-        
-    }
-    .btn-wrap{
-        margin:3rem 3rem 0;
-    }
 
+.form_wrap {
+    margin-top: 10px;
+    background: #fff;
+    font-size: 16px;
+}
+
+.btn-wrap {
+    margin: 3rem 3rem 0;
+}
+
+//注册登录
+.log-reg {
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+//登录注册头部
+.log-forget {
+    padding: 3.5rem 3rem 4.5rem;
+    overflow: hidden;
+    .tx {
+        border-radius: 100%;
+        width: 10rem;
+    }
+    h3 {
+        color: #0099ff;
+    }
+    .opt {
+        margin-top: 5rem;
+        p {
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+.logw12 {
+    width: 12rem;
+    float: left;
+    margin-right: 1rem;
+}
+
+.btn-44 {
+    height: 4.4rem;
+}

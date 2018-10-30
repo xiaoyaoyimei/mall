@@ -13,18 +13,18 @@
 				</FormItem>
 				<FormItem prop="verificationCode" class="clearfix">
 					<div class="clearfix">
-						<Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="txm"></Input>
+						<Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="logw12"></Input>
 						<img :src="verimg" @click="getTx" class="tx" />
 						<img src="../assets/img/refresh.png">
 					</div>
 				</FormItem>
 				<FormItem prop="shortMessage">
 					<div class="clearfix">
-						<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="txm"></Input>
+						<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="logw12"></Input>
 						<Button v-if="sendMsgDisabled" style="height: 4.4rem;">
 						<span >{{time+'秒后获取'}}</span>
 						</Button>
-						<Button v-else @click.native="getDx" style="height: 4.4rem;">
+						<Button v-else @click.native="getDx" class="btn-44">
 						<span>获取短信码</span>
 					</Button>
 					</div>
@@ -271,11 +271,6 @@
 		}
 		.content {
 			padding: 3rem 2rem;
-		}
-		.txm {
-			width: 12rem;
-			float: left;
-			margin-right: 1rem;
 		}
 		.tx,
 		.dxm {
