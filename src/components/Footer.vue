@@ -36,14 +36,11 @@
 }
 .nav{
 	float: left;
-	width: 1.85rem;
 	text-align: center;
-	font-size: 0.25rem;
 	color: #999999;
 }
 	i{
 		display: block;
-		font-size:0.8rem
 	}
 	a.router-link-active{
 			color:#ff0000

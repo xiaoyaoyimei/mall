@@ -1,6 +1,6 @@
 <template>
 	<div class="user">
-		<div class="user-header">
+		<div class="user-header ">
 			<div class="portrait">
 				<router-link :to="{path: '/login'}" class="tx" v-if="nologin">
 					<img src="../../../assets/img/nologintx.png">

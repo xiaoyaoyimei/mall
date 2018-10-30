@@ -225,45 +225,12 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-			<wc-swiper  v-if="Items.length" :autoplay='false'>
-					   <wc-slide v-for="(item, index) in Items" :key="index">
-					  	<a :href="item.linkUrl"><img :src="item.phoneUrl | imgfilter"></a>
-					   </wc-slide>
-					</wc-swiper>
-		
-        <ul class="ad-list">
-  		 <li v-for="(item,index) in aditems" :key="index" >
-    		 <router-link :to="{name: '/sort',query:{type:child.linkUrl,typeindex:index}}" tag="span" v-for="(child,index) in item.list"  :key="index">	
-    			 	<img  :src="imageSrc+child.imgUrl" :width="child.proportion | baifenhao" >
-    		</router-link>
-    	</li>			
-    	</ul>
-    	<div class="newpd">
-    		<router-link :to="{path: '/newchannel'}"   >
-    			<img src="../../assets/img/xppd.png" >
-    				  </router-link>
-    			<router-link :to="{path: '/seckill'}"   >	  
-    			<img src="../../assets/img/miao.png">
-    			</router-link>
-    	  </div>
-    	  <span class="xptj" v-if="proList.length>0">新品好货</span>
-    	     <Row  class="goodslist">
-				<Col  :xs="12"  :md="6"  v-for="(item,index) in proList" :key="index">
-					<router-link  tag="a" :title='item.model_name' :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
-						<img   :src="imageSrc+item.model_img" />
-					<span>{{item.model_name}}</span>
-					<h4 >￥{{item.sale_price |pricefilter}}</h4>
-					</router-link>
-				</Col>
-			</Row>
-    	  
+
 	</div>
 </template>
 
 <script>
 	export default {
-
 		data() {
 			return {
 				value3: 0,

@@ -106,7 +106,7 @@
 			logout: function() {
 				var _this = this;
 				this.$Modal.confirm({
-					title: '提示',
+					title: '登出提示',
 					content: '<p>确认退出吗?</p>',
 					onOk: () => {
 						this.$axios({

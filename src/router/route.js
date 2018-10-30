@@ -171,12 +171,6 @@ let routes =  [
 			   		path:'mylove',
 		 		   	component:resolve => require(['@/views/pages/userCenter/MyLove.vue'],resolve)
 				},
-					{
-						meta:{requireAuth:true},
-					name:'myinfo',
-			   		path:'myinfo',
-		 		   	component:resolve => require(['@/views/pages/userCenter/MyInfo.vue'],resolve)
-				},
 				{
 					meta:{requireAuth:true},
 					name:'editnick',
