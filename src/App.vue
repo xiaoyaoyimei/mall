@@ -35,22 +35,20 @@ export default {
 <style lang="scss" >
   @import '@/styles/color.scss';
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Microsoft YaHei",'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #888;
   height:100vh;
-  background: #f6f6f6;
+}
+.icon{
+    background-image: url(./assets/img/icon.png);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    display: inline-block;
+    background-size: 50rem 50rem;
 }
 ul,li{
 	list-style: none;
-}
-.ivu-tabs-nav .ivu-tabs-tab-active,.ivu-tabs-nav .ivu-tabs-tab:hover{
-	color:#0099ff
-}
-.ivu-tabs-ink-bar{
-	background:#0099ff
-}
-outline{
-	border: 0 none;
 }
 </style>

@@ -477,280 +477,279 @@
 <style lang="scss" scoped="scoped">
  @import '@/styles/color.scss';
 .demo-carousel img{
-		width: 7.5rem;
+		width: 100%;
 	}
 .bg-black{
-	width: 7.5rem;
-	height: 1.5rem;
+	width: 100%;
+	height: 7.5rem;
 	background-color: #ff0000;
 }
 .bg-black .i{
 	vertical-align: middle;
 }
 .bg-black div{
-	padding:0.15rem 0.2rem;
+	padding:0.75rem 1rem;
 	position: relative;
 }
 .bg-black input{
-	width: 5.5rem;
-	height: 0.85rem;
-	border-radius: 0.5rem;
+	width: 25rem;
+	height:4.25rem;
+	border-radius: 2.5rem;
 	outline: none;
 	text-align: center;
 	box-shadow: none;
-	font-size: 0.48rem;
+	font-size: 2.4rem;
 	position: relative;
-	top: 0.1rem;
+	top: 0.5rem;
 }
 .bg-black .search{
 	position: absolute;
-	top: 0.4rem;
-	left: 3.1rem
+	top: 2rem;
+	left: 15rem
 }
 .minipro{
-	width: 7.5rem;
+	width:100%;;
 }
 .minipro li{
 	float: left;
 	width: 25%;
-	padding: 0.4rem  0rem 0.2rem;
+	padding: 2rem  0rem 1rem;
 	text-align: center;
 }
 .minipro li a{
 	color: #999999;
-	font-size: 0.18rem;
+	font-size: 0.9rem;
 }
 .mn{
 	display: none;
 }
 .title{
-	width:7.5rem;
-	height: 1rem;
+	width:100%;
+	height: 5rem;
 	background-color: #f0f0f0;
 	position: relative;
 }
 .title span{
-	font-size: 0.16rem;
+	font-size: 0.8rem;
 	position: absolute;
-	top: 0.55rem;
-	left: 0.25rem;
+	top: 2.75rem;
+	left:1.25rem;
 
 }
 .seemore {
 	float: right;
-	width: 2.5rem;
+	width: 12.5rem;
 	text-align: right;
-	padding-right: 0.25rem;
-	margin-top: 0.5rem;
+	padding-right: 1.25rem;
+	margin-top: 2.5rem;
 }
 .seemore a{
 	color: #999999;
-	font-size: 0.12rem;
+	font-size: 0.6rem;
 }
 .two{
-	height: 6.25rem;
+	height: 31.25rem;
 }
 .two .ad-wrap{
 	position: relative;
-	width: 2.5rem;
+	width: 33.33%;
 	float: left;
 }
 .two .ad-wrap img{
-	width: 2.5rem;
-	height: 6.25rem;
+	width: 100%;
+	height: 31.25rem;
 }
 .two .li:nth-of-type(1){
-	border-right: 0.01rem solid ;
-	border-color: $color-border;
-	border-bottom:  0.01rem solid ;
+	border-right: 0.05rem solid  $color-border ;
+	border-bottom:  0.05rem solid  $color-border;
 }
 .two .li:nth-of-type(2){
-	border-bottom:  0.01rem solid $color-border;
+	border-bottom:  0.05rem solid $color-border;
 }
 .two .li:nth-of-type(3){
 	
-	border-right:  0.01rem solid $color-border;
+	border-right:  0.05rem solid $color-border;
 }
 .ad-wrap .ad{
 	position: absolute;
-	top: 0.48rem;
-	left: 0.45rem;
+	top: 2.4rem;
+	left: 2.25rem;
 }
 .ad h5{
 	font-weight: 700;
-    font-size: 0.16rem;
+    font-size: 0.8rem;
     color: #FFFFFF;
 }
 .ad h6{
 	font-weight: 400;
-    font-size: 0.12rem;
+    font-size: 0.6rem;
 	color: #FFFFFF;
-	height: 0.3rem;
-	line-height: 0.3rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
 }
 .ad span{
 	font-weight: 700;
-    font-size: 0.12rem;
+    font-size: 0.6rem;
 	color: #FFFFFF;
 	position: relative;
-	top: 0.3rem;
+	top: 1.5rem;
 }
 .w896{
 	float: left;
-	width: 5rem;
+	width: 66.67%;
 }
 .w896 li{
 	float: left;
-	width: 2.5rem;
-	height: 3.125rem;
+	width: 50%;
+	height: 15.625rem;
 	text-align: center;
-	padding-top: 0.3rem;
+	padding-top: 1.5rem;
 }
 .w896 img{
-	width: 1.2rem;
+	width:6rem;
 }
 .w896 h6{
 	color: #333333;
-	font-size: 0.12rem;
+	font-size: 0.6rem;
 }
 .color-newred{
 	color: #ff0000;
-	font-size: 0.12rem;
+	font-size: 0.6rem;
 }
 .w594{
 	float: left;
-	width: 5rem;
-	height: 3.12rem;	
+	width: 66.67%;
+	height: 15.6rem;	
 	position: relative;
 }
 .w594 img{
-	width: 5rem;
-	height: 3.12rem;	
+	width: 100%;
+	height: 15.6rem;	
 
 }
 .w594 .ad{
 	position: absolute;
-	top: 0.45rem;
-	left: 0.4rem;
+	top: 2.25rem;
+	left: 2rem;
 }
 .officeproduct{
 	float: left;
-	width: 2.5rem;
-	height: 3.12rem;	
+	width: 33.33%;
+	height: 15.6rem;	
 	text-align: center;
-	padding-top: 0.2rem;
+	padding-top: 1rem;
 }
 .officeproduct:nth-of-type(2){
-	border-bottom:  0.01rem solid $color-border;
+	border-bottom:  0.05rem solid $color-border;
 }
 .officeproduct:nth-of-type(3){
-	border-right:  0.01rem solid $color-border;
+	border-right:  0.05rem solid $color-border;
 }
 .officeproduct:nth-of-type(4){
-	border-right:  0.01rem solid $color-border;
+	border-right:  0.05rem solid $color-border;
 }
 .officeproduct:nth-of-type(6){
-	border-bottom:  0.01rem solid $color-border;
+	border-bottom:  0.05rem solid $color-border;
 }
 .officeproduct:nth-of-type(7){
-	border-right:  0.01rem solid $color-border;
+	border-right:  0.05rem solid $color-border;
 }
 .officeproduct:nth-of-type(8){
-	border-right:  0.01rem solid $color-border;
+	border-right:  0.05rem solid $color-border;
 }
 .officeproduct img{
-	width: 1.2rem;
+	width: 6rem;
 }
 .officeproduct h6{
 	color: #333333;
-	height: 0.3rem;
-	line-height: 0.3rem;
-	width: 1rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	width: 0.5rem;
 	margin: 0 auto;
 	overflow: hidden;
-	font-size: 0.12rem;
+	font-size: 0.6rem;
 }
 .floorad .yxzc{
 	float: left;
-	width: 3.75rem;
-	height: 3.125rem;
+	width:100%;;
+	height: 15.75rem;
 	position: relative;
 }
 .floorad .yxzc:nth-of-type(1) .zhuozi{
-	border-right:  0.01rem solid $color-border!important;
+	border-right:  0.05rem solid $color-border!important;
 }
 .zhuozi{
-	width: 3.75rem;
-	height: 3.125rem;
+	width: 18.75rem;
+	height: 15.75rem;
 }
 .floorad .ad h5{
-	font-size: 0.16rem;
+	font-size: 0.8rem;
 	color: #333333;
 }
 .floorad .ad p{
-	font-size: 0.12rem;
+	font-size: 0.6rem;
 	color: #333333;
 }
 .floorad .ad span{
-	font-size: 0.12rem;
+	font-size: 0.6rem;
 	color: #333333;
 }
 .peripheryproduct li{
-	width: 7.5rem;
+	width:100%;
 }
 .peripheryproduct img{
-	width: 7.5rem;
-	height: 3rem;
+	width:100%;
+	height: 15rem;
 }
 .homeBottom{
 	background-color: #f0f0f0;
-	height: 3rem;
-	width: 7.5rem;
+	height: 15rem;
+	width:100%;;
 	font-weight: 400;
-	font-size: 0.12rem;
-	padding-top: 0.6rem;
+	font-size: 0.6rem;
+	padding-top: 3rem;
     color: #999999;
     text-align: center;
 }
 .one{
-	width: 7.5rem;
+	width:100%;
 }
 .one li{
 	float: left;
 	width: 33.33%;
 	position: relative;
-	height: 3.21rem;
+	height: 16.05rem;
 	text-align: center;
-	border-top: 0.01rem solid $color-border;
-	border-bottom:0.01rem solid $color-border;
+	border-top: 0.05rem solid $color-border;
+	border-bottom:0.05rem solid $color-border;
 }
 .one li:nth-of-type(2){
-	border-left: 0.01rem solid $color-border;
+	border-left: 0.05rem solid $color-border;
 }
 .one li:nth-of-type(3){
-	border-left: 0.01rem solid $color-border;
+	border-left: 0.05rem solid $color-border;
 }
 .one img{
-	width:1.2rem;
+	width:6rem;
 	margin-top: 0.5rem;
 }
 .one i{
 	position: absolute;
-	top: 0.1rem;
-	background-size: 5rem 5rem;
-	left: 0.1rem;
+	top: 0.5rem;
+	background-size: 25rem 25rem;
+	left: 0.5rem;
 }
 .one h6{
 	word-break: break-all;
 	color: #333333;
-	height: 0.5rem;
+	height: 2.5rem;
 	overflow: hidden;
-	line-height: 0.5rem;
-	padding: 0rem 0.25rem;
+	line-height: 2.5rem;
+	padding: 0rem 1.25rem;
 }
 .one .color-newred{
 	color: #ff0000;
-	height: 0.3rem;
+	height: 1.5rem;
 	overflow: hidden;
 }
 </style>
