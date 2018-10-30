@@ -3,25 +3,24 @@
 			<div class="m_header_bar">
 			<router-link to="/user/address"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">编辑地址</span>
-			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
 		</div>
-	<Form :model="editForm" ref="editForm"  :rules="ruleValidate"  style="background: #fff;"> 
-        <FormItem label="收货人" prop="person">
-            <Input v-model="editForm.person" placeholder="收货人"></Input>
+	<Form :model="editForm" ref="editForm"  :rules="ruleValidate"  class="form_wrap"> 
+        <FormItem  prop="person">
+            <Input v-model="editForm.person" placeholder="收货人姓名"></Input>
         </FormItem>
-        <FormItem label="手机号" prop="phone">
-            <Input v-model="editForm.phone" placeholder="联系电话"></Input>
+        <FormItem  prop="phone">
+            <Input v-model="editForm.phone" placeholder="手机号码"></Input>
         </FormItem>
-        <FormItem label="固定电话" >
-            <Input v-model="editForm.tel" placeholder="固定电话"></Input>
-        </FormItem>
-        <FormItem label="所在地区"  prop="selectedOptionsAddr">
+  
+        <FormItem  prop="selectedOptionsAddr">
         	 <Cascader  v-model="editForm.selectedOptionsAddr" :data="addressOption"></Cascader>
         </FormItem>
-         <FormItem label="详细地址" prop="address">
+         <FormItem prop="address">
             <Input v-model="editForm.address" placeholder="详细地址"></Input>
         </FormItem>
+        
     </Form>
+    <div class="btn-wrap">  <Button  type="primary" @click="addSubmit" long class="btn-red">保存</Button></div>
 	</div>
 </template>
 
@@ -45,9 +44,9 @@
 	                    phone: [
 	                        { required: true, message: '手机号不能为空', trigger: 'change' },
 	                    ],
-                        selectedOptionsAddr: [
-                        { required: true, type: 'array',message: '请选择省市区', trigger: 'blur' }
-                    	],
+	                     selectedOptionsAddr: [
+                        { required: true, type: 'array',message: '请选择省市区', trigger: 'change' }
+                    ],
                     	address:[
 	                        { required: true, message: '详细地址不能为空', trigger: 'blur' },
 	                    ]

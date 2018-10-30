@@ -8,21 +8,18 @@ import qs from 'qs'
 // axios 配置
 axios.defaults.timeout = 5000;
 
-//dev-环境
-axios.defaults.baseURL = '/wap/';
+axios.defaults.baseURL = '/mall/wap/';
 //pro-环境
-//axios.defaults.baseURL = '/mall/wap/';
+//axios.defaults.baseURL = 'http://10.0.0.28/mall/wap/';
 //axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 //axios.defaults.withCredentials=true;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-
         if (store.state.token) {
           config.headers['token'] = store.state.token;
 		  config.headers['loginUserId']=store.state.userId
         }
-
         return config;
     },
     err => {
@@ -33,9 +30,10 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
            	if(response.data.code=='401'){
+           	  console.log( router);
     		router.replace({
                         path: '/login',
-                       query: {redirect: router.currentRoute.fullPath}
+                        query: {redirect: router.currentRoute.fullPath}
                     })
     	}
         return response.data;

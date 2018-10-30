@@ -11,11 +11,11 @@
 			<FormItem label="退款退货订单号" prop="refundOrderNo">
 				<span>{{addForm.refundOrderNo}}</span>
 			</FormItem>
-			<FormItem label="物流单号" prop="expressNo">
-				<Input v-model="addForm.expressNo"  placeholder="物流单号"></Input>
-			</FormItem>
 			<FormItem label="物流公司" prop="logistics">
 				<Input v-model="addForm.logistics "  placeholder="物流公司"></Input>
+			</FormItem>
+			<FormItem label="物流单号" prop="expressNo">
+				<Input v-model="addForm.expressNo"  placeholder="物流单号"></Input>
 			</FormItem>
 			<FormItem>
 				<Button type="primary" @click="handleSubmit('addForm')">提交</Button>
@@ -31,7 +31,7 @@
 				addForm: {
 					refundOrderNo: '',
 					expressNo: '',
-					logistics: [],
+					logistics: '',
 				},
 				ruleValidate: {
 					expressNo: [{

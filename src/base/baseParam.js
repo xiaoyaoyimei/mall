@@ -1,9 +1,9 @@
 let global_={
+		//imgurl:'http://shop-test.dxracer.cn/',
 		imgurl:'//image-shop.dxracer.com.cn/',
-		// imgurl:'http://shop-test.dxracer.cn/',
-		//imgurl:'http://test-shop-img.dxracer.com.cn/',
 		loginName:'',
-		passWord:''
+		passWord:'',
+		originurl:window.location.origin,
 }
 
 export default global_;

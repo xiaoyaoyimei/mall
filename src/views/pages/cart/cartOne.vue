@@ -33,7 +33,7 @@
 				<Row>
 					<Col  class='cartCol' span="24">
 						<Col  span="6" class="center">
-									<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
+							<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
 						</Col>
 						<Col  span="10">
 							<P class='color-dx'>总计：￥{{totalPrice |pricefilter}}</P>
@@ -72,7 +72,7 @@ export default {
             	 spinShow:true,
             	nologin:true,
             	imageSrc:this.global_.imgurl,
-                indeterminate: true,
+                indeterminate: false,
                 checkAll: false,
 				checkAllGroup:[],
 				totalPrice:0,
@@ -93,7 +93,6 @@ export default {
 							   	 }
 								}).then((res)=>{
 									if(res.code=='200'){
-										this.getCartList();
 									}else{
 										 this.$Message.warning(res.object);
 									}
@@ -147,7 +146,7 @@ export default {
 					},
         	getCartList(){
         		if(localStorage.getItem('token')!=undefined){
-			  			this.nologin=false;
+			  		this.nologin=false;
         			this.cartList=[];
         			this.$axios({
 							    method: 'post',
@@ -156,12 +155,14 @@ export default {
 									this.spinShow=false;
 									if(res.code=='200'){
 										this.cartList=res.object;
+										this.handleCheckAll();
 									}
 							});
 					}
         	},
 			edit(){
 				this.editface=!this.editface;
+				this.handleCheckAll();
 			},
 			paymoney(){
 				if(this.checkAllGroup.length<1){

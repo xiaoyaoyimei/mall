@@ -1,141 +1,210 @@
 <template>
 	<div class="user">
-		<div class="user-header">
+		<div class="user-header ">
 			<div class="portrait">
-				<router-link :to="{path: '/login'}"  class="tx" v-if="nologin">
+				<router-link :to="{path: '/login'}" class="tx" v-if="nologin">
 					<img src="../../../assets/img/nologintx.png">
 					<span>登录/注册></span>
 				</router-link>
-				 	<router-link :to="{path: '/user/myinfo'}"  class="tx" v-else> 
-				 		<img :src="userinfo.iconUrl"  v-if="userinfo.iconUrl">	
-				 	    <img src="../../../assets/img/de-tx.jpg" v-else>{{this.userinfo.nickName}}
-				 	</router-link>
+				<div  v-else>
+			<!--	<router-link :to="{path: '/user/myinfo'}" class="tx" >-->
+						<div  class="tx">
+					<img :src="userinfo.iconUrl | imgfilter" v-if="userinfo.iconUrl">
+					<img src="../../../assets/img/de-tx.jpg" v-else>
+					</div>
+			<!--	</router-link>-->
+				<div class="info">
+					<h3>HI {{userinfo.nickName}}</h3>
+					<h4>{{userinfo.customerMobile}}</h4>
+				</div>
 				<span class="shdz">
 					<router-link :to="{path: '/user/setting'}">
-						<img src="../../../assets/img/setting.png"/>
-						设置
+						<img src="../../../assets/img/sz.png"/>
 						</router-link>
 						</span>
+						</div>
 			</div>
-</div>
-   <ul class="order-list">
-   	<router-link :to="{ path: '/user/orderlist'}" tag="li" >
-   		<img src="../../../assets/img/order.png"><span>我的订单</span><Icon type="ios-arrow-forward"></Icon></router-link>
-   		  	<router-link :to="{ path: '/user/rufundlist'}" tag="li" >
-   		<img src="../../../assets/img/a2.png"><span>售后订单</span><Icon type="ios-arrow-forward"></Icon></router-link>
-   	<!--<router-link :to="{ path: '/user/mycoupon' }" tag="li"><img  src="../../../assets/img/a1.png">我的优惠券<i>></i></router-link>
-   		<router-link :to="{ path: '/user/couponcenter' }" tag="li"><img  src="../../../assets/img/a2.png">领券中心<i>></i></router-link>	
-   			<router-link :to="{ path: '/user/mylove' }" tag="li"><img  src="../../../assets/img/a3.png">我的收藏<i>></i></li></router-link>	-->
-   		<!--<li><img  src="../../../assets/img/a4.png">在线客服<Icon type="ios-arrow-forward"></Icon></li>-->
-   		<router-link :to="{ path: '/user/contentus' }" tag="li"><img  src="../../../assets/img/a5.png"><span>联系我们</span><Icon type="ios-arrow-forward"></Icon></router-link>
-   		<router-link :to="{ path: '/user/about' }" tag="li"><img  src="../../../assets/img/a6.png"><span>关于我们</span><Icon type="ios-arrow-forward"></Icon></li></router-link>
-   </ul>
-   </div>
+		</div>
+		<div class="order-more">
+			<h6><label>我的订单</label><router-link :to="{ path: '/user/orderlist'}">查看全部订单></router-link></h6>
+			<ul class="order-status">
+				<router-link :to="{ path: '/user/orderlist',query:{status:'01'} }" tag="li"><img src="../../../assets/img/dfk.png">待付款</router-link>
+					<router-link :to="{ path: '/user/orderlist',query:{status:'05'} }" tag="li"><img src="../../../assets/img/dfh.png">待发货</router-link>
+					<router-link :to="{ path: '/user/orderlist',query:{status:'06'} }" tag="li"><img src="../../../assets/img/dsh.png">已发货</router-link>
+					<router-link :to="{ path: '/user/orderlist',query:{status:'07'} }" tag="li"><img src="../../../assets/img/yqs.png">已签收</router-link>
+			<router-link :to="{ path: '/user/orderlist',query:{status:'04'} }" tag="li"><img src="../../../assets/img/yqx.png">已取消</router-link>
+				<li><img src="../../../assets/img/sh.png">售后</li>
+			</ul>
+		</div>
+		<ul class="dl">
+				<router-link :to="{ path: '/user/mylove' }" tag="li"><img src="../../../assets/img/u2.png"><span>喜欢的商品</span></router-link>
+			<router-link :to="{ path: '/user/myinfo' }" tag="li"><img src="../../../assets/img/u3.png"><span>个人信息</span></router-link>
+			<router-link :to="{ path: '/user/address' }" tag="li"><img src="../../../assets/img/u4.png"><span>收货地址</span></router-link>
+		</ul>
+		<ul class="dl mb50">
+			<router-link :to="{ path: '/user/contentus' }" tag="li"><img src="../../../assets/img/u5.png"><span>联系我们</span></router-link>
+			<router-link :to="{ path: '/user/about' }" tag="li"><img src="../../../assets/img/u6.png"><span>关于我们</span></router-link>
+			<router-link :to="{ path: '/help/yszc' }" tag="li"><img src="../../../assets/img/u7.png"><span>隐私政策</span></router-link>
+			<router-link :to="{ path: '/advice' }" tag="li"><img src="../../../assets/img/u8.png"><span>意见反馈</span></router-link>
+		</ul>
+	</div>
 </template>
 
 <script>
 	export default {
-	    data () {
-	        return {
-	        	nologin:true,
-	        	userinfo:{
-					 iconUrl: '',
-					  },
-	        }
-	      },
-	      methods:{
-	      	getUser(){
-	      		if(localStorage.getItem('token')!=undefined){
-	      			this.nologin=false;
-	      			this.$axios({
-					    method: 'post',
-					    url:'/account',
-					}).then((res)=>{
-							this.userinfo = Object.assign({},res);
+		data() {
+			return {
+				nologin: true,
+				userinfo: {
+					iconUrl: '',
+				},
+			}
+		},
+		methods: {
+			getUser() {
+				if(localStorage.getItem('token') != undefined) {
+					this.nologin = false;
+					this.$axios({
+						method: 'post',
+						url: '/account',
+					}).then((res) => {
+						this.userinfo = Object.assign({}, res);
 					});
-					}else{
-						this.nologin=true;
-					}
-			  }	      
-			 },
-	      mounted(){
-			  this.getUser()
-	      }
-    }
+				} else {
+					this.nologin = true;
+				}
+			}
+		},
+		mounted() {
+			this.getUser()
+		}
+	}
 </script>
 
-<style lang="scss"> 
- /*头部样式*/
-	.user-header a{
-		color:#fff;
+<style lang="scss" scoped="scoped">
+	/*头部样式*/
+	
+	.order-more {
+		background: #fff;
+		h6 {
+			display: flex;
+			border-bottom: 1px solid #eee;
+			margin: 0 1rem;
+			padding-top: 1rem;
+			padding-bottom: 0.5rem;
+			font-weight: normal;
+			align-items: baseline;
+			label {
+				flex: 1;
+				font-size: 2rem;
+				color: #666;
+			}
+			a{
+				font-size: 1.4rem;
+			}
+		}
+	}
+	
+	.order-status {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 1rem 1rem 0 3rem;
+		li {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+			padding: 1rem 2rem;
+			font-size: 1.4rem;
+			img {
+				max-width: 4.5rem;
+				max-height: 4.5rem;
+			}
+		}
+	}
+	
+	.dl {
+		margin-top: 10px;
+		background: #fff;
+		li {
+			height: 5rem;
+			display: flex;
+			align-items: center;
+			border-bottom: 1px solid #eee;
+			margin: 0 1rem;
+			font-size: 2rem;
+			img {
+				max-width: 2.4rem;
+				max-height: 2.4rem;
+				margin-left: 1rem;
+				margin-right: 0.5rem;
+			}
+			span {
+				flex: 1;
+			}
+		}
+	}
+	
+	.info {
+		color: #fff;
+		h3 {
+			font-size: 2rem;
+			font-weight: normal;
+		}
+		h4 {
+			font-size: 1.5rem;
+			font-weight: normal;
+		}
+	}
+	
+	.user {
+		color: #666;
+	}
+	
+	.user-header a {
+		color: #fff;
 		font-size: 1.4rem;
 	}
- .user-header{
- 	background: url(../../../assets/img/bg.png) repeat scroll 0 0 ;
- 	height: 15rem;
- 	position:relative;
- 	.portrait{
- 		padding-left:2rem;
- 		padding-top:2rem;
- 		overflow:hidden;
- 		padding-bottom:3rem;
- 		.tx 
- 		{
- 			line-height: 3.2rem;
- 			img{
-	 			width:6rem;
-	 			border-radius: 6rem;
-	 			float: left;
-	 			margin-right:1.5rem;
-	 			height:6rem;
- 			}
- 		}
- 		.color-white{
- 			color:#fff;
- 			font-size: 1.6rem;
- 		}
- 		.shdz{
- 			float: right;
- 			color:#fff;
- 			margin-right:2rem;
- 			line-height: 2rem;
- 			img{
- 				width:2rem;
- 				float: left;
- 				
- 			}
- 		}
- 	}
- }
-	.myorder {
-	 	overflow: hidden;
-	 	h3{
-	 			background: #fff;
-	 		padding: 1rem ;
-	 		font-weight: normal;
-	 		img{
-	 			width:2rem;
-	 			height: 2rem;
-	 			float: left;
-	 			margin-right: 1.5rem;
-	 		}
-	 	}
-	 	a{
-	 		padding: 1rem 0;
-	 		display: inline-block;
-	 		width:20%;
-	 		float: left;
-	 		text-align: center;
-	 		color:#565656;
-	 		img{
-	 		   width:2.5rem;
-	 		}
-	 	}
-	 	margin-bottom:1rem
+	
+	.user-header {
+		margin-bottom: 10px;
+		background: #f00;
+		height: 15rem;
+		position: relative;
+		.portrait {
+			padding-left: 2rem;
+			padding-top: 4rem;
+			overflow: hidden;
+			padding-bottom: 3rem;
+			position: relative;
+			.tx {
+				line-height: 3.2rem;
+				img {
+					width: 7rem;
+					border-radius: 6rem;
+					float: left;
+					margin-right: 1.5rem;
+					height: 7rem;
+				}
+			}
+			.color-white {
+				color: #fff;
+				font-size: 1.6rem;
+			}
+			.shdz {
+				position: absolute;
+				top: 2rem;
+				right: 0rem;
+				color: #fff;
+				margin-right: 2rem;
+				line-height: 2rem;
+				img {
+					width: 2.5rem;
+				}
+			}
+		}
 	}
-
-	 	.more{
-	 		float: right;
-	 		cursor: pointer;
-	 	}
+	.mb50{
+		margin-bottom: 5rem;
+	}
 </style>

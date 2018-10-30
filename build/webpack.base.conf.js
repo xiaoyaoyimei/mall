@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+const webpack = require('webpack');
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -33,6 +33,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json','.less'],
+    modules: [
+      resolve('src'),
+      resolve('node_modules')
+    ],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
@@ -47,6 +51,14 @@ module.exports = {
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
+//    {
+//      test: /\.js$/,
+//      //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行
+//      loader: 'happypack/loader?id=happyBabel',
+//      include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')],
+//      //排除node_modules 目录下的文件
+//      exclude: /node_modules/
+//    },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -89,5 +101,12 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+     // 添加DllReferencePlugin插件
+     new webpack.DllReferencePlugin({
+       context: path.resolve(__dirname, '..'),
+       manifest: require('./vendor-manifest.json')
+     }),
+  ]
 }

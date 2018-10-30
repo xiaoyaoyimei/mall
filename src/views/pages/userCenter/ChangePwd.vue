@@ -1,21 +1,18 @@
 <template>
 		<div class="order">
 			<div class="m_header_bar">
-				<router-link to="/user/myinfo"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+				<router-link to="/user/setting"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 				<span class="m_header_bar_title">修改密码 </span>
-				<span  @click="handleOk" class="m_header_bar_menu">保存</span>
 			</div>
-				<Form ref="pwd" :model="pwd"  :label-width="100"  :rules="pwdValidate"  class="P15">
-					<FormItem label="新密码:" prop="newpass">
+				<Form ref="pwd" :model="pwd"  :rules="pwdValidate" class="form_wrap">
+					<FormItem  prop="newpass">
 						<i-input v-model="pwd.newpass" placeholder="请输入新密码" type="password"></i-input>
 					</FormItem>
-					<FormItem label="确认密码:" prop="newpassagian">
+					<FormItem  prop="newpassagian">
 						<i-input v-model="pwd.newpassagian" placeholder="请确认新密码" type="password"></i-input>
 					</FormItem>
-					<FormItem>
-					</FormItem>
 				</Form>
-   			 </modal>
+				 <div class="btn-wrap"><Button  type="primary" @click="handleOk" long class="btn-red">保存</Button></div>
 		</div>
 </template>
 
@@ -66,7 +63,4 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-   .P15{
-   	padding: 1.5rem;
-   }
 </style>

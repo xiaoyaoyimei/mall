@@ -9,7 +9,6 @@
 
 				</div>
 			</header>
-
 			<div class="sort">
 				<span class="red">综合</span>
 				<span  v-bind:class="{ active: isActive }">销量</span>

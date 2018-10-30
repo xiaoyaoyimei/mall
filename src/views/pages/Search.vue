@@ -1,4 +1,3 @@
-
 <template>
     <div class="search">
         	 <header class="bg-black ">
@@ -22,17 +21,17 @@
 <script>
     function insertArray(arr, val, maxLen) {
 		const index = arr.indexOf(val)
-		if (index === 0) {
-		    return
+		if(index === 0) {
+			return
 		}
-		if (index > 0) {
-		    arr.splice(index, 1)
+		if(index > 0) {
+			arr.splice(index, 1)
 		}
 		arr.unshift(val)
-		if (maxLen && arr.length > maxLen) {
-		    arr.pop()
+		if(maxLen && arr.length > maxLen) {
+			arr.pop()
 		}
-		}
+	}
 		export default {
         data () {
             return {
@@ -134,11 +133,13 @@
 		background-color:#a21112;
 		font-size: 1.5rem;
 	}
-	.content dl{
+	
+	.content dl {
 		background: #fff;
 		margin-bottom: 1.055rem;
 	}
-	.content dt{
+	
+	.content dt {
 		font-weight: 600;
 		margin-bottom: 0.5rem;
 		font-size: 0.8rem;
@@ -169,11 +170,12 @@
 	.delete-wrap{
 		padding:0.5rem;
 		position: fixed;
-		bottom:0;
+		bottom: 0;
 		width: 100%;
-	    text-align:center;
+		text-align: center;
 	}
-	.delete{
+	
+	.delete {
 		cursor: pointer;
 		background: #fff;
 		border: 1px solid #eee;

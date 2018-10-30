@@ -9,12 +9,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-    	 '/wap': {
-               target: "https://www.dxracer.cn/mall/",
-              //  target: "http://10.0.0.79:8080/mall/",
+    	 '/mall/wap': {
+               target: "http://10.0.0.28:8080/",
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/wap': '/wap'
+                    '^/mall/wap': '/mall/wap'
                 }
             }
     },
@@ -56,7 +55,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

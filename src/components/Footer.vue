@@ -39,6 +39,7 @@
 	width: 25%;
 	text-align: center;
 	font-size: 1.25rem;
+	text-align: center;
 	color: #999999;
 }
 	i{
@@ -46,6 +47,6 @@
 		font-size:4rem
 	}
 	a.router-link-active{
-			color:#ff0000;
+			color:#ff0000
 	}
 </style>

@@ -36,6 +36,7 @@ export default {
   @import '@/styles/color.scss';
 #app {
   font-family: "Microsoft YaHei",'Avenir', Helvetica, Arial, sans-serif;
+  font-family:'microsoft yahei', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #888;
@@ -47,8 +48,42 @@ export default {
     background-attachment: scroll;
     display: inline-block;
     background-size: 50rem 50rem;
+  background: #f0f0f0;
+  color: #666;
 }
 ul,li{
 	list-style: none;
 }
+.ivu-tabs-nav .ivu-tabs-tab-active,.ivu-tabs-nav .ivu-tabs-tab:hover{
+	color:#0099ff
+}
+.ivu-tabs-ink-bar{
+	background:#0099ff
+}
+outline{
+	border: 0 none;
+}
+.ivu-scroll-container{
+		height:calc(100vh - 50px)!important;
+	}
+	    .form_wrap .ivu-form-item{
+        margin-bottom: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left:1rem
+    }
+    .form_wrap >.ivu-form-item:not(:last-child){
+    	 border-bottom: 1px solid #eee;
+    }
+  .form_wrap   .ivu-form-item-error-tip{
+         padding-left:1rem
+    }
+.form_wrap  .ivu-input,.ivu-form-item-error .ivu-input:hover{
+        border-color:#fff;
+        font-size: 1.6rem;
+        transition:0 none;
+    }
+    .form_wrap   .ivu-input:focus{
+        box-shadow:none;
+    }
 </style>

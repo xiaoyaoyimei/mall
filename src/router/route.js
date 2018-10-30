@@ -171,12 +171,6 @@ let routes =  [
 			   		path:'mylove',
 		 		   	component:resolve => require(['@/views/pages/userCenter/MyLove.vue'],resolve)
 				},
-					{
-						meta:{requireAuth:true},
-					name:'myinfo',
-			   		path:'myinfo',
-		 		   	component:resolve => require(['@/views/pages/userCenter/MyInfo.vue'],resolve)
-				},
 				{
 					meta:{requireAuth:true},
 					name:'editnick',
@@ -202,6 +196,19 @@ let routes =  [
 				}	
 			],
 			},
+			{
+				path: '/help',name:'/help',component: resolve => require(['@/container/UFull.vue'], resolve),
+				children:[
+				   		{
+				         	name:'yszc',
+				   			path: 'yszc',
+				 	   		component:resolve => require(['@/views/pages/help/yszc.vue'], resolve),
+				        },
+				        ]
+			},
+					{
+				path: '/advice',name:'/advice',component: resolve => require(['@/views/Advice.vue'], resolve),
+			},
 			 {
             path: '/*',
             component:resolve => require(['@/views/errorPages/404.vue'],resolve)
@@ -211,7 +218,9 @@ if (localStorage.getItem('token')) {
 store.commit('LOGIN',{token: localStorage.getItem('token'),userId:localStorage.getItem('userId')})  
 }  
 const router = new VueRouter({
-    routes
+// mode: 'history',
+  root: '/',
+  routes
 });
 
 router.beforeEach((to, from, next) => {  
