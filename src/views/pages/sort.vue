@@ -299,72 +299,72 @@
 <style lang="scss" scoped="scoped">
 @import '@/styles/color.scss';
 	.bg-black{
-		width: 7.5rem;
-		height: 1.5rem;
+		width: 100%;
+		height: 7.5rem;
 		background-color: #ff0000;
 	}
 	.bg-black .i{
 		vertical-align: middle;
 	}
 	.bg-black div{
-		padding:0.15rem 0.2rem;
+		padding:0.375rem 0.5rem;
 		position: relative;
 	}
 	.bg-black input{
-		width: 5.5rem;
-		height: 0.85rem;
-		border-radius: 0.5rem;
+		width: 25rem;
+		height: 4.2rem;
+		border-radius: 2.1rem;
 		outline: none;
 		text-align: center;
 		box-shadow: none;
-		font-size: 0.48rem;
+		font-size: 2.4rem;
 		position: relative;
-		top: 0.1rem;
+		top: 0.5rem;
 	}
 	.bg-black .search{
 		position: absolute;
-		top: 0.4rem;
-		left: 1.8rem
+		top: 2rem;
+		left: 7rem
 	}
 	.sort{
-		width: 7.5rem;
-		height: 1rem;
+		width: 100%;
+		height: 5rem;
 		background-color: #f0f0f0;
-		padding: 0rem 0.25rem;
+		padding: 0rem 1.25rem;
 	}
 	.sort .red{
 		background-color: #ff0000;
 	}
 	.sort span{
-		margin-right: 0.3rem;
+		margin-right: 0.15rem;
 		display: inline-block;
-		width: 1rem;
-		height: 0.4rem;
+		width: 5rem;
+		height: 2rem;
 		background-color: #909090;
 		color: #ffffff;
 		text-align: center;
-		line-height: 0.4rem;
-		margin-top: 0.32rem;
-		border-radius: 0.3rem;
-		font-size: 0.18rem;
+		line-height: 2rem;
+		margin-top: 1.6rem;
+		border-radius: 1.5rem;
+		font-size: 0.9rem;
 	}
 	.sort .icon-xuanze{
 		float: right;
-		background-size: 5rem 5rem;
-		width:0.45rem;
-		height: 0.45rem;
-		background-position: -1.77rem -2.3rem;
-		margin-top: 0.32rem;
+		background-size: 25rem 25rem;
+		width:2.25rem;
+		height: 2.25rem;
+		background-position: -8.85rem -11.5rem;
+		margin-top: 1.6rem;
 		cursor: pointer;
 	}
 	.mylike{
-		width: 7.5rem;
-		min-height: 7.8rem;
+		width: 100%;;
+		min-height: 78rem;
 	}
 	.mylike li{
 		float: left;
-		width: 3.75rem;
-		padding: 0.25rem;
+		width: 50%;
+		padding: 1.25rem;
 		text-align: center;
 		border-bottom: 1px solid $color-border;
 	}
@@ -372,34 +372,34 @@
 		border-right: 1px solid $color-border;
 	}
 	.mylike li img{
-		width: 2rem;
-		height:2rem;
+		width: 10rem;
+		height:10rem;
 	}
 	.mylike .ptitle{
 		font-weight: 400;
-		font-size: 0.18rem;
+		font-size: 0.9rem;
 		text-align: center;
 		color: #333;
-		height: 0.3rem;
+		height: 1.5rem;
 		overflow: hidden;
 	}
 	.mylike .red{
 		font-weight: 400;
-		font-size: 0.18rem;
+		font-size: 0.9rem;
 		color: #FF0000;
 		text-align: center;
 	}
 	.jiazaicenter{
 		font-weight: 400;
-		height: 2rem;
-		line-height: 2rem;
-		font-size: 0.18rem;
+		height: 10rem;
+		line-height: 10rem;
+		font-size: 0.9rem;
 		color: #999999;
 		text-align: center;
 		background-color: #f0f0f0;
 	}
 	.filterModal{
-		width: 5rem;
+		width: 25rem;
 		position: absolute;
 		top:0rem;
 		right: 0rem;
@@ -407,29 +407,29 @@
 		z-index: 1000000;
 	}
 	.filterModal .wrap{
-		margin-top: 0.05rem;
-		border-bottom: 0.01rem solid $color-border;
-		margin-bottom: 0.3rem;
+		margin-top: 0.25rem;
+		border-bottom: 0.05rem solid $color-border;
+		margin-bottom: 1.5rem;
 	}
 	.zIndex{
 		z-index: -1;
 	}
 	.filterModal .dt{
-		margin-bottom: 0.18rem;
+		margin-bottom: 0.9rem;
 	}
 	.filterModal .dd{
-		margin-bottom: 0.1rem;
-		margin-right: 0.1rem;
+		margin-bottom: 0.5rem;
+		margin-right: 0.5rem;
 	}
 	.dd span{
 		float: left;
-		width:2.5rem;
+		width:12.5rem;
 		text-align: center;
-		margin-bottom: 0.1rem;
-		margin-right: 0.1rem;
-		height: 0.5rem;
-		line-height: 0.5rem;
-		font-size: 0.15rem;
+		margin-bottom: 0.5rem;
+		margin-right: 0.5rem;
+		height: 2.5rem;
+		line-height: 2.5rem;
+		font-size:0.75rem;
 	}
 	.wrap .active{
 		background-color: #fcd1d1;
@@ -438,19 +438,19 @@
 		text-align: center;
 	}
 	.filterModal .foot button{
-		width: 1.5rem;
-		height: 0.5rem;
-		line-height: 0.2rem;
+		width: 7.5rem;
+		height: 2.5rem;
+		line-height: 1rem;
 	}
 </style>
 <style>
 .new .ivu-scroll-container{
-	height: 10rem!important;
-	margin-bottom: 1.6rem;
+	height: 100rem!important;
+	margin-bottom: 8rem;
 	z-index: 10;
 }
  .filterModal .ivu-modal{
-	 width: 6rem!important;
+	 width: 30rem!important;
 	 right:0rem;
 	 top: 0rem;
 	 margin: 0rem;
@@ -465,6 +465,6 @@
 	 color: #999999;
  }
  .filterModal .ivu-modal-wrap{
-	 left:1.5rem!important;
+	 left:7.5rem!important;
  }
 </style>

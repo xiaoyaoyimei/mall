@@ -12,7 +12,7 @@
 				<dl class="hot">
 					<dt>热搜</dt>
 					<dd  @click='gosort("电竞椅")'>电竞椅</dd></dl>
-				<dl class="history"><dt>历史搜索 <Icon @click='clear()' style="float:right;font-size:0.4rem;" type="ios-trash-outline"></Icon></dt>
+				<dl class="history"><dt>历史搜索 <Icon @click='clear()' style="float:right;font-size:2rem!important;" type="ios-trash-outline"></Icon></dt>
 					<dd  v-for="(item,index) in arr" :key="index" @click='gosort(item)'>{{item}}</dd>
 				</dl>
 			</div>
@@ -93,80 +93,82 @@
 </script>
 <style lang="scss" scoped="scoped">
 	.bg-black{
-		width: 7.5rem;
-		height: 1.5rem;
+		width: 100%;;
+		height: 7.5rem;
 		background-color: #ff0000;
 	}
 	.bg-black .i{
 		vertical-align: middle;
 	}
 	.bg-black div{
-		padding:0.15rem 0.2rem;
+		padding:0.75rem 1rem;
 		position: relative;
 	}
 	.bg-black input{
-		width: 6rem;
-		height: 0.85rem;
-		border-radius: 0.5rem;
+		width: 27rem;
+		height: 4.25rem;
+		border-radius: 2.5rem;
 		outline: none;
 		box-shadow: none;
 		font-weight: 400;
 		font-style: normal;
-		font-size: 0.3rem;
+		font-size: 1.5rem;
 		color: rgba(153, 153, 153, 0.498039215686275);
 		text-align: left;
 		position: relative;
-		top: 0.1rem;
-		padding-left: 0.30rem;
+		top: 0.5rem;
+		padding-left: 1.5rem;
 	}
 	.bg-black .gosearch{
 		position: absolute;
-		top: 0.25rem;
-		right: 0.5rem;
-		width: 1.5rem;
-		height: 0.85rem;
-		border-bottom-right-radius: 0.5rem;
-		border-top-right-radius: 0.5rem;
-		line-height: 0.85rem;
+		top: 1.25rem;
+		right: 2.5rem;
+		width: 7.5rem;
+		height: 4.25rem;
+		border-bottom-right-radius: 2.5rem;
+		border-top-right-radius: 2.5rem;
+		line-height: 4.25rem;
 		color: #ffffff;
 		text-align: center;
 		background-color:#a21112;
-		font-size: 0.3rem;
+		font-size: 1.5rem;
 	}
 	
 	.content dl {
 		background: #fff;
-		margin-bottom: 0.21rem;
+		margin-bottom: 1.055rem;
 	}
 	
 	.content dt {
 		font-weight: 600;
-		margin-bottom: 0.1rem;
-		font-size: 0.16rem;
+		margin-bottom: 0.5rem;
+		font-size: 0.8rem;
 		color:#333;
 	}
 	.hot{
-		padding: 0.3rem;
+		padding: 1.5rem;
 	}
 	.hot dd{
-		font-size: 0.12rem;
+		font-size: 0.6rem;
 		background: #f6f6f6;
 		display: inline-block;
-		padding: 0.1rem 0.25rem;
-		border-radius: 0.05rem;
-		margin-right: 0.05rem;
+		padding: 0.5rem 1.25rem;
+		border-radius: 0.25rem;
+		margin-right: 0.25rem;
 	}
 	.history{
-		margin: 0rem 0.3rem;
+		margin: 0rem 1.5rem;
 		dt{
 			border-bottom: 1px solid #eee;
-			padding: 0.25rem 0.1rem;
+			padding: 1.25rem 0.5rem;
 		}
-		dd {
-			padding:  0.1rem 0.2rem;
+		dd{
+			cursor: pointer;
+			padding:  0.5rem 1rem;
 		}
 	}
 	.delete-wrap{
+		padding:0.5rem;
 		position: fixed;
 		bottom: 0;
 		width: 100%;
@@ -177,12 +179,12 @@
 		cursor: pointer;
 		background: #fff;
 		border: 1px solid #eee;
-		padding: 0.05rem;
-		font-size: 0.14rem;
+		padding: 0.25rem;
+		font-size: 0.7rem;
 	
 	}
 	.delete i{
-		margin-right: 0.1rem;
+		margin-right: 0.5rem;
 	}
 
 </style>

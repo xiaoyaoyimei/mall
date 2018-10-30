@@ -27,20 +27,24 @@
 	left: 0rem;
     background-color: #ffffff;
     color: #999999;
-	height: 1.4rem;
-	width: 7.5rem;
-	padding: 0.1rem 0rem;
+	height: 7rem;
+	width: 100%;
+	padding: 0.5rem 0rem;
 	border-top: 1px solid #cccccc;
-	box-shadow: -0.02rem 0px 0px 0px #1b1b1b;
+	box-shadow: -0.1rem 0px 0px 0px #1b1b1b;
 	z-index: 100;
 }
 .nav{
 	float: left;
+	width: 25%;
+	text-align: center;
+	font-size: 1.25rem;
 	text-align: center;
 	color: #999999;
 }
 	i{
 		display: block;
+		font-size:4rem
 	}
 	a.router-link-active{
 			color:#ff0000

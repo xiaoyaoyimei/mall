@@ -35,11 +35,20 @@ export default {
 <style lang="scss" >
   @import '@/styles/color.scss';
 #app {
+  font-family: "Microsoft YaHei",'Avenir', Helvetica, Arial, sans-serif;
   font-family:'microsoft yahei', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #888;
   height:100vh;
-  background: #f0f0f0;
+}
+.icon{
+    background-image: url(./assets/img/icon.png);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    display: inline-block;
+    background-size: 50rem 50rem;
+  /*background: #f0f0f0;*/
   color: #666;
 }
 ul,li{
