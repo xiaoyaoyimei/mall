@@ -102,15 +102,37 @@
 
 				</div>
 		</div>
-		<Modal class="filterModal" 	v-model="cartModal" 	title="选择规格" >
+		<Modal class="cartModal" 	v-model="cartModal" 	title="选择规格" >
+			<div class="imgdetail">
+				<img :src="ImgUrl |imgfilter" alt="">
+				<div class="xinxi">
+					<span class="red" v-if="choosesp.price==0">￥{{shangp.product.salePrice | pricefilter}}</span>
+					<span class="red" v-else> 
+					<span v-if="cxshow">
+					<span class="color-red red">￥{{choosesp.cuxiaoprice | pricefilter}} </span>
+					<label class="color-origin red">￥{{choosesp.price | pricefilter}}</label>
+					</span>
+					<span class="red" v-else>￥{{choosesp.price | pricefilter}}</span>
+					</span>
+					<span v-show="!xiajia">
+					库存: {{choosesp.kucun}}件
+					</span>
+					<span class="prf10">已选：{{shangp.product.modelNo}} </span>
+					<div v-if="xiajia" class="xiajia">
+						<Icon type="information-circled">
+						</Icon>该商品已下架
+					</div>
+				</div>
+
+			</div>
 			<div class="summary">
 
 					<dl v-if="choosesp.activityName!=null&&choosesp.activityName!=''"><dt><em class="act">{{choosesp.activityName}}</em></dt>
 						<dd class="color-black">{{choosesp.activityName}} </dd>
 					</dl>
-					<dl class="noborder" v-for="(item, i) in shangp.productAttrList" :key="i">
+					<dl class="noborde clerafix" v-for="(item, i) in shangp.productAttrList" :key="i">
 						<dt>{{item.attrKey.catalogAttrValue}}</dt>
-						<dd>
+						<dd style="overflow: hidden;">
 							<ul class="color-sel clerafix">
 								<li :class="choosesp.kucun==0?'disabled':'abled'" v-for="(child, index) in item.attrValues" :key="index" @click="chooseSP($event,item)" >
 									<span v-bind:class="item.attrValues.length==1?'active':''" :titleid="child.id" ref="dditem">
@@ -120,17 +142,10 @@
 							</ul>
 						</dd>
 					</dl>
-					<dl class="dl-base"><dt>数    &nbsp;&nbsp; &nbsp;&nbsp; 量</dt>
+					<dl class="dl-base clearfix"><dt>购买数量</dt>
 						<dd>
 							<div class="number">
-								<input value="1" type="text" v-model="quantity"><i class="icon-new icon-add" @click="jia"></i><i class="icon-new icon-minus" @click="jian"></i></div>
-							<span v-show="!xiajia">
-						 	库存: {{choosesp.kucun}}件
-							</span>
-							<div v-if="xiajia" class="xiajia">
-								<Icon type="information-circled">
-								</Icon>该商品已下架
-							</div>
+								<Icon type="ios-add" class="ios-add"  @click="jia"/><input value="1" type="text" v-model="quantity"><Icon type="ios-remove" class="ios-remove" @click="jian"/></div>
 						</dd>
 					</dl>
 				</div> 
@@ -145,8 +160,8 @@
 		<div class="detailfooter">
 			<router-link class="nav" :to="{ path: '/index' }"> <Icon type="ios-home" /> </router-link>
 			<router-link class="nav" :to="{ path: '/cart' }"> <Icon type="ios-cart"  /></router-link>
-			<button class="nav " @click="cartmodal()" style="background-color:#f69136"> 加入购物车</button>
-			<button class="nav" style="background-color:#f2191a"> 立即下单 </button>
+			<button class="nav " @click="cartmodal()" style="background-color:#ff0000"> 点击购买</button>
+
 		</div>	
 	</div>
 </template>
@@ -787,7 +802,7 @@
 .huodongtitle{
 	width: 4rem;
 	font-weight: 400;
-	font-size: 0.9rem;
+	font-size: 1.6rem;
 	color: #999999;
 	margin-top: 1rem;
 }
@@ -798,9 +813,9 @@
 .huodonglist p{
 	margin-bottom: 1rem;
 	font-weight: 400;
-	font-size: 0.9rem;
+	font-size:1.6rem;
 	color: #333333;
-	height: 1.5rem;
+	height: 2.5rem;
 	overflow: hidden;
 }
 .huodonglist .red{
@@ -815,9 +830,9 @@
 .fuwu span{
 	margin-left: 0.75rem;
 	color: #333333;
-	    font-family: '微软雅黑';
+	font-family: '微软雅黑';
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 1.6rem;
 }
 .fuwu .gray{
 	color: #999999;
@@ -836,7 +851,7 @@
 	float: left;
 	width:33.33%;
 	font-weight: 400;
-	font-size: 0.9rem;
+	font-size: 1.8rem;
 	color: #999999;
 	height: 5rem;
 	line-height: 5rem;
@@ -857,14 +872,14 @@
 	left: 0rem;
 	bottom: 0rem;
 	z-index: 1000;
-		border-top: 1px solid $color-border;
+	border-top: 1px solid $color-border;
 	box-shadow: -0.2rem 0px 0px 0px #1b1b1b;
 	background-color: #fff;
 	// padding: 0.3rem 0rem;
 }
 .nav{
 	float: left;
-	width: 6rem;
+	width: 25%;
 	text-align: center;
 	font-size: 1.8rem;
 	color: #999999;
@@ -872,13 +887,13 @@
 	
 }
 button.nav{
-	width: 11.25rem;
+	width: 50%;
 	display: inline-block;
 	background-color: #fff;
 	height: 7rem;
 	border: none;
 	font-weight: 400;
-	font-size:1.2rem;
+	font-size:1.8rem;
 	color: #FFFFFF;
 }
 i{
@@ -927,18 +942,17 @@ i{
 	line-height: 3.5rem;
 	border-bottom:0.05rem solid $color-border; 
 }
-.allimg{
-	
+.noborder{
+	border-top: 1px solid $color-border;
 }
-
-
-
-
-
 .noborder dt{
 	font-weight: 400;
 	font-size: 2.4px;
 	margin-bottom: 0.5rem;
+}
+.color-sel{
+	margin-top: 1rem;
+	
 }
 .color-sel li{
 	float: left;
@@ -946,11 +960,14 @@ i{
 	margin-bottom: 0.5rem;
 	margin-right: 10%;
 	text-align: center;
-	border: 1px solid $color-border;
+	// 
 }
 .color-sel li span{
 	display: block;
 	width: 100%;
+	border: 1px solid $color-border;
+	height: 3rem;
+	line-height: 3rem;
 }
 .color-sel li img{
 	width: 4rem;
@@ -958,5 +975,111 @@ i{
 }
 .color-sel .active{
 	border: 1px solid $color-border-red;
+	background-color: #FF0000;
+	color: #FFFFFF;
+	border-radius: 0.5rem;
 }
+.cartModal .dl-base{
+	margin-top: 2rem;
+	padding-top:2rem;
+	border-top: 1px solid  $color-border;
+}
+.dl-base dt{
+	float: left;
+	width: 6.5rem;
+	font-size: 1.6rem;
+	line-height: 5rem;
+	height: 5rem;
+}
+.dl-base dd{
+	float: right;
+	width: 19rem;
+
+}
+.number input{
+	width: 7rem;
+	height: 5rem;
+	line-height: 5rem;
+	border: 1px solid $color-border;
+	text-align: center;
+}
+.number .ios-add{
+	float: left;
+	width: 6rem;
+	line-height: 5rem;
+	height: 5rem;
+	background-color: #f0f0f0;
+	text-align: center;
+}
+.number .ios-remove{
+	float: right;
+	line-height: 5rem;
+	height: 5rem;
+	width: 6rem;
+	background-color: #f0f0f0;
+	text-align: center;
+}
+.imgdetail{
+	width: 23rem;
+	height: 10rem;
+	position: relative;
+	margin-bottom: 2rem;
+}
+.imgdetail img{
+	width: 10rem;
+	vertical-align: middle;
+}
+.imgdetail .xinxi {
+	// display: inline;
+	float: right;
+	width: 13rem;
+}
+.xinxi span{
+	display: block;
+	width: 13rem;
+	font-weight: 400;
+    font-size: 1.6rem;
+    color: #999999;
+}
+.xinxi .red{
+	font-weight: 700;
+    font-size: 2rem;
+    color: #FF0000;
+}
+.opt{
+	margin-top: 8rem;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 2rem;
+
+}
+.opt button{
+	width: 49%;
+	height: 4rem;
+	line-height: 4rem;
+	border: none;
+}
+.btn-cart{
+	background-color: #f69136;
+	color: #fff;
+}
+.btn-xorder{
+	background-color: #FF0000;
+	color: #fff;
+}
+.cartModal{
+	width: 100%;
+}
+</style>
+<style>
+.cartModal .ivu-modal{
+	position: fixed;
+	left: 0rem;
+	bottom: 0rem;
+	width: 100%!important;
+	margin: 0px;
+}
+ .cartModal .ivu-modal-footer{
+	 display:none!important;
+ }
 </style>

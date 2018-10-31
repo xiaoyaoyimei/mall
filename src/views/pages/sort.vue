@@ -67,7 +67,7 @@
 					<span @click="getList('brand','',-1)" :class="{active: '-1' == brandindex}">全部</span>
 					<span v-for="(item,index) in brand" @click="getList('brand',item.id,index)" :class="{active: index == brandindex}">{{item.brandName}}</span></div>
 			</div> 
-				<div class="foot" slot="footer">
+				<div class="Hfoot" slot="footer">
 				<Button   @click="reset">重置</Button>
 				<Button  class="bg-dx" type="error"  @click="ok">搜索</Button>
 			</div>
@@ -311,7 +311,8 @@
 		position: relative;
 	}
 	.bg-black input{
-		width: 25rem;
+		width: 80%;
+		// width: 25rem;
 		height: 4.2rem;
 		border-radius: 2.1rem;
 		outline: none;
@@ -338,15 +339,15 @@
 	.sort span{
 		margin-right: 0.15rem;
 		display: inline-block;
-		width: 5rem;
-		height: 2rem;
+		width: 6rem;
+		height: 2.5rem;
 		background-color: #909090;
 		color: #ffffff;
 		text-align: center;
-		line-height: 2rem;
+		line-height: 2.5rem;
 		margin-top: 1.6rem;
 		border-radius: 1.5rem;
-		font-size: 0.9rem;
+		font-size: 1.8rem;
 	}
 	.sort .icon-xuanze{
 		float: right;
@@ -377,15 +378,15 @@
 	}
 	.mylike .ptitle{
 		font-weight: 400;
-		font-size: 0.9rem;
+		font-size: 1.8rem;
 		text-align: center;
 		color: #333;
-		height: 1.5rem;
+		height: 2.5rem;
 		overflow: hidden;
 	}
 	.mylike .red{
 		font-weight: 400;
-		font-size: 0.9rem;
+		font-size: 1.8rem;
 		color: #FF0000;
 		text-align: center;
 	}
@@ -393,13 +394,13 @@
 		font-weight: 400;
 		height: 10rem;
 		line-height: 10rem;
-		font-size: 0.9rem;
+		font-size: 1.8rem;
 		color: #999999;
 		text-align: center;
 		background-color: #f0f0f0;
 	}
 	.filterModal{
-		width: 25rem;
+		width: 80%;
 		position: absolute;
 		top:0rem;
 		right: 0rem;
@@ -423,21 +424,22 @@
 	}
 	.dd span{
 		float: left;
-		width:12.5rem;
+		width:49%;
 		text-align: center;
 		margin-bottom: 0.5rem;
-		margin-right: 0.5rem;
+		margin-right:1%;
+		overflow: hidden;
 		height: 2.5rem;
 		line-height: 2.5rem;
-		font-size:0.75rem;
+		font-size:1.5rem;
 	}
 	.wrap .active{
 		background-color: #fcd1d1;
 	}
-	.filterModal .foot{
+	.filterModal .Hfoot{
 		text-align: center;
 	}
-	.filterModal .foot button{
+	.filterModal .Hfoot button{
 		width: 7.5rem;
 		height: 2.5rem;
 		line-height: 1rem;
@@ -450,7 +452,7 @@
 	z-index: 10;
 }
  .filterModal .ivu-modal{
-	 width: 30rem!important;
+	 width: 100%!important;
 	 right:0rem;
 	 top: 0rem;
 	 margin: 0rem;

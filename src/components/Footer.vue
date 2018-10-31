@@ -27,7 +27,6 @@
 	left: 0rem;
     background-color: #ffffff;
     color: #999999;
-	height: 7rem;
 	width: 100%;
 	padding: 0.5rem 0rem;
 	border-top: 1px solid #cccccc;
