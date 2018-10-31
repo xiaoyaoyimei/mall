@@ -1,6 +1,6 @@
 <template>
 	<div class='cart1'>
-		<div class="m_header_bar">
+		<div class="m_header_bar bg-red">
 			<router-link to="/sort"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">购物车</span>
 			<span  @click="edit" v-show="editface" class="m_header_bar_menu" v-if="cartList.length>0">编辑</span>
@@ -12,8 +12,9 @@
 		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
         			<Col class='cartcheckbok' span="2">
         			<Checkbox  :label="index" :key="index"></Checkbox></Col>
-					<Col span="4" ><img class='cartImg' :src="imageSrc+x.image"></Col>
-					<Col span="18">
+					<Col span="6" ><img class='cartImg' :src="imageSrc+x.image"></Col>
+					<Col span="16">
+						<p class='cart_black'>{{x.itemNo}}</p>
 						<p class='cart_black'>{{x.productName}}</p>
 						<p class='cart_gray'>{{x.productAttr}}</p>
 						<p><label v-if="x.promotionTitle !=null" class="promotion">{{x.promotionTitle}}</label></p>
@@ -31,14 +32,14 @@
 		</Row>
 			<div class='cartfoot'>
 				<Row>
-					<Col  class='cartCol' span="24">
+					<Col   span="24">
 						<Col  span="6" class="center">
 							<Checkbox :indeterminate="indeterminate"  :value="checkAll"   @click.prevent.native="handleCheckAll">全选</Checkbox>
 						</Col>
-						<Col  span="10">
+						<Col  span="12">
 							<P class='color-dx'>总计：￥{{totalPrice |pricefilter}}</P>
 						</Col>
-						<Col class='cartButton1' span="8">
+						<Col class='cartButton1' span="6">
 							<button class='cartButton'  @click="paymoney"  v-show="editface">
 								结算({{zslcount}})
 							</button>
@@ -189,7 +190,6 @@ export default {
 				});
 
 				  this.$Modal.confirm({
-                    title: '删除提示',
                     content: '<p><strong>确定要删除这'+length+'种商品？</strong></p>',
                     cancelText: '取消',
                      onOk: () => {
@@ -204,9 +204,6 @@ export default {
 									}
 							});
                     },
-                    onCancel: () => {
-                        this.$Message.info('取消成功');
-                    }
                 });
 
 			},
@@ -261,8 +258,6 @@ export default {
 
 <style  lang="scss"  scoped="scoped">
 .P15{
-	padding:0 10px 15px;
-		background-color:#fff;
 			font-size: 1.6rem;
 }
 	.cart1{
@@ -271,7 +266,11 @@ export default {
 			text-align: center;
 		}
 		.cartCol{
-		
+			padding: 1rem;
+			background-color:#fff;
+		  border-top: 1px solid #eee;
+		  border-bottom: 1px solid #eee;
+		  margin-top:1rem;
 			.cartcheckbok{
 				padding-left: 0.5rem;
 				height:16px;
@@ -289,14 +288,12 @@ export default {
 			}
 			.cartImg{
 				max-width:100%;
-				padding-top:1.5rem;
 			}
 			.cart_black{
-				color:#565656;
+				color:#333;
 				text-align: left;
 			    box-sizing: border-box;
 			    font-size: 1.6rem;
-			    padding-top: 1.5rem;
 			    text-overflow: ellipsis;
 			    white-space: nowrap;
 			    overflow: hidden;
@@ -309,10 +306,10 @@ export default {
 			}
 			.cart_price{
 		    margin-top:5px;
-				color:#0099ff;
+				color:#ff0000;
+				font-weight: bold;
 			}
 			.color-dx{
-				color:#0099ff;
 				text-align:left;
 			}
 			.cartButton1{
@@ -344,14 +341,23 @@ export default {
 				height: 4.9rem;
 				line-height:4.9rem;
 				z-index: 31;
-				bottom:5rem;
+				bottom:4.9rem;
 				left: 0;
 				width: 100%;
 				font-size: 1.6rem;
 		}
 		.cartButton{
+				background: #ff0000;
+		}
+		.btn-del{
+			background:#333
+		}
+		.cartButton,.btn-del{
 			color:#fff;
-			background: #0099ff;
+		
+			border: 0 none;
+			padding: 0 1.5rem;
+			width: 100%;
 		}
 	}
 	.cart-empty {
@@ -362,7 +368,7 @@ export default {
 		max-width:8rem;
 		}
 		a{
-			color:#0099ff;
+			color:#ff0000;
 			margin-left: 1.5rem;
 			text-decoration: underline;
 		}

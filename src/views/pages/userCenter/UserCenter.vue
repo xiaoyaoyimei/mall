@@ -33,12 +33,12 @@
 					<router-link :to="{ path: '/user/orderlist',query:{status:'06'} }" tag="li"><img src="../../../assets/img/dsh.png">已发货</router-link>
 					<router-link :to="{ path: '/user/orderlist',query:{status:'07'} }" tag="li"><img src="../../../assets/img/yqs.png">已签收</router-link>
 		<!--	<router-link :to="{ path: '/user/orderlist',query:{status:'04'} }" tag="li"><img src="../../../assets/img/yqx.png">已取消</router-link>-->
-				<li><img src="../../../assets/img/sh.png">售后</li>
+					<router-link :to="{ path: '/user/aftersales'}" tag="li"><img src="../../../assets/img/sh.png">售后</router-link>
 			</ul>
 		</div>
 		<ul class="dl">
 				<router-link :to="{ path: '/user/mylove' }" tag="li"><img src="../../../assets/img/u2.png"><span>喜欢的商品</span></router-link>
-			<router-link :to="{ path: '/user/myinfo' }" tag="li"><img src="../../../assets/img/u3.png"><span>个人信息</span></router-link>
+			<router-link :to="{ path: '/user/setting' }" tag="li"><img src="../../../assets/img/u3.png"><span>个人信息</span></router-link>
 			<router-link :to="{ path: '/user/address' }" tag="li"><img src="../../../assets/img/u4.png"><span>收货地址</span></router-link>
 		</ul>
 		<ul class="dl mb50">
@@ -114,7 +114,7 @@
 			justify-content: center;
 			flex-direction: column;
 			align-items: center;
-			padding: 1rem;
+			padding: 1rem 0.5rem;
 			font-size: 1.4rem;
 			img {
 				max-width: 4.5rem;

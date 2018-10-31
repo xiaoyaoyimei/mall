@@ -109,12 +109,27 @@ $color-black:#111;
     border: 0 none;
     height: 26px;
 }
+.address{
+    border-bottom: 1px solid $color-border;
+}
 
 .address li {
+    img{
+       width:3.2rem;
+       height: 3.2rem;
+    }
     display: flex;
     background: #fff;
-    padding: 1rem;
+    padding: 1rem 2.5rem 1rem 1rem;
     cursor: pointer;
+    align-items: center;
+    label{
+        float: right;
+    }
+    i{
+        position: absolute;
+        right: 1.5rem;
+    }
 }
 
 .address p {
@@ -257,12 +272,6 @@ $color-black:#111;
     to {
         transform: rotate(360deg);
     }
-}
-
-.ivu-icon-ios-arrow-back {
-    font-size: 2.8rem;
-    position: relative;
-    top: 0.5rem;
 }
 
 input,
@@ -466,6 +475,7 @@ textarea {
 
 .bg-red .ivu-icon-ios-arrow-back {
     color: #fff;
+    font-size: 2.4rem;
 }
 
 .m_header_bar {
@@ -476,6 +486,7 @@ textarea {
     cursor: pointer;
     width: 100%;
     .m_header_bar_back {
+        font-size: 2.4rem;
         position: absolute;
         top: 0;
         display: block;
@@ -694,6 +705,7 @@ textarea {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: inline-block;
 }
 .xq {
     margin-right: 1rem;
@@ -845,4 +857,51 @@ textarea {
 }
 .btn-wrap{
     margin:3rem 3rem 0;
+}
+//home+sort 顶部搜索
+    .search-wrap {
+         padding-top: 1rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        position: relative;
+        display: flex;
+        img {
+            width: 3rem;
+            height: 3rem;
+            margin-right: 1rem
+        }
+        i:first-child{
+            font-size: 2.4rem;
+          color: #fff;
+          position: relative;
+          left: 0;
+          top: 0.5rem;
+          margin-right: 1rem;
+        }
+          i:last-child{ 
+               font-size: 2.4rem;
+                color: #999; position: absolute;
+            left: 40%;
+            top: 1.5rem;}
+         input {
+        height: 3rem;
+        border-radius: 1rem;
+        outline: none;
+        text-align: center;
+        box-shadow: none;
+        font-size: 2rem;
+        border: 0 none;
+        flex: 1;
+    }
+    }
+.bg-black {
+        width: 100%;
+        height: 4.9rem;
+        background-color: #ff0000;
+    }
+    
+.btn-red-small{
+    background: #FF0000;
+    color: #FFF;
+    border: 1px solid red;
 }

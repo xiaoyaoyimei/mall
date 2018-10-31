@@ -9,7 +9,14 @@
 		</div>
 		<div class="detail">
 			<div class="status">
-				{{statusfilter(orderdetail.shippingOrder.orderStatus)}}</div>
+				<div v-if="orderdetail.shippingOrder.orderStatus=='01'">
+					<p>等待买家付款</p>
+					<p class="font-14">订单将在<strong>30分钟后</strong>自动关闭,请及时付款~</p>
+				</div>
+				<div v-else>
+					{{statusfilter(orderdetail.shippingOrder.orderStatus)}}
+				</div>
+			</div>
 			<div class="order-detail-wrap">
 				<p class="color-black">订单编号:{{orderdetail.shippingOrder.orderNo}}</p>
 				<p class="color-gray">下单时间:{{orderdetail.shippingOrder.createTime | formatDate}}</p>
@@ -49,8 +56,9 @@
 					<!--<span v-if="orderdetail.shippingOrder.receiveTime!=''">签收时间：{{orderdetail.shippingOrder.receiveTime | formatDate}}</span>-->
 					<li><span class="t">收&nbsp;&nbsp;票&nbsp;&nbsp;人:</span><span class="s">{{orderdetail.shippingInvoice.receivePerson}}</span></li>
 					<li><span class="t">发票抬头:</span><span class="s">{{orderdetail.shippingInvoice.invoiceTitle}}</span></li>
-					<li><span class="mb10 clearfix pb15 t">发票类型:</span><span class="s">{{orderdetail.shippingInvoice.invoiceType}} </span><span v-if="orderdetail.shippingOrder.orderStatus!='04'">
-		   			<router-link class="btn btn-dx btn-invoice" 
+					<li><span class="t">发票类型:</span><span class="s">{{orderdetail.shippingInvoice.invoiceType}} </span>
+						<span v-if="orderdetail.shippingOrder.orderStatus!='04'" class="btn-invoice">
+		   			<router-link 
 		   				:to="{ name: '/addInvoice',
 		   				query:{orderNo:orderdetail.shippingOrder.orderNo},
 		   				params:{shippingInvoice:orderdetail.shippingInvoice} }" v-if="orderdetail.shippingInvoice==''||orderdetail.shippingInvoice.invoiceStatus=='created'">
@@ -68,7 +76,7 @@
 		</div>
 		<div class="fixbottom" v-show="orderdetail.shippingOrder.orderStatus=='01'||orderdetail.shippingOrder.orderStatus=='02'">
 			<button class="btn-white" @click="cancel()">取消订单</button>
-			<button class="btn-red" @click="quzhifu()" v-show="orderdetail.shippingOrder.orderStatus=='01'">去支付</button>
+			<button class="btn-red-small" @click="quzhifu()" v-show="orderdetail.shippingOrder.orderStatus=='01'">立即付款</button>
 		</div>
 	</div>
 </template>
@@ -172,32 +180,32 @@
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		padding: 0.9rem 0;
 		box-sizing: content-box;
-		height: 3.2rem;
+		height: 4.9rem;
 		background: #fff;
 		text-align: right;
-		border-top: 1px solid #0099ff;
 		button {
 			height: 3.2rem;
 			margin-right: 1rem;
 			padding: 0 0.8rem;
 			cursor: pointer;
+			margin-top: 8px;
 		}
 		.btn-white {
 			background: #fff;
 			border: 1px solid #eee;
 		}
-		.btn-red {
-			background: #0099ff;
-			border: 1px solid #0099ff;
+		.btn-red-small{
+			background: #f00;
+			border: 1px solid #f00;
 			color: #fff;
 		}
 	}
 	
 	.detail {
-		margin-bottom: 5rem;
+		padding-bottom: 10rem;
 		font-size: 1.4rem;
+		background: #f0f0f0;
 	}
 	
 	.spitem {
@@ -235,6 +243,7 @@
 		h6 {
 			font-size: 1.6rem;
 			margin-bottom: 1rem;
+			padding-top: 1rem;
 		}
 		.sp {
 			font-size: 1.4rem;
@@ -245,6 +254,7 @@
 				}
 				.t {
 					margin-right: 1rem;
+					width:6rem
 				}
 			}
 		}
@@ -256,25 +266,16 @@
 		font-weight: bold;
 	}
 	
-	.pb15 {
-		padding-bottom: 15px;
-	}
 	
-	.mb10 {
-		margin-bottom: 10px;
-	}
-	
-	.btn-invoice {
+	.btn-invoice a{
 		float: right;
+		color:#f00
 	}
 	
-	.btn-invoice:hover {
-		color: #fff;
-	}
 	
 	.status {
 		background: #f00;
-		height: 7rem;
+		height: 8rem;
 		color: #fff;
 		font-size: 1.6rem;
 		padding-top: 2rem;

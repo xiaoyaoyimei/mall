@@ -2,11 +2,10 @@
 	<div class="new">
 		<div class="selector  mt20 main-wdith">
 			<header class="bg-black ">
-				<div>
-					<i class="i icon icon-dx-back"  @click="back()"></i>
+				<div class="search-wrap">
+					<Icon type="ios-arrow-back" @click.native="back()"/>
 					<input placeholder="新品" @click="gosearch()" v-model="keyword">
-					<i class="search icon icon-search"></i>
-
+					<Icon type="ios-search" />
 				</div>
 			</header>
 			<div class="sort">
@@ -17,14 +16,14 @@
 				<i class="right icon icon-xuanze"  v-bind:class="{ active: isActive }"  @click="xuanzeModal()"></i>
 			</div>
 			<div v-if="hasShow">
-				<scroll :on-reach-bottom="handleReachBottom" style="height:5rem;">
+				<scroll :on-reach-bottom="handleReachBottom" >
 				<ul class="clearfix mylike" >
 					<li v-for="(item, index) in productList" :key='index'>
 						<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 							<i v-if="item.promotionTitle !=null">{{item.promotionTitle}}</i>
 
-							<img :src='item.model_img |imgfilter' alt="">
-							<p class="ptitle">{{item.model_name}}</p>
+							<img :src='item.model_img |imgfilter' :alt="item.model_name">
+							<p class="ptitle">{{item.model_no}}</p>
 							<p class="red">{{item.sale_price}}</p>
 						</router-link>
 					</li>
@@ -116,7 +115,7 @@
 				hasShow:true,//搜索有商品
 				scrollheight:0,
 				keyword:'',
-				bottomtext:'加载更多。。。。'
+				bottomtext:'加载更多....'
 			}
 		},
 		methods: {
@@ -262,6 +261,7 @@
 			handleReachBottom () {
 				this.startRow=this.startRow+this.pageSize;
 				let _this=this;
+				 this.bottomtext='加载更多....'
 				if(_this.productList.length<this.totalSize){
                 return new Promise(resolve => {
                     this.$axios({
@@ -273,8 +273,8 @@
 						resolve();
                 });
                 }else{
-                	 this.bottomtext='没有更多了。。。。';
-                	 return;
+                	 this.bottomtext='没有更多了....';
+                	 return false;
                 }
             }
 		},
@@ -291,72 +291,42 @@
 			this.getTop();
 			//首页点击左侧分类
 			this.getParams();
+			this.getTopList();
 		},
 
 	}
 </script>
 
 <style lang="scss" scoped="scoped">
-@import '@/styles/color.scss';
-	.bg-black{
-		width: 100%;
-		height: 7.5rem;
-		background-color: #ff0000;
-	}
-	.bg-black .i{
-		vertical-align: middle;
-	}
-	.bg-black div{
-		padding:0.375rem 0.5rem;
-		position: relative;
-	}
-	.bg-black input{
-		width: 80%;
-		// width: 25rem;
-		height: 4.2rem;
-		border-radius: 2.1rem;
-		outline: none;
-		text-align: center;
-		box-shadow: none;
-		font-size: 2.4rem;
-		position: relative;
-		top: 0.5rem;
-	}
-	.bg-black .search{
-		position: absolute;
-		top: 2rem;
-		left: 7rem
-	}
+	@import '@/styles/color.scss';
 	.sort{
-		width: 100%;
-		height: 5rem;
-		background-color: #f0f0f0;
-		padding: 0rem 1.25rem;
+		    width: 100%;
+    height: 4.4rem;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
 	}
 	.sort .red{
 		background-color: #ff0000;
 	}
 	.sort span{
-		margin-right: 0.15rem;
+		margin-right: 0.5rem;
 		display: inline-block;
-		width: 6rem;
-		height: 2.5rem;
 		background-color: #909090;
 		color: #ffffff;
 		text-align: center;
-		line-height: 2.5rem;
-		margin-top: 1.6rem;
-		border-radius: 1.5rem;
-		font-size: 1.8rem;
+		border-radius: 1rem;
+		font-size: 1.6rem;
+		padding: 0.2rem 1rem;
 	}
 	.sort .icon-xuanze{
-		float: right;
 		background-size: 25rem 25rem;
 		width:2.25rem;
 		height: 2.25rem;
 		background-position: -8.85rem -11.5rem;
-		margin-top: 1.6rem;
-		cursor: pointer;
+		position: absolute;
+		right: 1.5rem;
 	}
 	.mylike{
 		width: 100%;;
@@ -368,6 +338,7 @@
 		padding: 1.25rem;
 		text-align: center;
 		border-bottom: 1px solid $color-border;
+		background: #fff;
 	}
 	.mylike li:nth-of-type(2n+1){
 		border-right: 1px solid $color-border;

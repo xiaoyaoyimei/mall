@@ -1,15 +1,10 @@
 <template>
-<div class="layout">
         <Layout>
-            <Layout >
-                <Content class='layout' :style="{ minHeight: '280px'}">
+                <Content  :style="{ minHeight: '280px'}">
                  <transition name="slidemode">  <router-view/></transition>
                 </Content>
-            </Layout>
            <app-footer></app-footer>
         </Layout>
-    </div>
-</div>
 </template>
 
 <script>
