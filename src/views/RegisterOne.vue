@@ -9,13 +9,13 @@
 		<div class="content">
 			<Form :model="regiForm" :rules="ruleValidate" ref="regiForm">
 				<FormItem prop="loginName">
-					<Input v-model.trim="regiForm.loginName" placeholder="请输入手机号" @blur.native="getTx()" v-bind:value='regiForm.loginName'></Input>
+					<Input v-model.trim="regiForm.loginName" placeholder="请输入手机号" @on-blur="getTx()" ></Input>
 				</FormItem>
 				<FormItem prop="verificationCode" class="clearfix">
 					<div class="clearfix">
-						<Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="logw12"></Input>
+						<Input v-model.trim="regiForm.verificationCode"   placeholder="请输入图形验证码" class="logw12"  ></Input>
 						<img :src="verimg" @click="getTx" class="tx" />
-						<img src="../assets/img/refresh.png">
+						<img src="../assets/img/refresh.png" @click="getTx">
 					</div>
 				</FormItem>
 				<FormItem prop="shortMessage">
@@ -30,14 +30,13 @@
 					</div>
 				</FormItem>
 				<FormItem prop="passWord">
-					<Input v-model.trim="regiForm.passWord" placeholder="请输入密码"></Input>
+					<Input v-model.trim="regiForm.passWord" placeholder="请输入密码" type="password"></Input>
 				</FormItem>
 				<FormItem prop="confirmpassWord">
-					<Input v-model.trim="regiForm.confirmpassWord" placeholder="请确认密码"></Input>
+					<Input v-model.trim="regiForm.confirmpassWord" placeholder="请确认密码" type="password"></Input>
 				</FormItem>
 				<FormItem>
-					<button class="btn-blue" @click="handleSubmit('regiForm')">点击注册</button>
-					<!--<Button type="ghost" @click="handleReset('regiForm')" style="margin-left: 8px">重置</Button>-->
+					<button class="btn-blue" @click="handleSubmit('regiForm')" type="button">点击注册</button>
 				</FormItem>
 				<div class="agree"><span>点击注册,即表示您同意并愿意遵守DXRacer公司
 					<strong  class="color-blue"  @click="yhxymodal= true">《用户协议》</strong>和
@@ -81,7 +80,7 @@
 				} else if(!validatePhone(value)) {
 					callback(new Error('请输入正确的手机号'));
 				} else {
-					callback(this.getTx());
+					callback();
 				}
 			};
 			const validateYZM = (rule, value, callback) => {
@@ -105,7 +104,7 @@
 				yhxymodal: false,
 				fwtk: true,
 				t: '',
-				time: 180, // 发送验证码倒计时
+				time: 90, // 发送验证码倒计时
 				sendMsgDisabled: false,
 				txv: 1,
 				verimg: '',
@@ -146,9 +145,9 @@
 					}],
 					shortMessage: [{
 						required: true,
-						message: '短信验证码',
+						message: '短信验证码不能为空',
 						trigger: 'blur'
-					}]
+					}],
 				},
 			}
 		},
@@ -161,6 +160,7 @@
 				let verificationCode = this.regiForm.verificationCode;
 				if(verificationCode == null || verificationCode == '') {
 					this.$Message.error('图形码不能为空!');
+					this.loadingDx = false;
 				} else {
 					this.$axios({
 						method: 'post',
@@ -171,11 +171,9 @@
 						},
 					}).then((res) => {
 						if(res.code == 200) {
-							//短信验证码180秒倒计时
-							let _this = this;
-							_this.sendMsgDisabled = true;
-							_this.startTime();
-
+							//短信验证码90秒倒计时
+								this.sendMsgDisabled = true;   
+								this.startTime();
 						} else {
 							this.$Message.error(res.msg);
 						}
@@ -184,20 +182,19 @@
 			},
 			startTime() {
 				if(this.time == 0) {
-					this.time = 180;
+					this.time = 90;
 					this.sendMsgDisabled = false;
 					clearTimeout(this.t);
+					return;
 				} else {
 					this.time--;
 				}
 				let self = this;
-
 				this.t = setTimeout(() => {
 					self.startTime();
 				}, 1000);
 			},
-			getTx() {
-				//验证用户名是否存在
+			getTx() { //验证用户名是否存在
 				if(this.regiForm.loginName == "") {
 					this.$Message.error('手机号不能为空');
 					return;
@@ -218,40 +215,33 @@
 
 			},
 			handleSubmit(name) {
-				if(this.fwtk == false) {
-					this.$Message.error('请你阅读并同意《网站服务条款》');
-					return
-				} else {
-					this.$refs[name].validate((valid) => {
-						if(valid) {
-							let para = Object.assign({}, this.regiForm);
-							this.$axios({
-								method: 'post',
-								url: '/customer/register',
-								data: para,
-							}).then((res) => {
-								let {
-									code,
-									msg
-								} = res;
-								if(code !== 200) {
-									this.$Message.error(res.msg);
-								} else {
-									this.$router.push({
-										path: '/login',
-										query: {
-											loginName: this.regiForm.loginName
-										}
-									});
-								}
-							});
-						}
-					})
-				}
+				this.$refs[name].validate((valid) => {
+					if(valid) {
+						let para = Object.assign({}, this.regiForm);
+						delete para['confirmpassWord']
+						this.$axios({
+							method: 'post',
+							url: '/customer/register',
+							data: para,
+						}).then((res) => {
+							let {
+								code,
+								msg
+							} = res;
+							if(code !== 200) {
+								this.$Message.error(res.msg);
+							} else {
+								this.$router.push({
+									path: '/login',
+									query: {
+										loginName: this.regiForm.loginName
+									}
+								});
+							}
+						});
+					}
+				})
 			},
-			handleReset(name) {
-				this.$refs[name].resetFields();
-			}
 		},
 		destroyed: function() {
 			clearTimeout(this.t);
@@ -288,6 +278,7 @@
 	.agree {
 		padding: 0 1rem;
 		font-size: 1.4rem;
+		text-align: left;
 	}
 </style>
 <style>
@@ -297,8 +288,6 @@
 	}
 	
 	.log-reg .ivu-input {
-		height: 4.4rem;
-		line-height: 4.4rem;
 		font-size: 1.6rem;
 	}
 </style>

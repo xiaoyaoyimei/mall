@@ -132,8 +132,6 @@
 </script>
 <style>
 	.log-reg .ivu-input {
-		height: 4.4rem;
-		line-height: 4.4rem;
 		font-size: 1.6rem;
 	}
 </style>
