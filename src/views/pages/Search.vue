@@ -144,14 +144,14 @@
 	.content dt {
 		font-weight: 600;
 		margin-bottom: 0.5rem;
-		font-size: 0.8rem;
+		font-size: 1.6rem;
 		color:#333;
 	}
 	.hot{
 		padding: 1.5rem;
 	}
 	.hot dd{
-		font-size: 0.6rem;
+		font-size: 1.4rem;
 		background: #f6f6f6;
 		display: inline-block;
 		padding: 0.5rem 1.25rem;
@@ -167,6 +167,7 @@
 		dd{
 			cursor: pointer;
 			padding:  0.5rem 1rem;
+			font-size: 1.4rem;
 		}
 	}
 	.delete-wrap{
@@ -182,7 +183,7 @@
 		background: #fff;
 		border: 1px solid #eee;
 		padding: 0.25rem;
-		font-size: 0.7rem;
+		font-size:1.4rem;
 	
 	}
 	.delete i{

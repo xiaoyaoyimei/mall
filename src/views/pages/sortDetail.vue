@@ -23,13 +23,12 @@
 			<div class="fl iteminfo ml40">
 				<dl class="dl-base clearfix">
 					<div class="mylike"> 
-						<!-- <button class="btn-like" @click="likepro" :class="{'btn-like-active':likeshow}"> -->
-						<i class="icon icon-like"></i>
-						<!-- </button> -->
+						<button class="btn-like" @click="likepro" >
+						<i class="icon"  :class="{'icon-like':!likeshow,'icon-likeRed':likeshow}"></i>
+						</button>
 					</div>
 
 					<dd class="sku-price color-newred">
-						<!-- <span>￥1699.00</span> -->
 						<span v-if="choosesp.price==0">￥{{shangp.product.salePrice | pricefilter}}</span>
 						<span v-else> 
 						<span v-if="cxshow">
@@ -42,11 +41,9 @@
 				</dl>
 				<h1>
 					<span class="prf10">{{shangp.product.modelNo}} </span>
-					<!-- <span  class="prf10">OH/FL186</span> -->
 				</h1>
 				<p class="itemtitle">
 					<span class="color-newred">{{shangp.product.modelName}} </span>
-					<!-- <span class="color-newred">迪瑞克斯LPL官方指定座椅新美风电</span> -->
 				</p>
 				<p class="wuliu"><span style="margin-right:0.6rem;">快递：0.00</span> <span>销量：99999</span></p>
 				<div class="huodong clearfix">
@@ -85,14 +82,31 @@
 							<div class="eval-fl">
 								<h5><span class="big-title" :class="{'allimg':!onlyimg }" @click="toggleimg(false)">全部评价</span>
 							<span class="onlyimg" :class="{'allimg':onlyimg }" @click="toggleimg(true)">
-							<i class="onlyimg"  ></i>只显示到带图评价
-							</span></h5>
+							<i class="onlyimg"  ></i>有图
+							</span>
+							</h5>
 								<ul class="eval-ul">
-									<li v-for="(item, index) in commentList" :key="index">
-										<h6><img :src="item.list.iconUrl | imgfilter">{{item.list.nickName}}</h6>
-										<p>{{item.list.commentContent}}</p>
-										<div class="sz" :key="index"><span v-for="(child, index) in item.imgList"><img :src="child | imgfilter"></span></div>
-										<div class="zan"><span class="fr"><i class="icon-new icon-zan" :class="{'icon-zan-active':item.isZan=='Y' }" @click='zan(item.list.id,item.isZan)' ></i>{{item.number}}</span>{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</div>
+									<li class="clearfix" v-for="(item, index) in commentList" :key="index">
+										<h6><img class="iconUrl" :src="item.list.iconUrl | imgfilter"></h6>
+										<div>
+											<p class="name">{{item.list.nickName}}</p>
+											<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}<span>颜色分类：{{item.shippingOrderItems.productAttrs}}</span> <span class="fr" :class="{red:item.isZan =='Y'}">{{item.number}}<img :src="item.isZan =='Y' ?'../../../assets/img/u1782.png':'../../../assets/img/u1801.png' " @click='zan(item.list.id,item.isZan)' /></span></div>
+
+											<p class="commentContent" >{{item.list.commentContent}}</p>
+											<div class="sz"  v-for="(child, index) in item.imgList" :key="index"><span><img :src="child | imgfilter"></span></div>
+
+										</div>
+									</li>
+									<li class="clearfix" v-for="(item, index) in commentList" :key="index">
+										<h6><img class="iconUrl" :src="item.list.iconUrl | imgfilter"></h6>
+										<div>
+											<p class="name">{{item.list.nickName}}</p>
+											<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}<span>颜色分类：{{item.shippingOrderItems.productAttrs}}</span> <span class="fr" :class="{red:item.isZan =='Y'}">{{item.number}}<img :src="item.isZan =='Y' ?'../../../assets/img/u1782.png':'../../../assets/img/u1801.png' " @click='zan(item.list.id,item.isZan)' /></span></div>
+
+											<p class="commentContent" >{{item.list.commentContent}}</p>
+											<div class="sz"><span v-for="(child, index) in item.imgList"  :key="index"><img :src="child | imgfilter"></span></div>
+
+										</div>
 									</li>
 								</ul>
 							</div>
@@ -928,15 +942,16 @@ i{
 }
 .pro_size span{
 	float: left;
-	width: 20rem;
+	width: 68%;
 	margin-top: 0.5rem;
-	font-size: 0.9rem;
+	font-size: 1.5rem;
+	overflow: hidden;
 	color: #999999;
 }
 .pro_size .title{
-	width: 9rem;
+	width:28%;
 	text-align: right;
-	margin-right: 2.5rem;
+	margin-right: 4%;
 	color: #333333;
 }
 .eval-fl h5{
@@ -945,6 +960,10 @@ i{
 	height: 3.5rem;
 	line-height: 3.5rem;
 	border-bottom:0.05rem solid $color-border; 
+}
+.btn-like{
+	background-color: #ffffff;
+	border: none;
 }
 .noborder{
 	border-top: 1px solid $color-border;
@@ -1073,6 +1092,80 @@ i{
 }
 .cartModal{
 	width: 100%;
+}
+
+.eval-fl h5 span{
+	float: left;
+	width: 8rem;
+	font-size: 1.8rem;
+	font-weight: 400;
+}
+.eval-fl .onlyimg{
+	float: right;
+	padding-right: 0.25rem;
+	text-align: right;
+}
+.allimg{
+	color: #FF0000;
+}
+.eval-ul{
+	padding: 0rem 2.5rem;
+}
+.eval-ul h6{
+	float: left;
+	width: 6rem;
+}
+.eval-ul li{
+	margin-top: 2.5rem;
+	padding-bottom: 2.5rem;
+	border-bottom: 1px solid $color-border;
+}
+.eval-ul li> div{
+	float: left;
+	width: calc(100% - 6rem);
+	position: relative;
+}
+.iconUrl{
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+}
+.eval-ul .name{
+	font-weight: 400;
+    font-size: 1.8rem;
+	line-height: 2.5rem;
+	color: #333333;
+}
+.eval-ul .zan{
+	width: 15rem;
+	font-weight: 400;
+    font-size: 1.2rem;
+    color: #999999;
+    line-height: 2rem;
+}
+.eval-ul .fr{
+	position: absolute;
+	top: 2.5rem;
+	right: 0rem;
+	color: #999999;
+}
+.eval-ul .red{
+	color: #FF0000;
+}
+.fr img{
+	vertical-align: middle;
+	margin-left: 1rem;
+}
+.eval-ul .commentContent{
+	margin-top: 2rem;
+	font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+}
+.sz img{
+	margin-top: 1.5rem;
+	width: 5rem;
+	height:5rem;
 }
 </style>
 <style>

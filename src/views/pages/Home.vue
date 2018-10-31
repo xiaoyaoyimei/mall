@@ -477,6 +477,10 @@
 
 <style lang="scss" scoped="scoped">
  @import '@/styles/color.scss';
+ .homepage{
+	 background-color: #FFFFFF;
+ }
+
 .demo-carousel img{
 		width: 100%;
 	}

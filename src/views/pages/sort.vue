@@ -16,7 +16,7 @@
 				<span  v-bind:class="{ active: isActive }">价格</span>
 				<i class="right icon icon-xuanze"  v-bind:class="{ active: isActive }"  @click="xuanzeModal()"></i>
 			</div>
-			<div v-if="hasShow">
+			<div style='background-color:#fff;' v-if="hasShow">
 				<scroll :on-reach-bottom="handleReachBottom" style="height:5rem;">
 				<ul class="clearfix mylike" >
 					<li v-for="(item, index) in productList" :key='index'>
@@ -152,6 +152,7 @@
 				},
 			//获取顶部筛选
 			getParams() {
+				
 				this.scrollheight= document.body.offsetHeight-131;
 				if(this.$route.query.type!=undefined){
 				this.getList('type',this.$route.query.type,this.$route.query.typeindex)
@@ -159,6 +160,8 @@
 				if(this.$route.query.keyword!=undefined){
 				this.keyword=this.$route.query.keyword;
 				this.fetchData();
+				}else{
+					this.fetchData();					
 				}	
 			},
 			async fetchData() {
@@ -298,33 +301,36 @@
 
 <style lang="scss" scoped="scoped">
 @import '@/styles/color.scss';
+.new{
+	background-color: #ffffff;
+}
 	.bg-black{
 		width: 100%;
-		height: 7.5rem;
+		height: 5rem;
 		background-color: #ff0000;
 	}
 	.bg-black .i{
 		vertical-align: middle;
 	}
 	.bg-black div{
-		padding:0.375rem 0.5rem;
+		padding:0.3rem 0.5rem;
 		position: relative;
 	}
 	.bg-black input{
 		width: 80%;
 		// width: 25rem;
-		height: 4.2rem;
+		height: 3.2rem;
 		border-radius: 2.1rem;
 		outline: none;
 		text-align: center;
 		box-shadow: none;
 		font-size: 2.4rem;
 		position: relative;
-		top: 0.5rem;
+		top: 0.2rem;
 	}
 	.bg-black .search{
 		position: absolute;
-		top: 2rem;
+		top: 1rem;
 		left: 7rem
 	}
 	.sort{
@@ -468,5 +474,8 @@
  }
  .filterModal .ivu-modal-wrap{
 	 left:7.5rem!important;
+ }
+ .new .ivu-scroll-content{
+	background-color: #ffffff!important;
  }
 </style>
