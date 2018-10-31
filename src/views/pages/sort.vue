@@ -1,6 +1,6 @@
 <template>
 	<div class="new">
-		<div class="selector  mt20 main-wdith">
+		<div class="">
 			<header class="bg-black ">
 				<div>
 					<i class="i icon icon-dx-back"  @click="back()"></i>

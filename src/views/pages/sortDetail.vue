@@ -90,21 +90,15 @@
 										<h6><img class="iconUrl" :src="item.list.iconUrl | imgfilter"></h6>
 										<div>
 											<p class="name">{{item.list.nickName}}</p>
-											<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}<span>颜色分类：{{item.shippingOrderItems.productAttrs}}</span> <span class="fr" :class="{red:item.isZan =='Y'}">{{item.number}}<img :src="item.isZan =='Y' ?'../../../assets/img/u1782.png':'../../../assets/img/u1801.png' " @click='zan(item.list.id,item.isZan)' /></span></div>
+											<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}<span>颜色分类：{{item.shippingOrderItems.productAttrs}}</span> 
+												<span class="fr" :class="{red:item.isZan =='Y'}">{{item.number}}
+													<img v-if="item.isZan =='Y'" src="../../assets/img/u1782.png"   @click='zan(item.list.id,item.isZan)' />
+													<img v-else src="../../assets/img/u1801.png" @click='zan(item.list.id,item.isZan)' />
+												</span>
+											</div>
 
 											<p class="commentContent" >{{item.list.commentContent}}</p>
 											<div class="sz"  v-for="(child, index) in item.imgList" :key="index"><span><img :src="child | imgfilter"></span></div>
-
-										</div>
-									</li>
-									<li class="clearfix" v-for="(item, index) in commentList" :key="index">
-										<h6><img class="iconUrl" :src="item.list.iconUrl | imgfilter"></h6>
-										<div>
-											<p class="name">{{item.list.nickName}}</p>
-											<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}<span>颜色分类：{{item.shippingOrderItems.productAttrs}}</span> <span class="fr" :class="{red:item.isZan =='Y'}">{{item.number}}<img :src="item.isZan =='Y' ?'../../../assets/img/u1782.png':'../../../assets/img/u1801.png' " @click='zan(item.list.id,item.isZan)' /></span></div>
-
-											<p class="commentContent" >{{item.list.commentContent}}</p>
-											<div class="sz"><span v-for="(child, index) in item.imgList"  :key="index"><img :src="child | imgfilter"></span></div>
 
 										</div>
 									</li>
@@ -1153,8 +1147,9 @@ i{
 	color: #FF0000;
 }
 .fr img{
-	vertical-align: middle;
+	vertical-align: text-bottom;
 	margin-left: 1rem;
+	width: 2rem;
 }
 .eval-ul .commentContent{
 	margin-top: 2rem;
