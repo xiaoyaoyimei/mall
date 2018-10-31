@@ -2,54 +2,88 @@
 	<div>
 		<div class="m_header_bar">
 			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">秒杀</span>
+			<span class="m_header_bar_title">秒杀专场</span>
 		</div>
 			<div  class="flex-center" v-if="show">
 			<img src="../../assets/img/lightning.png">
 			<p>暂无秒杀活动 敬请期待</p>
 		</div>
 		<div class="product" v-else>
-				<div   class="spdetail"    v-for="(item, index) in pro" :key='index'>
-							<router-link :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
-							<img  :src='item.productItem.listImg |imgfilter'>
-							   <div class="right">	
-							   	<p class="sP">{{item.product.modelName}}</p>
-							   	<div class="time"> 
-							   		<p class="color-dx">开始时间:{{item.crush.startTime}}
-							   		</p>
-							   		<p>结束时间:{{item.crush.endTime}}
-							   		</p>
-							   	</div>
-								<div class="crush">
-									<div class="left">
-										<span>￥{{item.crush.salePrice}}</span>
-										<em>￥{{item.product.salePrice}}</em>
-									</div>
-									<div class="r">
-									</div>
+			<div></div>
+			<div class="sTitle">
+				秒杀已开始  距结束
+				<span class="red">{{day}}</span> :
+				<span class="red">{{hr}}</span> :
+				<span class="red">{{min}}</span> :
+				<span class="red">{{sec}}</span>
+			</div>
+				<div   class="spdetail"    v-for="(item, index) in startpro" :key='index'>
+					<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
+						<img src="../../assets/img/u242.png" class="Sicon" alt="">
+						<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
+						<div class="floatright">	
+							<p class="sPN">{{item.product.modelNo}}</p>
+							<p class="sPN">{{item.product.modelName}}</p>
+							<div class="crush">
+								<div class="left">
+									<span>￥{{item.crush.salePrice}}</span><br>
+									<em>￥{{item.product.salePrice}}</em>
 								</div>
-								<div>
-										  <Progress :percent="100" v-if="item.saledshow">
-									        <span>已售完</span>
-									    </Progress>
-									<Progress  :percent="percent(item.crush)" v-else>  
-									</Progress></div>
-								</div>
-							</router-link>
+							</div>
+							<span class="btn">立即抢购</span>
 						</div>
+					</router-link>
+				</div>
+				<div class="sTitle">
+					秒杀未开始  距开始
+					<span class="blue">{{nostartday}}</span> :
+					<span class="blue">{{nostarthr}}</span> :
+					<span class="blue">{{nostartmin}}</span> :
+					<span class="blue">{{nostartsec}}</span>
+				</div>
+				<div   class="spdetail"    v-for="(item, index) in nostartpro" :key='index'>
+					<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
+						<img src="../../assets/img/u242.png" class="Sicon" alt="">
+						<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
+						<div class="floatright">	
+							<p class="sPN">{{item.product.modelNo}}</p>
+							<p class="sPN">{{item.product.modelName}}</p>
+							<div class="crush">
+								<div class="left">
+									<span>￥{{item.crush.salePrice}}</span><br>
+									<em>￥{{item.product.salePrice}}</em>
+								</div>
+							</div>
+							<span class="btn blue">立即抢购</span>
+						</div>
+					</router-link>
+				</div>
 	    </div>
-		
     </div>
 </template>
 <script>
 export default {
     data () {
 	return {
-		t:'',
-		   pro:[],
+			t:'',
+			not:'',
+		   	pro:[],
             active: 'tab-container1',
             show:false,
-            list: [],
+			list: [],
+			starttime:'',
+			nostarttime:'',
+			detail:{switch : 1},
+			day:'',
+			hr:'',
+			min:0,
+			sec:0,
+			nostartday:'',
+			nostarthr:'',
+			nostartmin:0,
+			nostartsec:0,
+			startpro:[],
+            nostartpro:[]
     	}
       },
 
@@ -57,13 +91,60 @@ export default {
       this.getNewChannel()
     },
     methods: {
-    	     getNewChannel(){
+			startcountdown: function() {
+				const end = Date.parse(new Date(this.starttime));
+				const now = Date.parse(new Date());
+				const msec = end - now;
+				let day = parseInt(msec / 1000 / 60 / 60 / 24);
+				let hr = parseInt(msec / 1000 / 60 / 60 % 24);
+				let min = parseInt(msec / 1000 / 60 % 60);
+				let sec = parseInt(msec / 1000 % 60);
+				this.day = day > 9 ? day : '0' + day;
+				this.hr = hr > 9 ? hr : '0' + hr;
+				this.min = min > 9 ? min : '0' + min;
+				this.sec = sec > 9 ? sec : '0' + sec;
+				let self = this;
+				this.t = setTimeout(() => {
+					self.startcountdown();
+				}, 1000);
+			},
+			nostartcountdown: function() {
+				const end = Date.parse(new Date(this.nostarttime));
+				const now = Date.parse(new Date());
+				const msec = end - now;
+				let nostartday = parseInt(msec / 1000 / 60 / 60 / 24);
+				let nostarthr = parseInt(msec / 1000 / 60 / 60 % 24);
+				let nostartmin = parseInt(msec / 1000 / 60 % 60);
+				let nostartsec = parseInt(msec / 1000 % 60);
+				this.nostartday =  nostartday > 9 ? nostartday : '0' + nostartday;
+				this.nostarthr = nostarthr > 9 ? nostarthr : '0' + nostarthr;
+				this.nostartmin = nostartmin > 9 ? nostartmin : '0' + nostartmin;
+				this.nostartsec = nostartsec > 9 ? nostartsec : '0' + nostartsec;
+				let self = this;
+				this.not = setTimeout(() => {
+					self.nostartcountdown();
+				}, 1000);
+			},
+    	    getNewChannel(){
     	     	this.$axios({
 						    method: 'GET',
 						    url:'/promotion/crush',
 						}).then((res)=>{
-							if(res.code=='200'){
+						if(res.code=='200'){
 							 this.pro=res.object;
+							 for (let index = 0; index < this.pro.length; index++) {
+								 if(this.pro[index].switch == '1'){
+									 this.startpro.push(this.pro[index])
+								 }else{
+									 this.nostartpro.push(this.pro[index])
+								 }
+								 
+							 }
+							this.starttime=this.startpro[0].crush["endTime"]
+							this.nostarttime = this.nostartpro[0].crush["startTime"];
+						//计时器
+						this.startcountdown();
+						this.nostartcountdown();
 							}
 							else{
 								this.show=true;
@@ -79,24 +160,108 @@ export default {
 }
 </script>
 <style scoped="scoped" lang="scss">
+ @import '@/styles/color.scss';
+.m_header_bar{
+	background-color: #ff0000;
+	text-align: center;
+	color: #fff;
+}
+.m_header_bar_back i{
+	color: #fff;
+}
+.m_header_bar_title{
+	text-align: center;
+}
+.sTitle{
+	height: 4.4rem;
+	line-height: 4.4rem;
+	background-color: #f0f0f0;
+	font-weight: 400;
+	font-size: 1.6rem;
+	color: #1E1E1E;
+	text-align: center;
+}
+.sTitle .red{
+	display: inline-block;
+	width: 3rem;
+	height: 3rem;
+	margin-top: 0.55rem;
+	background-color: #ff0000;
+	line-height: 3rem;
+	border-radius: 0.5rem;
+	color: #fff;
+}
+.sTitle .blue{
+	display: inline-block;
+	width: 3rem;
+	height: 3rem;
+	margin-top: 0.55rem;
+	line-height: 3rem;
+	border-radius: 0.5rem;
+	color: #fff;
+	background-color: #458ffd;
+}
 .center{
 	text-align: center;
 	margin-top:1rem;
 }
+.spdetail{
+	width: calc(100% - 5rem);
+	margin: 2.5rem;
+	padding-bottom: 2.5rem;
+	border-bottom: 1px solid $color-border;
+}
+.Slist{
+	position: relative;
+}
+.product .Slist .Sicon{
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
+	width: 4rem;
+	height: 4rem;
+}
+.Slist .sPN, .Slist .sPN:hover{
+	color: #333333;
+	font-size: 1.4rem;
+}
+.product .Slist .Simg{
+	width: 12.5rem;
+	height: 12.5rem;
+}
+.Slist .btn{
+	display: block;
+	font-weight: 400;
+    font-size: 1.8rem;
+	color: #FFFFFF;
+	background-color: #ff0000;
+	width: 12rem;
+	height: 3.5rem;
+	position: absolute;
+	bottom:1rem;
+	right:1rem;
+	text-align: center;
+}
+.Slist .blue{
+	background-color: #458ffd;
+}
 .crush{
+	margin-top: 1.5rem;
 	display: flex;
 	.left{
 		flex:1;
 		span{
-		color:#0099ff;
-		font-weight: 600;
-		font-size: 1.4rem;
-			}
-	 em{
-		text-decoration: line-through;
-		font-size: 0.8rem;
-		color:#999
-	}
+			color:#ff0000;
+			font-weight: 600;
+			font-size: 1.4rem;
+		}
+		em{
+			text-decoration: line-through;
+			font-weight: 400;
+			font-size: 1rem;
+			color: #999999;
+			font-family: normal;
+		}
 	}
 	.r{
 		text-align: right;

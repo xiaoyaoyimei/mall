@@ -688,8 +688,6 @@
 		overflow: hidden;
 	}
 	
-
-	
 	.demo-carousel img {
 		max-width: 100%;
 	}
