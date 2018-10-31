@@ -1,38 +1,35 @@
 <template>
-		<div class="reg">
-          <div class="m_header_bar">
+		<div class="log-reg">
+          <div class="m_header_bar bg-red">
             <router-link to="/login"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">找回密码</span>
+			<span class="m_header_bar_title">重置密码</span>
 		</div>
-		<div class="content">
-	   <Form :model="regiForm" label-position="left" :label-width="100" :rules="ruleValidate" ref="regiForm">
-           <FormItem label="手机号" prop="mobile">
+		<div class="log-forget">
+			
+	   <Form :model="regiForm"  :rules="ruleValidate" ref="regiForm">
+           <FormItem  prop="mobile">
             <Input v-model.trim="regiForm.mobile" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.mobile'></Input>
         </FormItem>
-           <FormItem label="图形码" prop="verificationCode" class="clearfix">
+           <FormItem  prop="verificationCode" class="clearfix">
             <div class="clearfix">
-            	<Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="txm"  ></Input>
+            	<Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="logw12"  ></Input>
                <img  :src="verimg"  @click="getTx"  class="tx"/>
                <img src="../assets/img/refresh.png">
              </div>
       		  </FormItem>
-        <FormItem label="短信码" prop="shortMessage">
+        <FormItem  prop="shortMessage">
              <div class="clearfix">
-             	<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="txm"></Input>
+             	<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="logw12"></Input>
 					<Button   v-if="sendMsgDisabled">
 						<span>{{time+'秒后获取'}}</span>
 						</Button>
-						<Button    v-else  @click.native="getDx">
+						<Button    v-else  @click.native="getDx" class="btn-44">
 						<span>获取短信码</span>
 					</Button>
              </div>
         </FormItem>
-     <FormItem label="密码" prop="passWord">
-            <Input v-model="regiForm.passWord" placeholder="请输入新密码"></Input>
-        </FormItem>
          <FormItem>
-            <Button type="primary" @click="handleSubmit()" >找回密码</Button>
-            <Button type="ghost" @click="handleReset()" style="margin-left: 8px">重置</Button>
+            <Button type="primary" @click="handleSubmit()" class="btn-red" >下一步</Button>
         </FormItem>
     </Form>
     </div>
@@ -148,36 +145,7 @@
 							});
           			
           	},
-            handleSubmit () {
-            	if(this.regiForm.mobile==""){
-          			  this.$Message.error('手机号不能为空');
-          			  return ;
-          		}
-                this.$refs['regiForm'].validate((valid) => {
-                    if (valid) {
-                    	let para = {
-                    		mobile:this.regiForm.mobile,
-                    		password:this.regiForm.passWord,
-                    		shortMessage:this.regiForm.shortMessage,
-                    	}
-		                    	this.$axios({
-							    method: 'post',
-							    url:'/customer/reset/password',
-							    data:para,
-							}).then((res)=>{
-									      let { code, msg } = res;
-								              if (code !== 200) {
-								                this.$Message.error(res.object);
-								              } else {
-								                this.$router.push({ path: '/login' ,query: { loginName: this.regiForm.mobile }});
-								              }
-							});
-						}
-                     })
-            },
-            handleReset (name) {
-                this.$refs[name].resetFields();
-            }
+
         },
         destroyed: function () {
           	clearTimeout( this.t );
@@ -186,10 +154,8 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-.reg{ 
-	background: #fff;
+/*.log-reg{ 
 	font-size: 1.6rem;
-	height: 100vh;
 	p{
 		font-weight: normal;
 		font-size:2rem;
@@ -215,5 +181,5 @@
 		border: 0 none;
 		padding: 0 2px;
 	}
-}
+}*/
 </style>

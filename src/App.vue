@@ -48,7 +48,11 @@ export default {
     background-attachment: scroll;
     display: inline-block;
     background-size: 50rem 50rem;
+<<<<<<< HEAD
   // background: #f0f0f0;
+=======
+  /*background: #f0f0f0;*/
+>>>>>>> 4fb1a26412c1ffce5cd63c6a18ba72e8d061ea9d
   color: #666;
 }
 ul,li{

@@ -36,7 +36,4 @@ import AppMenu from '@/components/Menu'
 .slideright-leave-active {transform: translateX(-100%);}
 .slideleft-enter {transform: translateX(-100%);}
 .slideleft-leave-active {transform: translateX(+100%);}
-.layout{
-    background-color: #ffffff;
-}
 </style>

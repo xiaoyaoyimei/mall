@@ -6,7 +6,7 @@
             </span>
 			<span class="m_header_bar_title">账号登录</span>
 		</div>
-		<div class="ding">
+		<div class="log-forget">
 			<Form ref="loginForm" autoComplete="off" :model="loginForm" :rules="loginRules">
 				<Form-item prop="loginName">
 					<Input type="text" v-model="loginForm.loginName" placeholder="请输入用户名" autoComplete="on">
@@ -130,33 +130,6 @@
 		},
 	}
 </script>
-<style lang="scss" scoped="scoped">
-	.log-reg {
-		height: 100vh;
-		font-size: 1.6rem;
-		text-align: center;
-	}
-	
-	.ding {
-		padding: 3.5rem 3rem 4.5rem;
-		overflow: hidden;
-		img {
-			border-radius: 100%;
-			width: 10rem;
-			margin-bottom: 3rem;
-		}
-		h3 {
-			color: #0099ff;
-		}
-
-		.opt {
-			margin-top: 5rem;
-			p {
-				margin-bottom: 2rem;
-			}
-		}
-	}
-</style>
 <style>
 	.log-reg .ivu-input {
 		height: 4.4rem;
