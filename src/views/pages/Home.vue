@@ -4,7 +4,7 @@
 			<div>
 				<i class="i icon icon-dx-write" @click="back()"></i>
 				<input placeholder="新品" @click="gosearch()" v-model="keyword">
-				<i class="search icon icon-search"></i>
+				<i class="Hsearch icon icon-search"></i>
 
 			</div>
 		</header>
@@ -318,7 +318,7 @@
 			},
 			gosearch() {
 				this.$router.push({
-					path: '/sort',
+					path: '/search',
 					query: {
 						keyword: this.keyword
 					}
@@ -493,7 +493,7 @@
 	position: relative;
 }
 .bg-black input{
-	width: 25rem;
+	width: 74%;
 	height:4.25rem;
 	border-radius: 2.5rem;
 	outline: none;
@@ -503,10 +503,10 @@
 	position: relative;
 	top: 0.5rem;
 }
-.bg-black .search{
+.bg-black .Hsearch{
 	position: absolute;
 	top: 2rem;
-	left: 15rem
+	left: 8.5rem
 }
 .minipro{
 	width:100%;;
@@ -519,7 +519,7 @@
 }
 .minipro li a{
 	color: #999999;
-	font-size: 0.9rem;
+	font-size: 1.8rem;
 }
 .mn{
 	display: none;
@@ -531,7 +531,7 @@
 	position: relative;
 }
 .title span{
-	font-size: 0.8rem;
+	font-size:1.6rem;
 	position: absolute;
 	top: 2.75rem;
 	left:1.25rem;
@@ -546,7 +546,7 @@
 }
 .seemore a{
 	color: #999999;
-	font-size: 0.6rem;
+	font-size: 1.2rem;
 }
 .two{
 	height: 31.25rem;
@@ -578,19 +578,19 @@
 }
 .ad h5{
 	font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 1.6rem;
     color: #FFFFFF;
 }
 .ad h6{
 	font-weight: 400;
-    font-size: 0.6rem;
+    font-size: 1.2rem;
 	color: #FFFFFF;
 	height: 1.5rem;
 	line-height: 1.5rem;
 }
 .ad span{
 	font-weight: 700;
-    font-size: 0.6rem;
+    font-size: 1.2rem;
 	color: #FFFFFF;
 	position: relative;
 	top: 1.5rem;
@@ -611,11 +611,11 @@
 }
 .w896 h6{
 	color: #333333;
-	font-size: 0.6rem;
+	font-size: 1.2rem;
 }
 .color-newred{
 	color: #ff0000;
-	font-size: 0.6rem;
+	font-size: 1.2rem;
 }
 .w594{
 	float: left;
@@ -665,10 +665,10 @@
 	color: #333333;
 	height: 1.5rem;
 	line-height: 1.5rem;
-	width: 0.5rem;
+	width: 5rem;
 	margin: 0 auto;
 	overflow: hidden;
-	font-size: 0.6rem;
+	font-size: 1.2rem;
 }
 .floorad .yxzc{
 	float: left;
@@ -684,15 +684,15 @@
 	height: 15.75rem;
 }
 .floorad .ad h5{
-	font-size: 0.8rem;
+	font-size: 1.6rem;
 	color: #333333;
 }
 .floorad .ad p{
-	font-size: 0.6rem;
+	font-size: 1.2rem;
 	color: #333333;
 }
 .floorad .ad span{
-	font-size: 0.6rem;
+	font-size: 1.2rem;
 	color: #333333;
 }
 .peripheryproduct li{
@@ -707,7 +707,7 @@
 	height: 15rem;
 	width:100%;;
 	font-weight: 400;
-	font-size: 0.6rem;
+	font-size: 1.2rem;
 	padding-top: 3rem;
     color: #999999;
     text-align: center;

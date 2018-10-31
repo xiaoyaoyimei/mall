@@ -103,9 +103,11 @@
 	.bg-black div{
 		padding:0.75rem 1rem;
 		position: relative;
+		min-width: 28rem;
 	}
 	.bg-black input{
-		width: 27rem;
+		width: 80%;
+		min-width: 20rem;
 		height: 4.25rem;
 		border-radius: 2.5rem;
 		outline: none;
@@ -122,7 +124,7 @@
 	.bg-black .gosearch{
 		position: absolute;
 		top: 1.25rem;
-		right: 2.5rem;
+		right: 2rem;
 		width: 7.5rem;
 		height: 4.25rem;
 		border-bottom-right-radius: 2.5rem;
