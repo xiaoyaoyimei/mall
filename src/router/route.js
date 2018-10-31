@@ -8,6 +8,7 @@ let routes =  [
 			    {path: '/login', name: 'login',component:  resolve => require(['@/views/Login.vue'], resolve)},
 			    {path: '/register',name: '注册',component:  resolve => require(['@/views/RegisterOne.vue'], resolve)},
 			     {path: '/forget',name: '忘记密码',component:  resolve => require(['@/views/Forget.vue'], resolve)},
+			        {path: '/forgettwo',name: '/forgettwo',component:  resolve => require(['@/views/ForgetTwo.vue'], resolve)},
        			{path: '/index',component: resolve => require(['@/container/Full.vue'], resolve),
 					children: [
 					{

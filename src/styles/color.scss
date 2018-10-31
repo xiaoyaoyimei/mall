@@ -769,14 +769,16 @@ textarea {
     bottom: 0;
 }
 
-.btn-red {
+.btn-red,.btn-red-fixed {
     background: red;
 }
-
+.btn-red-fixed{
+    line-height: 4.4rem
+}
 .btn-red-fixed,
 .btn-red,
 .btn-blue {
-    height: 4rem;
+    height: 4.4rem;
     text-align: center;
     width: 100%;
     color: #fff;
@@ -810,7 +812,6 @@ textarea {
     padding: 3.5rem 3rem 4.5rem;
     overflow: hidden;
     .tx {
-        border-radius: 100%;
         width: 10rem;
     }
     h3 {
@@ -827,7 +828,6 @@ textarea {
 .logw12 {
     width: 12rem;
     float: left;
-    margin-right: 1rem;
 }
 
 .btn-44 {

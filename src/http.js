@@ -40,13 +40,6 @@ axios.interceptors.response.use(
     },
     
     error => {
-//  	if(error){
-//  		        store.commit('LOGOUT');
-//                  router.replace({
-//                      path: 'login',
-//                      query: {redirect: router.currentRoute.fullPath}
-//                  })
-//  	}
       console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
         return Promise.reject(error.response)
     });

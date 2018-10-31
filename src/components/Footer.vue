@@ -27,7 +27,7 @@
 	left: 0rem;
     background-color: #ffffff;
     color: #999999;
-	height: 7rem;
+	height: 4.4rem;
 	width: 100%;
 	padding: 0.5rem 0rem;
 	border-top: 1px solid #cccccc;
@@ -38,13 +38,13 @@
 	float: left;
 	width: 25%;
 	text-align: center;
-	font-size: 1.25rem;
+	font-size: 1.2rem;
 	text-align: center;
 	color: #999999;
 }
 	i{
 		display: block;
-		font-size:4rem
+		font-size:2.5rem
 	}
 	a.router-link-active{
 			color:#ff0000

@@ -4,17 +4,22 @@
             <router-link to="/login"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">重置密码</span>
 		</div>
-		<Form :model="forgetForm"  :rules="ruleValidate" ref="forgetForm">
+		<div class="log-forget">
+		<Form :model="forgetForm"  :rules="ruleValidate" ref="forgetForm" class="form_wrap">
+			     <FormItem  >
+        <span class="font-16 text-center"> {{mobile}}</span>
+        </FormItem>
      <FormItem  prop="passWord">
-            <Input v-model="forget.passWord" placeholder="请输入新密码"></Input>
+            <Input v-model="forgetForm.passWord" placeholder="请输入新密码" type="password"></Input>
         </FormItem>
              <FormItem  prop="confirmpassWord">
-            <Input v-model="forget.confirmpassWord" placeholder="请输入新密码"></Input>
+            <Input v-model="forgetForm.confirmpassWord" placeholder="请确认新密码" type="password"></Input>
         </FormItem>
          <FormItem>
             <Button type="primary" @click="handleSubmit()" class="btn-red" >确定</Button>
         </FormItem>
     </Form>
+    </div>
 	</div>
 </template>
 
@@ -31,14 +36,15 @@
 				}
 			};
             return {
+            	mobile:'',
                 forgetForm: {
                     passWord: '',
                     confirmpassWord:''
                 },
                 ruleValidate: {
                     passWord:[
-                      { required: true, message: '密码不能为空', trigger: 'blur' },
-                        { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
+                      { required: true, message: '新密码不能为空', trigger: 'blur' },
+                        { type: 'string', min: 6, message: '新密码不能少于6位', trigger: 'blur' }
                     ],
                     confirmpassWord: [{
 						required: true,
@@ -89,7 +95,7 @@
 				},
           	getTx(){
           		//验证用户名是否存在
-          		if(this.regiForm.mobile==""||this.regiForm.mobile==null){
+          		if(this.forgetForm.mobile==""||this.forgetForm.mobile==null){
           			  this.$Message.error('手机号不能为空');
           			  return ;
           		}
@@ -109,38 +115,54 @@
           			
           	},
             handleSubmit () {
-            	if(this.regiForm.mobile==""){
+            	if(this.forgetForm.mobile==""){
           			  this.$Message.error('手机号不能为空');
           			  return ;
           		}
-                this.$refs['regiForm'].validate((valid) => {
+                this.$refs['forgetForm'].validate((valid) => {
+                	var mobile=this.mobile;
                     if (valid) {
                     	let para = {
-                    		mobile:this.regiForm.mobile,
-                    		password:this.regiForm.passWord,
-                    		shortMessage:this.regiForm.shortMessage,
+                    		mobile:mobile,
+                    		password:this.forgetForm.passWord,
                     	}
 		                    	this.$axios({
 							    method: 'post',
 							    url:'/customer/reset/password',
 							    data:para,
 							}).then((res)=>{
-									      let { code, msg } = res;
-								              if (code !== 200) {
-								                this.$Message.error(res.object);
-								              } else {
-								                this.$router.push({ path: '/login' ,query: { loginName: this.regiForm.mobile }});
-								              }
+									    			if(res.code == 200) {
+								     this.$Message.success({
+						                content: '找回密码成功,2秒后自动跳往登录页',
+						                duration: 2
+						            });
+						           		setTimeout(() => {
+											this.$router.push({
+												path: '/login',
+												params: {
+													loginName: mobile
+												}
+											});
+										}, 3000);
+
+
+							} else {
+								this.$Message.error(res.object);
+							}
 							});
 						}
                      })
             },
-//          handleReset (name) {
-//              this.$refs[name].resetFields();
-//          }
         },
+        mounted(){
+        	this.mobile=this.$route.query.mobile
+        }
        }
 </script>
 
-<style>
+<style scoped="scoped">
+	.text-center{
+		text-align: center;
+		display: block
+	}
 </style>

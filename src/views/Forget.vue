@@ -8,13 +8,13 @@
 			
 	   <Form :model="regiForm"  :rules="ruleValidate" ref="regiForm">
            <FormItem  prop="mobile">
-            <Input v-model.trim="regiForm.mobile" placeholder="请输入手机号"  @blur.native="getTx()" v-bind:value='regiForm.mobile'></Input>
+            <Input v-model.trim="regiForm.mobile" placeholder="请输入手机号"  @on-blur="getTx()" v-bind:value='regiForm.mobile'></Input>
         </FormItem>
            <FormItem  prop="verificationCode" class="clearfix">
             <div class="clearfix">
             	<Input v-model="regiForm.verificationCode" placeholder="请输入图形验证码" class="logw12"  ></Input>
                <img  :src="verimg"  @click="getTx"  class="tx"/>
-               <img src="../assets/img/refresh.png">
+               <img src="../assets/img/refresh.png" @click="getTx">
              </div>
       		  </FormItem>
         <FormItem  prop="shortMessage">
@@ -23,13 +23,13 @@
 					<Button   v-if="sendMsgDisabled">
 						<span>{{time+'秒后获取'}}</span>
 						</Button>
-						<Button    v-else  @click.native="getDx" class="btn-44">
+						<Button    v-else  @click.native="getDx"  style="height: 4.4rem;">
 						<span>获取短信码</span>
 					</Button>
              </div>
         </FormItem>
          <FormItem>
-            <Button type="primary" @click="handleSubmit()" class="btn-red" >下一步</Button>
+            <Button type="primary" @click="next()" class="btn-red" >下一步</Button>
         </FormItem>
     </Form>
     </div>
@@ -46,7 +46,7 @@
 	          } else if (!validatePhone(value)) {
 	                 callback(new Error('请输入正确的手机号'));
 	          }else{
-	          	callback(this.getTx());
+	          	callback();
 	          }
 	        };
 	        const validateYZM=(rule, value, callback) => {
@@ -58,21 +58,16 @@
 	        };
             return {
             	t:'',
-                time: 180, // 发送验证码倒计时
+                time: 90, // 发送验证码倒计时
             	sendMsgDisabled: false,
             	txv:1,
             	verimg:'',
                 regiForm: {
-                    passWord: '',
                     loginName:'',
                     shortMessage: '',
                     verificationCode:''
                 },
                 ruleValidate: {
-                    passWord:[
-                      { required: true, message: '密码不能为空', trigger: 'blur' },
-                        { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
-                    ],
                     mobile:[
                       { required: true, validator: validateName, trigger: 'blur' }
                     ],
@@ -86,6 +81,31 @@
           }
         },
           methods:{
+          				//重置密码第二步
+			next() {
+		    this.$refs.regiForm.validate(valid => {
+            if (valid) {
+				this.$axios({
+					method: 'post',
+					url: '/customer/reset/password/validate',
+					data: {
+						"mobile": this.regiForm.mobile,
+						"shortMessage": this.regiForm.shortMessage
+					},
+				}).then((res) => {
+					if(res.code == 200) {
+						this.$router.push({name: '/forgettwo',query:{mobile:this.regiForm.mobile}})
+					} else {
+						this.$Message.error(res.object);
+					}
+				});
+            }
+                else {
+             	this.loading = false  
+                 return false;
+            }
+              })
+			},
           	getDx(){
           	   let verificationCode=this.regiForm.verificationCode;
           		if(verificationCode==null||verificationCode==''){
@@ -112,7 +132,7 @@
           	},
           	 startTime(){
           	 	if(this.time==0){
-          	 		  this.time = 180;
+          	 		  this.time = 90;
 				      this.sendMsgDisabled = false;
 				      clearTimeout(this.t);
           	 		}
@@ -136,7 +156,6 @@
 							}).then((res)=>{
 								if(res.code!=='200'){
 									this.txv++;
-									let urlo=window.location.origin;
           							//this.verimg=urlo+'/mall/wap/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
           						 this.verimg=this.$axios.defaults.baseURL+'/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
 								}else{
