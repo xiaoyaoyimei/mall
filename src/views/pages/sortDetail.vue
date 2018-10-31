@@ -21,7 +21,7 @@
 				</ul>
 			</div>
 			<div class="fl iteminfo ml40">
-				<dl class="dl-base">
+				<dl class="dl-base clearfix">
 					<div class="mylike"> 
 						<!-- <button class="btn-like" @click="likepro" :class="{'btn-like-active':likeshow}"> -->
 						<i class="icon icon-like"></i>
@@ -748,9 +748,10 @@
 	position: relative;
 }
 .dl-base .sku-price{
-	margin-top: 2.5rem;
+	margin-top: 0rem;
 	font-weight: 700;
-	font-size:1.5rem;
+	font-size:2rem;
+	float: left;
 	color: #FF0000;
 	padding: 0rem 1.25rem;
 
@@ -765,20 +766,23 @@
 }
 .prf10{
 	font-weight: 700;
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	color: #333333;
 }
 .itemtitle .color-newred{
 	font-weight: 400;
     font-style: normal;
-	font-size: 1.2rem;
+	font-size: 1.8rem;
+	display: block;
+	height: 2.5rem;
+	overflow: hidden;
 	padding: 0rem 1.25rem;
 	color: #333333;
 }
 .wuliu{
 	width: 100%;
 	font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
 	color: #999999;
 	padding: 1.5rem 1.25rem;
 	border-bottom: 0.025rem solid $color-border;
