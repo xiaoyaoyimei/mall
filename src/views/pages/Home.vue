@@ -506,7 +506,7 @@
 	font-size: 2.4rem;
 	position: relative;
 	top: 0.5rem;
-	-webkit-appearance: none
+	border: 0;
 }
 .bg-black .Hsearch{
 	position: absolute;

@@ -327,6 +327,7 @@
 		font-size: 2.4rem;
 		position: relative;
 		top: 0.2rem;
+		border: 0;
 	}
 	.bg-black .search{
 		position: absolute;
