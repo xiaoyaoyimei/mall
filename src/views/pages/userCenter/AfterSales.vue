@@ -1,13 +1,26 @@
 <template>
-	<div class="padding40">
-		<h3 class="myorder" style="padding-bottom: 48px;">售后服务
-					</h3>
-		<ul class="ul" v-if="hasShow">
+	<div >
+		<div class="m_header_bar bg-red">
+			<router-link class="m_header_bar_back" to="/user">
+				<Icon type="ios-arrow-back"></Icon>
+			</router-link>
+			<span class="m_header_bar_title">售后服务</span>
+			<span class="m_header_bar_menu"></span>
+		</div>
+				<div class="switchStatus">
+		<span  @click="changeStatus('00')" :class="{red:'00' == numactive}" >全部售后</span>
+				<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待审核</span>
+				<span @click="changeStatus('02')" :class="{red:'02' == numactive}">待处理</span>
+					<span @click="changeStatus('04')" :class="{red:'04' == numactive}">已退款</span>
+						<span @click="changeStatus('05')" :class="{red:'05' == numactive}">已拒绝</span>
+				</div>
+		<!--<ul class="ul" v-if="hasShow">
 			<li class="" v-for="(x,index) in refundList" :key="index">
 				<h3 class="red">{{statusrufundfilter(x.refundOrder.refundOrderStatus)}}</h3>
 				<div class="myorderinformation clearfix">
 					<span class="myorderOrder clearfix">
-						{{x.refundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}} 丨{{x.refundOrder.refundOrderNo}}丨{{reasonfilter(x.refundOrder.refundCauseId)}}  <span class="span">退款金额: ￥<strong>{{x.refundOrder.refundOrderTotalFee|pricefilter}}</strong></span></span>
+						{{x.refundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}} 丨{{x.refundOrder.refundOrderNo}}丨{{reasonfilter(x.refundOrder.refundCauseId)}} 
+						 <span class="span">退款金额: ￥<strong>{{x.refundOrder.refundOrderTotalFee|pricefilter}}</strong></span></span>
 				</div>
 				<div class="myorderImg clearfix">
 					<ul>
@@ -27,13 +40,44 @@
 				</div>
 
 			</li>
+		</ul>-->
+				<Scroll  v-if="hasShow">
+		<ul class="splist box-content">
+			<li v-for="(x,index) in refundList" :key="index">
+				<div @click="seeDetail(x.order.orderNo)">
+					<div class="orderno">
+						<p><span class="color-black">订单编号:{{x.order.orderNo}}</span><span class="orderstatus">{{statusrufundfilter(x.refundOrder.refundOrderStatus)}}</span></p>
+						<p>下单时间:{{x.refundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</p>
+					</div>
+
+					<div v-for="(child,i) in x.refundOrderItems" :key="i" class="order-wrap">
+						<div class="sphead">
+						<img :src="child.productItemImg | imgfilter">
+							<div class="xq">
+								<p class="color-black">{{child.productItemNo}}</p>
+								<p class="title">{{child.productTitle}}</p>
+								<p class="color-gray font-12">{{child.productAttrs}}</p>
+							</div>
+							<div class="price">
+							<span class="color-black">	￥{{child.refundOrderFee}}</span>
+								<br/>x {{child.quantity}}</div>
+						</div>
+					</div>
+					<div><span>共{{}}件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
+				</div>
+				<div class="cz">
+						<router-link :to="{name:'/user/Aftersalesdetail',query:{refundOrderNo:x.refundOrder.refundOrderNo,orderNo:x.refundOrder.orderNo}}">订单详情 </router-link>
+						<button class="btn btn-red-small" v-if="x.refundOrder.refundOrderStatus=='01'" @click="cancelrefund(x.refundOrder.refundOrderNo)">取消</button>
+						<button class="btn btn-red-small" v-if="x.refundOrder.refundOrderStatus=='02'||x.refundOrder.refundOrderStatus=='05'" @click="show(x.refundOrder)">显示处理结果</button>
+						<button class="btn btn-red-small" v-if="x.refundOrder.refundOrderStatus=='02'" @click="showLogisticsInfo(x.refundOrder.refundOrderNo)">填写物流单号</button>
+				</div>
+			</li>
 		</ul>
-		<div class="myorderempty " v-else>
-			<i class="cartIcon iconIcon-order"></i>
-			<div>
-				<h6>暂无售后记录~</h6>
-				<router-link class="red" :to="{ path: '/sort',query:{keyword:''} }">随便看看</router-link>
-			</div>
+		</Scroll>
+				<div class="flex-center  empty" v-else>
+			<img src="../../../assets/img/sh_empty.png" style="max-width: 8rem;">
+			<p>暂无售后记录哦~</p>
+				<router-link to="/" class="color-dx">去购物</router-link>
 		</div>
 		<Modal v-model="infoModal" class="aftersalemodal" width="500" :mask-closable="false">
 			<p slot="header">
@@ -101,7 +145,9 @@
 				refuseReason: '',
 				refundAddress: {},
 				refundStatus: '02',
-				hasShow:true
+				hasShow:true,
+				status: '01',
+			    numactive:'00',
 			}
 		},
 		methods: {
@@ -126,6 +172,12 @@
 						this.$Message.info('放弃取消');
 					}
 				});
+			},
+					changeStatus(v) {
+				this.numactive = v;
+				this.status = v;
+				this.spinShow=true;
+				this.getRefundOrder()
 			},
 			show(v) {
 				this.dealModal = true;
@@ -220,71 +272,4 @@
 </script>
 
 <style scoped="scoped">
-	.expressNo {
-		font-weight: 400;
-		font-size: 18px;
-		color: #333333;
-	}
-	
-	.aftersalemodal .refund {
-		width: 450px;
-		margin: 10px auto;
-	}
-	
-	.refund p {
-		font-weight: 400;
-		font-size: 14px;
-		color: #666666;
-		text-align: right;
-		line-height: 48px;
-		display: inline-block;
-		margin-right: 25px;
-		width: 100px;
-	}
-	
-	.refund span {
-		display: inline-block;
-		width: 300px;
-	}
-	
-	.refund input {
-		width: 300px;
-		padding-left: 10px;
-		height: 41px;
-		line-height: 41px;
-	}
-	
-	.aftersaledealModal refund {
-		height: 45px;
-		line-height: 45px;
-	}
-</style>
-<style>
-	.aftersalemodal .ivu-modal-header {
-		background-color: #f0f0f0;
-	}
-	
-	.aftersalemodal .ivu-modal-footer {
-		border-top: none;
-		text-align: center;
-		border-radius: 0px;
-		padding-bottom: 50px;
-	}
-	
-	.aftersalemodal .ivu-btn-primary {
-		width: 252px;
-		height: 41px;
-		font-weight: 400;
-		font-size: 18px;
-		color: #FFFFFF;
-		border-radius: 0px;
-	}
-	
-	.aftersalemodal .ivu-modal-content {
-		border-radius: 0px;
-	}
-	
-	.aftersaledealModal .ivu-modal-footer {
-		display: none;
-	}
 </style>

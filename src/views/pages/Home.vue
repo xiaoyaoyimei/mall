@@ -7,7 +7,9 @@
 				<Icon type="ios-search" />
 			</div>
 		</header>
-		<div class="side_nav_wrap clear">
+		
+		<Scroll>
+			<div class="side_nav_wrap clear">
 				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots" :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" class="banner">
 					<CarouselItem v-for="(item, index) in Items" :key="index">
 						<div class="demo-carousel">
@@ -48,137 +50,137 @@
 						</li>
 					</ul>
 				</div>
-			<div class="floor">
-				<div class="more">
-					<div class="seemore fr">
-						<router-link :to="{ path: '/sort',query:{keyword:'电竞'} }"> 查看更多
-							<Icon type="ios-arrow-forward" />
-						</router-link>
-					</div>
-					<span>电竞椅</span></div>
-				<div class="two clearfix list-wrap">
-					<div class="ad-wrap fl">
-						<router-link :to="{ path: '/sort/sortDetail',query:{id:gameproductone.product_id} }"><img :src="gameproductone.img_url |imgfilter">
-							<div class="ad ">
-								<h5>{{gameproductone.model_no}}</h5>
-								<h6>{{gameproductone.describe1}}</h6>
-								<h6>{{gameproductone.describe2}}</h6>
-								<span>¥ {{gameproductone.sale_price }}</span>
-							</div>
-						</router-link>
-					</div>
-					<ul class="clearfix">
-						<li class="li" v-for="(item, index) in gameproduct" :key='index' v-if="index>0" v-show='index<5'>
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-								<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-								<h6>{{item.list.model_no}}</h6>
-								<!-- <p>{{item.list.describe1}}</p> -->
-								<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
+				<div class="floor">
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'电竞'} }"> 查看更多
+								<Icon type="ios-arrow-forward" />
 							</router-link>
-
-						</li>
-					</ul>
-				</div>
-				<div class="more">
-					<div class="seemore fr">
-						<router-link :to="{ path: '/sort',query:{keyword:'办公'} }"> 查看更多
-							<Icon type="ios-arrow-forward" />
-						</router-link>
-					</div>
-					<span>办公</span>
-				</div>
-				<div class=" three clearfix list-wrap">
-					<ul class=" fl  office ">
-						<li class="w594">
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }">
-								<img :src="officeproductone.img_url |imgfilter">
+						</div>
+						<span>电竞椅</span></div>
+					<div class="two clearfix list-wrap">
+						<div class="ad-wrap fl">
+							<router-link :to="{ path: '/sort/sortDetail',query:{id:gameproductone.product_id} }"><img :src="gameproductone.img_url |imgfilter">
 								<div class="ad ">
-									<h5>{{officeproductone.model_no}}</h5>
-									<h6>{{officeproductone.describe1}}</h6>
-									<h6>{{officeproductone.describe2}}</h6>
-									<span>¥ {{officeproductone.sale_price | pricefilter}}</span>
+									<h5>{{gameproductone.model_no}}</h5>
+									<h6>{{gameproductone.describe1}}</h6>
+									<h6>{{gameproductone.describe2}}</h6>
+									<span>¥ {{gameproductone.sale_price }}</span>
 								</div>
 							</router-link>
-						</li>
-						<li class="officeproduct" v-for="(item, index) in officeproduct" :key='index' v-if="index>0" v-show='index<5'>
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-								<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-								<h6>{{item.list.model_no}}</h6>
-								<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
-							</router-link>
+						</div>
+						<ul class="clearfix">
+							<li class="li" v-for="(item, index) in gameproduct" :key='index' v-if="index>0" v-show='index<5'>
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<h6>{{item.list.model_no}}</h6>
+									<!-- <p>{{item.list.describe1}}</p> -->
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
+								</router-link>
 
+							</li>
+						</ul>
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'办公'} }"> 查看更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
+						</div>
+						<span>办公</span>
+					</div>
+					<div class=" three clearfix list-wrap">
+						<ul class=" fl  office ">
+							<li class="w594">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }">
+									<img :src="officeproductone.img_url |imgfilter">
+									<div class="ad ">
+										<h5>{{officeproductone.model_no}}</h5>
+										<h6>{{officeproductone.describe1}}</h6>
+										<h6>{{officeproductone.describe2}}</h6>
+										<span>¥ {{officeproductone.sale_price | pricefilter}}</span>
+									</div>
+								</router-link>
+							</li>
+							<li class="officeproduct" v-for="(item, index) in officeproduct" :key='index' v-if="index>0" v-show='index<5'>
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<h6>{{item.list.model_no}}</h6>
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
+								</router-link>
+
+							</li>
+						</ul>
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'家居'} }"> 查看更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
+						</div>
+						<span>家居</span></div>
+					<div class=" three clearfix">
+						<ul class=" fl  office">
+							<li class="w594">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:houseproductone.product_id} }">
+									<img :src="houseproductone.img_url | imgfilter">
+									<div class="ad ">
+										<h5>{{houseproductone.model_no}}</h5>
+										<h6>{{houseproductone.describe1}}</h6>
+										<h6>{{houseproductone.describe2}}</h6>
+										<span>¥ {{houseproductone.sale_price | pricefilter}}</span>
+									</div>
+								</router-link>
+							</li>
+							<li class="officeproduct" v-show='index<5' v-for="(item, index) in houseproduct" :key='index' v-if="index>0">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<h6>{{item.list.model_no}}</h6>
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
+								</router-link>
+
+							</li>
+						</ul>
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'座舱'} }"> 更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
+						</div>
+						<span>座舱</span></div>
+					<div class="floorad clearfix">
+						<div class="fl bg-white clearfix ad-wrap yxzc" v-for="(item, index) in cockpitproduct" v-if='index<2' :key='index'>
+							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+								<img :src="item.list.img_url  |imgfilter" class="zhuozi">
+								<div class="ad">
+									<h5>{{item.list.model_no}}</h5>
+									<p>{{item.list.describe1}}</p>
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span></div>
+							</router-link>
+						</div>
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }"> 更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
+						</div>
+						<span>座椅周边</span></div>
+
+					<ul class="clearfix peripheryproduct  bgli-white mb105">
+						<li v-for="(item, index) in peripheryproduct" :key='index' v-if='index<1'>
+							<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }">
+								<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+							</router-link>
 						</li>
 					</ul>
-				</div>
-				<div class="more">
-					<div class="seemore fr">
-						<router-link :to="{ path: '/sort',query:{keyword:'家居'} }"> 查看更多
-							<Icon type="ios-arrow-forward" />
-						</router-link>
+					<div class="homeBottom">
+						—— 我是有底线的 ——
 					</div>
-					<span>家居</span></div>
-				<div class=" three clearfix">
-					<ul class=" fl  office">
-						<li class="w594">
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:houseproductone.product_id} }">
-								<img :src="houseproductone.img_url | imgfilter">
-								<div class="ad ">
-									<h5>{{houseproductone.model_no}}</h5>
-									<h6>{{houseproductone.describe1}}</h6>
-									<h6>{{houseproductone.describe2}}</h6>
-									<span>¥ {{houseproductone.sale_price | pricefilter}}</span>
-								</div>
-							</router-link>
-						</li>
-						<li class="officeproduct" v-show='index<5' v-for="(item, index) in houseproduct" :key='index' v-if="index>0">
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-								<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-								<h6>{{item.list.model_no}}</h6>
-								<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
-							</router-link>
-
-						</li>
-					</ul>
-				</div>
-				<div class="more">
-					<div class="seemore fr">
-						<router-link :to="{ path: '/sort',query:{keyword:'座舱'} }"> 更多
-							<Icon type="ios-arrow-forward" />
-						</router-link>
-					</div>
-					<span>座舱</span></div>
-				<div class="floorad clearfix">
-					<div class="fl bg-white clearfix ad-wrap yxzc" v-for="(item, index) in cockpitproduct" v-if='index<2' :key='index'>
-						<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-							<img :src="item.list.img_url  |imgfilter" class="zhuozi">
-							<div class="ad">
-								<h5>{{item.list.model_no}}</h5>
-								<p>{{item.list.describe1}}</p>
-								<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span></div>
-						</router-link>
-					</div>
-				</div>
-				<div class="more">
-					<div class="seemore fr">
-						<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }"> 更多
-							<Icon type="ios-arrow-forward" />
-						</router-link>
-					</div>
-					<span>座椅周边</span></div>
-
-				<ul class="clearfix peripheryproduct  bgli-white mb105">
-					<li v-for="(item, index) in peripheryproduct" :key='index' v-if='index<1'>
-						<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }">
-							<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-						</router-link>
-					</li>
-				</ul>
-				<div class="homeBottom">
-					—— 我是有底线的 ——
 				</div>
 			</div>
-		</div>
-
+		</Scroll>
 	</div>
 </template>
 
@@ -227,7 +229,6 @@
 			};
 		},
 		computed: {
-
 			token() {
 				//获取store里面的token
 				return this.$store.state.token;
@@ -400,14 +401,15 @@
 </script>
 
 <style lang="scss" scoped="scoped">
-	@import '@/styles/color.scss';
-	.homepage{
+	@import '@/styles/common.scss';
+	.homepage {
 		background: #f0f0f0;
 	}
+	
 	.minipro {
 		display: flex;
 		background: #fff;
-		padding:0 0 1rem;
+		padding: 0 0 1rem;
 		font-size: 1.4rem;
 		color: #888;
 		li {
@@ -419,8 +421,8 @@
 			justify-content: center;
 			align-items: center;
 			img {
-				max-width: 100%;
-				max-height: 100%;
+				width: 6rem;
+				height: 6rem;
 			}
 		}
 	}
@@ -590,7 +592,6 @@
 	.floorad .yxzc {
 		float: left;
 		width: 100%;
-		;
 		height: 15.75rem;
 		position: relative;
 	}
@@ -625,7 +626,7 @@
 	
 	.peripheryproduct img {
 		width: 100%;
-	 max-height: 100%;
+		max-height: 100%;
 	}
 	
 	.homeBottom {
@@ -693,7 +694,7 @@
 	}
 	
 	.list-wrap {
-		a{
+		a {
 			display: block;
 		}
 		background: #fff;

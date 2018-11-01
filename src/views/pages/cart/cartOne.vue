@@ -3,10 +3,10 @@
 		<div class="m_header_bar bg-red">
 			<router-link to="/sort"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">购物车</span>
-			<span  @click="edit" v-show="editface" class="m_header_bar_menu" v-if="cartList.length>0">编辑</span>
+			<span  @click="edit" v-show="editface" class="m_header_bar_menu" v-if="hasShow">编辑</span>
 			<span  @click="edit" v-show="!editface"  class="m_header_bar_menu">完成</span>
 		</div>
-		<div v-if="cartList.length>0">
+		<div v-if="hasShow">
 		<Row class="P15">
 		    <Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
 		 		<Col  class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
@@ -81,6 +81,7 @@ export default {
 				editface:true,
 				zslcount:0,
 				temp:[],
+				hasShow:true,
             }
 		},
         methods: {
@@ -155,8 +156,14 @@ export default {
 								}).then((res)=>{
 									this.spinShow=false;
 									if(res.code=='200'){
-										this.cartList=res.object;
+										if(res.object.length>0){
+											this.cartList=res.object;
 										this.handleCheckAll();
+										this.hasShow=true;
+										}else{
+											this.hasShow=false;
+										}
+										
 									}
 							});
 					}

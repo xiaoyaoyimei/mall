@@ -232,31 +232,6 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-.switchStatus{
-	height: 40px;
-	background: #fff;
-	justify-content: center;
-	align-items: center;
-	border-bottom: 1px solid #eee;
-	}
-.switchStatus span{
-	width:20%;
-	text-align: center;
-	display: inline-block;
-	float: left;
-	height: 40px;
-	line-height:40px;
-	font-size: 1.6rem;
-}
-.switchStatus span.red{
-	color: #f00;
-}
-.switchStatus> span:not(:last-child){
-	border-right: 1px solid #eee;
-}
-.cz{
-	text-align: right;
-	padding: 1rem 0 3rem;
-}
+
 
 </style>
