@@ -294,6 +294,7 @@
 		width: 50%;
 		text-align: center;
 		border-bottom: 1px solid $color-border;
+		border-right:1px solid transparent;
 		background: #fff;
 		a {
 			display: block;
@@ -301,7 +302,7 @@
 	}
 	
 	.mylike li:nth-of-type(2n+1) {
-		border-right: 1px solid $color-border;
+		border-color: $color-border;
 	}
 	
 	.mylike li img {
@@ -322,7 +323,7 @@
 	.mylike .red {
 		font-size: 1.6rem;
 		color: #FF0000;
-		margin-bottom: 1rem;
+		padding-bottom: 1rem;
 	}
 	
 	.jiazaicenter {

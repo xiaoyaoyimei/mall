@@ -691,6 +691,5 @@
 	}
 	.search-wrap .icon-search{
 		left: 6rem;
-		top: 1.7rem;
 	}
 </style>
