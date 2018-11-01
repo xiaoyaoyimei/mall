@@ -332,7 +332,7 @@
 	.bg-black .Hsearch{
 		position: absolute;
 		top: 1.5rem;
-		left: 7rem
+		left: 7rem;
 	}
 	.sort{
 		width: 100%;

@@ -27,7 +27,6 @@
 						<i class="icon"  :class="{'icon-like':!likeshow,'icon-likeRed':likeshow}"></i>
 						</button>
 					</div>
-
 					<dd class="sku-price color-newred">
 						<span v-if="choosesp.price==0">￥{{shangp.product.salePrice | pricefilter}}</span>
 						<span v-else> 
