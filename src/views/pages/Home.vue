@@ -2,7 +2,7 @@
 	<div class="homepage">
 		<header class="bg-black">
 			<div class="search-wrap">
-				<img src="../../assets/img/waplogo.png">
+				<img src="../../assets/img/waplogo.png" style="position:relative;top:0.5rem;">
 				<input placeholder="新品" @click="gosearch()" v-model="keyword">
 				<Icon type="ios-search" />
 			</div>

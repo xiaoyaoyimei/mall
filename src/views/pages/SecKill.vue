@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="background-color:#fff;">
 		<div class="m_header_bar">
 			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">秒杀专场</span>
