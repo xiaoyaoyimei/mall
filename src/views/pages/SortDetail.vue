@@ -312,11 +312,14 @@
 								if(res.code == '200') {
 									this.$Message.info('收藏成功');
 									this.likeshow=true;
-									
-								} else {
-									this.$Message.error('收藏失败');
+								} else if(res.code == '500'){
+									this.$Message.error(res.object);
+									this.likeshow=true;
+								}else{
+										this.$Message.error('收藏失败');
 									this.likeshow=false;
 								}
+						
 							})
 				} else {
 					this.$Message.error('您尚未登录,请先登录');

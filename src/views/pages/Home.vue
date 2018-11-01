@@ -13,7 +13,7 @@
 				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots" :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" class="banner">
 					<CarouselItem v-for="(item, index) in Items" :key="index">
 						<div class="demo-carousel">
-							<a :href="item.phoneUrl"><img :src="item.phoneUrl |imgfilter"></a>
+							<a :href="item.linkUrl"><img :src="item.phoneUrl |imgfilter"></a>
 						</div>
 					</CarouselItem>
 				</Carousel>

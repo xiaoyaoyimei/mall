@@ -102,7 +102,7 @@ export default {
 					}
 				}).then((res) => {
 					if(res.code == '200') {
-						Bus.$emit('cartmsg', "again");
+						//Bus.$emit('cartmsg', "again");
 					} else {
 						this.$Message.warning(res.object);
 					}

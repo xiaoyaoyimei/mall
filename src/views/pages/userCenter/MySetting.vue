@@ -51,6 +51,7 @@
 </template>
 
 <script>
+	import store from '@/store/store';
 	export default {
 		data() {
 			return {
@@ -117,7 +118,7 @@
 					content: '<p>确认退出登录吗?</p>',
 					onOk: () => {
 	  					store.dispatch('LogOut').then(() => {
-				           	 window.location.href=global_.originurl+'/#/login'
+				           	 window.location.href=this.global_.originurl+'/#/login'
 				             return false
 				          })
 					},
