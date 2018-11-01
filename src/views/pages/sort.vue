@@ -21,14 +21,13 @@
 					<li v-for="(item, index) in productList" :key='index'>
 						<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
 							<i v-if="item.promotionTitle !=null">{{item.promotionTitle}}</i>
-
 							<img :src='item.model_img |imgfilter' :alt="item.model_name">
 							<p class="ptitle">{{item.model_no}}</p>
 							<p class="red">{{item.sale_price}}</p>
 						</router-link>
 					</li>
 				</ul>
-				<div class="jiazaicenter">{{bottomtext}}</div>
+				<div class="jiazaicenter" v-if="hasMore">{{bottomtext}}</div>
 				</scroll>
 			</div>
 			<div class="empty_result flex-center" v-else>
@@ -71,6 +70,9 @@
 				<Button  class="bg-dx" type="error"  @click="ok">搜索</Button>
 			</div>
 		</Modal>
+		    <BackTop :height="100" :bottom="200">
+        <div class="top"><Icon type="md-arrow-round-up" /></div>
+    </BackTop>
 	</div>
 </template>
 <script>
@@ -115,14 +117,15 @@
 				hasShow:true,//搜索有商品
 				scrollheight:0,
 				keyword:'',
-				bottomtext:'加载更多....'
+				bottomtext:'加载更多....',
+				hasMore:false
 			}
 		},
 		methods: {
 				back(){
 					this.$router.go(-1);
 				},
-				//筛选搜索
+				//筛选搜索（类别）
 			   ok(){
 				    this.startRow = 0;
 					this.$axios({
@@ -258,6 +261,7 @@
 			gosearch(){
 				this.$router.push('/search'); 
 			},
+			//scroll下拉加载更多
 			handleReachBottom () {
 				this.startRow=this.startRow+this.pageSize;
 				let _this=this;
@@ -268,11 +272,13 @@
 						method: 'GET',
 						url:'/product/search?startRow='+this.startRow+'&pageSize='+this.pageSize,
 						}).then((res)=>{
+							_this.hasMore=true;
 							_this.productList=_this.productList.concat(res.itemsList);
 						})
 						resolve();
                 });
                 }else{
+                		_this.hasMore=false;
                 	 this.bottomtext='没有更多了....';
                 	 return false;
                 }
@@ -298,7 +304,7 @@
 </script>
 
 <style lang="scss" scoped="scoped">
-	@import '@/styles/color.scss';
+	@import '@/styles/common.scss';
 	.sort{
 		    width: 100%;
     height: 4.4rem;
@@ -306,12 +312,13 @@
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
+    border-bottom: 1px solid $color-border;
 	}
 	.sort .red{
 		background-color: #ff0000;
 	}
 	.sort span{
-		margin-right: 0.5rem;
+		margin-right: 1rem;
 		display: inline-block;
 		background-color: #909090;
 		color: #ffffff;
@@ -329,37 +336,38 @@
 		right: 1.5rem;
 	}
 	.mylike{
-		width: 100%;;
-		min-height: 78rem;
+		border-top: 1px solid $color-border;
 	}
 	.mylike li{
 		float: left;
 		width: 50%;
-		padding: 1.25rem;
 		text-align: center;
 		border-bottom: 1px solid $color-border;
 		background: #fff;
+		a{
+			display: block;
+		}
 	}
 	.mylike li:nth-of-type(2n+1){
 		border-right: 1px solid $color-border;
 	}
 	.mylike li img{
-		width: 10rem;
-		height:10rem;
+		width: 100%;
+		height:100%;
 	}
 	.mylike .ptitle{
 		font-weight: 400;
-		font-size: 1.8rem;
-		text-align: center;
+		font-size: 1.6rem;
 		color: #333;
 		height: 2.5rem;
+		white-space: nowrap;
 		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.mylike .red{
-		font-weight: 400;
-		font-size: 1.8rem;
+		font-size: 1.6rem;
 		color: #FF0000;
-		text-align: center;
+		margin-bottom: 1rem;
 	}
 	.jiazaicenter{
 		font-weight: 400;
@@ -415,6 +423,12 @@
 		height: 2.5rem;
 		line-height: 1rem;
 	}
+	   .top{
+        background: rgba(255,0,0,.9);
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+    }
 </style>
 <style>
 .new .ivu-scroll-container{

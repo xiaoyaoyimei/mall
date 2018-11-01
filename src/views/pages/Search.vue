@@ -1,13 +1,12 @@
 <template>
     <div class="search">
-        	 <header class="bg-black ">
-				<div>
-					<i class="i icon icon-dx-back" @click="back()"></i>
-					<input ref="keyword" placeholder="关键字" v-model.trim='keyword' @keyup.13="search()">
-					<span class="gosearch" @click="search()">搜索</span>
-
+					<header class="bg-black ">
+				<div class="search-wrap">
+					<Icon type="ios-arrow-back" @click.native="back()"/>
+					<input placeholder="关键字" @click="gosearch()" v-model.trim="keyword" @keyup.13="search()">
+					<span @keyup.13="search()">搜索</span>
 				</div>
-			</header> 
+			</header>
 			<div class="content"> 
 				<dl class="hot">
 					<dt>热搜</dt>
@@ -92,49 +91,6 @@
 
 </script>
 <style lang="scss" scoped="scoped">
-	.bg-black{
-		width: 100%;;
-		height: 7.5rem;
-		background-color: #ff0000;
-	}
-	.bg-black .i{
-		vertical-align: middle;
-	}
-	.bg-black div{
-		padding:0.75rem 1rem;
-		position: relative;
-		min-width: 28rem;
-	}
-	.bg-black input{
-		width: 80%;
-		min-width: 20rem;
-		height: 4.25rem;
-		border-radius: 2.5rem;
-		outline: none;
-		box-shadow: none;
-		font-weight: 400;
-		font-style: normal;
-		font-size: 1.5rem;
-		color: rgba(153, 153, 153, 0.498039215686275);
-		text-align: left;
-		position: relative;
-		top: 0.5rem;
-		padding-left: 1.5rem;
-	}
-	.bg-black .gosearch{
-		position: absolute;
-		top: 1.25rem;
-		right: 2rem;
-		width: 7.5rem;
-		height: 4.25rem;
-		border-bottom-right-radius: 2.5rem;
-		border-top-right-radius: 2.5rem;
-		line-height: 4.25rem;
-		color: #ffffff;
-		text-align: center;
-		background-color:#a21112;
-		font-size: 1.5rem;
-	}
 	
 	.content dl {
 		background: #fff;

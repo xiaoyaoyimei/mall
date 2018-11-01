@@ -33,7 +33,7 @@ export default {
 @import './my-theme/index.less';
 </style>
 <style lang="scss" >
-  @import '@/styles/color.scss';
+  @import '@/styles/common.scss';
 #app {
   font-family: "Microsoft YaHei",'Avenir', Helvetica, Arial, sans-serif;
   font-family:'microsoft yahei', 'Avenir', Helvetica, Arial, sans-serif;
