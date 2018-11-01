@@ -36,13 +36,14 @@
 								<br/>x {{child.quantity}}</div>
 						</div>
 					</div>
-					<div class="sptitle"><span style="float: left;margin-left:10px;color: #f60;">{{refundfilter(x.order.orderStatus)}}</span>
-						<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
+					<div class="sptitle"><span style="float: left;margin-left:10px;color: #f60;">
+						{{refundfilter(x.order.orderStatus)}}</span>
+					<span>共{{}}件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 				</div>
 				<div class="cz">
 					<button type="button" class="btn " @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button>
-					<button type="button" class="btn btn-dx" @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">去支付</button>
-					<button class="btn btn-dx" @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>
+					<button type="button" class="btn btn-red-small" @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">立即付款</button>
+					<button class="btn btn-red-small" @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>
 					<router-link class="btn" :to="{ path: '/user/refund', query: {rforder:x.order.orderNo}}" v-if="x.canRefund==true">退款退货</router-link>
 				</div>
 			</li>
@@ -220,6 +221,9 @@
 		},
 		mounted() {
 			this.status = this.$route.query.status
+			if(this.status==undefined){
+				this.status='00'
+			}
 			this.numactive=this.status;
 			this.getOrder();
 			this.getStatusEnum();
@@ -228,26 +232,6 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-.switchStatus{
-	height: 40px;
-	background: #fff;
-	justify-content: center;
-	align-items: center;
-	border-bottom: 1px solid #eee;
-	}
-.switchStatus span{
-	width:20%;
-	text-align: center;
-	display: inline-block;
-	float: left;
-	height: 40px;
-	line-height:40px;
-}
-.switchStatus span.red{
-	color: #f00;
-}
-.switchStatus> span:not(:last-child){
-	border-right: 1px solid #eee;
-}
+
 
 </style>

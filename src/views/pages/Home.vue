@@ -1,15 +1,20 @@
 <template>
 	<div class="homepage">
-		<header class="bg-black ">
-			<div>
-				<i class="i icon icon-dx-write" @click="back()"></i>
+		<header class="bg-black">
+			<div class="search-wrap">
+				<img src="../../assets/img/waplogo.png">
 				<input placeholder="新品" @click="gosearch()" v-model="keyword">
-				<i class="Hsearch icon icon-search"></i>
-
+				<Icon type="ios-search" />
 			</div>
 		</header>
+<<<<<<< HEAD
 		<div class="side_nav_wrap clear" style="margin-top:4.9rem;">
 			<div class="main-wdith">
+=======
+		
+		<Scroll>
+			<div class="side_nav_wrap clear">
+>>>>>>> 16426b6e3972d87e992d7c603d2a81fa701e89d1
 				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots" :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" class="banner">
 					<CarouselItem v-for="(item, index) in Items" :key="index">
 						<div class="demo-carousel">
@@ -18,214 +23,169 @@
 					</CarouselItem>
 				</Carousel>
 				<ul class="minipro clearfix">
-					<li >
+					<li>
 						<router-link :to="{ path: '/sort',query:{keyword:'新品'}}">
-							<i class="icon icon-xinpin"></i><br>
-							<span class="normol">新品</span>
+							<img src="../../assets/img/xp.png"> 新品
 						</router-link>
 					</li>
 					<li>
 						<router-link :to="{ path: '/tousu'}">
-							<i class="icon icon-jianyi"></i><br>
-							<span class="normol">建议</span>
+							<img src="../../assets/img/yj.png"> 建议
 						</router-link>
 					</li>
-					<li >
+					<li>
 						<router-link :to="{ path: '/seckill'}">
-							<i class="icon icon-youhuima"></i><br>
-							<span class="normol">秒杀</span>
+							<img src="../../assets/img/ms.png"> 秒杀
 						</router-link>
 					</li>
-					<li >
+					<li>
 						<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'}}">
-							<i class="icon icon-zhoubian"></i><br>
-							<span class="normol">周边</span>
+							<img src="../../assets/img/zb.png"> 周边
 						</router-link>
 					</li>
 				</ul>
 				<div class="floor">
-					 <ul class="clearfix one" >
-						<li  v-for="(item, index) in hotitem"  :key='index' ><i class="icon icon-rexiao"></i>
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }" >
-							 	<img :src="item.list.img_url | imgfilter" :ref="item.list.id">
-							<h6>{{item.list.model_no}}</h6>
-							<span class="color-newred">￥{{item.list.sale_price|pricefilter}}</span>
+					<ul class="clearfix one">
+						<li v-for="(item, index) in hotitem" :key='index'><i class="icon icon-rexiao"></i>
+							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+								<img :src="item.list.img_url | imgfilter" :ref="item.list.id">
+								<h6>{{item.list.model_no}}</h6>
+								<span class="color-newred">￥{{item.list.sale_price|pricefilter}}</span>
 							</router-link>
-							<div class="mn">
-								<div class="mn-wrap">
-									<div v-for="(child,index) in item.image" @click="switchimg($event,child.listImg,item.list.id)" v-show="child.smallImg!=''">
-										<img :src="child.smallImg | imgfilter">
-									</div>
-								</div>
-							</div>
 						</li>
 					</ul>
-					<!-- <div class="back"
-					@touchstart.prevent="touchStart" @touchmove.prevent="touchMove"
-					@touchend="touchEnd" ref="back">
-							<div class="back-l" ref="left"></div>
-							<div class="back-r" ref="right"></div>
-						
-					</div> -->
-					<!-- <ly-tab
-						v-model="selectedId"
-						:items="hotitem"
-						:options="options"
-						@change="handleChange">
-					</ly-tab> -->
 				</div>
-			</div>
-			<div class="bg-gray mt40 pb105">
-				<div class="main-width">
-					<div class="floor">
-						<div class="title">
-							<div class="seemore fr">
-								<router-link :to="{ path: '/sort',query:{keyword:'电竞'} }"> 查看更多
-									<Icon type="ios-arrow-forward" />
-								</router-link>
-							</div>
-							<span>电竞椅</span></div>
-						<div class="two clearfix">
-							<div class="ad-wrap fl">
-								<router-link  :to="{ path: '/sort/sortDetail',query:{id:gameproductone.product_id} }"><img :src="gameproductone.img_url |imgfilter">
-									<div class="ad ">
-										<h5>{{gameproductone.model_no}}</h5>
-										<h6>{{gameproductone.describe1}}</h6>
-										<h6>{{gameproductone.describe2}}</h6>
-										<span>¥ {{gameproductone.sale_price }}</span>
-									</div>
-								</router-link>
-							</div>
-							<ul class="clearfix fl w896 ml13">
-								<li class="li" v-for="(item, index) in gameproduct" :key='index' v-if="index>0" v-show='index<5'>
-									<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-										<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-										<h6>{{item.list.model_no}}</h6>
-										<!-- <p>{{item.list.describe1}}</p> -->
-										<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
-									</router-link>
-									<div class="mn">
-										<div class="mn-wrap">
-											<div v-for="(child,index) in item.image" @click="switchimg($event,child.listImg,item.list.id)">
-												<img :src="child.smallImg | imgfilter"></div>
-										</div>
-									</div>
-								</li>
-							</ul>
+				<div class="floor">
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'电竞'} }"> 查看更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
 						</div>
-						<div class="title">
-							<div class="seemore fr">
-								<router-link :to="{ path: '/sort',query:{keyword:'办公'} }"> 查看更多
-									<Icon type="ios-arrow-forward" />
-								</router-link>
-							</div>
-							<span>办公</span>
+						<span>电竞椅</span></div>
+					<div class="two clearfix list-wrap">
+						<div class="ad-wrap fl">
+							<router-link :to="{ path: '/sort/sortDetail',query:{id:gameproductone.product_id} }"><img :src="gameproductone.img_url |imgfilter">
+								<div class="ad ">
+									<h5>{{gameproductone.model_no}}</h5>
+									<h6>{{gameproductone.describe1}}</h6>
+									<h6>{{gameproductone.describe2}}</h6>
+									<span>¥ {{gameproductone.sale_price }}</span>
+								</div>
+							</router-link>
 						</div>
-						<div class=" three clearfix">
-							<ul class=" fl  office">
-								<li class="w594">
-									<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }">
-										<img :src="officeproductone.img_url |imgfilter">
-										<div class="ad ">
-											<h5>{{officeproductone.model_no}}</h5>
-											<h6>{{officeproductone.describe1}}</h6>
-											<h6>{{officeproductone.describe2}}</h6>
-											<span>¥ {{officeproductone.sale_price | pricefilter}}</span>
-										</div>
-									</router-link>
-								</li>
-								<li class="officeproduct" v-for="(item, index) in officeproduct" :key='index' v-if="index>0" v-show='index<5'>
-									<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-										<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-										<h6>{{item.list.model_no}}</h6>
-										<!-- <p>{{item.list.describe1}}</p> -->
-										<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
-									</router-link>
-									<div class="mn">
-										<div class="mn-wrap">
-											<div v-for="(child,index) in item.image" @click="switchimg($event,child.listImg,item.list.id)">
-												<img :src="child.smallImg | imgfilter"></div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<div class="title">
-							<div class="seemore fr">
-								<router-link :to="{ path: '/sort',query:{keyword:'家居'} }"> 查看更多
-									<Icon type="ios-arrow-forward" />
-								</router-link>
-							</div>
-							<span>家居</span></div>
-						<div class=" three clearfix">
-							<ul class=" fl  office">
-								<li class="w594">
-									<router-link :to="{ path: '/sort/sortDetail',query:{id:houseproductone.product_id} }">
-										<img :src="houseproductone.img_url | imgfilter">
-										<div class="ad ">
-											<h5>{{houseproductone.model_no}}</h5>
-											<h6>{{houseproductone.describe1}}</h6>
-											<h6>{{houseproductone.describe2}}</h6>
-											<span>¥ {{houseproductone.sale_price | pricefilter}}</span>
-										</div>
-									</router-link>
-								</li>
-								<li class="officeproduct" v-show='index<5' v-for="(item, index) in houseproduct" :key='index' v-if="index>0">
-									<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-										<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-										<h6>{{item.list.model_no}}</h6>
-										<!-- <p>{{item.list.describe1}}</p> -->
-										<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
-									</router-link>
-									<div class="mn">
-										<div class="mn-wrap">
-											<div v-for="(child,index) in item.image" @click="switchimg($event,child.listImg,item.list.id)"><img :src="child.smallImg | imgfilter"></div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<div class="title">
-							<div class="seemore fr">
-								<router-link :to="{ path: '/sort',query:{keyword:'座舱'} }"> 更多
-									<Icon type="ios-arrow-forward" />
-								</router-link>
-							</div>
-							<span>座舱</span></div>
-						<div class="floorad clearfix">
-							<div class="fl bg-white clearfix ad-wrap yxzc" v-for="(item, index) in cockpitproduct" v-if='index<2' :key='index'>
+						<ul class="clearfix">
+							<li class="li" v-for="(item, index) in gameproduct" :key='index' v-if="index>0" v-show='index<5'>
 								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-									<img :src="item.list.img_url  |imgfilter" class="zhuozi">
-									<div class="ad">
-										<h5>{{item.list.model_no}}</h5>
-										<p>{{item.list.describe1}}</p>
-										<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span></div>
-								</router-link>
-							</div>
-						</div>
-						<div class="title">
-							<div class="seemore fr">
-								<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }"> 更多
-									<Icon type="ios-arrow-forward" />
-								</router-link>
-							</div>
-							<span>座椅周边</span></div>
-
-						<ul class="clearfix peripheryproduct  bgli-white mb105">
-							<li v-for="(item, index) in peripheryproduct" :key='index' v-if='index<1'>
-								<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }">
 									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<h6>{{item.list.model_no}}</h6>
+									<!-- <p>{{item.list.describe1}}</p> -->
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
 								</router-link>
+
 							</li>
 						</ul>
-						<div class="homeBottom">
-							—— 我是有底线的 ——
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'办公'} }"> 查看更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
 						</div>
+						<span>办公</span>
+					</div>
+					<div class=" three clearfix list-wrap">
+						<ul class=" fl  office ">
+							<li class="w594">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }">
+									<img :src="officeproductone.img_url |imgfilter">
+									<div class="ad ">
+										<h5>{{officeproductone.model_no}}</h5>
+										<h6>{{officeproductone.describe1}}</h6>
+										<h6>{{officeproductone.describe2}}</h6>
+										<span>¥ {{officeproductone.sale_price | pricefilter}}</span>
+									</div>
+								</router-link>
+							</li>
+							<li class="officeproduct" v-for="(item, index) in officeproduct" :key='index' v-if="index>0" v-show='index<5'>
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<h6>{{item.list.model_no}}</h6>
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
+								</router-link>
+
+							</li>
+						</ul>
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'家居'} }"> 查看更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
+						</div>
+						<span>家居</span></div>
+					<div class=" three clearfix">
+						<ul class=" fl  office">
+							<li class="w594">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:houseproductone.product_id} }">
+									<img :src="houseproductone.img_url | imgfilter">
+									<div class="ad ">
+										<h5>{{houseproductone.model_no}}</h5>
+										<h6>{{houseproductone.describe1}}</h6>
+										<h6>{{houseproductone.describe2}}</h6>
+										<span>¥ {{houseproductone.sale_price | pricefilter}}</span>
+									</div>
+								</router-link>
+							</li>
+							<li class="officeproduct" v-show='index<5' v-for="(item, index) in houseproduct" :key='index' v-if="index>0">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<h6>{{item.list.model_no}}</h6>
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
+								</router-link>
+
+							</li>
+						</ul>
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'座舱'} }"> 更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
+						</div>
+						<span>座舱</span></div>
+					<div class="floorad clearfix">
+						<div class="fl bg-white clearfix ad-wrap yxzc" v-for="(item, index) in cockpitproduct" v-if='index<2' :key='index'>
+							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
+								<img :src="item.list.img_url  |imgfilter" class="zhuozi">
+								<div class="ad">
+									<h5>{{item.list.model_no}}</h5>
+									<p>{{item.list.describe1}}</p>
+									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span></div>
+							</router-link>
+						</div>
+					</div>
+					<div class="more">
+						<div class="seemore fr">
+							<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }"> 更多
+								<Icon type="ios-arrow-forward" />
+							</router-link>
+						</div>
+						<span>座椅周边</span></div>
+
+					<ul class="clearfix peripheryproduct  bgli-white mb105">
+						<li v-for="(item, index) in peripheryproduct" :key='index' v-if='index<1'>
+							<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }">
+								<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+							</router-link>
+						</li>
+					</ul>
+					<div class="homeBottom">
+						—— 我是有底线的 ——
 					</div>
 				</div>
 			</div>
-		</div>
-
+		</Scroll>
 	</div>
 </template>
 
@@ -234,7 +194,7 @@
 		data() {
 			return {
 				value3: 0,
-				keyword:'',
+				keyword: '',
 				loginflag: true,
 				setting: {
 					autoplay: false,
@@ -255,53 +215,25 @@
 				houseproductone: {},
 				type: [],
 				basictype: [],
-				tableproduct:[],
-				cockpitproduct:[],
-				peripheryproduct:[],
-				toolbarNologin:{},//侧边栏个人中心是否登录
-				seckillTime:false,
-				seckilllist:[{
-					switch:'',
+				tableproduct: [],
+				cockpitproduct: [],
+				peripheryproduct: [],
+				toolbarNologin: {}, //侧边栏个人中心是否登录
+				seckillTime: false,
+				seckilllist: [{
+					switch: '',
 				}],
-				jsqtime:'',
-				day:'',
-				hr:'',
-				min:0,
-				sec:0,
+				jsqtime: '',
+				day: '',
+				hr: '',
+				min: 0,
+				sec: 0,
 				currentPlay: 'red',
 				percent: 0,
-				// selectedId: 4,
-				// bottomSelectedId: 0,
-				// items: [
-				// 	{label: '首页'},
-				// 	{label: '推荐'},
-				// 	{label: 'Android'},
-				// 	{label: '前端'},
-				// 	{label: '后端'},
-				// 	{label: 'iOS'},
-				// 	{label: '产品'},
-				// 	{label: '人工智能'},
-				// 	{label: '设计'}
-				// ],
-				// options: {
-				// 	activeColor: '#1d98bd'
-				// },
-				// bottomItems: [
-				// 	{text: '首页', icon: 'ly-icon ly-icon-home'},
-				// 	{text: '沸点', icon: 'ly-icon ly-icon-icon--'},
-				// 	{text: '发现', icon: 'ly-icon ly-icon-sousuo'},
-				// 	{text: '我', icon: 'ly-icon ly-icon-wode'}
-				// ],
-				// bottomOptions: {
-				// 	activeColor: '#1d98bd',
-				// 	fixBottom: true,
-				// 	labelKey: 'text'
-				// }
 
 			};
 		},
 		computed: {
-
 			token() {
 				//获取store里面的token
 				return this.$store.state.token;
@@ -313,8 +245,8 @@
 			}
 		},
 		methods: {
-			back(){
-	
+			back() {
+
 			},
 			gosearch() {
 				this.$router.push({
@@ -340,9 +272,9 @@
 				this.day = day;
 				hr = day * 24 + hr;
 				if(this.day < 3) {
-						this.seckillTime = true
-					} else {
-						this.seckillTime = false
+					this.seckillTime = true
+				} else {
+					this.seckillTime = false
 				}
 				this.hr = hr > 9 ? hr : '0' + hr;
 				this.min = min > 9 ? min : '0' + min;
@@ -359,14 +291,13 @@
 				}
 				this.$axios({
 					method: 'get',
-					url:'/promotion/crush/',
-				}).then((res)=>{
-					if(res.code=='200'){
+					url: '/promotion/crush/',
+				}).then((res) => {
+					if(res.code == '200') {
 						this.seckilllist = res.object;
-						if(this.seckilllist[0].switch=='0'){
-							this.jsqtime=this.seckilllist[0].crush["startTime"]
-						}
-						else{
+						if(this.seckilllist[0].switch == '0') {
+							this.jsqtime = this.seckilllist[0].crush["startTime"]
+						} else {
 							this.jsqtime = this.seckilllist[0].crush["endTime"];
 						}
 						//计时器
@@ -425,7 +356,6 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.houseproduct = res.object;
-						console.log(this.houseproduct)
 						if(this.houseproduct.length > 0) {
 							this.houseproductone = this.houseproduct[0].list;
 						}
@@ -468,7 +398,7 @@
 			this.getBanner();
 
 		},
-		
+
 		created() {
 			this.touch = {}
 		},
@@ -476,13 +406,305 @@
 </script>
 
 <style lang="scss" scoped="scoped">
- @import '@/styles/color.scss';
- .homepage{
-	 background-color: #FFFFFF;
- }
-
-.demo-carousel img{
+	@import '@/styles/common.scss';
+	.homepage {
+		background: #f0f0f0;
+	}
+	
+	.minipro {
+		display: flex;
+		background: #fff;
+		padding: 0 0 1rem;
+		font-size: 1.4rem;
+		color: #888;
+		li {
+			width: 25%
+		}
+		a {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			img {
+				width: 6rem;
+				height: 6rem;
+			}
+		}
+	}
+	
+	.more {
+		font-size: 1.8rem;
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+		overflow: hidden;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+	
+	.seemore {
+		float: right;
+		text-align: right;
+	}
+	
+	.seemore a {
+		color: #999999;
+		font-size: 1.2rem;
+	}
+	
+	.two .ad-wrap {
+		position: relative;
+		width: 33.33%;
+		float: left;
+	}
+	
+	.two .ad-wrap img {
 		width: 100%;
+		height: 31.25rem;
+	}
+	
+	.two .li:nth-of-type(1) {
+		border-right: 0.05rem solid $color-border;
+		border-bottom: 0.05rem solid $color-border;
+	}
+	
+	.two .li:nth-of-type(2) {
+		border-bottom: 0.05rem solid $color-border;
+	}
+	
+	.two .li:nth-of-type(3) {
+		border-right: 0.05rem solid $color-border;
+	}
+	
+	.ad-wrap .ad {
+		position: absolute;
+		top: 2.4rem;
+		left: 1rem;
+	}
+	
+	.ad h5 {
+		font-weight: 700;
+		font-size: 1.6rem;
+		color: #FFFFFF;
+	}
+	
+	.ad h6 {
+		font-weight: 400;
+		font-size: 1.2rem;
+		color: #FFFFFF;
+		height: 1.5rem;
+		line-height: 1.5rem;
+	}
+	
+	.ad span {
+		font-weight: 700;
+		font-size: 1.2rem;
+		color: #FFFFFF;
+		position: relative;
+		top: 1.5rem;
+	}
+	
+	.two ul {
+		float: left;
+		width: 66.67%;
+	}
+	
+	.two li {
+		float: left;
+		width: 50%;
+		height: 15.625rem;
+		text-align: center;
+		justify-content: center;
+		display: flex;
+		align-items: center;
+	}
+	
+	.two img {
+		width: 6rem;
+	}
+	
+	.two h6 {
+		font-size: 1.2rem;
+	}
+	
+	.color-newred {
+		color: #ff0000;
+		font-size: 1.4rem;
+		font-weight: bold;
+	}
+	
+	.w594 {
+		float: left;
+		width: 66.67%;
+		height: 15.6rem;
+		position: relative;
+	}
+	
+	.w594 img {
+		width: 100%;
+		height: 15.6rem;
+	}
+	
+	.w594 .ad {
+		position: absolute;
+		top: 2.25rem;
+		left: 2rem;
+	}
+	
+	.officeproduct {
+		float: left;
+		width: 33.33%;
+		height: 15.6rem;
+		text-align: center;
+		padding-top: 1rem;
+	}
+	
+	.officeproduct:nth-of-type(2) {
+		border-bottom: 0.05rem solid $color-border;
+	}
+	
+	.officeproduct:nth-of-type(3) {
+		border-right: 0.05rem solid $color-border;
+	}
+	
+	.officeproduct:nth-of-type(4) {
+		border-right: 0.05rem solid $color-border;
+	}
+	
+	.officeproduct:nth-of-type(6) {
+		border-bottom: 0.05rem solid $color-border;
+	}
+	
+	.officeproduct:nth-of-type(7) {
+		border-right: 0.05rem solid $color-border;
+	}
+	
+	.officeproduct:nth-of-type(8) {
+		border-right: 0.05rem solid $color-border;
+	}
+	
+	.officeproduct img {
+		width: 6rem;
+	}
+	
+	.floor li h6 {
+		overflow: hidden;
+		font-size: 1.2rem;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		font-weight: normal;
+	}
+	
+	.floorad .yxzc {
+		float: left;
+		width: 100%;
+		height: 15.75rem;
+		position: relative;
+	}
+	
+	.floorad .yxzc:nth-of-type(1) .zhuozi {
+		border-right: 0.05rem solid $color-border!important;
+	}
+	
+	.zhuozi {
+		width: 18.75rem;
+		height: 15.75rem;
+	}
+	
+	.floorad .ad h5 {
+		font-size: 1.6rem;
+		color: #333333;
+	}
+	
+	.floorad .ad p {
+		font-size: 1.2rem;
+		color: #333333;
+	}
+	
+	.floorad .ad span {
+		font-size: 1.2rem;
+		color: #333333;
+	}
+	
+	.peripheryproduct li {
+		width: 100%;
+	}
+	
+	.peripheryproduct img {
+		width: 100%;
+		max-height: 100%;
+	}
+	
+	.homeBottom {
+		background-color: #f0f0f0;
+		height: 15rem;
+		width: 100%;
+		font-weight: 400;
+		font-size: 1.2rem;
+		padding-top: 3rem;
+		color: #999999;
+		text-align: center;
+	}
+	
+	.one {
+		width: 100%;
+	}
+	
+	.one li {
+		float: left;
+		width: 33.33%;
+		position: relative;
+		height: 16.05rem;
+		text-align: center;
+		border-top: 0.05rem solid $color-border;
+		border-bottom: 0.05rem solid $color-border;
+	}
+	
+	.one li:nth-of-type(2) {
+		border-left: 0.05rem solid $color-border;
+	}
+	
+	.one li:nth-of-type(3) {
+		border-left: 0.05rem solid $color-border;
+	}
+	
+	.one img {
+		width: 6rem;
+		margin-top: 0.5rem;
+	}
+	
+	.one i {
+		position: absolute;
+		top: 0.5rem;
+		background-size: 25rem 25rem;
+		left: 0.5rem;
+	}
+	
+	.one h6 {
+		word-break: break-all;
+		color: #333333;
+		height: 2.5rem;
+		overflow: hidden;
+		line-height: 2.5rem;
+		padding: 0rem 1.25rem;
+	}
+	
+	.one .color-newred {
+		color: #ff0000;
+		height: 1.5rem;
+		overflow: hidden;
+	}
+	
+	.demo-carousel img {
+		max-width: 100%;
+	}
+	
+	.list-wrap {
+		a {
+			display: block;
+		}
+		background: #fff;
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #eee;
 	}
 .bg-black{
 	width: 100%;

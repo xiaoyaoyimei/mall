@@ -1,11 +1,4 @@
-$color-primary: #ff0000; //#18c79c
-$color-border:#eee;
-$color-border-red:#ff0000;
-$color-dx:#ff0000;
-$color-default:#333;
-$color-white:#fff;
-$color-gray:#999;
-$color-black:#111;
+  @import './color.scss';
 .mt10 {
     margin-top: 1rem;
 }
@@ -109,12 +102,27 @@ $color-black:#111;
     border: 0 none;
     height: 26px;
 }
+.address{
+    border-bottom: 1px solid $color-border;
+}
 
 .address li {
+    img{
+       width:3.2rem;
+       height: 3.2rem;
+    }
     display: flex;
     background: #fff;
-    padding: 1rem;
+    padding: 1rem 2.5rem 1rem 1rem;
     cursor: pointer;
+    align-items: center;
+    label{
+        float: right;
+    }
+    i{
+        position: absolute;
+        right: 1.5rem;
+    }
 }
 
 .address p {
@@ -128,7 +136,9 @@ $color-black:#111;
 .chooseAddress {
     .zeroAddress {
         background: #fff;
-        padding: 10px
+        padding: 10px;
+        color:#333
+        
     }
 }
 
@@ -196,56 +206,7 @@ $color-black:#111;
         }
     }
 }
-.icon-dx-write{
-    width:2.975rem;
-    height: 2.975rem;
-    background-position: -2.55rem -8rem;
-}
-.icon-search{
-    width:1.675rem;
-    height:1.525rem;
-    background-position: -13.75rem -4.35rem;
-}
-.icon-dx-back{
-    width:2.5rem;
-    height:2.5rem;
-    background-position: -5.9rem -11.4rem;
-}
-.icon-xinpin{
-    width: 2.5rem;
-    height:2.5rem;
-    background-position: -8.6rem -8.4rem;
-}
-.icon-jianyi{
-    width: 2.5rem;
-    height: 2.5rem;
-    background-position: -20.7rem -8.4rem;
-}
-.icon-youhuima{
-    width: 2.5rem;
-    height: 2.5rem;
-    background-position:-8.5025rem -14.4rem;
-}
-.icon-zhoubian{
-    width: 2.5rem;
-    height: 2.5rem;
-    background-position:-17.9rem -5.1rem;   
-}
-.icon-rexiao{
-    width: 1.75rem;
-    height: 1.75rem;
-    background-position: -25.05rem -4.4rem;
-}
-.icon-like{
-    width: 2.5rem;
-    height: 2.5rem;
-    background-position: -17.9rem -11.4rem;	
-}
-.icon-likeRed{
-    width: 2.5rem;
-    height: 2.5rem;
-    background-position: -20.7rem -11.4rem;	
-}
+
 .btn-dx {
     background: $color-dx;
     color: #fff;
@@ -308,12 +269,6 @@ $color-black:#111;
     }
 }
 
-.ivu-icon-ios-arrow-back {
-    font-size: 2.8rem;
-    position: relative;
-    top: 0.5rem;
-}
-
 input,
 textarea {
     outline: 0;
@@ -327,6 +282,96 @@ textarea {
     color: #999;
 }
 
+.icon-home{
+    width: 3.4rem;
+    height:3.15rem;
+    background-position: -5rem -1.35rem;
+}
+.icon-home-red{
+    width: 3.4rem;
+    height:3.15rem;
+    background-position: -5rem -5.35rem;
+}
+.icon-sort-red{
+    width: 3.15rem;
+    height:3.15rem;
+    background-position: -9.6rem -5.1rem;   
+}
+.icon-sort{
+    width: 3.4rem;
+    height:3.15rem;
+    background-position: -9.6rem -1.35rem;   
+}
+.icon-cart{
+    width: 3.4rem;
+    height:3.25rem;
+    background-position: -14.15rem 1.35rem;   
+}
+.icon-cart-red{
+    width: 3.4rem;
+    height:3.25rem;
+    background-position: -14.15rem -5.35rem;   
+}
+.icon-my{
+    width: 3.4rem;
+    height:3.15rem;
+    background-position: -18.75rem -1.35rem;   
+}
+.icon-my-red{
+    width: 3.4rem;
+    height:3.15rem;
+    background-position: -18.75rem -5.35rem;   
+}
+.icon-dx-write{
+    width: 5.95rem;
+    height: 5.95rem;
+    background-position: -5.1rem -16rem;
+}
+.icon-search{
+    width: 3.35rem;
+    height: 3.05rem;
+    background-position: -27.5rem -8.7rem;
+}
+.icon-dx-back{
+    width: 3.35rem;
+    height: 3.05rem;
+    background-position: -12.15rem -23.75rem;
+}
+.icon-xinpin{
+    width: 5rem;
+    height: 5rem;
+    background-position: -17.2rem -16.8rem;
+}
+.icon-jianyi{
+    width: 5rem;height: 5rem;
+    background-position: -41.4rem -16.75rem;
+}
+.icon-youhuima{
+    width: 5rem;
+    height: 5rem;
+    background-position:-17.05rem -28.8rem;
+}
+.icon-zhoubian{
+    width: 5rem;
+    height:5rem;
+    background-position:-35.8rem -10.2rem;   
+}
+.icon-rexiao{
+    width: 1.75rem;
+    height: 1.75rem;
+    
+    background-position: -25.05rem -4.4rem;
+}
+.icon-like{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-position: -17.9rem -11.4rem; 
+}
+.icon-likeRed{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-position: -20.7rem -11.4rem; 
+}
 .header-home-wrapper {
     width: 100%;
     height: auto;
@@ -354,21 +399,6 @@ textarea {
 .SearchBarWrapper {
     padding-left: 4.4rem;
     padding-right: 4.4rem;
-}
-
-.search input {
-    border: 0;
-    font-size: 1.2rem;
-    display: inline-block;
-    background: 0;
-    text-indent: 2px;
-    width: 100%;
-    vertical-align: middle;
-    color: #999;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background: #fff;
 }
 
 .inputwrap {
@@ -430,6 +460,7 @@ textarea {
 
 .bg-red .ivu-icon-ios-arrow-back {
     color: #fff;
+    font-size: 2.4rem;
 }
 
 .m_header_bar {
@@ -440,6 +471,7 @@ textarea {
     cursor: pointer;
     width: 100%;
     .m_header_bar_back {
+        font-size: 2.4rem;
         position: absolute;
         top: 0;
         display: block;
@@ -658,6 +690,7 @@ textarea {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: inline-block;
 }
 .xq {
     margin-right: 1rem;
@@ -810,4 +843,85 @@ textarea {
 .btn-wrap{
     margin:3rem 3rem 0;
 }
-$color-black:#111;
+//home+sort 顶部搜索
+    .search-wrap {
+         padding-top: 1rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        position: relative;
+        display: flex;
+        img {
+            width: 3rem;
+            height: 3rem;
+            margin-right: 1rem
+        }
+        i:first-child{
+            font-size: 2.4rem;
+          color: #fff;
+          position: relative;
+          left: 0;
+          top: 0.5rem;
+          margin-right: 1rem;
+        }
+          i:last-child{ 
+               font-size: 2.4rem;
+                color: #999; position: absolute;
+            left: 40%;
+            top: 1.5rem;}
+         input {
+        height: 3rem;
+        border-radius: 1rem;
+        outline: none;
+        text-align: center;
+        box-shadow: none;
+        font-size: 2rem;
+        border: 0 none;
+        flex: 1;
+        font-size: 1.6rem;
+    }
+    span{
+        margin-left: 1.5rem;
+        color: #fff;
+        font-size: 1.6rem;
+        position: relative;
+        top: 0.5rem;
+    }
+    }
+.bg-black {
+        width: 100%;
+        height: 4.9rem;
+        background-color: #ff0000;
+    }
+    
+.btn-red-small{
+    background: #FF0000;
+    color: #FFF;
+    border: 1px solid red;
+}
+//订单switch
+.switchStatus{
+    height: 40px;
+    background: #fff;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    }
+.switchStatus span{
+    width:20%;
+    text-align: center;
+    display: inline-block;
+    float: left;
+    height: 40px;
+    line-height:40px;
+    font-size: 1.6rem;
+}
+.switchStatus span.red{
+    color: #f00;
+}
+.switchStatus> span:not(:last-child){
+    border-right: 1px solid #eee;
+}
+.cz{
+    text-align: right;
+    padding: 1rem 0 3rem;
+}

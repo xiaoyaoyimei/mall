@@ -1,13 +1,21 @@
 <template>
     <div class="search">
+<<<<<<< HEAD
         	 <header class="bg-black ">
 				<div>
 					<i class="i icon icon-dx-back" style="" @click="back()"></i>
 					<input ref="keyword" placeholder="关键字" v-model.trim='keyword' @keyup.13="search()">
 					<span class="gosearch" @click="search()">搜索</span>
 
+=======
+					<header class="bg-black ">
+				<div class="search-wrap">
+					<Icon type="ios-arrow-back" @click.native="back()"/>
+					<input placeholder="关键字" @click="gosearch()" v-model.trim="keyword" @keyup.13="search()">
+					<span @keyup.13="search()">搜索</span>
+>>>>>>> 16426b6e3972d87e992d7c603d2a81fa701e89d1
 				</div>
-			</header> 
+			</header>
 			<div class="content"> 
 				<dl class="hot">
 					<dt>热搜</dt>

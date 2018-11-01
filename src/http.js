@@ -1,8 +1,8 @@
 import axios from 'axios'
 import store from '@/store/store'
 import router from '@/router/route'
-import Promise from 'es6-promise'
-Promise.polyfill()
+//import Promise from 'es6-promise'
+//Promise.polyfill()
 import qs from 'qs'
 
 // axios 配置

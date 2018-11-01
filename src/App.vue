@@ -33,7 +33,7 @@ export default {
 @import './my-theme/index.less';
 </style>
 <style lang="scss" >
-  @import '@/styles/color.scss';
+  @import '@/styles/common.scss';
 #app {
   font-family: "Microsoft YaHei",'Avenir', Helvetica, Arial, sans-serif;
   font-family:'microsoft yahei', 'Avenir', Helvetica, Arial, sans-serif;
@@ -41,6 +41,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #888;
   height:100vh;
+  background: #f0f0f0;
 }
 .icon{
     background-image: url(./assets/img/icon.png);
@@ -68,8 +69,6 @@ outline{
 	}
 	    .form_wrap .ivu-form-item{
         margin-bottom: 0;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
     padding-left:1rem
     }
     .form_wrap >.ivu-form-item:not(:last-child){
