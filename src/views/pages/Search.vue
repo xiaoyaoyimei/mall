@@ -2,15 +2,17 @@
     <div class="search">
         	 <header class="bg-black ">
 				<div class="search-wrap">
-					<Icon type="ios-arrow-back" @click.native="back()"/>
-					<input placeholder="关键字" @click="gosearch()" v-model.trim="keyword" @keyup.13="search()">
-					<span @keyup.13="search()">搜索</span>
+				<input placeholder="关键字" @click="search()" v-model.trim="keyword" @keyup.13="search()" ref="keyword">
+					<Icon type="ios-search"  class="icon-search"/>
+						<span @click="search()">搜索</span>
 				</div>
 			</header>
 			<div class="content"> 
 				<dl class="hot">
 					<dt>热搜</dt>
-					<dd  @click='gosort("电竞椅")'>电竞椅</dd></dl>
+					<dd  @click='gosort("电竞椅")'>电竞椅</dd>
+				<dd  @click='gosort("LPL")'>LPL</dd>
+				<dd  @click='gosort("办公")'>办公</dd></dl>
 				<dl class="history"><dt>历史搜索 <Icon @click='clear()' style="float:right;font-size:2rem!important;" type="ios-trash-outline"></Icon></dt>
 					<dd  v-for="(item,index) in arr" :key="index" @click='gosort(item)'>{{item}}</dd>
 				</dl>
@@ -149,26 +151,27 @@
 		color:#333;
 	}
 	.hot{
-		padding: 1.5rem;
+		padding: 1rem;
 	}
 	.hot dd{
 		font-size: 1.4rem;
-		background: #f6f6f6;
+		background: #fafafa;
 		display: inline-block;
-		padding: 0.5rem 1.25rem;
+		padding: 0.3rem 1rem;
 		border-radius: 0.25rem;
 		margin-right: 0.25rem;
+		color: #454545;
 	}
 	.history{
-		margin: 0rem 1.5rem;
+		min-height: 30rem;
 		dt{
-			border-bottom: 1px solid #eee;
-			padding: 1.25rem 0.5rem;
+			padding: 1rem;
 		}
 		dd{
 			cursor: pointer;
 			padding:  0.5rem 1rem;
 			font-size: 1.4rem;
+			border-bottom: 1px solid #eee;
 		}
 	}
 	.delete-wrap{
