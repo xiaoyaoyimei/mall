@@ -23,7 +23,7 @@
 			<div class="chooseAddress">
 					<ul class="address" v-if="youdizhi">
 					<li>
-						<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
+						<p ><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 						<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
 							<Icon type="ios-arrow-forward"  @click.native="addAdd"></Icon>
 					</li>
@@ -375,22 +375,6 @@
 	color: #FF0000;
 	border-bottom: 0.15rem solid $color-border-red;
 }
-// .wuliu{
-// 	width: 100%;
-// 	font-weight: 400;
-//     font-size: 1.8rem;
-// 	color: #999999;
-// 	padding: 1.5rem 1.25rem;
-// 	border-bottom: 0.025rem solid $color-border;
-// }
-// .mylike{
-// 	position: absolute;
-// 	top: 0rem;
-// 	right: 2.505rem;
-// }
-// .mylike i{
-// 	background-size: 25rem 25rem;
-// }
 .fuwu{
 	padding: 1rem;
 	border-bottom: 0.25rem solid $color-border;
@@ -414,8 +398,6 @@
 }
 .pro_size{
 	padding: 1.25rem;
-}
-.pro_size p{
 }
 .pro_size span{
 	float: left;
