@@ -226,8 +226,8 @@ export default {
 	font-size: 1.4rem;
 }
 .product .Slist .Simg{
-	width: 12.5rem;
-	height: 12.5rem;
+	width: 10rem;
+	height: 10rem;
 }
 .Slist .btn{
 	display: block;
@@ -235,7 +235,7 @@ export default {
     font-size: 1.8rem;
 	color: #FFFFFF;
 	background-color: #ff0000;
-	width: 12rem;
+	width: 10rem;
 	height: 3.5rem;
 	position: absolute;
 	bottom:1rem;
