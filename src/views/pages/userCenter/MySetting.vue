@@ -106,27 +106,16 @@
 			logout: function() {
 				var _this = this;
 				this.$Modal.confirm({
-					title: '登出提示',
-					content: '<p>确认退出吗?</p>',
+					title: '登出',
+					content: '<p>确认退出登录吗?</p>',
 					onOk: () => {
-						this.$axios({
-							method: 'post',
-							url: '/customer/logout',
-						}).then((res) => {
-							if(res.code !== 200) {
-								this.$Message.error(res.msg);
-							} else {
-								this.$store.commit('LOGOUT');
-								_this.$router.push('/login');
-							}
-						});
-
+	  					store.dispatch('LogOut').then(() => {
+				           	 window.location.href=global_.originurl+'/#/login'
+				             return false
+				          })
 					},
-					onCancel: () => {
-						this.$Message.info('取消退出');
-					}
 				});
-			}
+			},
 		},
 		mounted() {
 			this.getUser()

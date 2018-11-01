@@ -18,7 +18,7 @@
 			</ul>
 			<div class="zeroAddress" v-else>
 				<div @click="addAdd">
-					请选择收货地址
+					请选择收货地址>
 					<Icon class='float float1' type="ios-arrow-right"></Icon>
 				</div>
 			</div>
@@ -28,11 +28,14 @@
 			<Row class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
 				<i-col span="6"><img class='cartImg' :src="imageSrc+x.image"></i-col>
 				<i-col span="18">
-					<p class='cart_black'>{{x.itemNo}}
-						<span class="color-dx">￥{{x.salePrice | pricefilter}}</span>
-						<span v-if="x.promotionTitle ==null&&xscoupon" class="color-dx">
-					       	 	￥{{couponprice(x.salePrice) | pricefilter}}
-					       	 </span>
+					<p class='cart_black'>
+						{{x.itemNo}}
+						
+						
+						<span v-if="x.promotionTitle ==null&&xscoupon" style="float: right;">
+					      <label style="text-decoration: line-through;">￥{{x.originSalePrice|pricefilter}}</label> 	<label class="color-dx">￥{{x.salePrice|pricefilter}}</label>
+					     </span>
+					     <span v-else>￥{{x.originSalePrice|pricefilter}}</span>
 					       	</p>
 						<p ><span class='title'>{{x.productName}}</span><span class="num">x{{x.quantity}}
 					       	 </span></p>
@@ -42,17 +45,16 @@
 						{{x.productAttr}}
 					</p>
 					<div class="cart_gray">
-						<p>
-							<label class="promotion" v-if="x.promotionTitle !=null">{{x.promotionTitle}}</label>
-
+						<p v-if="x.promotionTitle !=null" class="promotion">
+							{{x.promotionTitle}}
 						</p>
 					</div>
 				</i-col>
 			</Row>
 		</div>
-		<dl  class="yhm" v-show="couponshow"><dt>优惠券</dt><dd><input type="text" placeholder="优惠券" v-model.trim="couponCode" />
+		<dl  class="yhm" v-show="couponshow"><dt>优惠券</dt><dd><input type="text" placeholder="优惠券" v-model.trim="couponCode" ref="couponValue"/>
 			<span @click='usecoupon' class="use">使用</span>
-			<span class="color-dx">-￥{{(origintotal.price -total.price)|pricefilter}}</span>
+			<span class="color-dx">已优惠:-￥{{(origintotal.price -total.price)|pricefilter}}</span>
 		</dd></dl>
 			<dl><dt>配送方式</dt><dd><span class="color-dx">快递费用￥{{freight | pricefilter}}</span></dd></dl>
 			<dl><dt>备注留言</dt><dd><textarea>{{beizhu}}</textarea></dd></dl>
@@ -377,14 +379,14 @@
 					}
 				});
 			},
-			couponprice(value) {
-				let couponmsg = this.couponmsg;
-				if(couponmsg.couponMode == 'rate') {
-					return value * (1 - couponmsg.modeValue)
-				} else {
-					return value - couponmsg.modeValue
-				}
-			}
+//			couponprice(value) {
+//				let couponmsg = this.couponmsg;
+//				if(couponmsg.couponMode == 'rate') {
+//					return value * (1 - couponmsg.modeValue)
+//				} else {
+//					return value - couponmsg.modeValue
+//				}
+//			}
 		},
 		mounted() {
 			this.getAddress();

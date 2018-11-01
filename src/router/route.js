@@ -295,16 +295,19 @@ let routes = [{
 		component: resolve => require(['@/views/errorPages/404.vue'], resolve)
 	},
 ]
-if(localStorage.getItem('token')) {
-	store.commit('LOGIN', {
-		token: localStorage.getItem('token'),
-		userId: localStorage.getItem('userId')
-	})
-}
 const router = new VueRouter({
-	// mode: 'history',
 	root: '/',
-	routes
+	routes,
+		scrollBehavior(to, from, savedPosition) {
+		if(savedPosition) {
+			return savedPosition
+		} else {
+			return { 
+				x: 0,
+				y: 0
+			}
+		}
+	}
 });
 
 router.beforeEach((to, from, next) => {

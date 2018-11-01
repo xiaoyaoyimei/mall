@@ -1,47 +1,51 @@
-import axios from 'axios'
-import store from '@/store/store'
-import router from '@/router/route'
-//import Promise from 'es6-promise'
-//Promise.polyfill()
-import qs from 'qs'
-
+import axios from 'axios';
+import { getToken, getUserId,removeToken,removeUserId } from '@/base/auth'
+import global_ from '@/base/baseParam';
+import store from '@/store/store';
+import router from '@/router/route';
+import Vue from 'vue';
+import {Modal,Message} from 'iview'
+Vue.prototype.$Modal = Modal
+Vue.prototype.$Message = Message
 // axios 配置
-axios.defaults.timeout = 5000;
-
-axios.defaults.baseURL = '/mall/wap/';
-//pro-环境
-//axios.defaults.baseURL = 'http://10.0.0.28/mall/wap/';
-//axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
-//axios.defaults.withCredentials=true;
+axios.defaults.timeout = 9000;
+//修改flj
+//生产环境
+axios.defaults.baseURL = `/mall/wap`;
 // http request 拦截器
 axios.interceptors.request.use(
-    config => {
-        if (store.state.token) {
-          config.headers['token'] = store.state.token;
-		  config.headers['loginUserId']=store.state.userId
-        }
-        return config;
-    },
-    err => {
-        return Promise.reject(err);
-    });
+	config => {
+		if(getToken()) {
+			config.headers['token'] = getToken();
+			config.headers['loginUserId'] = getUserId();
+		}
+		return config;
+	},
+	err => {
+		return Promise.reject(err);
+	});
 
 // http response 拦截器
 axios.interceptors.response.use(
-    response => {
-           	if(response.data.code=='401'){
-           	  console.log( router);
-    		router.replace({
-                        path: '/login',
-                        query: {redirect: router.currentRoute.fullPath}
-                    })
-    	}
-        return response.data;
-    },
-    
-    error => {
-      console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
-        return Promise.reject(error.response)
-    });
+	response => {
+		if(response.data.code ===401) {
+			if(getToken()!=''&&getToken()!=undefined){
+				     removeToken();
+					  store.dispatch('LogOut').then(() => {
+			            Message.error( '验证已过期, 请重新登录')
+				           window.location.href=global_.originurl+'/#/login'
+				             return false
+				          })
+			}else{
+				  return false
+			}
+			}else{
+				  return response.data
+			}
+
+	},
+	error => {
+		return Promise.reject(error.response)
+	});
 
 export default axios;
