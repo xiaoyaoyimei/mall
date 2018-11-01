@@ -33,7 +33,10 @@
 							</div>
 							<div class="price">
 							<span class="color-black">	￥{{childjun(child) | pricefilter}}</span>
-								<br/>x {{child.quantity}}</div>
+								<br/>x {{child.quantity}}<br/>
+							<router-link v-if="x.order.orderStatus=='07'&&!child.pinglun" class="color-red pingjia" style="color:#ff0000" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,evaItemId:child.productModelId,evaProId:child.orderItemsId}}">去评价</router-link>	
+							</div>
+								
 						</div>
 					</div>
 					<div class="sptitle"><span style="float: left;margin-left:10px;color: #f60;">
@@ -45,6 +48,7 @@
 					<button type="button" class="btn btn-red-small" @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">立即付款</button>
 					<button class="btn btn-red-small" @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>
 					<router-link class="btn" :to="{ path: '/user/refund', query: {rforder:x.order.orderNo}}" v-if="x.canRefund==true">退款退货</router-link>
+					<!--  -->
 				</div>
 			</li>
 		</ul>

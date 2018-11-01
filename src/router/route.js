@@ -123,6 +123,15 @@ let routes = [{
 				meta: {
 					requireAuth: true
 				},
+				zname: '评价',
+				name: 'evaluate',
+				path: 'evaluate',
+				component: resolve => require(['@/views/pages/userCenter/Evaluate.vue'], resolve),
+			},
+			{
+				meta: {
+					requireAuth: true
+				},
 				zname: '售后服务',
 				name: '/user/aftersales',
 				path: '/user/aftersales',
