@@ -2,7 +2,7 @@
     <div class="search">
         	 <header class="bg-black ">
 				<div>
-					<i class="i icon icon-dx-back" @click="back()"></i>
+					<i class="i icon icon-dx-back" style="" @click="back()"></i>
 					<input ref="keyword" placeholder="关键字" v-model.trim='keyword' @keyup.13="search()">
 					<span class="gosearch" @click="search()">搜索</span>
 
@@ -94,22 +94,24 @@
 <style lang="scss" scoped="scoped">
 	.bg-black{
 		width: 100%;;
-		height: 7.5rem;
+		height: 4.9rem;
 		background-color: #ff0000;
 	}
 	.bg-black .i{
 		vertical-align: middle;
+		position: relative;
+		top: 0.5rem;
 	}
 	.bg-black div{
-		padding:0.75rem 1rem;
+		padding:0.25rem 1rem;
 		position: relative;
 		min-width: 28rem;
 	}
 	.bg-black input{
 		width: 80%;
 		min-width: 20rem;
-		height: 4.25rem;
-		border-radius: 2.5rem;
+		height: 3rem;
+		border-radius: 1.5rem;
 		outline: none;
 		box-shadow: none;
 		font-weight: 400;
@@ -123,13 +125,13 @@
 	}
 	.bg-black .gosearch{
 		position: absolute;
-		top: 1.25rem;
+		top: 0.75rem;
 		right: 2rem;
 		width: 7.5rem;
-		height: 4.25rem;
-		border-bottom-right-radius: 2.5rem;
-		border-top-right-radius: 2.5rem;
-		line-height: 4.25rem;
+		height: 3rem;
+		border-bottom-right-radius: 1.5rem;
+		border-top-right-radius: 1.5rem;
+		line-height: 3rem;
 		color: #ffffff;
 		text-align: center;
 		background-color:#a21112;

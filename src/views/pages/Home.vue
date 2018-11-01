@@ -8,7 +8,7 @@
 
 			</div>
 		</header>
-		<div class="side_nav_wrap clear" style="">
+		<div class="side_nav_wrap clear" style="margin-top:4.9rem;">
 			<div class="main-wdith">
 				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots" :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" class="banner">
 					<CarouselItem v-for="(item, index) in Items" :key="index">
@@ -486,31 +486,37 @@
 	}
 .bg-black{
 	width: 100%;
-	height: 7.5rem;
+	height: 4.9rem;
 	background-color: #ff0000;
+	position: fixed;
+	top: 0rem;
+	left:0rem;
+	z-index: 100;
 }
 .bg-black .i{
 	vertical-align: middle;
+	position: relative;
+	top: 0.1rem;
 }
 .bg-black div{
-	padding:0.75rem 1rem;
+	padding:0.25rem 1rem;
 	position: relative;
 }
 .bg-black input{
-	width: 74%;
-	height:4.25rem;
-	border-radius: 2.5rem;
+	width: calc(100% - 6rem);
+	height:3rem;
+	border-radius: 1.25rem;
 	outline: none;
 	text-align: center;
 	box-shadow: none;
-	font-size: 2.4rem;
+	font-size: 1.8rem;
 	position: relative;
-	top: 0.5rem;
+	top: 0.6rem;
 	border: 0;
 }
 .bg-black .Hsearch{
 	position: absolute;
-	top: 2rem;
+	top: 1.5rem;
 	left: 8.5rem
 }
 .minipro{
@@ -670,7 +676,6 @@
 	color: #333333;
 	height: 1.5rem;
 	line-height: 1.5rem;
-	width: 5rem;
 	margin: 0 auto;
 	overflow: hidden;
 	font-size: 1.2rem;

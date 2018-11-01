@@ -750,12 +750,11 @@
 	position: absolute;
 	top:1.5rem;
 	left: 1.5rem;
-	width: 5rem;
-	height: 5rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	border-radius: 50%;
 	z-index: 100;
 	background-color: #414141;
-	background-position: -11.5rem -22.8rem;
 }
 .iteminfo{
 	background-color: #ffffff;

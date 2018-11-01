@@ -196,7 +196,56 @@ $color-black:#111;
         }
     }
 }
-
+.icon-dx-write{
+    width:2.975rem;
+    height: 2.975rem;
+    background-position: -2.55rem -8rem;
+}
+.icon-search{
+    width:1.675rem;
+    height:1.525rem;
+    background-position: -13.75rem -4.35rem;
+}
+.icon-dx-back{
+    width:2.5rem;
+    height:2.5rem;
+    background-position: -5.9rem -11.4rem;
+}
+.icon-xinpin{
+    width: 2.5rem;
+    height:2.5rem;
+    background-position: -8.6rem -8.4rem;
+}
+.icon-jianyi{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-position: -20.7rem -8.4rem;
+}
+.icon-youhuima{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-position:-8.5025rem -14.4rem;
+}
+.icon-zhoubian{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-position:-17.9rem -5.1rem;   
+}
+.icon-rexiao{
+    width: 1.75rem;
+    height: 1.75rem;
+    background-position: -25.05rem -4.4rem;
+}
+.icon-like{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-position: -17.9rem -11.4rem;	
+}
+.icon-likeRed{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-position: -20.7rem -11.4rem;	
+}
 .btn-dx {
     background: $color-dx;
     color: #fff;
@@ -278,96 +327,6 @@ textarea {
     color: #999;
 }
 
-.icon-home{
-    width: 3.4rem;
-    height:3.15rem;
-    background-position: -5rem -1.35rem;
-}
-.icon-home-red{
-    width: 3.4rem;
-    height:3.15rem;
-    background-position: -5rem -5.35rem;
-}
-.icon-sort-red{
-    width: 3.15rem;
-    height:3.15rem;
-    background-position: -9.6rem -5.1rem;   
-}
-.icon-sort{
-    width: 3.4rem;
-    height:3.15rem;
-    background-position: -9.6rem -1.35rem;   
-}
-.icon-cart{
-    width: 3.4rem;
-    height:3.25rem;
-    background-position: -14.15rem 1.35rem;   
-}
-.icon-cart-red{
-    width: 3.4rem;
-    height:3.25rem;
-    background-position: -14.15rem -5.35rem;   
-}
-.icon-my{
-    width: 3.4rem;
-    height:3.15rem;
-    background-position: -18.75rem -1.35rem;   
-}
-.icon-my-red{
-    width: 3.4rem;
-    height:3.15rem;
-    background-position: -18.75rem -5.35rem;   
-}
-.icon-dx-write{
-    width: 5.95rem;
-    height: 5.95rem;
-    background-position: -5.1rem -16rem;
-}
-.icon-search{
-    width: 3.35rem;
-    height: 3.05rem;
-    background-position: -27.5rem -8.7rem;
-}
-.icon-dx-back{
-    width: 3.35rem;
-    height: 3.05rem;
-    background-position: -12.15rem -23.75rem;
-}
-.icon-xinpin{
-    width: 5rem;
-    height: 5rem;
-    background-position: -17.2rem -16.8rem;
-}
-.icon-jianyi{
-    width: 5rem;height: 5rem;
-    background-position: -41.4rem -16.75rem;
-}
-.icon-youhuima{
-    width: 5rem;
-    height: 5rem;
-    background-position:-17.05rem -28.8rem;
-}
-.icon-zhoubian{
-    width: 5rem;
-    height:5rem;
-    background-position:-35.8rem -10.2rem;   
-}
-.icon-rexiao{
-    width: 1.75rem;
-    height: 1.75rem;
-    
-    background-position: -25.05rem -4.4rem;
-}
-.icon-like{
-    width: 2.5rem;
-    height: 2.5rem;
-    background-position: -17.9rem -11.4rem;	
-}
-.icon-likeRed{
-    width: 2.5rem;
-    height: 2.5rem;
-    background-position: -20.7rem -11.4rem;	
-}
 .header-home-wrapper {
     width: 100%;
     height: auto;

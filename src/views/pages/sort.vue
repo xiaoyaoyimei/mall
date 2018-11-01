@@ -5,7 +5,7 @@
 				<div>
 					<i class="i icon icon-dx-back"  @click="back()"></i>
 					<input placeholder="新品" @click="gosearch()" v-model="keyword">
-					<i class="search icon icon-search"></i>
+					<i class="Hsearch icon icon-search"></i>
 
 				</div>
 			</header>
@@ -159,6 +159,9 @@
 				if(this.$route.query.keyword!=undefined){
 				this.keyword=this.$route.query.keyword;
 				this.fetchData();
+				}else{
+				this.keyword= ''
+				this.fetchData();	
 				}	
 			},
 			async fetchData() {
@@ -298,10 +301,14 @@
 
 <style lang="scss" scoped="scoped">
 @import '@/styles/color.scss';
+	.new{
+		background-color: #ffffff;
+	}
 	.bg-black{
 		width: 100%;
-		height: 7.5rem;
+		height: 4.9rem;
 		background-color: #ff0000;
+		
 	}
 	.bg-black .i{
 		vertical-align: middle;
@@ -311,20 +318,20 @@
 		position: relative;
 	}
 	.bg-black input{
-		width: 80%;
-		// width: 25rem;
-		height: 4.2rem;
-		border-radius: 2.1rem;
+		width: calc(100% - 4rem);
+		border: 0px;
+		height: 3rem;
+		border-radius: 1.5rem;
 		outline: none;
 		text-align: center;
 		box-shadow: none;
-		font-size: 2.4rem;
+		font-size:1.8rem;
 		position: relative;
 		top: 0.5rem;
 	}
-	.bg-black .search{
+	.bg-black .Hsearch{
 		position: absolute;
-		top: 2rem;
+		top: 1.5rem;
 		left: 7rem
 	}
 	.sort{
@@ -450,6 +457,7 @@
 	height: 100rem!important;
 	margin-bottom: 8rem;
 	z-index: 10;
+	background-color: #ffff;
 }
  .filterModal .ivu-modal{
 	 width: 100%!important;
