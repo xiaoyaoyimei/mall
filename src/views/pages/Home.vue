@@ -7,14 +7,11 @@
 				<Icon type="ios-search" />
 			</div>
 		</header>
-<<<<<<< HEAD
 		<div class="side_nav_wrap clear" style="margin-top:4.9rem;">
 			<div class="main-wdith">
-=======
 		
 		<Scroll>
 			<div class="side_nav_wrap clear">
->>>>>>> 16426b6e3972d87e992d7c603d2a81fa701e89d1
 				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots" :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" class="banner">
 					<CarouselItem v-for="(item, index) in Items" :key="index">
 						<div class="demo-carousel">
