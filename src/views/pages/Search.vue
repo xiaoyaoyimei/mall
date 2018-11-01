@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-					<header class="bg-black ">
+        	 <header class="bg-black ">
 				<div class="search-wrap">
 				<input placeholder="关键字" @click="search()" v-model.trim="keyword" @keyup.13="search()" ref="keyword">
 					<Icon type="ios-search"  class="icon-search"/>
@@ -93,6 +93,51 @@
 
 </script>
 <style lang="scss" scoped="scoped">
+	.bg-black{
+		width: 100%;;
+		height: 4.9rem;
+		background-color: #ff0000;
+	}
+	.bg-black .i{
+		vertical-align: middle;
+		position: relative;
+		top: 0.5rem;
+	}
+	.bg-black div{
+		padding:0.25rem 1rem;
+		position: relative;
+		min-width: 28rem;
+	}
+	.bg-black input{
+		width: 80%;
+		min-width: 20rem;
+		height: 3rem;
+		border-radius: 1.5rem;
+		outline: none;
+		box-shadow: none;
+		font-weight: 400;
+		font-style: normal;
+		font-size: 1.5rem;
+		color: rgba(153, 153, 153, 0.498039215686275);
+		text-align: left;
+		position: relative;
+		top: 0.5rem;
+		padding-left: 1.5rem;
+	}
+	.bg-black .gosearch{
+		position: absolute;
+		top: 0.75rem;
+		right: 2rem;
+		width: 7.5rem;
+		height: 3rem;
+		border-bottom-right-radius: 1.5rem;
+		border-top-right-radius: 1.5rem;
+		line-height: 3rem;
+		color: #ffffff;
+		text-align: center;
+		background-color:#a21112;
+		font-size: 1.5rem;
+	}
 	
 	.content dl {
 		background: #fff;

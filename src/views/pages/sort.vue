@@ -417,10 +417,6 @@
 			color: #333;
 		}
 	}
-	.search-wrap .sx{
-		width: 16px;
-		height: 16px;
-	}
 </style>
 <style>
 	.new .ivu-scroll-container {

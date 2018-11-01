@@ -7,6 +7,8 @@
 				<Icon type="ios-search" />
 			</div>
 		</header>
+		<div class="side_nav_wrap clear" style="margin-top:4.9rem;">
+			<div class="main-wdith">
 		
 		<Scroll>
 			<div class="side_nav_wrap clear">
@@ -181,6 +183,8 @@
 				</div>
 			</div>
 		</Scroll>
+	</div>
+	</div>
 	</div>
 </template>
 
@@ -701,4 +705,283 @@
 		border-top: 1px solid #eee;
 		border-bottom: 1px solid #eee;
 	}
+.bg-black{
+	width: 100%;
+	height: 4.9rem;
+	background-color: #ff0000;
+	position: fixed;
+	top: 0rem;
+	left:0rem;
+	z-index: 100;
+}
+.bg-black .i{
+	vertical-align: middle;
+	position: relative;
+	top: 0.1rem;
+}
+.bg-black div{
+	padding:0.25rem 1rem;
+	position: relative;
+}
+.bg-black input{
+	width: calc(100% - 6rem);
+	height:3rem;
+	border-radius: 1.25rem;
+	outline: none;
+	text-align: center;
+	box-shadow: none;
+	font-size: 1.8rem;
+	position: relative;
+	top: 0.6rem;
+	border: 0;
+}
+.bg-black .Hsearch{
+	position: absolute;
+	top: 1.5rem;
+	left: 8.5rem
+}
+.minipro{
+	width:100%;;
+}
+.minipro li{
+	float: left;
+	width: 25%;
+	padding: 2rem  0rem 1rem;
+	text-align: center;
+}
+.minipro li a{
+	color: #999999;
+	font-size: 1.8rem;
+}
+.mn{
+	display: none;
+}
+.title{
+	width:100%;
+	height: 5rem;
+	background-color: #f0f0f0;
+	position: relative;
+}
+.title span{
+	font-size:1.6rem;
+	position: absolute;
+	top: 2.75rem;
+	left:1.25rem;
+
+}
+.seemore {
+	float: right;
+	width: 12.5rem;
+	text-align: right;
+	padding-right: 1.25rem;
+	margin-top: 2.5rem;
+}
+.seemore a{
+	color: #999999;
+	font-size: 1.2rem;
+}
+.two{
+	height: 31.25rem;
+}
+.two .ad-wrap{
+	position: relative;
+	width: 33.33%;
+	float: left;
+}
+.two .ad-wrap img{
+	width: 100%;
+	height: 31.25rem;
+}
+.two .li:nth-of-type(1){
+	border-right: 0.05rem solid  $color-border ;
+	border-bottom:  0.05rem solid  $color-border;
+}
+.two .li:nth-of-type(2){
+	border-bottom:  0.05rem solid $color-border;
+}
+.two .li:nth-of-type(3){
+	
+	border-right:  0.05rem solid $color-border;
+}
+.ad-wrap .ad{
+	position: absolute;
+	top: 2.4rem;
+	left: 2.25rem;
+}
+.ad h5{
+	font-weight: 700;
+    font-size: 1.6rem;
+    color: #FFFFFF;
+}
+.ad h6{
+	font-weight: 400;
+    font-size: 1.2rem;
+	color: #FFFFFF;
+	height: 1.5rem;
+	line-height: 1.5rem;
+}
+.ad span{
+	font-weight: 700;
+    font-size: 1.2rem;
+	color: #FFFFFF;
+	position: relative;
+	top: 1.5rem;
+}
+.w896{
+	float: left;
+	width: 66.67%;
+}
+.w896 li{
+	float: left;
+	width: 50%;
+	height: 15.625rem;
+	text-align: center;
+	padding-top: 1.5rem;
+}
+.w896 img{
+	width:6rem;
+}
+.w896 h6{
+	color: #333333;
+	font-size: 1.2rem;
+}
+.color-newred{
+	color: #ff0000;
+	font-size: 1.2rem;
+}
+.w594{
+	float: left;
+	width: 66.67%;
+	height: 15.6rem;	
+	position: relative;
+}
+.w594 img{
+	width: 100%;
+	height: 15.6rem;	
+
+}
+.w594 .ad{
+	position: absolute;
+	top: 2.25rem;
+	left: 2rem;
+}
+.officeproduct{
+	float: left;
+	width: 33.33%;
+	height: 15.6rem;	
+	text-align: center;
+	padding-top: 1rem;
+}
+.officeproduct:nth-of-type(2){
+	border-bottom:  0.05rem solid $color-border;
+}
+.officeproduct:nth-of-type(3){
+	border-right:  0.05rem solid $color-border;
+}
+.officeproduct:nth-of-type(4){
+	border-right:  0.05rem solid $color-border;
+}
+.officeproduct:nth-of-type(6){
+	border-bottom:  0.05rem solid $color-border;
+}
+.officeproduct:nth-of-type(7){
+	border-right:  0.05rem solid $color-border;
+}
+.officeproduct:nth-of-type(8){
+	border-right:  0.05rem solid $color-border;
+}
+.officeproduct img{
+	width: 6rem;
+}
+.officeproduct h6{
+	color: #333333;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	margin: 0 auto;
+	overflow: hidden;
+	font-size: 1.2rem;
+}
+.floorad .yxzc{
+	float: left;
+	width:100%;;
+	height: 15.75rem;
+	position: relative;
+}
+.floorad .yxzc:nth-of-type(1) .zhuozi{
+	border-right:  0.05rem solid $color-border!important;
+}
+.zhuozi{
+	width: 18.75rem;
+	height: 15.75rem;
+}
+.floorad .ad h5{
+	font-size: 1.6rem;
+	color: #333333;
+}
+.floorad .ad p{
+	font-size: 1.2rem;
+	color: #333333;
+}
+.floorad .ad span{
+	font-size: 1.2rem;
+	color: #333333;
+}
+.peripheryproduct li{
+	width:100%;
+}
+.peripheryproduct img{
+	width:100%;
+	height: 15rem;
+}
+.homeBottom{
+	background-color: #f0f0f0;
+	height: 15rem;
+	width:100%;;
+	font-weight: 400;
+	font-size: 1.2rem;
+	padding-top: 3rem;
+    color: #999999;
+    text-align: center;
+}
+.one{
+	width:100%;
+}
+.one li{
+	float: left;
+	width: 33.33%;
+	position: relative;
+	height: 16.05rem;
+	text-align: center;
+	border-top: 0.05rem solid $color-border;
+	border-bottom:0.05rem solid $color-border;
+}
+.one li:nth-of-type(2){
+	border-left: 0.05rem solid $color-border;
+}
+.one li:nth-of-type(3){
+	border-left: 0.05rem solid $color-border;
+}
+.one img{
+	width:6rem;
+	margin-top: 0.5rem;
+}
+.one i{
+	position: absolute;
+	top: 0.5rem;
+	background-size: 25rem 25rem;
+	left: 0.5rem;
+}
+.one h6{
+	word-break: break-all;
+	color: #333333;
+	height: 2.5rem;
+	overflow: hidden;
+	line-height: 2.5rem;
+	padding: 0rem 1.25rem;
+}
+.one .color-newred{
+	color: #ff0000;
+	height: 1.5rem;
+	overflow: hidden;
+}
 </style>
