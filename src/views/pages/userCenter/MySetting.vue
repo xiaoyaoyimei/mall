@@ -41,7 +41,8 @@
 				</span>
 			</li>
 			<li>
-				<router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link><span><Icon type="ios-arrow-forward" /></span></li>
+				<span  @click="addAdd">地址管理</span>
+				<!--<router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link>--><span><Icon type="ios-arrow-forward" /></span></li>
 			<li>
 				<router-link :to="{ path: '/user/changepwd'}" tag="span"> 修改密码</router-link><span><Icon type="ios-arrow-forward" /></span></li>
 		</ul>
@@ -64,6 +65,12 @@
 			}
 		},
 		methods: {
+			addAdd() {
+				localStorage.setItem('fromc', 'setting')
+				this.$router.push({
+					name: '/user/address'
+				});
+			},
 			xshow() {
 				this.show = !this.show;
 			},

@@ -96,7 +96,7 @@
 						</ul>
 						<div class="flex-center  empty" v-else>
 							<img  src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
-							<p>暂无记录~</p>
+							<p>暂无评论记录~</p>
 							</div>
 					</div>
 				</div>
@@ -182,7 +182,7 @@
 					productType: '',
 				},
 				compine: [],
-				compineList: [],
+				//compineList: [],
 				onlyimg: false, //0为img为空。1显示图片
 				//库存是否为0添加购物车显示按钮
 				num: 0,
@@ -263,45 +263,45 @@
 			back() {
 				this.$router.go(-1);
 			},
-			checkAllGroupChange(data) {
-				var _this = this;
-				_this.dpnum = data.length;
-				_this.dpjiage = 0;
-				this.compineList = [];
-				data.forEach((item, index) => {
-					if(JSON.stringify(this.recomm[item].promotion) == "{}") {
-						this.compineList.push({
-							id: this.recomm[item].list.id,
-							image: this.recomm[item].list.list_img,
-							productName: this.recomm[item].list.item_no,
-							quantity: 1,
-							originSalePrice: this.recomm[item].list.sale_price,
-							salePrice: this.recomm[item].list.sale_price,
-							productType: this.recomm[item].list.catalogId
-						})
-						this.dpjiage += parseFloat(this.recomm[item].list.sale_price);
-					} else {
-						this.compineList.push({
-							id: this.recomm[item].list.id,
-							image: this.recomm[item].list.list_img,
-							productName: this.recomm[item].list.item_no,
-							quantity: 1,
-							originSalePrice: this.recomm[item].list.sale_price,
-							salePrice: this.recomm[item].promotion.onSalePrice,
-							promotionTitle: this.recomm[item].promotion.activityName,
-							productType: this.recomm[item].list.catalogId
-						})
-						this.dpjiage += parseFloat(this.recomm[item].promotion.onSalePrice);
-					}
-					this.compineId.push(this.recomm[item].list.id)
-				});
-				if(this.choosesp.cuxiaoprice > 0) {
-					this.dpjiage += parseFloat(this.choosesp.cuxiaoprice * this.quantity);
-				} else {
-					this.dpjiage += parseFloat(this.choosesp.price * this.quantity);
-				}
-
-			},
+//			checkAllGroupChange(data) {
+//				var _this = this;
+//				_this.dpnum = data.length;
+//				_this.dpjiage = 0;
+//				this.compineList = [];
+//				data.forEach((item, index) => {
+//					if(JSON.stringify(this.recomm[item].promotion) == "{}") {
+//						this.compineList.push({
+//							id: this.recomm[item].list.id,
+//							image: this.recomm[item].list.list_img,
+//							productName: this.recomm[item].list.item_no,
+//							quantity: 1,
+//							originSalePrice: this.recomm[item].list.sale_price,
+//							salePrice: this.recomm[item].list.sale_price,
+//							productType: this.recomm[item].list.catalogId
+//						})
+//						this.dpjiage += parseFloat(this.recomm[item].list.sale_price);
+//					} else {
+//						this.compineList.push({
+//							id: this.recomm[item].list.id,
+//							image: this.recomm[item].list.list_img,
+//							productName: this.recomm[item].list.item_no,
+//							quantity: 1,
+//							originSalePrice: this.recomm[item].list.sale_price,
+//							salePrice: this.recomm[item].promotion.onSalePrice,
+//							promotionTitle: this.recomm[item].promotion.activityName,
+//							productType: this.recomm[item].list.catalogId
+//						})
+//						this.dpjiage += parseFloat(this.recomm[item].promotion.onSalePrice);
+//					}
+//					this.compineId.push(this.recomm[item].list.id)
+//				});
+//				if(this.choosesp.cuxiaoprice > 0) {
+//					this.dpjiage += parseFloat(this.choosesp.cuxiaoprice * this.quantity);
+//				} else {
+//					this.dpjiage += parseFloat(this.choosesp.price * this.quantity);
+//				}
+//
+//			},
 			//喜欢
 				likepro() {
 			if(this.token!=null&&this.token!=""&&this.token!=undefined){
@@ -439,9 +439,9 @@
 				this.cartOne.productCatalog=this.shangp.product.catalogId;
 				this.cartList[0]=this.cartOne;
 				//0为单个立即下单，1为推荐组合中的立即下单
-				if(v==1){
-					this.cartList=this.cartList.concat(this.compineList)
-				}
+//				if(v==1){
+//					this.cartList=this.cartList.concat(this.compineList)
+//				}
 				sessionStorage.removeItem('cart');
 				sessionStorage.setItem('cart', JSON.stringify(this.cartList));
 				this.$router.push({ name:'/carttwo',query:{orderfrom:'A'}});
@@ -476,7 +476,6 @@
 						}
 					}).then((res) => {
 						if(res.code == '200') {
-//							Bus.$emit('cartmsg', "again");
 							this.$router.push({
 								name: '/cart',
 							});
