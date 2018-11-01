@@ -6,10 +6,10 @@
 			</div>
 				<Form ref="pwd" :model="pwd"  :rules="pwdValidate" class="form_wrap">
 					<FormItem  prop="newpass">
-						<i-input v-model="pwd.newpass" placeholder="请输入新密码" type="password"></i-input>
+						<i-input v-model.trim="pwd.newpass" placeholder="请输入新密码" type="password"></i-input>
 					</FormItem>
 					<FormItem  prop="newpassagian">
-						<i-input v-model="pwd.newpassagian" placeholder="请确认新密码" type="password"></i-input>
+						<i-input v-model.trim="pwd.newpassagian" placeholder="请确认新密码" type="password"></i-input>
 					</FormItem>
 				</Form>
 				 <div class="btn-wrap"><Button  type="primary" @click="handleOk" long class="btn-red">保存</Button></div>

@@ -129,8 +129,8 @@
 					method: 'GET',
 					url: '/product/search?catalog=' + this.searchfilter.catalog + '&series=' + this.searchfilter.series + '&type=' + this.searchfilter.type + '&brand=' + this.searchfilter.brand + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
 				}).then((res) => {
-					this.productList = res.itemsList;
-					if(this.productList.length > 0) {
+					if(res.itemsList.length > 0) {
+						this.productList = res.itemsList;
 						this.hasShow = true
 					} else {
 						this.hasShow = false
@@ -229,11 +229,11 @@
 					method: 'GET',
 				});
 				if(res.total > 0) {
-					this.show = false;
+					this.hasShow=true;
 					this.productList = res.itemsList;
 					this.totalSize = res.total;
 				} else {
-					this.show = true;
+					this.hasShow=false;
 				}
 			},
 			gosearch() {
