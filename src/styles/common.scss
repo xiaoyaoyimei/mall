@@ -429,13 +429,6 @@ textarea {
     cursor: pointer;
 }
 
-.search {
-    position: relative;
-    background: #fff;
-    border-radius: 0.5rem;
-    height: 2.5rem;
-    overflow: hidden;
-}
 
 .search-form-icon {
     display: inline-block;
@@ -850,10 +843,10 @@ textarea {
         padding-right: 1.5rem;
         position: relative;
         display: flex;
-        img {
+        .logo {
             width: 3rem;
             height: 3rem;
-            margin-right: 1rem
+            margin-right: 1rem;
         }
         i:first-child{
             font-size: 2.4rem;
@@ -863,24 +856,25 @@ textarea {
           top: 0.5rem;
           margin-right: 1rem;
         }
-          i:last-child{ 
-               font-size: 2.4rem;
-                color: #999; position: absolute;
-            left: 40%;
-            top: 1.5rem;}
+          .icon-search{ 
+               font-size: 2.2rem;
+    color: #aaa;
+    position: absolute;
+    left: 2rem;
+    top: 1.7rem;}
          input {
         height: 3rem;
         border-radius: 1rem;
         outline: none;
-        text-align: center;
         box-shadow: none;
         font-size: 2rem;
         border: 0 none;
         flex: 1;
         font-size: 1.6rem;
+        text-indent: 2.5rem;
     }
     span{
-        margin-left: 1.5rem;
+        margin-left: 1rem;
         color: #fff;
         font-size: 1.6rem;
         position: relative;
