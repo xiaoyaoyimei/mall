@@ -17,7 +17,7 @@
 		<Scroll  v-show="!noorderShow">
 		<ul class="splist box-content">
 			<li v-for="(x,index) in cartList" :key="index">
-				<div @click="seeDetail(x.order.orderNo)">
+				<div>
 					<div class="orderno">
 						<p><span class="color-black">订单编号:{{x.order.orderNo}}</span><span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></p>
 						<p>下单时间:{{x.order.createTime| formatDate}}</p>
@@ -34,7 +34,7 @@
 							<div class="price">
 							<span class="color-black">	￥{{childjun(child) | pricefilter}}</span>
 								<br/>x {{child.quantity}}<br/>
-							<router-link v-if="x.order.orderStatus=='07'&&!child.pinglun" class="color-red pingjia" style="color:#ff0000" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,evaItemId:child.productModelId,evaProId:child.orderItemsId}}">去评价</router-link>	
+							<router-link v-if="x.order.orderStatus=='07'&&!child.pinglun" class="color-red pingjia" style="color:#ff0000" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,index:i}}">去评价</router-link>	
 							</div>
 								
 						</div>
@@ -44,6 +44,7 @@
 					<span>共{{}}件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 				</div>
 				<div class="cz">
+					<button type="button" class="btn " @click="seeDetail(x.order.orderNo)" >订单详情</button>
 					<button type="button" class="btn " @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button>
 					<button type="button" class="btn btn-red-small" @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">立即付款</button>
 					<button class="btn btn-red-small" @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>

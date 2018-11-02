@@ -44,6 +44,9 @@
                     </Upload>
                 </div>
             </div>
+            <div slot="footer">
+				<Button type="primary" long @click="evaluation">提交</Button>
+			</div>
         </div>
     </div>
 </template>
@@ -68,8 +71,7 @@
                 evaItem: {}, 
                 orderNo:'',
                 //评论弹窗
-                evaItemId: '',
-                evaProId: '',
+                index:'',
                 ruleValidate: {
                     refundCauseId: [{
                         required: true,
@@ -165,19 +167,19 @@
 					}
 				}
 			},
-			getStatusEnum() {
+			getOrder() {
 				this.$axios({
 					method: 'get',
-					url: '/refund/getRefundCauseList',
+					url: '/order/'+this.orderNo,
 				}).then((res) => {
-					this.reasonList = res;
+                    this.evaItem = res.shippingOrderItems[this.index];
+                    console.log(evaItem)
 				});
 			},
 			getParams() {
 				// 取到路由带过来的参数 
                 this.orderNo = this.$route.query.rforder;
-                this.evaItemId = this.$route.query.evaItemId
-                this.evaProId = this.$route.queryevaProId
+                this.index = this.$route.query.index
 			},
 						//提交评价
 			evaluation() {
@@ -203,8 +205,8 @@
 					data: {
 						commentContent: _this.evaluationreason,
 						commentPics: imgs,
-						orderItemsId: _this.evaItemId,
-						productId: _this.evaProId,
+						orderItemsId: _this.evaItem.orderItemsId,
+						productId: _this.evaItem.productItemId,
 						isImg: isimgs
 					}
 				}).then((res) => {
@@ -221,21 +223,22 @@
 			},
 		},
 		mounted() {
-			this.getStatusEnum();
-			this.getParams();
+            this.getParams();
+			this.getOrder();
+			
 			this.evauploadList = this.$refs.evaupload.fileList;
 		}
 	}
 </script>
 <style scoped="scoped">
-.order .ivu-form-item:not(:last-child) {
+.evaluation .ivu-form-item:not(:last-child) {
     	border-bottom: 1px solid #eee;
 	}
 	.ivu-form-item {
 		padding: 0.5rem 1rem;
 		margin-bottom: 0;
 	}
-	.refundForm{
+	.evaluation{
 		background-color: #fff;
 		margin-bottom: 2rem;
 	}
@@ -245,9 +248,29 @@
 		height: 5rem;
 		line-height:5rem;
 	}
-	.order .refundFormPro{
+	.evaluation .refundFormPro{
 		margin-top: 01rem;
 		padding-bottom: 0.5rem;
 		border: none!important;
+    }
+    .refund  >p{
+        float: left;
+        width: 7rem;
+        height: 10rem;
+        padding-top:1.5rem;
+        text-align: right;
+        padding-right: 1rem;
+    }
+    .refundImg{
+        float: left;
+        width: calc(100% - 7rem);
+        margin-top: 1.5rem;
+    }
+    .refundImg img{
+        width: 3rem;
+    }
+    .evaluationText{
+        float: right;
+        width:calc(100% - 3rem);
     }
 </style>
