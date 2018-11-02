@@ -17,7 +17,7 @@
 					<span class="red">{{min}}</span> :
 					<span class="red">{{sec}}</span>
 				</div>
-					<div   class="spdetail"    v-for="(item, index) in startpro" :key='index'>
+					<div   class="sKpdetail"    v-for="(item, index) in startpro" :key='index'>
 						<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
 							<img src="../../assets/img/u242.png" class="Sicon" alt="">
 							<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
@@ -43,7 +43,7 @@
 						<span class="blue">{{nostartmin}}</span> :
 						<span class="blue">{{nostartsec}}</span>
 					</div>
-					<div   class="spdetail"    v-for="(item, index) in nostartpro" :key='index'>
+					<div   class="sKpdetail"    v-for="(item, index) in nostartpro" :key='index'>
 						<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
 							<img src="../../assets/img/u242.png" class="Sicon" alt="">
 							<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
@@ -221,18 +221,19 @@ export default {
 	text-align: center;
 	margin-top:1rem;
 }
-.spdetail{
+.sKpdetail{
 	width: calc(100% - 5rem);
 	margin: 2.5rem;
 	padding-bottom: 2.5rem;
 	border-bottom: 1px solid $color-border;
+	position: relative;
 }
 .Slist{
 	position: relative;
 }
 .product .Slist .Sicon{
 	position: absolute;
-	top: 0rem;
+	// top: 0rem;
 	left: 0rem;
 	width: 4rem;
 	height: 4rem;
@@ -260,6 +261,11 @@ export default {
 }
 .Slist .blue{
 	background-color: #458ffd;
+}
+.floatright{
+	float: right;
+	width: calc(100% - 10rem);
+	position: relative;
 }
 .crush{
 	margin-top: 1.5rem;

@@ -80,6 +80,7 @@
 							有图
 							</span>
 							</h5>
+
 							<ul class="eval-ul" v-if="hasPJ">
 								<li v-for="(item, index) in commentList" :key="index">
 									<h6><img :src="item.list.iconUrl | imgfilter">{{item.list.nickName}}</h6>
@@ -89,8 +90,9 @@
 								</li>
 							</ul>
 							<div class="flex-center  empty" v-else>
-								<img src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
-								<p>暂无评论记录~</p>
+
+								<img  src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
+							<p>暂无评论记录~</p>
 							</div>
 						</div>
 					</div>
