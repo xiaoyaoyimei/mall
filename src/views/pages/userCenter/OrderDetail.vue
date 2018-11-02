@@ -130,7 +130,6 @@
 				this.min = min > 9 ? min : '0' + min;
 				this.sec = sec > 9 ? sec : '0' + sec;
 				let self = this;
-				console.log(sec)
 				this.t = setTimeout(() => {
 					self.countdown();
 				}, 1000);

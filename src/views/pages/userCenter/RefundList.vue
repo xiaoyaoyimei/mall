@@ -116,7 +116,6 @@
 						url: '/refund/getRefundOrderList',
 					}).then((res) => {
 						this.cartList = res;
-						//console.log(this.cartList);
 					});
 				} else {
 					router.replace({

@@ -281,7 +281,6 @@
 							}
 						//计时器
 							this.countdown();
-							console.log(res.object)
 					this.proId=res.object.productItem.productId;
 							this.$axios({
 							method: 'post',
