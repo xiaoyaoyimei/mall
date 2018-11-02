@@ -60,6 +60,7 @@
 				imgName: '',
 				visible: false,
 				uploadImgs:'',
+				loading:false,
 				refundorder: '',
                 evauploadList:[],
                 evaluationList: [],
@@ -179,13 +180,22 @@
                 this.orderNo = this.$route.query.rforder;
                 this.index = this.$route.query.index
 			},
-						//提交评价
+			//提交评价
 			evaluation() {
+				 this.loading = true;
+				 debugger;
 				let isimgs = 0;
 				if(this.evauploadList.length > 0) {
 					isimgs = 1
 				} else {
 					isimgs = 0;
+				}
+				if(this.evaluationreason == ''){
+					this.$Message.warning('请填写评价');
+					setTimeout(() => {
+                     	this.loading = false;
+                	}, 2000);
+					return
 				}
 				this.evauploadList.forEach((item, index) => {
 					this.evaImgs[index] = item.url + ','
@@ -218,6 +228,9 @@
 						this.$router.push('/user/orderlist')
 					}
 				});
+				setTimeout(() => {
+                    this.loading = false;
+                }, 2000);
 			},
 		},
 		mounted() {

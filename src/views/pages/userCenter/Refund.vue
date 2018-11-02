@@ -67,6 +67,7 @@
 				uploadImgs:'',
 				refundorder: '',
 				uploadList: [],
+				loading:false,
 				uploadUrl: this.$axios.defaults.baseURL + '/upload/upload?path=account',
 				//refundenums:[],
 				refundForm: {
@@ -175,9 +176,12 @@
 				this.refundForm.orderNo = this.$route.query.rforder;
 			},
 			refund() {
-				console.log(this.uploadList)
+				this.loading = true;
 				if(this.imgmust == 'Y' && this.uploadList.length == 0) {
 					this.$Message.warning('请上传退货凭证');
+					setTimeout(() => {
+                     	this.loading = false;
+                	}, 2000);
 					return;
 				} else {
 					var imgs = "";
@@ -207,6 +211,9 @@
 							this.$router.push('/user/aftersales')
 						}
 					});
+					setTimeout(() => {
+                    	this.loading = false;
+                	}, 2000);
 				}
 			},
 		},

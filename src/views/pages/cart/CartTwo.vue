@@ -329,6 +329,7 @@
 					url: '/order/shopping/confirm',
 					data: para
 				}).then((res) => {
+					console.log(res)
 					if(res.code == '200') {
 						//						  订单提交以后清空列表
 						sessionStorage.removeItem("cart")
