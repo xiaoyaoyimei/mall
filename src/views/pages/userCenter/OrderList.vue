@@ -8,7 +8,7 @@
 			<span class="m_header_bar_menu"></span>
 		</div>
 		<div class="switchStatus">
-			<span @click="changeStatus('00')" :class="{red:'00' == numactive}">全部订单</span>
+			<span @click="changeStatus('00')" :class="{red:'00' == numactive}">全部</span>
 			<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待付款</span>
 			<!--<span @click="changeStatus('02')" :class="{red:'02' == numactive}">已付款</span>-->
 			<span @click="changeStatus('05')" :class="{red:'05' == numactive}">待发货</span>

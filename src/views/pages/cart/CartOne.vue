@@ -194,6 +194,7 @@ export default {
 				 sessionStorage.removeItem('cart');
 		         sessionStorage.setItem('cart', JSON.stringify(goumai));
 				 this.$router.push({ name:'/carttwo'});
+				 localStorage.setItem('orderfrom', 'B')
 			},
 			remove(){
 					 let length=this.checkAllGroup.length;

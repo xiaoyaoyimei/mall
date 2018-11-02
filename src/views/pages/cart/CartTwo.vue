@@ -330,7 +330,7 @@
 					data: para
 				}).then((res) => {
 					if(res.code == '200') {
-						//						  订单提交以后清空列表
+						//订单提交以后清空列表
 						sessionStorage.removeItem("cart")
 						this.$router.push({
 							name: '/cartthree',
@@ -382,7 +382,7 @@
 		},
 		mounted() {
 			//获取from类型A为立即下单，B为来自购物车1
-			this.orderfrom = this.$route.query.orderfrom;
+			this.orderfrom = localStorage.getItem('orderfrom');
 			this.cartList = JSON.parse(sessionStorage.getItem('cart'));
 			if(this.cartList == null) {
 				this.$router.push({
@@ -490,7 +490,7 @@
 		bottom: 0px;
 		width: 100%;
 		strong {
-			margin-left: 1rem;
+			margin-right: 1rem;
 				float: right;
 			font-size: 1.2rem;
 			display: inline-block;

@@ -41,7 +41,8 @@
 				</ul>
 				<div class="floor">
 					<ul class="clearfix one">
-						<li v-for="(item, index) in hotitem" :key='index'><i class="icon icon-rexiao"></i>
+						<li v-for="(item, index) in hotitem" :key='index'>
+							<img src="../../assets/img/icon-rexiao.png" class="rx">
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
 								<img :src="item.list.img_url | imgfilter" :ref="item.list.id">
 								<h6>{{item.list.model_no}}</h6>
@@ -88,7 +89,7 @@
 						<span>办公</span>
 					</div>
 					<div class=" three clearfix list-wrap">
-						<ul class=" fl  office ">
+						<ul class=" clearfix  office ">
 							<li class="w594">
 								<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }">
 									<img :src="officeproductone.img_url |imgfilter">
@@ -116,7 +117,7 @@
 							</router-link>
 						<span>家居</span></div>
 					<div class=" three clearfix">
-						<ul class=" fl  office">
+						<ul class=" clearfix  office">
 							<li class="w594">
 								<router-link :to="{ path: '/sort/sortDetail',query:{id:houseproductone.product_id} }">
 									<img :src="houseproductone.img_url | imgfilter">
@@ -144,12 +145,11 @@
 							</router-link>
 						<span>座舱</span></div>
 					<div class="floorad clearfix">
-						<div class="fl bg-white clearfix ad-wrap yxzc" v-for="(item, index) in cockpitproduct" v-if='index<2' :key='index'>
+						<div class="yxzc" v-for="(item, index) in cockpitproduct" v-if='index<2' :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
 								<img :src="item.list.img_url  |imgfilter" class="zhuozi">
 								<div class="ad">
 									<h5>{{item.list.model_no}}</h5>
-									<p>{{item.list.describe1}}</p>
 									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span></div>
 							</router-link>
 						</div>
@@ -159,14 +159,15 @@
 								<Icon type="ios-arrow-forward" />
 							</router-link>
 						<span>座椅周边</span></div>
+						<div class="max100"><router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }"><img src="../../assets/img/zyzb.jpg"></router-link></div>
 
-					<ul class="clearfix peripheryproduct  bgli-white mb105">
+					<!--<ul class="clearfix peripheryproduct  bgli-white mb105">
 						<li v-for="(item, index) in peripheryproduct" :key='index' v-if='index<1'>
-							<router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }">
+							
 								<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-							</router-link>
+							
 						</li>
-					</ul>
+					</ul>-->
 					<div class="homeBottom">
 						—— 我是有底线的 ——
 					</div>
@@ -458,7 +459,7 @@
 		border-right: 0.05rem solid $color-border;
 	}
 	
-	.ad-wrap .ad {
+    .ad {
 		position: absolute;
 		top: 2.4rem;
 		left: 1rem;
@@ -501,8 +502,8 @@
 		align-items: center;
 	}
 	
-	.two img {
-		width: 6rem;
+	.two ul img {
+		max-width: 90px;
 	}
 	
 	.two h6 {
@@ -538,9 +539,13 @@
 		width: 33.33%;
 		height: 15.6rem;
 		text-align: center;
-		padding-top: 1rem;
 	}
-	
+	.floor ul{
+		background: #fff;
+		a{
+			display: block;
+		}
+	}
 	.officeproduct:nth-of-type(2) {
 		border-bottom: 0.05rem solid $color-border;
 	}
@@ -566,7 +571,7 @@
 	}
 	
 	.officeproduct img {
-		width: 6rem;
+		max-width:90px;
 	}
 	
 	.floor li h6 {
@@ -577,21 +582,24 @@
 		font-weight: normal;
 	}
 	
-	.floorad .yxzc {
+	 .yxzc {
 		float: left;
-		width: 100%;
-		height: 15.75rem;
+		width: 50%;
 		position: relative;
+		background: #fff;
+		a{
+			display: block;
+			height: 13rem;
+		}
+		img{
+			max-width: 100%;
+		}
 	}
 	
-	.floorad .yxzc:nth-of-type(1) .zhuozi {
+	.floorad .yxzc:nth-of-type(1){
 		border-right: 0.05rem solid $color-border!important;
 	}
 	
-	.zhuozi {
-		width: 18.75rem;
-		height: 15.75rem;
-	}
 	
 	.floorad .ad h5 {
 		font-size: 1.6rem;
@@ -628,20 +636,21 @@
 		text-align: center;
 	}
 	
-	.one {
-		width: 100%;
-	}
 	
 	.one li {
 		float: left;
 		width: 33.33%;
 		position: relative;
-		height: 16.05rem;
 		text-align: center;
 		border-top: 0.05rem solid $color-border;
 		border-bottom: 0.05rem solid $color-border;
+		.rx{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width:2rem
+		}
 	}
-	
 	.one li:nth-of-type(2) {
 		border-left: 0.05rem solid $color-border;
 	}
@@ -651,8 +660,7 @@
 	}
 	
 	.one img {
-		width: 6rem;
-		margin-top: 0.5rem;
+		max-width: 100%;
 	}
 	
 	.one i {
@@ -662,22 +670,13 @@
 		left: 0.5rem;
 	}
 	
-	.one h6 {
-		word-break: break-all;
-		color: #333333;
-		height: 2.5rem;
-		overflow: hidden;
-		line-height: 2.5rem;
-		padding: 0rem 1.25rem;
-	}
-	
 	.one .color-newred {
 		color: #ff0000;
 		height: 1.5rem;
 		overflow: hidden;
 	}
 	
-	.demo-carousel img {
+	.demo-carousel img ,	.max100 img{
 		max-width: 100%;
 	}
 	
@@ -692,4 +691,5 @@
 	.search-wrap .icon-search{
 		left: 6rem;
 	}
+
 </style>

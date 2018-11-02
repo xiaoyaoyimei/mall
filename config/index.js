@@ -11,6 +11,7 @@ module.exports = {
     proxyTable: {
     	 '/mall/wap': {
                target: "http://10.0.0.28:8080/",
+              	//target: "http://www.dxracer.cn/",
                 changeOrigin: true,
                 pathRewrite: {
                     '^/mall/wap': '/mall/wap'

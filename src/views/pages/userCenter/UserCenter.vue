@@ -50,6 +50,7 @@
 </template>
 
 <script>
+	import { getToken } from '@/base/auth'
 	export default {
 		data() {
 			return {
@@ -67,7 +68,7 @@
 				});
 			},
 			getUser() {
-				if(localStorage.getItem('token') != undefined) {
+				if(getToken() != undefined) {
 					this.nologin = false;
 					this.$axios({
 						method: 'post',

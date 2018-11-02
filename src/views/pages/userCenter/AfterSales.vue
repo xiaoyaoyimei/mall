@@ -8,7 +8,7 @@
 			<span class="m_header_bar_menu"></span>
 		</div>
 				<div class="switchStatus">
-		<span  @click="changeStatus('00')" :class="{red:'00' == numactive}" >全部售后</span>
+		<span  @click="changeStatus('00')" :class="{red:'00' == numactive}" >全部</span>
 				<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待审核</span>
 				<span @click="changeStatus('02')" :class="{red:'02' == numactive}">待处理</span>
 					<span @click="changeStatus('04')" :class="{red:'04' == numactive}">已退款</span>

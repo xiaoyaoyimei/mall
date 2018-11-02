@@ -17,11 +17,15 @@
 					<p>等待商家发货</p>
 					<p class="font-14">您已付款,请耐心等待~</p>
 				</div>
-					<div v-if="orderdetail.shippingOrder.orderStatus=='06'">
+				<div v-if="orderdetail.shippingOrder.orderStatus=='06'">
 					<p>等待卖家收货</p>
 					<p class="font-14">订单将在<strong>{{day}}:{{hr}}:{{min}}:{{sec}} </strong>自动确认收货,请及时确认收货~</p>
 				</div>
-				<div v-else>
+						<div v-if="orderdetail.shippingOrder.orderStatus=='07'">
+					<p>买家已收货</p>
+					<p class="font-14">快乐的您分享完美的使用心得</p>
+				</div>
+				<div v-if="orderdetail.shippingOrder.orderStatus=='03'||orderdetail.shippingOrder.orderStatus=='04'||orderdetail.shippingOrder.orderStatus=='05'">
 					{{statusfilter(orderdetail.shippingOrder.orderStatus)}}
 				</div>
 			</div>

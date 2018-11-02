@@ -462,7 +462,8 @@
 //				}
 				sessionStorage.removeItem('cart');
 				sessionStorage.setItem('cart', JSON.stringify(this.cartList));
-				this.$router.push({ name:'/carttwo',query:{orderfrom:'A'}});
+				this.$router.push({ name:'/carttwo'});
+				localStorage.setItem('orderfrom', 'A')
 				}else{
 				this.$router.push({
 						path: '/login',

@@ -7,7 +7,7 @@
 			<span class="m_header_bar_title">售后订单</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
-	
+
 		<ul class="splist box-content" v-if="cartList.length>0">
 			<li v-for="(x,index) in cartList" :key="index">
 				<div class="orderno">售后订单号:{{x.refundOrder.refundOrderNo}}
@@ -33,7 +33,7 @@
 				</div>
 			</li>
 		</ul>
-			<div class="flex-center box-content" v-else>
+		<div class="flex-center box-content" v-else>
 			<img src="../../../assets/img/order_empty.png" style="max-width: 8rem;">
 			<p>暂无任何售后订单</p>
 			<p>
@@ -67,7 +67,7 @@
 			}
 		},
 		methods: {
-				cancel(value) {
+			cancel(value) {
 				this.$Modal.confirm({
 					content: '<p>确定取消该售后订单？</p>',
 					onOk: () => {
