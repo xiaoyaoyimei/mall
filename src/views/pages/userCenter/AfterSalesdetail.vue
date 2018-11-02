@@ -7,59 +7,52 @@
 			<span class="m_header_bar_title">退货单详情</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
-		<h2>{{statusfilter(refundOrderdetail.shoppingRefundOrder.refundOrderStatus)}}</h2>
-		<p style="margin-top:5px;font-size:14px;">申请时间：{{refundOrderdetail.shoppingRefundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</p>
-		<div class="orderdetailnum">
-			退款金额：￥ <em style="font-size:30px;"> {{refundOrderdetail.shoppingRefundOrder.refundOrderTotalFee | pricefilter}}</em>
-		</div>
-		<ul>
-			<li class="clearfix orderteail" v-for="(item,index) in orderdetail.shippingOrderItems" :key="index">
-				<img :src="item.productItemImg | imgfilter" :alt="item.productTitle">
-				<div class="orderdetailText">
-					<span>{{orderFeejun(item)|pricefilter}} x {{item.quantity}}</span>
-					<span>{{item.productTitle}}</span>
-				</div>
-			</li>
-		</ul>
-		<div class="orderdetailtotal clearfix">
-			<div class="orderdetailtotalAttr">
-				<p>订单编号：</p>
-				<p>成交时间：</p>
-				<p>商品总价：</p>
-				<p>活动优惠：</p>
-				<p>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费：</p>
-				<p>应付总额：</p>
+		<Scroll>
+		<div class="detail">
+			<div class="status">
+				{{statusfilter(refundOrderdetail.shoppingRefundOrder.refundOrderStatus)}}
 			</div>
-			<div class="orderdetailtotalValue">
-				<p>{{orderdetail.shippingOrder.orderNo}}</p>
-				<p>{{orderdetail.shippingOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</p>
-				<p>￥{{orderdetail.shippingOrder.productFee|pricefilter}}</p>
-				<p>-￥<label v-if="orderdetail.shippingOrder.discountFee!=''">{{orderdetail.shippingOrder.discountFee|pricefilter}}</label><label v-else>0</label></p>
-				<p v-if="orderdetail.shippingOrder.postageFee!=''">
-					￥{{orderdetail.shippingOrder.postageFee|pricefilter}}
-				</p>
-				<p v-else>￥0.00</p>
-				<p>￥ {{orderdetail.shippingOrder.orderTotalFee|pricefilter}}</p>
+			<div class="order-detail-wrap">
+				<p class="color-black">退款金额:￥{{refundOrderdetail.shoppingRefundOrder.refundOrderTotalFee | pricefilter}}</p>
+				<p class="color-gray">申请时间:{{refundOrderdetail.shoppingRefundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</p>
+				<ul class="spitem">
+					<li class="clearfix orderteail" v-for="(item,index) in orderdetail.shippingOrderItems" :key="index">
+						<img :src="item.productItemImg | imgfilter" :alt="item.productTitle">
+						<div class="orderdetailText">
+							<span>{{orderFeejun(item)|pricefilter}} x {{item.quantity}}</span>
+							<span>{{item.productTitle}}</span>
+						</div>
+					</li>
+				</ul>
 			</div>
-		</div>
-		<div class="orderdetailtotal">
-			<div class="orderdetailtotalAttr">
-				<p>退款编号：</p>
-				<p>退款金额：</p>
-				<p>要&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;求：</p>
-				<p>退货快递：</p>
-				<p>退货单号：</p>
+			<div class="wrap">
+				<h6>订单信息</h6>
+				<ul class="sp">
+					<li><span class="t">订单编号:</span><span class="s">{{orderdetail.shippingOrder.orderNo}}</span></li>
+					<li><span class="t">成交时间:</span><span class="s">{{orderdetail.shippingOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</span></li>
+					<li><span class="t">商品总价:</span><span class="s">￥{{orderdetail.shippingOrder.productFee |pricefilter}}</span></li>
+					<li><span class="t">活动优惠:</span><span class="s">-￥<label v-if="orderdetail.shippingOrder.discountFee!=''">{{orderdetail.shippingOrder.discountFee|pricefilter}}</label><label v-else>0</label></span></li>
+					<li><span class="t">运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费:</span>
+						<span class="s" v-if="orderdetail.shippingOrder.postageFee!=''">￥{{orderdetail.shippingOrder.postageFee|pricefilter}}</span>
+					   <span v-else>￥0.00</span></li>
+					<li><span class="t">应付总额:</span><span class="s">￥ {{orderdetail.shippingOrder.orderTotalFee|pricefilter}}</span></li>
+				</ul>
 			</div>
-			<div class="orderdetailtotalValue">
-				<p>{{refundOrderdetail.shoppingRefundOrder.refundOrderNo}}</p>
-				<p>￥{{refundOrderdetail.shoppingRefundOrder.refundOrderTotalFee | pricefilter}}</p>
-				<p>{{refundOrderdetail.shoppingRefundOrder.remarks}}</p>
-				<p>{{refundOrderdetail.shoppingRefundOrder.logistics}}</p>
-				<p>{{refundOrderdetail.shoppingRefundOrder.expressNo}}</p>
+			<div class="wrap">
+				<h6>退款信息</h6>
+				<ul class="sp">
+					<li><span class="t">退款编号:</span><span class="s">{{refundOrderdetail.shoppingRefundOrder.refundOrderNo}}</span></li>
+					<li><span class="t">退款金额:</span><span class="s">￥{{refundOrderdetail.shoppingRefundOrder.refundOrderTotalFee | pricefilter}}</span></li>
+					<li><span class="t">要&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;求:</span><span class="s">{{refundOrderdetail.shoppingRefundOrder.remarks}}</span></li>
+					<li><span class="t">退货快递:</span><span class="s">{{refundOrderdetail.shoppingRefundOrder.logistics}}</span></li>
+					<li><span class="t">退货单号:</span><span class="s">{{refundOrderdetail.shoppingRefundOrder.expressNo}}</span></li>
+				</ul>
 			</div>
 		</div>
 		<Spin size="large" fix v-if="spinShow"></Spin>
+		</Scroll>
 	</div>
+
 </template>
 
 <script>
@@ -167,141 +160,19 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-	.newcenterbody {
-		padding: 0px;
+	.detail {
+		padding-bottom: 10rem;
+		font-size: 1.4rem;
+		background: #f0f0f0;
 	}
 	
-	.newcenterbody h2 {
-		font-weight: 400;
-		font-size: 24px;
-		color: #666666;
-	}
-	
-	.orderdetailnum {
-		margin: 0 4px;
-		margin-top: 40px;
-		font-weight: 400;
-		font-size: 18px;
-		color: #000000;
-		padding-bottom: 35px;
-		border-bottom: 1px solid #cccccc;
-	}
-	
-	.orderdetailnum span {
-		float: right;
-		font-weight: 400;
-		font-size: 18px;
-		color: #666666;
-		text-align: right;
-	}
-	
-	.orderdetailnum em {
-		font-weight: 400;
-		font-size: 18px;
-		color: #ff0000;
-	}
-	
-	.orderteail {
-		margin: 0px 4px;
-	}
-	
-	.orderteail img {
-		height: 90px;
-		width: 90px;
-	}
-	
-	.orderdetailText {
-		float: right;
-		width: 750px;
-	}
-	
-	.orderdetailText span {
-		margin-top: 30px;
-		width: 50%;
-		text-align: left;
-		font-weight: 400;
-		font-size: 14px;
-		color: #000000;
-		height: 40px;
-		overflow: hidden;
-	}
-	
-	.newcenterbody ul {
-		padding: 15px 0px;
-	}
-	
-	.newcenterbody .orderteail {
-		padding-top: 15px;
-	}
-	
-	.orderdetailsend {
-		margin: 15px 4px 0px;
-		padding: 40px 0px 40px;
-		border-bottom: 1px solid #cccccc;
-		border-top: 1px solid #cccccc;
-	}
-	
-	.h5 {
-		font-weight: 400;
-		font-size: 18px;
-		color: #000000;
-		height: 30px;
-		line-height: 30px;
-		margin-bottom: 12px;
-	}
-	
-	.p {
-		font-weight: 400;
-		font-size: 14px;
-		color: #666666;
-		line-height: 30px;
-	}
-	
-	.orderdetail {
-		margin: 15px 4px 0px;
-		padding: 25px 0px 40px;
-		border-bottom: 1px solid #cccccc;
-	}
-	
-	.orderdetailfapiao {
-		margin: 15px 4px 0px;
-		padding: 25px 0px 40px;
-		border-bottom: 1px solid #cccccc;
-	}
-	
-	.orderdetailtotal {
-		padding: 30px 4px 0px;
-		border-top: 1px solid #cccccc;
-	}
-	
-	.orderdetailtotal div {
-		float: left;
-		font-weight: 400;
-		font-size: 14px;
-		text-align: left;
-		line-height: 30px;
-		padding-bottom: 25px;
-	}
-	
-	.orderdetailtotal:nth-last-of-type(1) div {
-		padding-bottom: 80px;
-	}
-	
-	.orderdetailtotalAttr {
-		width: 75px;
-	}
-	
-	.orderdetailtotalValue {
-		width: 300px;
-	}
-	
-	.orderdetailtotal p {
-		margin-bottom: 0px;
-		color: #333333;
-		line-height: 23px;
-	}
-	
-	.orderdetailtotal p:hover {
-		color: #333333;
+	.status {
+		background: #f00;
+		height: 8rem;
+		color: #fff;
+		font-size: 1.6rem;
+		padding-top: 2rem;
+		padding-left: 2rem;
+		margin: 1rem 0;
 	}
 </style>
