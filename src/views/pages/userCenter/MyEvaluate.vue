@@ -7,10 +7,6 @@
 			<span class="m_header_bar_title">我的评价</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
-        <h5  class="pingjia">
-			<span  v-if="!onlyimg" @click="toggleimg()">全部</span>
-			<span class="allimg"  @click="toggleimg()">有图</span>
-		</h5>
 		<Scroll class='scroll column-style' style="padding:0rem;margin:0rem;" v-if="hasEvaluate">
             <ul class="evaluate" >
                 <li class="li clearfix" v-for="(item,index) in evaluateList" :key="index">
@@ -24,7 +20,7 @@
 							<img src="../../../assets/img/zan-gray.png" v-else @click='zan(item.list.id,item.isZan)'>
                         </div>
                         <div class="fabulousTime">
-                            {{item.list.commentTime  | formatDate('MM-dd')}}&nbsp;&nbsp;&nbsp;&nbsp; 件数:{{item.shippingOrderItems.quantity}}颜色分类:{{item.shippingOrderItems.productAttrs}}
+                            {{item.list.commentTime  | formatDate('MM-dd')}}&nbsp;&nbsp;&nbsp;&nbsp; 件数:{{item.shippingOrderItems.quantity}}, 颜色分类:{{item.shippingOrderItems.productAttrs}}
                         </div>
                         <div class="fabulousText">
                            {{item.list.commentContent}}
@@ -59,14 +55,15 @@
 		data() {
 			return {
 				evaluateList: [],
-				hasEvaluate:true
+                hasEvaluate:true,
+                onlyimg:false,
 			}
 		},
 		methods: {
 			getEvaluate() {
 				this.$axios({
 					method: 'get',
-					url: '/comment/mysearch',
+					url: '/comment/mysearch/',
 				}).then((res) => {
 					if(res.code == "200") {
                         this.evaluateList = res.object;
@@ -97,10 +94,6 @@
 					}
 				})
             },
-            toggleimg() {
-				this.onlyimg = !this.onlyimg;
-				this.showcomments();
-			},
 
 		},
 		mounted() {
@@ -176,26 +169,6 @@
         border-radius: 1.5rem;
         margin-right: 2rem;
         vertical-align: middle;
-    }
-    .pingjia{
-        height: 4rem;
-        padding: 0.5rem;
-        font-size:1.6rem;
-        background-color: #ffffff;
-        margin-top: 0.5rem;
-        width: 100%;
-        overflow: hidden;
-    }
-    .pingjia span{
-        float: left;
-        width: 50%;
-        border-right:1px solid #eee;
-        text-align: center;
-        height:3rem;
-        padding: 0.75rem;
-    }
-    .pingjia span:nth-last-of-type(1){
-        border-right:none;
     }
 </style>
 <style>
