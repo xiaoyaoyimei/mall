@@ -128,6 +128,14 @@ let routes = [{
 				path: 'evaluate',
 				component: resolve => require(['@/views/pages/userCenter/Evaluate.vue'], resolve),
 			},
+						{
+				meta: {
+					requireAuth: true
+				},
+				name: '/user/express',
+				path: '/user/express',
+				component: resolve => require(['@/views/pages/userCenter/Express.vue'], resolve),
+			},
 			{
 				meta: {
 					requireAuth: true

@@ -63,11 +63,11 @@
        	   	 let fromc = localStorage.getItem('fromc');
        	   	   if(fromc!=undefined){
 	       	   	  	     if(fromc=='miaosha'){
-	       	   	  	    	this.$router.push('/secdetail')  
+	       	   	  	    		this.$router.push({name:'/secdetail',params:{address:value}})  
 	       	   	  	    }else if(fromc=='setting'){
 	       	   	  	    	this.$router.push('/user/setting');
 	       	   	  	    }else{
-	       	   	  	    	this.$router.push('/carttwo');
+	       	   	  	    	 this.$router.push({name:'/carttwo',params:{address:value}}) 
 	       	   	  	    }
        	   	  	    }else{
        	   	  	    	return;

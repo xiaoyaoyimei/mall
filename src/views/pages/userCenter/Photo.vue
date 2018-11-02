@@ -71,8 +71,8 @@
             },
         	handleSuccess(res){
             if(res.code == '200'){
-				this.uploadList[0].url=this.global_.imgurl+res.msg;
-				this.iconUrl=this.global_.imgurl+res.msg;
+				this.uploadList[0].url=res.msg;
+				this.iconUrl=res.msg;
               }          
           	},
           handlePhoto(){

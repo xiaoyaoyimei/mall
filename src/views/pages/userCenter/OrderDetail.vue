@@ -13,6 +13,14 @@
 					<p>等待买家付款</p>
 					<p class="font-14">订单将在<strong>30分钟后</strong>自动关闭,请及时付款~</p>
 				</div>
+				<div v-if="orderdetail.shippingOrder.orderStatus=='02'">
+					<p>等待商家发货</p>
+					<p class="font-14">您已付款,请耐心等待~</p>
+				</div>
+					<div v-if="orderdetail.shippingOrder.orderStatus=='06'">
+					<p>等待卖家收货</p>
+					<p class="font-14">订单将在<strong>6天59分后</strong>自动确认收货,请及时确认收货~</p>
+				</div>
 				<div v-else>
 					{{statusfilter(orderdetail.shippingOrder.orderStatus)}}
 				</div>

@@ -8,57 +8,57 @@
 			<span class="m_header_bar_menu"></span>
 		</div>
 		<div class="switchStatus">
-		<span  @click="changeStatus('00')" :class="{red:'00' == numactive}" >全部订单</span>
-				<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待付款</span>
-				<span @click="changeStatus('02')" :class="{red:'02' == numactive}">已付款</span>
-				<span @click="changeStatus('05')" :class="{red:'05' == numactive}">待发货</span>
-				<span @click="changeStatus('06')" :class="{red:'06' == numactive}">已发货</span>
-				</div>
-		<Scroll  v-show="!noorderShow">
-		<ul class="splist box-content">
-			<li v-for="(x,index) in cartList" :key="index">
-				<div>
-					<div class="orderno">
-						<p><span class="color-black">订单编号:{{x.order.orderNo}}</span><span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></p>
-						<p>下单时间:{{x.order.createTime| formatDate}}</p>
-					</div>
-
-					<div v-for="(child,i) in x.orderItems" :key="i" class="order-wrap">
-						<div class="sphead">
-						<img :src="child.productItemImg | imgfilter">
-							<div class="xq">
-								<p class="color-black">{{child.productItemNo}}</p>
-								<p class="title">{{child.productTitle}}</p>
-								<p class="color-gray font-12">{{child.productAttrs}}</p>
-							</div>
-							<div class="price">
-							<span class="color-black">	￥{{childjun(child) | pricefilter}}</span>
-								<br/>x {{child.quantity}}<br/>
-							<router-link v-if="x.order.orderStatus=='07'&&!child.pinglun" class="color-red pingjia" style="color:#ff0000" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,index:i}}">去评价</router-link>	
-							</div>
-								
+			<span @click="changeStatus('00')" :class="{red:'00' == numactive}">全部订单</span>
+			<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待付款</span>
+			<span @click="changeStatus('02')" :class="{red:'02' == numactive}">已付款</span>
+			<span @click="changeStatus('05')" :class="{red:'05' == numactive}">待发货</span>
+			<span @click="changeStatus('06')" :class="{red:'06' == numactive}">已发货</span>
+		</div>
+		<Scroll v-show="!noorderShow">
+			<ul class="splist box-content">
+				<li v-for="(x,index) in cartList" :key="index">
+					<div>
+						<div class="orderno">
+							<p><span class="color-black">订单编号:{{x.order.orderNo}}</span><span class="orderstatus">{{statusfilter(x.order.orderStatus)}}</span></p>
+							<p>下单时间:{{x.order.createTime| formatDate}}</p>
 						</div>
+
+						<div v-for="(child,i) in x.orderItems" :key="i" class="order-wrap">
+							<div class="sphead">
+								<img :src="child.productItemImg | imgfilter">
+								<div class="xq">
+									<p class="color-black">{{child.productItemNo}}</p>
+									<p class="title">{{child.productTitle}}</p>
+									<p class="color-gray font-12">{{child.productAttrs}}</p>
+								</div>
+								<div class="price">
+									<span class="color-black">	￥{{childjun(child) | pricefilter}}</span>
+									<br/>x {{child.quantity}}<br/>
+									<router-link v-if="x.order.orderStatus=='07'&&!child.pinglun" class="color-red pingjia" style="color:#ff0000" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,index:i}}">去评价</router-link>
+								</div>
+
+							</div>
+						</div>
+						<div class="sptitle">
+							<span>共<strong class="color-dx">{{x.znum}}</strong>件商品</span> <span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 					</div>
-					<div class="sptitle">
-						<!--<span style="float: left;margin-left:10px;color: #f60;">
-						{{refundfilter(x.order.orderStatus)}}</span>-->
-					<span>共<strong>{{}}</strong>件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
-				</div>
-				<div class="cz">
-					<button type="button" class="btn " @click="seeDetail(x.order.orderNo)" >订单详情</button>
-					<button type="button" class="btn " @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'">取消订单</button>
-					<button type="button" class="btn btn-red-small" @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">立即付款</button>
-					<button class="btn btn-red-small" @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">签收订单</button>
-					<router-link class="btn" :to="{ path: '/user/refund', query: {rforder:x.order.orderNo}}" v-if="x.canRefund==true">退款退货</router-link>
-					<!--  -->
-				</div>
-			</li>
-		</ul>
+					<div class="cz">
+						<button type="button" class="btn " @click="cancel(x.order.orderNo)" v-if="x.order.orderStatus=='01'||x.order.orderStatus=='02'||x.order.orderStatus=='05'">取消订单</button>
+						<router-link :to="{name:'/user/express',query:{orderNo:x.order.orderNo,expressNo:x.order.expressNo,logistics:x.order.logistics,orderStatus:statusfilter(x.order.orderStatus)}}" v-if="x.order.orderStatus=='06'||x.order.orderStatus=='07'">查看物流 </router-link>
+						<button type="button" class="btn " @click="seeDetail(x.order.orderNo)">订单详情</button>
+						<button type="button" class="btn btn-red-small" @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">立即付款</button>
+						<button class="btn btn-red-small" @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">确认收货</button>
+						<router-link class="btn" :to="{ path: '/user/refund', query: {rforder:x.order.orderNo}}" v-if="x.canRefund==true">退款退货</router-link>
+						<!--		<button v-if="x.order.orderStatus=='07'&&!child.pinglun" class="btn btn-red-small" @click="showevaluation(child,x.order.orderNo)">去评价</button>-->
+						<!--  -->
+					</div>
+				</li>
+			</ul>
 		</Scroll>
 		<div class="flex-center  empty" v-show="noorderShow">
 			<img src="../../../assets/img/order_empty.png" style="max-width: 8rem;">
 			<p>您还没有相关的订单</p>
-				<router-link to="/" class="color-dx">去购物</router-link>
+			<router-link to="/" class="color-dx">去购物</router-link>
 		</div>
 	</div>
 </template>
@@ -70,14 +70,14 @@
 		data() {
 			const temp = [];
 			return {
-				numactive:'00',
+				numactive: '00',
 				cartList: [],
 				statusList: [],
 				refundenums: [],
 				status: '01',
 				noorderShow: false,
-				height:500,
-				totalnum:0,
+				height: 500,
+				totalnum: 0,
 			}
 		},
 		computed: {
@@ -108,9 +108,6 @@
 							}
 						});
 					},
-					onCancel: () => {
-						this.$Message.info('放弃取消');
-					}
 				});
 			},
 			qianshou(value) {
@@ -130,9 +127,6 @@
 							}
 						});
 					},
-					onCancel: () => {
-						this.$Message.info('放弃签收');
-					}
 				});
 			},
 			childjun(value) {
@@ -190,51 +184,63 @@
 
 				});
 			},
-				changeStatus(v) {
+			changeStatus(v) {
 				this.numactive = v;
 				this.status = v;
-				this.spinShow=true;
+				this.spinShow = true;
 				this.getOrder()
 			},
-			getOrder() {
-				if(this.token != null) {
-					let url = '';
-					if(this.status != undefined&&this.status != '00') {
-						status = this.status;
-						url = `/order/list?orderStatus=${status}`
-					} else {
-						url = '/order/list'
+			maopao(item) {
+				for(let j = 0; j < item.commentList.length; j++) {
+					let num=0;
+					for(let n = 0; n < item.orderItems.length; n++) {
+						num+=item.orderItems[n].quantity;
+						if(item.commentList[j].orderItemsId == item.orderItems[n].orderItemsId) {
+							item.orderItems[n].pinglun = item.commentList[j].canComment;
+							item.orderItems[n].productModelId = item.commentList[j].productModel.id;
+						}
 					}
-					this.$axios({
-						method: 'get',
-						url: url,
-					}).then((res) => {
-						if(res.code == '200') {
-							this.cartList = res.object;
-							this.cartList.forEach(function(i,n){
-								console.log(i.orderItems)
-							})
-							this.noorderShow = false;
-						} else {
-							this.noorderShow = true;
-						}
-					});
-				} else {
-					router.replace({
-						path: 'login',
-						query: {
-							redirect: router.currentRoute.fullPath
-						}
-					})
+//					item.commentList
+					
 				}
-			}
+			},
+			getOrder() {
+				let status = '',
+					url = '';
+				if(this.orderStatus == undefined) {
+					this.orderStatus = '00'
+				}
+				if(this.orderStatus != '00') {
+					status = this.orderStatus;
+					url = `/order/list?orderStatus=${status}`
+				} else {
+					url = '/order/list'
+				}
+				this.$axios({
+					method: 'get',
+					url: url,
+				}).then((res) => {
+					if(res.code == '200') {
+						this.cartList = res.object;
+						for(let i = 0; i < this.cartList.length; i++) {
+							this.maopao(this.cartList[i])
+						}
+						this.pro = this.cartList;
+					} else {
+						this.cartList = [];
+						this.pro = [];
+					}
+					this.spinShow = false;
+				});
+
+			},
 		},
 		mounted() {
 			this.status = this.$route.query.status
-			if(this.status==undefined){
-				this.status='00'
+			if(this.status == undefined) {
+				this.status = '00'
 			}
-			this.numactive=this.status;
+			this.numactive = this.status;
 			this.getOrder();
 			this.getStatusEnum();
 		}
@@ -242,6 +248,5 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-
 
 </style>

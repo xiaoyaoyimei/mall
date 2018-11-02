@@ -16,7 +16,7 @@
 				</span>
 				<span v-else>
 						<router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" > 
-						<img :src='userinfo.iconUrl | imgfilter' style='vertical-align:middle;width:3.5rem;max-height:4rem'> </router-link>
+						<img :src='userinfo.iconUrl  | imgfilter' style='vertical-align:middle;width:3.5rem;max-height:4rem'> </router-link>
 				</span>
 			</li>
 
