@@ -15,11 +15,9 @@
       getParams () {
         // 取到路由带过来的参数 
         let routerParams = this.$route.fullPath
-        console.log(this.$route);
         let n= routerParams.indexOf('?')
         // 将数据放在当前组件的数据内
          let payparams = routerParams.substring(n,this.$route.fullPath.length)
-         console.log('参数：'+payparams)
           	this.$axios({
 							    method: 'post',
 							    url:'/order/alipay/check'+payparams,
