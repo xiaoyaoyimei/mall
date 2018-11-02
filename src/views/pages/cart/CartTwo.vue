@@ -7,6 +7,7 @@
 			<span class="m_header_bar_title">确认订单</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
+		<Scroll>
 		<div class="chooseAddress">
 			<ul class="address" v-if="youdizhi">
 				<li>
@@ -56,14 +57,15 @@
 			<span @click='usecoupon' class="use">使用</span>
 			<span class="color-dx">已优惠:-￥{{(origintotal.price -total.price)|pricefilter}}</span>
 		</dd></dl>
-			<dl><dt>配送方式</dt><dd><span class="color-dx">快递费用￥{{freight | pricefilter}}</span></dd></dl>
+			<dl class="bd1"><dt>配送方式</dt><dd><span class="color-dx">快递费用￥{{freight | pricefilter}}</span></dd></dl>
 			<dl><dt>备注留言</dt><dd><textarea>{{beizhu}}</textarea></dd></dl>
 		<div class='cartfoot'>
-			<strong>合计:<span class="color-dx">￥{{total.price+freight|pricefilter}}</span></strong>
 			<button @click="confirm" type="button"> 
 				提交订单
 			</button>
+			<strong>合计:<span class="color-dx">￥{{total.price+freight|pricefilter}}</span></strong>
 		</div>
+		</Scroll>
 	</div>
 </template>
 <script>
@@ -420,12 +422,10 @@
 		padding: 1rem 1rem 0;
 		background: #fff;
 		border-top: 1px solid #ddd;
-		border-bottom: 1px solid #ddd;
 	}
 	dl{
 		display: flex;
 		padding: 1rem 1.5rem;
-		border-bottom: 1px solid #ddd;
 		dt{
 			color: #333;
 			margin-right: 1.5rem;
@@ -446,6 +446,7 @@
 	}
 	.yhm {
 		margin-bottom: 1rem;
+		border-bottom: 1px solid #ddd;
 		input {
 			margin-left: 1rem;
 			margin-right: 1rem;
@@ -490,8 +491,9 @@
 		line-height: 4.9rem;
 		bottom: 0px;
 		width: 100%;
-		padding-left: 1rem;
 		strong {
+			margin-left: 1rem;
+				float: right;
 			font-size: 1.2rem;
 			display: inline-block;
 			span {
@@ -524,5 +526,8 @@
     border: 1px solid #333;
     padding: 0.2rem;
     float: right;
+	}
+	.bd1{
+		border-bottom: 1px solid #ddd;
 	}
 </style>

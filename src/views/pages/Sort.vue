@@ -348,7 +348,7 @@
 	.filterModal .wrap {
 		margin-top: 0.25rem;
 		border-bottom: 0.05rem solid $color-border;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1rem;
 	}
 	
 	.zIndex {
@@ -421,6 +421,10 @@
 	.search-wrap .sx{
 		width:1.6rem;
 		height: 1.6rem;
+	}
+	.Hfoot{
+		position: fixed;
+		bottom: 10px;
 	}
 </style>
 <style>

@@ -922,9 +922,9 @@
 	
 	.pro_size {
 		padding: 1.25rem;
+		background: #fff;
 	}
 	
-	.pro_size p {}
 	
 	.pro_size span {
 		float: left;
@@ -1066,12 +1066,13 @@
 	}
 	
 	.opt button {
-		width: 46%;
 		height: 4rem;
 		line-height: 4rem;
 		border: none;
 		margin-left: 1rem;
 		font-size: 1.6rem;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
 	}
 	
 	.btn-cart {
