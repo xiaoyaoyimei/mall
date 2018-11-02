@@ -180,15 +180,10 @@
 					this.$Message.warning('请上传退货凭证');
 					return;
 				} else {
-					debugger
-					// this.uploadList.forEach((item, index) => {
-					// 	this.uploadImgs[index] = item.url + ','
-					// })
 					var imgs = "";
 					for(var i = 0; i<this.uploadList.length;i++){
 						imgs += this.uploadList[i].url + ','
 					}
-					debugger;
 					imgs = (imgs.slice(imgs.length - 1) == ',') ? imgs.slice(0, -1) : imgs;
 					let _this = this;
 					this.$axios({
@@ -212,9 +207,7 @@
 							this.$router.push('/user/aftersales')
 						}
 					});
-
 				}
-
 			},
 		},
 		mounted() {

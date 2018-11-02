@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.5",
+    "js-cookie": "^2.2.0",
     "ly-tab": "^2.1.1",
     "moment": "^2.22.2",
     "vu": "0.0.0",
