@@ -7,9 +7,8 @@
 					<span>登录/注册></span>
 				</router-link>
 				<div  v-else>
-			<!--	<router-link :to="{path: '/user/myinfo'}" class="tx" >-->
 						<div  class="tx">
-					<img :src="userinfo.iconUrl " v-if="userinfo.iconUrl">
+					<img :src="userinfo.iconUrl | imgfilter" v-if="userinfo.iconUrl">
 					<img src="../../../assets/img/de-tx.jpg" v-else>
 					</div>
 			<!--	</router-link>-->

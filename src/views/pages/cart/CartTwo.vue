@@ -330,10 +330,8 @@
 					data: para
 				}).then((res) => {
 					if(res.code == '200') {
-
 						//						  订单提交以后清空列表
 						sessionStorage.removeItem("cart")
-					//	Bus.$emit('cartmsg', "again");
 						this.$router.push({
 							name: '/cartthree',
 							query: {
@@ -381,20 +379,21 @@
 					}
 				});
 			},
-//			couponprice(value) {
-//				let couponmsg = this.couponmsg;
-//				if(couponmsg.couponMode == 'rate') {
-//					return value * (1 - couponmsg.modeValue)
-//				} else {
-//					return value - couponmsg.modeValue
-//				}
-//			}
 		},
 		mounted() {
-			this.getAddress();
-			this.getCartList();
-			this.getDD();
-			this.jisuan();
+			//获取from类型A为立即下单，B为来自购物车1
+			this.orderfrom = this.$route.query.orderfrom;
+			this.cartList = JSON.parse(sessionStorage.getItem('cart'));
+			if(this.cartList == null) {
+				this.$router.push({
+					name: '/cart'
+				});
+			} else {
+				this.getAddress();
+				this.getAddressOption();
+				this.getCartList();
+				this.jisuan();
+			}
 		}
 	}
 </script>
