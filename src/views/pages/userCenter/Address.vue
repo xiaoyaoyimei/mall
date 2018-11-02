@@ -62,11 +62,12 @@
        	   chooseDD(value){
        	   	 let fromc = localStorage.getItem('fromc');
        	   	   if(fromc!=undefined){
-	       	   	  	    if(fromc=='miaosha'){
-	       	   	  	    	
-	       	   	  	    	this.$router.push({name:'/secdetail',params:{address:value}})  
-	       	   	  	    }else {
-	       	   	  	    	 this.$router.push({name:'/carttwo',params:{address:value}})  
+	       	   	  	     if(fromc=='miaosha'){
+	       	   	  	    	this.$router.push('/secdetail')  
+	       	   	  	    }else if(fromc=='setting'){
+	       	   	  	    	this.$router.push('/user/setting');
+	       	   	  	    }else{
+	       	   	  	    	this.$router.push('/carttwo');
 	       	   	  	    }
        	   	  	    }else{
        	   	  	    	return;
