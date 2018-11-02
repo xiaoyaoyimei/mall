@@ -8,7 +8,8 @@
 		<div style="margin-top:1rem;text-align: center;">
 			 <div class="demo-upload-list" v-for="item in uploadList">
 						    <template v-if="item.status === 'finished'">
-						            <img :src="item.url | imgfilter"  class="origin_tx"/>
+						    		<img :src="item.url | imgfilter" v-if="item.url" class="origin_tx">
+					<img src="../../../assets/img/de-tx.jpg" v-else class="origin_tx">
 						            <div class="demo-upload-list-cover">
 						                <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
 						            </div>
@@ -48,7 +49,7 @@
 	        	 	{'url':''}
 	        	 ],
                  iconUrl:'',
-                 uploadUrl:this.$axios.defaults.baseURL+'upload/upload?path=account'
+                 uploadUrl:this.$axios.defaults.baseURL+'/upload/upload?path=account'
             }
         },
         methods: {
@@ -82,7 +83,7 @@
 						}).then((res)=>{
 							if(res.code=='200'){
 							 this.$Message.success('修改头像成功');
-							  this.$router.push('/user/myinfo');
+							  this.$router.push('/user/setting');
 							}
 						});
           },
