@@ -424,8 +424,8 @@
 
 				}
 			},
-						buynow(v) {
-					   if(this.token!=null&&this.token!=""&&this.token!=undefined){
+			buynow(v) {
+				if(this.token!=null&&this.token!=""&&this.token!=undefined){
 				if(this.productItemId == "") {
 					this.$Message.error('请选择商品属性');
 					return

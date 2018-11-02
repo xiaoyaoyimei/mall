@@ -4,7 +4,7 @@
 				<router-link to="/seckill"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 				<span class="m_header_bar_title">秒杀详情</span>
 			</div>
-		<div class="detail">
+		<div class="Secdetail">
 			<div class="tp">
 			<img :src="detail.productItem.listImg | imgfilter"/>
 			<div class="cursh-wrap">
@@ -36,9 +36,16 @@
 						</div>
 					</div>
 				</div>
-			<div class="xq">
+			<div class="sxq">
 			<p>{{detail.product.modelName}}</p>	
-			<div>数量 <InputNumber  :min="1"  v-model="quantity" :max="detail.crush.unitQuantity*1"></InputNumber></div>
+			<dl class="dl-base clearfix"><dt class="goumai">购买数量</dt>
+				<dd>
+					<div class="number">
+						<Icon type="ios-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)">
+						<Icon type="ios-remove" class="ios-remove" @click="jian" />
+					</div>
+				</dd>
+			</dl>
 			</div>
 		</div>
 		<div class="fuwu">
@@ -149,7 +156,43 @@
                   this.t= setTimeout(() => {
                                 self.countdown();
                         }, 	1000);
-               },
+			   },
+			//添加
+			jia: function() {
+				if(this.quantity >= this.max) {
+					this.quantity = this.max
+				} else {
+					this.quantity = parseInt(this.quantity) + 1;
+				}
+			},
+			//减
+			jian: function() {
+				if(this.quantity == 1) {
+					this.quantity == 1
+				} else {
+					this.quantity = parseInt(this.quantity) - 1;
+				}
+			},
+			//显示评论。0位全部评论，1为显示带图评论
+			showcomments() {
+				var imgshow = this.onlyimg;
+				if(imgshow == true) {
+					imgshow = 1
+				} else {
+					imgshow = 0
+				}
+				this.$axios({
+					method: 'get',
+					url: '/comment/search/' + this.productId + '/' + imgshow,
+				}).then((res) => {
+					if(res.code == "200" && res.object.length > 0) {
+						this.commentList = res.object;
+						this.hasPJ = true;
+					} else {
+						this.hasPJ = false;
+					}
+				});
+			},
 	      	getDD(){
                 let routerParams = this.$route.params.address;
                 if(routerParams!=undefined){
@@ -302,7 +345,7 @@
 	.m_header_bar_back i{
 		color: #fff;
 	}
-	.detail {
+	.Secdetail {
 		.tp{
 		 position:relative;
 		img{
@@ -324,7 +367,7 @@
 			font-size: 1.2rem;
 		}
 	}
-	.xq{
+	.sxq{
 		padding: 1rem;
 		margin-bottom: 1rem;
 		margin-top: 1rem;
@@ -493,6 +536,37 @@
 	width: 5rem;
 	height:5rem;
 }
+.number input {
+		float: right;
+		line-height: 3.6rem;
+		height: 3.6rem;
+		width: 5rem;
+		border: 1px solid $color-border;
+		text-align: center;
+}
+	
+.number .ios-add {
+		float: right;
+		line-height: 3.6rem;
+		height: 3.6rem;
+		width: 3.6rem;
+		background-color: #f0f0f0;
+		text-align: center;
+		}
+	
+	.number .ios-remove {
+		float: right;
+		line-height: 3.6rem;
+		height: 3.6rem;
+		width: 3.6rem;
+		background-color: #f0f0f0;
+		text-align: center;
+	}
+	.goumai{
+		padding-top: 0.5rem;
+		font-size: 1.8rem;
+		float: left;
+	}
 </style>
 <style>
 	.spjs .ivu-tabs-tab{
