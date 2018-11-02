@@ -19,7 +19,7 @@
 				</div>
 					<div v-if="orderdetail.shippingOrder.orderStatus=='06'">
 					<p>等待卖家收货</p>
-					<p class="font-14">订单将在<strong>6天59分后</strong>自动确认收货,请及时确认收货~</p>
+					<p class="font-14">订单将在<strong>{{day}}:{{hr}}:{{min}}:{{sec}} </strong>自动确认收货,请及时确认收货~</p>
 				</div>
 				<div v-else>
 					{{statusfilter(orderdetail.shippingOrder.orderStatus)}}
@@ -198,7 +198,10 @@
 						this.jsqtime = this.orderdetail.shippingOrder.createTime +30*60*1000;
 						this.countdown();
 					}
-
+					if(this.orderdetail.shippingOrder.orderStatus=='06'){
+						this.jsqtime = this.orderdetail.shippingOrder.deliverTime +7*24*60*60*1000;
+						this.countdown();
+					}
 				});
 			},
 		},
