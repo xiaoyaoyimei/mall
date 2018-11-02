@@ -31,7 +31,7 @@
 					<router-link :to="{ path: '/user/orderlist',query:{status:'05'} }" tag="li"><img src="../../../assets/img/dfh.png">待发货</router-link>
 					<router-link :to="{ path: '/user/orderlist',query:{status:'06'} }" tag="li"><img src="../../../assets/img/dsh.png">已发货</router-link>
 					<router-link :to="{ path: '/user/orderlist',query:{status:'07'} }" tag="li"><img src="../../../assets/img/yqs.png">已签收</router-link>
-		<!--	<router-link :to="{ path: '/user/orderlist',query:{status:'04'} }" tag="li"><img src="../../../assets/img/yqx.png">已取消</router-link>-->
+			<router-link :to="{ path: '/user/orderlist',query:{status:'04'} }" tag="li"><img src="../../../assets/img/yqx.png">已取消</router-link>
 					<router-link :to="{ path: '/user/aftersales'}" tag="li"><img src="../../../assets/img/sh.png">售后</router-link>
 			</ul>
 		</div>
@@ -107,7 +107,7 @@
 	.order-status {
 		display: flex;
 		flex-wrap: wrap;
-		padding: 1rem;
+		padding: 1rem 0 1rem 1rem;
 		li {
 			display: flex;
 			justify-content: center;
@@ -116,8 +116,8 @@
 			padding: 1rem 0.5rem;
 			font-size: 1.4rem;
 			img {
-				max-width: 4.5rem;
-				max-height: 4.5rem;
+				max-width: 4rem;
+				max-height: 4rem;
 			}
 		}
 	}
