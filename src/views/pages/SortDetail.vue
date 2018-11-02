@@ -75,7 +75,7 @@
 				<div class="eval pt50 " v-show=" 2 == num">
 					<div class="eval-fl ">
 						<h5>全部评价
-									<span  v-if="!onlyimg" @click="toggleimg()">全部</span>
+						<span  v-if="!onlyimg" @click="toggleimg()">全部</span>
 							<span class="allimg"  @click="toggleimg()" v-else>
 							有图
 							</span>
@@ -1100,50 +1100,6 @@
 		color: #fff;
 	}
 	
-	.eval-fl h5 {
-		padding: 0rem 1.25rem;
-		border-bottom: 0.05rem solid $color-border;
-		background: #fff;
-		padding-top: 2rem;
-		padding-bottom: 1rem;
-		font-size: 1.6rem;
-		font-weight: 400;
-	}
-	
-	.eval-fl h5 span {
-		float: right;
-		padding-right: 0.25rem;
-		text-align: right;
-		border: 1px solid #ddd;
-		padding: 0.2rem 1.5rem;
-		border-radius: 1rem;
-	}
-	
-	.eval-fl .allimg {
-		color: #FF0000;
-		border-color: #ff0000
-	}
-	
-	.eval-ul {
-		padding: 0rem 1.5rem;
-	}
-	
-	.eval-ul h6 {
-		float: left;
-		width: 6rem;
-	}
-	
-	.eval-ul li {
-		margin-top: 2.5rem;
-		padding-bottom: 2.5rem;
-		border-bottom: 1px solid $color-border;
-	}
-	
-	.eval-ul li>div {
-		float: left;
-		width: calc(100% - 6rem);
-		position: relative;
-	}
 	
 	.iconUrl {
 		width: 4.5rem;
