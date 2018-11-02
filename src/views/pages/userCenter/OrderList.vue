@@ -42,7 +42,7 @@
 					<div class="sptitle">
 						<!--<span style="float: left;margin-left:10px;color: #f60;">
 						{{refundfilter(x.order.orderStatus)}}</span>-->
-					<span>共{{}}件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
+					<span>共<strong>{{}}</strong>件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 				</div>
 				<div class="cz">
 					<button type="button" class="btn " @click="seeDetail(x.order.orderNo)" >订单详情</button>
@@ -76,7 +76,8 @@
 				refundenums: [],
 				status: '01',
 				noorderShow: false,
-				height:500
+				height:500,
+				totalnum:0,
 			}
 		},
 		computed: {
@@ -210,6 +211,9 @@
 					}).then((res) => {
 						if(res.code == '200') {
 							this.cartList = res.object;
+							this.cartList.forEach(function(i,n){
+								console.log(i.orderItems)
+							})
 							this.noorderShow = false;
 						} else {
 							this.noorderShow = true;
