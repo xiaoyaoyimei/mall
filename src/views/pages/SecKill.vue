@@ -9,55 +9,59 @@
 			<p>暂无秒杀活动 敬请期待</p>
 		</div>
 		<div class="product" v-else>
-			<div></div>
-			<div class="sTitle">
-				秒杀已开始  距结束
-				<span class="red">{{day}}</span> :
-				<span class="red">{{hr}}</span> :
-				<span class="red">{{min}}</span> :
-				<span class="red">{{sec}}</span>
-			</div>
-				<div   class="spdetail"    v-for="(item, index) in startpro" :key='index'>
-					<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
-						<img src="../../assets/img/u242.png" class="Sicon" alt="">
-						<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
-						<div class="floatright">	
-							<p class="sPN">{{item.product.modelNo}}</p>
-							<p class="sPN">{{item.product.modelName}}</p>
-							<div class="crush">
-								<div class="left">
-									<span>￥{{item.crush.salePrice}}</span><br>
-									<em>￥{{item.product.salePrice}}</em>
-								</div>
-							</div>
-							<span class="btn">立即抢购</span>
-						</div>
-					</router-link>
-				</div>
+			<div v-if='startproshow'>
 				<div class="sTitle">
-					秒杀未开始  距开始
-					<span class="blue">{{nostartday}}</span> :
-					<span class="blue">{{nostarthr}}</span> :
-					<span class="blue">{{nostartmin}}</span> :
-					<span class="blue">{{nostartsec}}</span>
+					秒杀已开始  距结束
+					<span class="red">{{day}}</span> :
+					<span class="red">{{hr}}</span> :
+					<span class="red">{{min}}</span> :
+					<span class="red">{{sec}}</span>
 				</div>
-				<div   class="spdetail"    v-for="(item, index) in nostartpro" :key='index'>
-					<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
-						<img src="../../assets/img/u242.png" class="Sicon" alt="">
-						<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
-						<div class="floatright">	
-							<p class="sPN">{{item.product.modelNo}}</p>
-							<p class="sPN">{{item.product.modelName}}</p>
-							<div class="crush">
-								<div class="left">
-									<span>￥{{item.crush.salePrice}}</span><br>
-									<em>￥{{item.product.salePrice}}</em>
+					<div   class="spdetail"    v-for="(item, index) in startpro" :key='index'>
+						<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
+							<img src="../../assets/img/u242.png" class="Sicon" alt="">
+							<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
+							<div class="floatright">	
+								<p class="sPN">{{item.product.modelNo}}</p>
+								<p class="sPN">{{item.product.modelName}}</p>
+								<div class="crush">
+									<div class="left">
+										<span>￥{{item.crush.salePrice}}</span><br>
+										<em>￥{{item.product.salePrice}}</em>
+									</div>
 								</div>
+								<span class="btn">立即抢购</span>
 							</div>
-							<span class="btn blue">立即抢购</span>
-						</div>
-					</router-link>
+						</router-link>
+					</div>
 				</div>
+				<div v-if='nostartproshow'>
+					<div class="sTitle">
+						秒杀未开始  距开始
+						<span class="blue">{{nostartday}}</span> :
+						<span class="blue">{{nostarthr}}</span> :
+						<span class="blue">{{nostartmin}}</span> :
+						<span class="blue">{{nostartsec}}</span>
+					</div>
+					<div   class="spdetail"    v-for="(item, index) in nostartpro" :key='index'>
+						<router-link class="Slist" :to="{ name: '/secdetail',query:{skuId:item.skuId} }">
+							<img src="../../assets/img/u242.png" class="Sicon" alt="">
+							<img  class="Simg" :src='item.productItem.listImg |imgfilter'>
+							<div class="floatright">	
+								<p class="sPN">{{item.product.modelNo}}</p>
+								<p class="sPN">{{item.product.modelName}}</p>
+								<div class="crush">
+									<div class="left">
+										<span>￥{{item.crush.salePrice}}</span><br>
+										<em>￥{{item.product.salePrice}}</em>
+									</div>
+								</div>
+								<span class="btn blue">立即抢购</span>
+							</div>
+						</router-link>
+					</div>
+				</div>
+
 	    </div>
     </div>
 </template>
@@ -83,7 +87,10 @@ export default {
 			nostartmin:0,
 			nostartsec:0,
 			startpro:[],
-            nostartpro:[]
+			nostartpro:[],
+			startproshow:false,
+			nostartproshow:false,
+			
     	}
       },
 
@@ -140,11 +147,20 @@ export default {
 								 }
 								 
 							 }
-							this.starttime=this.startpro[0].crush["endTime"]
-							this.nostarttime = this.nostartpro[0].crush["startTime"];
+							if(this.startpro.length>0){
+								this.starttime=this.startpro[0].crush["endTime"]
+								this.startcountdown();
+								this.startproshow=true
+							}
+							if(this.nostartpro.length>0){
+								this.nostarttime = this.nostartpro[0].crush["startTime"];
+								this.nostartcountdown();
+								this.nostartproshow=true
+							}
+							
 						//计时器
-						this.startcountdown();
-						this.nostartcountdown();
+						
+						
 							}
 							else{
 								this.show=true;
