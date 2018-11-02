@@ -55,6 +55,11 @@ let routes = [{
 				path: '/cart',
 				component: resolve => require(['@/views/pages/cart/CartOne.vue'], resolve),
 			},
+			{
+				name: '/seckill',
+				path: '/seckill',
+				component: resolve => require(['@/views/pages/SecKill.vue'], resolve),
+			},
 		]
 	},
 	{
@@ -62,11 +67,7 @@ let routes = [{
 		path: '/search',
 		component: resolve => require(['@/views/pages/Search.vue'], resolve),
 	},
-	{
-		name: '/seckill',
-		path: '/seckill',
-		component: resolve => require(['@/views/pages/SecKill.vue'], resolve),
-	},
+
 	{
 		name: '/secdetail',
 		path: '/secdetail',
@@ -128,7 +129,7 @@ let routes = [{
 				path: 'evaluate',
 				component: resolve => require(['@/views/pages/userCenter/Evaluate.vue'], resolve),
 			},
-						{
+			{
 				meta: {
 					requireAuth: true
 				},
@@ -324,11 +325,11 @@ let routes = [{
 const router = new VueRouter({
 	root: '/',
 	routes,
-		scrollBehavior(to, from, savedPosition) {
+	scrollBehavior(to, from, savedPosition) {
 		if(savedPosition) {
 			return savedPosition
 		} else {
-			return { 
+			return {
 				x: 0,
 				y: 0
 			}

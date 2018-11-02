@@ -9,15 +9,11 @@
 		</div>
 		<ul class="flex-ul">
 			<li class="tx"><span>头像</span>
-				<span v-if="userinfo.iconUrl==''">
-					<router-link :to="{ path: '/user/photo'}" >
-						<img src="../../../assets/img/de-tx.jpg" style="width: 5rem;height: 5rem;border-radius: 50%;">
-					</router-link>
-				</span>
-				<span v-else>
-						<router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" > 
-						<img :src='userinfo.iconUrl  | imgfilter' style='vertical-align:middle;width:3.5rem;max-height:4rem'> </router-link>
-				</span>
+				<router-link :to="{ path: '/user/photo'}" v-if="userinfo.iconUrl==''" class="tximg">
+					<img src="../../../assets/img/de-tx.jpg">
+				</router-link>
+				<router-link :to="{ path: '/user/photo', query: { iconUrl: userinfo.iconUrl }}" v-else class="tximg">
+					<img :src='userinfo.iconUrl  | imgfilter'> </router-link>
 			</li>
 
 			<li><span>会员名</span>
@@ -46,9 +42,9 @@
 				<span>地址管理</span>
 				<span><Icon type="ios-arrow-forward" /></span></li>
 
-			<router-link :to="{ path: '/user/changepwd'}" tag="li"> 
+			<router-link :to="{ path: '/user/changepwd'}" tag="li">
 				<span>修改密码</span>
-					<span><Icon type="ios-arrow-forward" /></span></router-link>
+				<span><Icon type="ios-arrow-forward" /></span></router-link>
 		</ul>
 		<div class="btn-red-fixed" @click="logout">退出登录</div>
 	</div>
@@ -136,6 +132,20 @@
 </script>
 
 <style scoped="scoped">
+	.tximg {
+		border: 1px solid #ddd;
+		display: block;
+		max-width: 5.5rem;
+		max-height: 5.5rem;
+		border-radius: 50%;
+		padding:1rem;
+	}
+	
+	.tximg img {
+		width: 100%;
+		height: 100%
+	}
+	
 	.order .flex-ul {
 		margin-top: 1rem;
 	}

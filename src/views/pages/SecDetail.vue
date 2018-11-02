@@ -22,10 +22,10 @@
 							
 			<div class="chooseAddress">
 					<ul class="address" v-if="youdizhi">
-					<li>
+					<li @click.native="addAdd">
 						<p ><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 						<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
-							<Icon type="ios-arrow-forward"  @click.native="addAdd"></Icon>
+							<Icon type="ios-arrow-forward"  ></Icon>
 					</li>
 					<li class="freight">运费:<span class="color-newred" style="color:#ff0000">￥{{freight | pricefilter}}</span></li>
 				</ul>

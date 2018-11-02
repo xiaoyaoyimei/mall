@@ -3,7 +3,7 @@
 			<div class="m_header_bar">
 			<router-link to="/user/setting"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">修改性别</span>
-			<span  @click="handleNick" class="m_header_bar_menu">保存</span>
+			<!--<span  @click="handleNick" class="m_header_bar_menu">保存</span>-->
 		</div>
 		<div class="sex">
 			<p @click="handleNick('M')"><span>男</span><Icon type="md-checkmark"  v-if="'M'==this.sex"/> </p>
@@ -57,7 +57,8 @@
 	border-bottom: 1px solid #eee;
 	line-height: 40px;
 	display: flex;
-	padding:0 10px;
+	padding:0 1.5rem;
+	font-size: 1.6rem;
 	cursor: pointer;
 }
 .sex p span{

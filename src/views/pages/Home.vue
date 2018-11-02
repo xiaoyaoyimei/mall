@@ -24,7 +24,7 @@
 						</router-link>
 					</li>
 					<li>
-						<router-link :to="{ path: '/tousu'}">
+						<router-link :to="{ path: '/advice'}">
 							<img src="../../assets/img/yj.png"> 建议
 						</router-link>
 					</li>

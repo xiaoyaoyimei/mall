@@ -2,7 +2,7 @@
 	<div class="new">
 			<header class="bg-black ">
 				<div class="search-wrap">
-					<input placeholder="新品" @click="gosearch()" v-model="keyword">
+					<input  @click="gosearch()" v-model.trim="keyword">
 					<Icon type="ios-search" class="icon-search" />
 					<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
 				</div>
@@ -124,6 +124,7 @@
 		methods: {
 			//筛选搜索（类别）
 			ok() {
+				this.keyword='';
 				this.startRow = 0;
 				this.$axios({
 					method: 'GET',
@@ -145,6 +146,10 @@
 				this.typeindex = -1;
 				this.seriesindex = -1;
 				this.brandindex = -1;
+				 this.searchfilter.catalog='';
+				this.searchfilter.series='';
+				this.searchfilter.type='';
+				this.searchfilter.brand=''
 			},
 			xuanzeModal() {
 				this.filterModal = true;

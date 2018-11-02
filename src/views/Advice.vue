@@ -14,7 +14,7 @@
                 <input type="text" placeholder="姓名" class="input" v-model="tousuForm.userId">
                 	</FormItem>
                 <FormItem   prop="mobile">
-                    <input type="text" class="input" placeholder="手机号"  v-model="tousuForm.mobile">
+                    <input type="text" class="input" placeholder="手机号"  v-model.trim="tousuForm.mobile">
                 </FormItem>
                 <FormItem   prop="content">
                     <textarea  style="width:100%;height:10rem;" type="textarea"   placeholder="在这里描述您遇到的问题"  v-model="tousuForm.content"></textarea>
@@ -70,13 +70,13 @@
                 mobile: '',
                 content: '',
                 imageUrl: '',
-            },
-            uploadList: [],
-            defaultList:[],
-            ruleInline: {
-                    userId: [
-                            { required: true, message: '请输入姓名', trigger: 'blur' },
-                            //  { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
+},
+uploadList: [],
+	defaultList: [],
+	ruleInline: {
+		userId: [	{
+					required: true,
+					message:'请输入姓名', trigger: 'blur' },
                     ],
                     mobile: [
                                 { required: true,  trigger: 'blur',  validator: validatePhone }
@@ -98,7 +98,7 @@
             _this.$refs.tousuForm.validate(valid => {
                 if (valid) {
                     let tousuForm=this.tousuForm;
-                    tousuForm.imageUrl = this.defaultList[0]
+                    tousuForm.imageUrl = this.uploadList[0].url;
                     this.$axios({
                         method: 'post',
                         url: '/advice/insert',
@@ -164,8 +164,13 @@
 		font-weight: normal;
 		margin-bottom: 1rem;
 	}
+	input{
+		width:70%;
+	}
 	input,textarea{
 		padding-left: 0.5rem;
+		border:1px solid #eee
+		
 	}
 }
 .btn{

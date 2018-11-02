@@ -3,15 +3,24 @@
 		<div class="clearfix ">
 			<Icon type="ios-arrow-back" @click="back()" class="icon-back" />
 				<router-link :to="{ path: '/cart' }" class="carticon"> <Icon type="ios-cart" /></router-link>
-			<div class="big">
-				<div v-show="videoshow" >
-					<span class="guanbi" @click="close()"><Icon type="ios-close-circle-outline" /></span>
-					<div class="youku" :id="shangp.product.video" style="width:100%;height:100%;"></div>
-				</div>
-				<img v-show="!videoshow" :src="ImgUrl |imgfilter" style="width: 100%;height: 100%">
-				<img class="videoIcon" v-if='videoIcon' v-show="!videoshow" @click='getVideo(shangp.product.video)' src="../../assets/img/video.png">
-			</div>
-			<div class=" iteminfo">
+						<div class="video-wrap" >
+						<div  ref="videoWrap"  v-show=" 0== videonum"  class="video-height">
+								<div  v-show="videoshow" class="video">
+								  <iframe  ref="video" frameborder=0 allowfullscreen ></iframe>  
+						    </div>
+						</div>
+					<div v-show=" 1== videonum"  class="swiper" >
+					<wc-swiper  v-if="shangp.productImageList.length" :autoplay='false'>
+					   <wc-slide v-for="(item, index) in shangp.productImageList" :key="index">
+					  	<img :src="item.listImg |imgfilter">
+					   </wc-slide>
+					</wc-swiper>
+					</div>
+					<div class="controls" v-show="videoshow">
+						<button :class="videonum==1?'active':''" @click="togglevideotab(1)">图片</button>
+						<button  :class="videonum==0?'active':''" @click="togglevideotab(0)">视频</button></div>
+					</div>
+			<div class="iteminfo">
 				<dl class="dl-base clearfix">
 					<div class="mylike" @click="likepro">
 						<img src="../../assets/img/love.png" v-if="likeshow">
@@ -78,7 +87,8 @@
 									<p class="name">{{item.list.nickName | plusXing('*')}}</p>
 									<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd')}}
 										<p>
-											颜色分类：{{item.shippingOrderItems.productAttrs}}</p> <span class='zanicon' :class="{red:item.isZan =='Y'}">
+											颜色分类：{{item.shippingOrderItems.productAttrs}}</p> 
+											<span class='zanicon' :class="{red:item.isZan =='Y'}">
 													<span>{{item.number}}</span>
 										<img src="../../assets/img/zan-red.png" v-if="item.isZan =='Y'" @click='zan(item.list.id,item.isZan)'>
 										<img src="../../assets/img/zan-gray.png" v-else @click='zan(item.list.id,item.isZan)'>
@@ -170,6 +180,7 @@
 	export default {
 		data() {
 			return {
+				videonum:1,
 				hasPJ: true,
 				cartList: [],
 				cartOne: {
@@ -359,9 +370,13 @@
 				this.onlyimg = !this.onlyimg;
 				this.showcomments();
 			},
+		
 			//切换商品介绍和规格
 			toggletab(num) {
 				this.num = num;
+			},
+				togglevideotab(v){
+				this.videonum=v;
 			},
 			changeNumber: function(event) {
 								var obj = event.target;
@@ -987,8 +1002,7 @@
 	
 	.color-sel .active {
 		border: 1px solid $color-border-red;
-		background-color: #FF0000;
-		color: #FFFFFF;
+		color: #f00;
 		
 	}
 	
@@ -1059,20 +1073,21 @@
 	}
 	
 	.opt {
-		margin-top: 2rem;
+		margin-top: 1.5rem;
 		width: 100%;
 		text-align: center;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
+		display: flex;
 	}
 	
 	.opt button {
-		height: 4rem;
-		line-height: 4rem;
+		height: 3.6rem;
+		line-height: 3.6rem;
 		border: none;
-		margin-left: 1rem;
 		font-size: 1.6rem;
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
+		width: 50%;
 	}
 	
 	.btn-cart {
@@ -1202,6 +1217,41 @@
     text-align: center;
     opacity: 0.5;
 	}
+	.video-wrap{
+	position: relative;
+	.swiper{
+		img{
+			max-width: 100%;
+		}
+	}
+	.controls{
+		position:absolute;
+		bottom: 3rem;
+		left:50%;
+		margin-left: -70px;
+		z-index: 10;
+		button{
+			background: #fff;
+			color:#666;
+			border:1px solid #666;
+			margin-left: 1.5rem;
+			padding:0 0.7rem;
+			font-size: 1.2rem;
+			border-radius: 0.5rem;
+		}
+		.active{
+			background: #0099ff;
+			color:#fff;
+			border-color:#0099ff;
+		}
+	}
+}
+.video{
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:1;
+}
 </style>
 <style>
 	.ivu-modal-close {
