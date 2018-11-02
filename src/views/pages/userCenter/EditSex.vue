@@ -6,9 +6,9 @@
 			<span  @click="handleNick" class="m_header_bar_menu">保存</span>
 		</div>
 		<div class="sex">
-			<p @click="handleNick('M')"><span>男</span> <Icon type="checkmark" v-if="'M'==this.sex"></Icon></p>
-			<p @click="handleNick('F')"><span>女</span><Icon type="checkmark" v-if="'F'==this.sex"></Icon></p>
-			<p @click="handleNick('S')"><span>保密</span><Icon type="checkmark" v-if="'S'==this.sex"></Icon></p>
+			<p @click="handleNick('M')"><span>男</span><Icon type="md-checkmark"  v-if="'M'==this.sex"/> </p>
+			<p @click="handleNick('F')"><span>女</span><Icon type="md-checkmark" v-if="'F'==this.sex"></Icon></p>
+			<p @click="handleNick('S')"><span>保密</span><Icon type="md-checkmark" v-if="'S'==this.sex"></Icon></p>
 		</div>
 	</div>
 </template>
@@ -35,7 +35,7 @@
 						}).then((res)=>{
 							if(res.code=='200'){
 							this.$Message.success('性别修改成功');
-							 this.$router.push('/user/myinfo');
+							 this.$router.push('/user/setting');
 							}
 						});
       }
@@ -67,5 +67,6 @@
 	position: relative;
 	top: 15px;
 	color: red;
+	font-size: 2.5rem;
 }
 </style>

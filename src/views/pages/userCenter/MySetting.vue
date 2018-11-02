@@ -8,7 +8,7 @@
 			<span class="m_header_bar_menu"></span>
 		</div>
 		<ul class="flex-ul">
-			<li  class="tx"><span>头像</span>
+			<li class="tx"><span>头像</span>
 				<span v-if="userinfo.iconUrl==''">
 					<router-link :to="{ path: '/user/photo'}" >
 						<img src="../../../assets/img/de-tx.jpg" style="width: 5rem;height: 5rem;border-radius: 50%;">
@@ -26,7 +26,9 @@
 			<li><span class="color-gray">账号</span><span class="color-gray">{{userinfo.customerMobile}}</span></li>
 			<li><span>性别</span>
 				<router-link :to="{ path: '/user/editsex', query: { sex: userinfo.sex }}" tag="span">
-					<label v-if="userinfo.sex === 'M'">男</label> <label v-else-if="userinfo.sex === 'F'">女</label> <label v-else>保密</label> </span>
+					<label v-if="userinfo.sex === 'M'">男</label> <label v-else-if="userinfo.sex === 'F'">女</label> <label v-else>保密</label>
+					<Icon type="ios-arrow-forward" />
+					</span>
 				</router-link>
 			</li>
 			<li><span>出生日期</span>
@@ -37,14 +39,16 @@
 		
 		   </label>
 		   <label @click="xshow">
-		   	<span  v-if="show" >{{userinfo.birthday}}</span>    选择 </label>
+		   	<span  v-if="show" >{{userinfo.birthday}}</span> 选择 </label>
 				</span>
 			</li>
-			<li>
-				<span  @click="addAdd">地址管理</span>
-				<!--<router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link>--><span><Icon type="ios-arrow-forward" /></span></li>
-			<li>
-				<router-link :to="{ path: '/user/changepwd'}" tag="span"> 修改密码</router-link><span><Icon type="ios-arrow-forward" /></span></li>
+			<li @click="addAdd">
+				<span>地址管理</span>
+				<span><Icon type="ios-arrow-forward" /></span></li>
+
+			<router-link :to="{ path: '/user/changepwd'}" tag="li"> 
+				<span>修改密码</span>
+					<span><Icon type="ios-arrow-forward" /></span></router-link>
 		</ul>
 		<div class="btn-red-fixed" @click="logout">退出登录</div>
 	</div>
@@ -117,10 +121,10 @@
 					title: '登出',
 					content: '<p>确认退出登录吗?</p>',
 					onOk: () => {
-	  					store.dispatch('LogOut').then(() => {
-				           	 window.location.href=this.global_.originurl+'/#/login'
-				             return false
-				          })
+						store.dispatch('LogOut').then(() => {
+							window.location.href = this.global_.originurl + '/#/login'
+							return false
+						})
 					},
 				});
 			},
@@ -132,11 +136,12 @@
 </script>
 
 <style scoped="scoped">
-	.order .flex-ul{
+	.order .flex-ul {
 		margin-top: 1rem;
 	}
-.order .flex-ul .tx{
-	padding-top: 2rem;
-	height: 8rem;
-}
+	
+	.order .flex-ul .tx {
+		padding-top: 2rem;
+		height: 8rem;
+	}
 </style>

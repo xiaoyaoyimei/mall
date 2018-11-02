@@ -17,7 +17,7 @@
               max-width: 100%;
               background: #fff;
               display: block;
-              margin-bottom: 5px;
+              margin-bottom: 1rem;
               .right {
                   padding: 0 1rem;
               }
@@ -39,8 +39,9 @@
       }
   }
   
-  .column-style .spdetail:nth-child(2n) a {
-      margin-left: 1rem;
+  .column-style .spdetail {
+border-left: 0.5rem solid #f0f0f0;
+border-right: 0.5rem solid #f0f0f0;
   }
   
   .flex-center {
