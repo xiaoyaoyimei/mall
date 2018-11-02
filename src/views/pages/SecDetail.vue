@@ -246,7 +246,24 @@
 						 return;
 					}
 				});
-           },
+		   },
+		    zan(value, isZan) {
+				var zanid = value;
+				var Like = isZan;
+				if(Like == 'N') {
+					Like = 'yes'
+				} else {
+					Like = 'no'
+				}
+				this.$axios({
+					method: 'post',
+					url: '/comment/beLike/' + zanid + '/' + Like,
+				}).then((res) => {
+					if(res.code == '200') {
+						this.showcomments()
+					}
+				})
+      		},
 	      	getDetail(){
 				if(this.$route.query.skuId!=null&&this.$route.query.skuId!=undefined){
 						this.temp=this.$route.query.skuId;
