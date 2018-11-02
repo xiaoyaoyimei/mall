@@ -48,7 +48,7 @@
 	        	 	{'url':''}
 	        	 ],
                  iconUrl:'',
-                 uploadUrl:this.$axios.defaults.baseURL+'upload/upload?path=account'
+                 uploadUrl:this.$axios.defaults.baseURL+'/upload/upload?path=account'
             }
         },
         methods: {

@@ -37,7 +37,8 @@
 			</ul>
 		</div>
 		<ul class="dl">
-				<router-link :to="{ path: '/user/mylove' }" tag="li"><img src="../../../assets/img/u2.png"><span>喜欢的商品</span></router-link>
+			<router-link :to="{ path: '/user/mylove' }" tag="li"><img src="../../../assets/img/u2.png"><span>喜欢的商品</span></router-link>
+			<router-link :to="{ path: '/user/myevaluate' }" tag="li"><img src="../../../assets/img/u9.png"><span>我的评价</span></router-link>
 			<router-link :to="{ path: '/user/setting' }" tag="li"><img src="../../../assets/img/u3.png"><span>个人信息</span></router-link>
 			<router-link :to="{ path: '/user/address' }" tag="li"><img src="../../../assets/img/u4.png"><span>收货地址</span></router-link>
 		</ul>
