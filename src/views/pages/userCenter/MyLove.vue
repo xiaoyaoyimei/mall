@@ -10,7 +10,7 @@
 		<Scroll class='scroll column-style' v-if="hasLove">
 		<div class="spdetail" v-for="(item, index) in likeList" :key='index'>
 			 <span @click="deletelike(item.id)" >❤</span>
-			<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
+			<router-link :to="{ path: '/sort/sortDetail',query:{id:item.product_id} }">
 				<img :src=' item.model_img | imgfilter'>
 				<div class="right">
 					<p class="sP">{{item.model_name}}
@@ -74,13 +74,16 @@
 	}
 </script>
 <style scoped="scoped">
+	.column-style{
+		padding: 0;
+	}
 	.column-style .spdetail{
 		position: relative;
 	}
 	.spdetail span{
 		position: absolute;
-		left: 0;
-		top: 0;
+		left: 5px;
+		top: 5px;
 		font-size: 2.5rem;
 		color: red;
 	}

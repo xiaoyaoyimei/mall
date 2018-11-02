@@ -128,6 +128,7 @@
 	.evaluateImg {
 		display: flex;
 		background-color: #f0f0f0;
+		align-items: center;
 	}
 	
 	.evaluateImg span {
