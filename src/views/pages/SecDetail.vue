@@ -76,7 +76,7 @@
 						<span class="onlyimg" :class="{'allimg':onlyimg }" @click="toggleimg(true)">
 						<i class="onlyimg"  ></i>有图
 						</span></h5>
-							<ul class="eval-ul">
+							<ul class="eval-ul" v-if="hasPJ">
 								<li v-for="(item, index) in commentList" :key="index">
 									<h6><img :src="item.list.iconUrl | imgfilter">{{item.list.nickName}}</h6>
 									<p>{{item.list.commentContent}}</p>
@@ -84,6 +84,10 @@
 									<div class="zan"><span class="fr"><i class="icon-new icon-zan" :class="{'icon-zan-active':item.isZan=='Y' }" @click='zan(item.list.id,item.isZan)' ></i>{{item.number}}</span>{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</div>
 								</li>
 							</ul>
+							<div class="flex-center  empty" v-else>
+								<img  src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
+							<p>暂无评论记录~</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -121,6 +125,7 @@
 				freight: 0,
 				freightPrice: 0,
 				freightTypeId: '',
+				hasPJ:'',
 	        	
 	        }
 	      },
