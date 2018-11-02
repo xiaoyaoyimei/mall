@@ -18,13 +18,13 @@
                     </div>
                 </div>
             </div>
-            <div class="refund ">
-                <p>商品评价</p>
+            <div class="refund clearfix">
+                <p class="pp">商品评价</p>
                 <i-input class="evaluationreason" v-model="evaluationreason" type="textarea"></i-input>
             </div>
-            <div class="refund">
+            <div class="refund refundLast clearfix">
                 <p>上传图片</p>
-                <div>
+                <div class="user-con-wrap ">
                     <div class="demo-upload-list" v-for="item in evauploadList">
                         <template v-if="item.status === 'finished'">
                             <img :src="item.url  | imgfilter">
@@ -44,10 +44,10 @@
                     </Upload>
                 </div>
             </div>
-            <div slot="footer">
-				<Button type="primary" long @click="evaluation">提交</Button>
-			</div>
         </div>
+        <div class="btn-wrap">
+			<Button type="primary"  class="btn-red" long @click="evaluation">提交</Button>
+		</div>
     </div>
 </template>
 <script>
@@ -162,7 +162,6 @@
 			img_must(v) {
 				for(var i = 0; i < this.reasonList.length; i++) {
 					if(this.reasonList[i].causeId == v) {
-
 						this.imgmust = this.reasonList[i].isImg;
 					}
 				}
@@ -173,7 +172,6 @@
 					url: '/order/'+this.orderNo,
 				}).then((res) => {
                     this.evaItem = res.shippingOrderItems[this.index];
-                    console.log(evaItem)
 				});
 			},
 			getParams() {
@@ -213,11 +211,11 @@
 					if(res.code == '200') {
 						this.$Message.info(res.msg);
 						this.evaluationModal = false;
-						this.getOrder();
+						this.$router.push('/user/orderlist')
 					} else {
 						this.$Message.error(res.msg);
 						this.evaluationModal = false;
-						this.getOrder();
+						this.$router.push('/user/orderlist')
 					}
 				});
 			},
@@ -231,7 +229,47 @@
 	}
 </script>
 <style scoped="scoped">
-.evaluation .ivu-form-item:not(:last-child) {
+.demo-upload-list {
+		display: inline-block;
+		width: 80px;
+		height: 80px;
+		text-align: center;
+		line-height: 80px;
+		border: 1px solid transparent;
+		border-radius: 4px;
+		overflow: hidden;
+		background: #fff;
+		position: relative;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+		margin-right: 4px;
+	}
+	
+	.demo-upload-list img {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.demo-upload-list-cover {
+		display: none;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(0, 0, 0, .6);
+	}
+	
+	.demo-upload-list:hover .demo-upload-list-cover {
+		display: block;
+	}
+	
+	.demo-upload-list-cover i {
+		color: #fff;
+		font-size: 20px;
+		cursor: pointer;
+		margin: 0 2px;
+	}
+.evaluation .refund:not(:last-child) {
     	border-bottom: 1px solid #eee;
 	}
 	.ivu-form-item {
@@ -256,21 +294,45 @@
     .refund  >p{
         float: left;
         width: 7rem;
-        height: 10rem;
-        padding-top:1.5rem;
+        padding-top:3.5rem;
         text-align: right;
         padding-right: 1rem;
     }
+    .refund .pp{
+        padding-top: 2rem;
+    }
+
     .refundImg{
         float: left;
         width: calc(100% - 7rem);
         margin-top: 1.5rem;
     }
     .refundImg img{
-        width: 3rem;
+        width: 5rem;
     }
     .evaluationText{
         float: right;
-        width:calc(100% - 3rem);
+        width:calc(100% - 5.1rem);
+    }
+    .evaluationreason{
+        float: left;
+        width: calc(100% - 8rem);
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: none;
+    }
+    .refundLast{
+        padding-top: 1rem;
+        margin-bottom: 2rem;
+    }
+    .user-con-wrap {
+        float: left;
+        width: calc(100% - 9rem);
     }
 </style>
+<style> 
+.refund .ivu-input{
+     border: none!important;
+}
+</style>
+
