@@ -66,21 +66,20 @@
       font-size: 1.6rem;
   }
   
-  .promotion {
-      display: inline-block;
-      background: #fcdadb;
-      padding: 0.2rem;
-      margin-top: 0.5rem;
-      color: #d32122;
-      font-size: 1.2rem;
-  }
+//.promotion {
+//    display: inline-block;
+//    background: #fcdadb;
+//    padding: 0.2rem;
+//    margin-top: 0.5rem;
+//    color: #d32122;
+//    font-size: 1.2rem;
+//}
   
   .cartCol .min-add {
       float: right;
       padding-right: 1rem;
   }
   
-  .min-add .min,
   .min-add .add {
       color: #333;
       font-weight: bold;
@@ -220,14 +219,6 @@
   .btn-dx:hover {
       background: #24a8fc;
       color: #fff
-  }
-  
-  .ghost-dx {
-      background: 0 none;
-      border: 1px solid $color-dx;
-      padding: 3px 10px;
-      color: $color-dx;
-      cursor: pointer;
   }
   
   .btn-orange {

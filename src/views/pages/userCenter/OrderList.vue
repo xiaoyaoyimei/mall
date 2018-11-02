@@ -39,8 +39,9 @@
 								
 						</div>
 					</div>
-					<div class="sptitle"><span style="float: left;margin-left:10px;color: #f60;">
-						{{refundfilter(x.order.orderStatus)}}</span>
+					<div class="sptitle">
+						<!--<span style="float: left;margin-left:10px;color: #f60;">
+						{{refundfilter(x.order.orderStatus)}}</span>-->
 					<span>共{{}}件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
 				</div>
 				<div class="cz">

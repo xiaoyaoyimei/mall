@@ -78,7 +78,9 @@
        	   	  if(fromc!=undefined){
 	       	   	  	    if(fromc=='miaosha'){
 	       	   	  	    	this.$router.push('/secdetail')  
-	       	   	  	    }else {
+	       	   	  	    }else if(fromc=='setting'){
+	       	   	  	    	this.$router.push('/user/setting');
+	       	   	  	    }else{
 	       	   	  	    	this.$router.push('/carttwo');
 	       	   	  	    }
        	   	  	    }

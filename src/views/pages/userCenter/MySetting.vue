@@ -41,7 +41,8 @@
 				</span>
 			</li>
 			<li>
-				<router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link><span><Icon type="ios-arrow-forward" /></span></li>
+				<span  @click="addAdd">地址管理</span>
+				<!--<router-link :to="{ path: '/user/address'}" tag="span"> 地址管理</router-link>--><span><Icon type="ios-arrow-forward" /></span></li>
 			<li>
 				<router-link :to="{ path: '/user/changepwd'}" tag="span"> 修改密码</router-link><span><Icon type="ios-arrow-forward" /></span></li>
 		</ul>
@@ -50,6 +51,7 @@
 </template>
 
 <script>
+	import store from '@/store/store';
 	export default {
 		data() {
 			return {
@@ -64,6 +66,12 @@
 			}
 		},
 		methods: {
+			addAdd() {
+				localStorage.setItem('fromc', 'setting')
+				this.$router.push({
+					name: '/user/address'
+				});
+			},
 			xshow() {
 				this.show = !this.show;
 			},
@@ -106,27 +114,16 @@
 			logout: function() {
 				var _this = this;
 				this.$Modal.confirm({
-					title: '登出提示',
-					content: '<p>确认退出吗?</p>',
+					title: '登出',
+					content: '<p>确认退出登录吗?</p>',
 					onOk: () => {
-						this.$axios({
-							method: 'post',
-							url: '/customer/logout',
-						}).then((res) => {
-							if(res.code !== 200) {
-								this.$Message.error(res.msg);
-							} else {
-								this.$store.commit('LOGOUT');
-								_this.$router.push('/login');
-							}
-						});
-
+	  					store.dispatch('LogOut').then(() => {
+				           	 window.location.href=this.global_.originurl+'/#/login'
+				             return false
+				          })
 					},
-					onCancel: () => {
-						this.$Message.info('取消退出');
-					}
 				});
-			}
+			},
 		},
 		mounted() {
 			this.getUser()

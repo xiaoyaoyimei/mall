@@ -32,7 +32,9 @@
 </template>
 
 <script>
+	import store from '@/store/store';
 	import { validatePhone } from '@/utils/validate';
+	import { setToken, setUserId } from '@/base/auth'
 	export default {
 		data() {
 			const validateName = (rule, value, callback) => {
@@ -102,20 +104,15 @@
 								this.loading = false;
 								this.$Message.success('登录成功');
 								let data = res;
-								this.$store.commit('LOGIN', {
+								store.commit('SET_TOKEN', {
 									token: data.object["token"],
 									userId: data.object["userId"]
-								});
-
+								})
+								setToken(data.object["token"])
+								setUserId(data.object["userId"]);
 								this.$router.push('/')
-								//							if (this.$store.state.token) {  
-								//							this.$router.push(this.$route.query.redirect || '/')
-								//							} else {  
-								//								this.$router.replace('/login');  
-								//							}  
 							}
 						}).catch(error => {
-							alert(error);
 							this.loading = false
 							this.loginBtn = "登录"
 							this.$Message.error('系统异常');

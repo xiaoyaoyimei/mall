@@ -1,7 +1,7 @@
 <template>
 	<div class='cart1'>
 		<div class="m_header_bar bg-red">
-			<router-link to="/sort"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
+			<span  class="m_header_bar_back" @click='back()'><Icon type="ios-arrow-back"></Icon></span>
 			<span class="m_header_bar_title">购物车</span>
 			<span  @click="edit" v-show="editface" class="m_header_bar_menu" v-if="hasShow">编辑</span>
 			<span  @click="edit" v-show="!editface"  class="m_header_bar_menu">完成</span>
@@ -21,9 +21,10 @@
 						<div class='cart_price'>
 							￥{{x.salePrice |pricefilter}}
 							<div class="min-add">
-						    	<Icon type="minus-round" @click.native="jian(x,index)" class="min"  ></Icon>
+						    	<!-- <span @click="jian(x,index)" class="min">-</span>-->
+						    	 <img src="../../../assets/img/minus.png" @click="jian(x,index)" class="min">
 						     	 <input class="text-box" name="pricenum"  type="text" v-model.lazy="x.quantity" v-on:blur="changeNumber($event,x,index)" placeholder="数量" data-max="50" />
-						 		 <Icon type="plus-round" @click.native="jia(x,index)" class="add"></Icon>
+						 		 <Icon type="md-add" @click.native="jia(x,index)" class="add"/>
 							</div>
 						</div>
 					</Col>
@@ -50,28 +51,28 @@
 			</div>
 			<Spin size="large" fix v-if="spinShow"></Spin>
 			</div>
-			<div class="cart-empty"   v-if="!nologin&&cartList.length==0">
-			<img src="../../../assets/img/cartempty.png">
-			<p>购物车是空的</p>
-			<br/>
-			<router-link to="/index"  >去首页</router-link>
+			<div class="flex-center  empty"  v-if="!cartnologin&&!hasShow">
+			<img src="../../../assets/img/cart_empty.png" style="max-width: 8rem;">
+			<p>您还没有加入任何商品</p>
+				<router-link to="/" class="color-dx">去购物</router-link>
 			</div>
-				<div class="cart-empty" v-if="nologin" >
-			<img src="../../../assets/img/cartempty.png">
+				<div class="cart-empty" v-if="cartnologin" >
+			<img src="../../../assets/img/cart_empty.png">
 			<p>登录后可同步购物车中商品</p>
 			<br/>
-			<router-link to="/login"  > <button class="ghost-dx">登录</button></router-link>
+			<router-link to="/login" class="color-dx">登录</router-link>
 			</div>
 			<!--加载中-->
 	</div>
 </template>
 
 <script>
+	import store from '@/store/store'
 export default {
         data () {
             return {
-            	 spinShow:true,
-            	nologin:true,
+            	 spinShow:false,
+            	cartnologin:true,
             	imageSrc:this.global_.imgurl,
                 indeterminate: false,
                 checkAll: false,
@@ -84,22 +85,29 @@ export default {
 				hasShow:true,
             }
 		},
+			         computed: {
+            token() {
+            	//获取store里面的token
+                return store.state.token;
+            },
+        },
         methods: {
-              addcart(x){
-              		this.$axios({
-							    method: 'post',
-							    url:'/order/shopping/add',
-							    data:{
-							    	productItemId:x.id,
-							    	quantity:x.quantity
-							   	 }
-								}).then((res)=>{
-									if(res.code=='200'){
-									}else{
-										 this.$Message.warning(res.object);
-									}
-							});
-              },
+			addcart(x) {
+				this.$axios({
+					method: 'post',
+					url: '/order/shopping/add',
+					data: {
+						productItemIds: [x.id],
+						quantity: x.quantity
+					}
+				}).then((res) => {
+					if(res.code == '200') {
+						//Bus.$emit('cartmsg', "again");
+					} else {
+						this.$Message.warning(res.object);
+					}
+				});
+			},
         	changeNumber: function(event,x,index){
 					var obj=event.target;
 					 let n = /^[1-9]\d*$/; 
@@ -133,10 +141,6 @@ export default {
 
 					//减
 					jian:function(x,index){
-                           //删除的时候库存最小为1。所以无需删去选中的index
-//						   if(this.temp.indexOf(index)>0){
-//					     	this.temp.splice(index,1)
-//						  }
 						if(x.quantity==1){
 						x.quantity==1
 						}else{
@@ -147,26 +151,30 @@ export default {
 						}
 					},
         	getCartList(){
-        		if(localStorage.getItem('token')!=undefined){
-			  		this.nologin=false;
-        			this.cartList=[];
-        			this.$axios({
-							    method: 'post',
-							    url:'/order/shopping/list',
-								}).then((res)=>{
-									this.spinShow=false;
-									if(res.code=='200'){
-										if(res.object.length>0){
-											this.cartList=res.object;
-										this.handleCheckAll();
-										this.hasShow=true;
-										}else{
-											this.hasShow=false;
-										}
-										
-									}
-							});
-					}
+        				let _this = this;
+					this.cartnologin = false;
+					this.cartList = [],
+						this.$axios({
+							method: 'post',
+							url: '/order/shopping/list',
+						}).then((res) => {
+							if(res.code == '200') {
+								this.hasShow=true;
+								this.cartList = res.object;
+								this.totalnum = 0;
+								this.sale = 0;
+								this.cartList.forEach((item, index) => {
+									_this.totalnum += parseInt(item.quantity);
+									_this.sale += parseInt(item.originSalePrice - item.salePrice) * 100 * parseInt(item.quantity)
+								});
+								_this.sale = (_this.sale / 100).toFixed(2)
+								this.handleCheckAll();
+							}
+							else{
+								this.hasShow=false;
+							}
+						});
+				
         	},
 			edit(){
 				this.editface=!this.editface;
@@ -255,15 +263,28 @@ export default {
 				   this.totalPrice += parseFloat(this.cartList[i].salePrice) * parseFloat(this.cartList[i].quantity);
 				   this.zslcount+=parseInt(this.cartList[i].quantity)
 				});
-            }
+            },
+            		back() {
+				this.$router.go(-1);
+			},
         },
          mounted() {
-				this.getCartList();
+					if(this.token!=null&&this.token!=""&&this.token!=undefined){
+			this.getCartList();
+			}else{
+					this.cartnologin = true;
+					return false;
+			}
 		}
     }
 </script>
 
 <style  lang="scss"  scoped="scoped">
+.min{
+	    width: 1.2rem;
+    position: relative;
+    top: 0.2rem;
+}
 .P15{
 			font-size: 1.6rem;
 }
