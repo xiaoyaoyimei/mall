@@ -265,16 +265,14 @@
 				})
       		},
 	      	getDetail(){
-				if(this.$route.query.skuId!=null&&this.$route.query.skuId!=undefined){
-						this.temp=this.$route.query.skuId;
-						localStorage.setItem('skuId',this.temp);
-				}
 				this.$axios({
 					method: 'get',
-					url:'/promotion/crush/'+  localStorage.getItem('skuId'),
+					url:'/promotion/crush/'+  this.$route.query.skuId,
 				}).then((res)=>{
 					if(res.code=='200'){
 					this.detail = res.object;
+					this.freightPrice = this.detail.product.salePrice;
+					this.freightTypeId = this.detail.product.catalogId;
 					if(this.detail.switch=='0'){
 							this.jsqtime=this.detail.crush["startTime"]
 						}
