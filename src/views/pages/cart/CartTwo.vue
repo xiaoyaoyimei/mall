@@ -391,7 +391,6 @@
 				});
 			} else {
 				this.getAddress();
-				this.getAddressOption();
 				this.getCartList();
 				this.jisuan();
 			}

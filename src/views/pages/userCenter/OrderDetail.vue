@@ -11,7 +11,7 @@
 			<div class="status">
 				<div v-if="orderdetail.shippingOrder.orderStatus=='01'">
 					<p>等待买家付款</p>
-					<p class="font-14">订单将在<strong>30分钟后</strong>自动关闭,请及时付款~</p>
+					<p class="font-14">订单将在<strong>{{min}}:{{sec}}</strong>自动关闭,请及时付款~</p>
 				</div>
 				<div v-if="orderdetail.shippingOrder.orderStatus=='02'">
 					<p>等待商家发货</p>
@@ -102,6 +102,11 @@
 					shippingOrderItems: []
 				},
 				orderNo: '',
+				hr: '',
+				min: 0,
+				sec: 0,
+				jsqtime:0,
+				t:'',
 			}
 		},
 		filters: {
@@ -112,6 +117,24 @@
 		},
 
 		methods: {
+			countdown: function() {
+				const end = Date.parse(new Date(this.jsqtime));
+				const now = Date.parse(new Date());
+				const msec = end - now;
+				let day = parseInt(msec / 1000 / 60 / 60 / 24);
+				let hr = parseInt(msec / 1000 / 60 / 60 % 24);
+				let min = parseInt(msec / 1000 / 60 % 60);
+				let sec = parseInt(msec / 1000 % 60);
+				this.day = day;
+				this.hr = hr > 9 ? hr : '0' + hr;
+				this.min = min > 9 ? min : '0' + min;
+				this.sec = sec > 9 ? sec : '0' + sec;
+				let self = this;
+				console.log(sec)
+				this.t = setTimeout(() => {
+					self.countdown();
+				}, 1000);
+			},
 			getStatusEnum() {
 				this.$axios({
 					method: 'get',
@@ -171,8 +194,16 @@
 					url: '/order/' + this.orderNo,
 				}).then((res) => {
 					this.orderdetail = res;
+					if(this.orderdetail.shippingOrder.orderStatus=='01'){
+						this.jsqtime = this.orderdetail.shippingOrder.createTime +30*60*1000;
+						this.countdown();
+					}
+
 				});
 			},
+		},
+		destroyed() {
+			clearTimeout(this.t)
 		},
 		mounted() {
 			this.getParams();
