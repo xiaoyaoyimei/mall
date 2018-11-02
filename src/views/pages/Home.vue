@@ -199,7 +199,7 @@
 				officeproduct: [],
 				officeproductone: {},
 				houseproduct: [],
-				houseproductone: {},
+				houseproductone: {sale_price:0},
 				type: [],
 				basictype: [],
 				tableproduct: [],

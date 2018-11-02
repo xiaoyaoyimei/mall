@@ -73,7 +73,18 @@
 		},
 	}
 </script>
-
+<style scoped="scoped">
+	.column-style .spdetail{
+		position: relative;
+	}
+	.spdetail span{
+		position: absolute;
+		left: 0;
+		top: 0;
+		font-size: 2.5rem;
+		color: red;
+	}
+</style>
 <style>
 	.coupon .ivu-tabs-nav {
 		width: 100%;
