@@ -10,11 +10,12 @@
 		<div class="switchStatus">
 			<span @click="changeStatus('00')" :class="{red:'00' == numactive}">全部订单</span>
 			<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待付款</span>
-			<span @click="changeStatus('02')" :class="{red:'02' == numactive}">已付款</span>
+			<!--<span @click="changeStatus('02')" :class="{red:'02' == numactive}">已付款</span>-->
 			<span @click="changeStatus('05')" :class="{red:'05' == numactive}">待发货</span>
 			<span @click="changeStatus('06')" :class="{red:'06' == numactive}">已发货</span>
+				<span @click="changeStatus('07')" :class="{red:'07' == numactive}">已签收</span>
 		</div>
-		<Scroll v-show="!noorderShow">
+		<Scroll v-show="hasShow">
 			<ul class="splist box-content">
 				<li v-for="(x,index) in cartList" :key="index">
 					<div>
@@ -49,13 +50,11 @@
 						<button type="button" class="btn btn-red-small" @click="quzhifu(x.order.orderNo)" v-if="x.order.orderStatus=='01'">立即付款</button>
 						<button class="btn btn-red-small" @click="qianshou(x.order.orderNo)" v-if="x.order.orderStatus=='06'">确认收货</button>
 						<router-link class="btn" :to="{ path: '/user/refund', query: {rforder:x.order.orderNo}}" v-if="x.canRefund==true">退款退货</router-link>
-						<!--		<button v-if="x.order.orderStatus=='07'&&!child.pinglun" class="btn btn-red-small" @click="showevaluation(child,x.order.orderNo)">去评价</button>-->
-						<!--  -->
 					</div>
 				</li>
 			</ul>
 		</Scroll>
-		<div class="flex-center  empty" v-show="noorderShow">
+		<div class="flex-center  empty" v-show="!hasShow">
 			<img src="../../../assets/img/order_empty.png" style="max-width: 8rem;">
 			<p>您还没有相关的订单</p>
 			<router-link to="/" class="color-dx">去购物</router-link>
@@ -75,7 +74,7 @@
 				statusList: [],
 				refundenums: [],
 				status: '01',
-				noorderShow: false,
+				hasShow: true,
 				height: 500,
 				totalnum: 0,
 			}
@@ -192,26 +191,22 @@
 			},
 			maopao(item) {
 				for(let j = 0; j < item.commentList.length; j++) {
-					let num=0;
 					for(let n = 0; n < item.orderItems.length; n++) {
-						num+=item.orderItems[n].quantity;
 						if(item.commentList[j].orderItemsId == item.orderItems[n].orderItemsId) {
 							item.orderItems[n].pinglun = item.commentList[j].canComment;
 							item.orderItems[n].productModelId = item.commentList[j].productModel.id;
 						}
 					}
-//					item.commentList
-					
 				}
 			},
 			getOrder() {
 				let status = '',
 					url = '';
-				if(this.orderStatus == undefined) {
-					this.orderStatus = '00'
+				if(this.status == undefined) {
+					this.status = '00'
 				}
-				if(this.orderStatus != '00') {
-					status = this.orderStatus;
+				if(this.status != '00') {
+					status = this.status;
 					url = `/order/list?orderStatus=${status}`
 				} else {
 					url = '/order/list'
@@ -222,11 +217,21 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.cartList = res.object;
+						this.hasShow=true
 						for(let i = 0; i < this.cartList.length; i++) {
 							this.maopao(this.cartList[i])
 						}
 						this.pro = this.cartList;
+								this.cartList.forEach(function(i){
+								 let child=i.orderItems;
+								 let n=0;
+								 child.forEach(function(c){
+								 	n+=c.quantity;
+								 })
+								 i.znum=n;
+							})
 					} else {
+						this.hasShow=false
 						this.cartList = [];
 						this.pro = [];
 					}

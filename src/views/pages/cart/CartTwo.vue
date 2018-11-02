@@ -10,11 +10,11 @@
 		<Scroll>
 		<div class="chooseAddress">
 			<ul class="address" v-if="youdizhi">
-				<li>
+				<li @click="addAdd">
 					<img src="../../../assets/img/icon-address.png">
 					<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 						<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
-					<Icon type="chevron-right" @click.native="addAdd"></Icon>
+					<Icon type="md-arrow-round-forward" />
 				</li>
 			</ul>
 			<div class="zeroAddress" v-else>

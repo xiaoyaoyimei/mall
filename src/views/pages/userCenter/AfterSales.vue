@@ -44,9 +44,9 @@
 				<Scroll  v-if="hasShow">
 		<ul class="splist box-content">
 			<li v-for="(x,index) in refundList" :key="index">
-				<div @click="seeDetail(x.order.orderNo)">
+				<div @click="seeDetail(x.refundOrder.orderNo)">
 					<div class="orderno">
-						<p><span class="color-black">订单编号:{{x.order.orderNo}}</span><span class="orderstatus">{{statusrufundfilter(x.refundOrder.refundOrderStatus)}}</span></p>
+						<p><span class="color-black">订单编号:{{x.refundOrder.orderNo}}</span><span class="orderstatus">{{statusrufundfilter(x.refundOrder.refundOrderStatus)}}</span></p>
 						<p>下单时间:{{x.refundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</p>
 					</div>
 
@@ -63,10 +63,11 @@
 								<br/>x {{child.quantity}}</div>
 						</div>
 					</div>
-					<div><span>共{{}}件商品</span>	<span class="color-black font-16"> 合计： ￥{{x.order.orderTotalFee| pricefilter}}</span></div>
+					<div class="sptitle">	<span class="color-black font-16"> 合计： ￥{{x.refundOrder.refundOrderTotalFee| pricefilter}}</span></div>
 				</div>
 				<div class="cz">
-						<router-link :to="{name:'/user/Aftersalesdetail',query:{refundOrderNo:x.refundOrder.refundOrderNo,orderNo:x.refundOrder.orderNo}}">订单详情 </router-link>
+						<button type="button" class="btn " @click="seeDetail(x.refundOrder.refundOrderNo,x.refundOrder.orderNo)">订单详情</button>
+					<!--	<router-link :to="{name:'/user/Aftersalesdetail',query:{refundOrderNo:x.refundOrder.refundOrderNo,orderNo:x.refundOrder.orderNo}}">订单详情 </router-link>-->
 						<button class="btn btn-red-small" v-if="x.refundOrder.refundOrderStatus=='01'" @click="cancelrefund(x.refundOrder.refundOrderNo)">取消</button>
 						<button class="btn btn-red-small" v-if="x.refundOrder.refundOrderStatus=='02'||x.refundOrder.refundOrderStatus=='05'" @click="show(x.refundOrder)">显示处理结果</button>
 						<button class="btn btn-red-small" v-if="x.refundOrder.refundOrderStatus=='02'" @click="showLogisticsInfo(x.refundOrder.refundOrderNo)">填写物流单号</button>
@@ -151,6 +152,15 @@
 			}
 		},
 		methods: {
+				seeDetail(rvalue,value) {
+				this.$router.push({
+					name: '/user/Aftersalesdetail',
+					query: {
+						refundOrderNo:rvalue,
+						orderNo: value
+					}
+				});
+				},
 			cancelrefund(value) {
 				this.$Modal.confirm({
 					content: '<p>确定取消该售后订单？</p>',

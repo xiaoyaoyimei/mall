@@ -1,5 +1,12 @@
 <template>
-	<div class="padding40">
+	<div>
+		<div class="m_header_bar">
+			<router-link class="m_header_bar_back" to="/user/aftersales">
+				<Icon type="ios-arrow-back"></Icon>
+			</router-link>
+			<span class="m_header_bar_title">退货单详情</span>
+			<span class="m_header_bar_menu"></span>
+		</div>
 		<h2>{{statusfilter(refundOrderdetail.shoppingRefundOrder.refundOrderStatus)}}</h2>
 		<p style="margin-top:5px;font-size:14px;">申请时间：{{refundOrderdetail.shoppingRefundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</p>
 		<div class="orderdetailnum">
@@ -61,13 +68,18 @@
 			return {
 				spinShow: true,
 				orderdetail: {
-					shippingOrder: {postageFee:0,orderTotalFee:0},
+					shippingOrder: {
+						postageFee: 0,
+						orderTotalFee: 0
+					},
 					shippingInvoice: {},
 					shippingAddress: {},
 					shoppingOrderItems: [],
 				},
 				refundOrderdetail: {
-					shoppingRefundOrder: {refundOrderTotalFee:0},
+					shoppingRefundOrder: {
+						refundOrderTotalFee: 0
+					},
 					shippingInvoice: {},
 					shippingAddress: {},
 					shoppingRefundOrderItems: [],
