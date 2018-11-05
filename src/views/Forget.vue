@@ -156,8 +156,7 @@
 							}).then((res)=>{
 								if(res.code!=='200'){
 									this.txv++;
-          							//this.verimg=urlo+'/mall/wap/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
-          						 this.verimg=this.$axios.defaults.baseURL+'/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
+          						 this.verimg=this.global_.originurl+'/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
 								}else{
 									  this.$Message.error('该手机号不存在，请注册');
 								}
@@ -173,32 +172,8 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-/*.log-reg{ 
-	font-size: 1.6rem;
-	p{
-		font-weight: normal;
-		font-size:2rem;
-		margin-top:1.5rem;
-		margin-bottom: 1.5rem;
-	}
-	.content{
-		padding: 1.5rem;
-	}
-	.txm{
-		width:11rem;
-	float: left;
-	margin-right:1rem;
-	}
-	.tx,.dxm{
-		height: 32px;
-	}
-	.dxm{
-		cursor:pointer;
-		line-height: 32px;
-		background: #333;
-		color:#fff;
-		border: 0 none;
-		padding: 0 2px;
-	}
-}*/
+	.log-reg .logw12 {
+			width: 12rem;
+			float: left;
+		}
 </style>

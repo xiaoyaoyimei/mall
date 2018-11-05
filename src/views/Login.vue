@@ -27,7 +27,7 @@
 				</div>
 			</Form>
 		</div>
-		<img src="../assets/img/logo.png">
+		<router-link :to="{path: '/'}"> <img src="../assets/img/logo.png"></router-link>
 	</div>
 </template>
 

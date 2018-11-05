@@ -9,11 +9,11 @@
 		<div class="content">
 			<Form :model="regiForm" :rules="ruleValidate" ref="regiForm">
 				<FormItem prop="loginName">
-					<Input v-model.trim="regiForm.loginName" placeholder="请输入手机号" @on-blur="getTx()" ></Input>
+					<Input v-model.trim="regiForm.loginName" placeholder="请输入手机号" @on-blur="getTx()"></Input>
 				</FormItem>
 				<FormItem prop="verificationCode" class="clearfix">
 					<div class="clearfix">
-						<Input v-model.trim="regiForm.verificationCode"   placeholder="请输入图形验证码" class="logw12"  ></Input>
+						<Input v-model.trim="regiForm.verificationCode" placeholder="请输入图形验证码" class="logw12"></Input>
 						<img :src="verimg" @click="getTx" class="tx" />
 						<img src="../assets/img/refresh.png" @click="getTx">
 					</div>
@@ -172,8 +172,8 @@
 					}).then((res) => {
 						if(res.code == 200) {
 							//短信验证码90秒倒计时
-								this.sendMsgDisabled = true;   
-								this.startTime();
+							this.sendMsgDisabled = true;
+							this.startTime();
 						} else {
 							this.$Message.error(res.msg);
 						}
@@ -205,9 +205,7 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.txv++;
-						let urlo = window.location.origin;
-						//this.verimg=urlo+'/mall/wap/customer/'+this.regiForm.loginName+'/verification.png?v='+this.txv;
-						this.verimg = this.$axios.defaults.baseURL + 'customer/' + this.regiForm.loginName + '/verification.png?v=' + this.txv;
+						this.verimg = this.global_.originurl + 'customer/' + this.regiForm.loginName + '/verification.png?v=' + this.txv;
 					} else {
 						this.$Message.error(res.msg);
 					}
@@ -253,6 +251,10 @@
 	.log-reg {
 		font-size: 1.6rem;
 		height: 100vh;
+		.logw12 {
+			width: 12rem;
+			float: left;
+		}
 		p {
 			font-weight: normal;
 			font-size: 2rem;

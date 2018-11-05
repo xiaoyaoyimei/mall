@@ -120,11 +120,12 @@
 			justify-content: center;
 			flex-direction: column;
 			align-items: center;
-			padding: 1rem 0.5rem;
+			width: 25%;
+			padding-bottom: 0.5rem;
 			font-size: 1.4rem;
 			img {
-				max-width: 4rem;
-				max-height: 4rem;
+				max-width: 3.2rem;
+				max-height:3.2rem;
 			}
 		}
 	}
