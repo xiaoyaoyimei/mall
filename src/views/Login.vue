@@ -79,7 +79,7 @@
 		},
 		methods: {
 			routerBack() {
-				this.$router.push('/');
+				this.$router.go('-1');
 			},
 			getParams() {
 				// 取到路由带过来的参数 

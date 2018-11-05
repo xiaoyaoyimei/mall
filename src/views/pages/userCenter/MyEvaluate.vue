@@ -1,11 +1,10 @@
 <template>
 	<div>
-		<div class="m_header_bar">
-			<router-link to="/user" class="m_header_bar_back">
+		<div class="wap_header">
+			<router-link to="/user" >
 				<Icon type="ios-arrow-back"></Icon>
+				我的评价
 			</router-link>
-			<span class="m_header_bar_title">我的评价</span>
-			<span class="m_header_bar_menu"></span>
 		</div>
 		<Scroll class='scroll column-style' v-if="hasEvaluate">
 			<ul class="evaluate">

@@ -27,9 +27,9 @@
 	left: 0rem;
     background-color: #ffffff;
     color: #999999;
-	height: 4.9rem;
+	height:49px;
 	width: 100%;
-	padding: 0.5rem 0rem;
+	padding: 0.2rem 0rem;
 	border-top: 1px solid #ddd;
 	box-shadow: -0.1rem 0px 0px 0px #bbb;
 	z-index: 100;
@@ -44,7 +44,7 @@
 }
 	i{
 		display: block;
-		font-size:3rem
+		font-size:26px
 	}
 	a.router-link-active{
 			color:#ff0000

@@ -101,12 +101,12 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  },
-  plugins: [
-     // 添加DllReferencePlugin插件
-     new webpack.DllReferencePlugin({
-       context: path.resolve(__dirname, '..'),
-       manifest: require('./vendor-manifest.json')
-     }),
-  ]
+  }
+//plugins: [
+//   // 添加DllReferencePlugin插件
+//   new webpack.DllReferencePlugin({
+//     context: path.resolve(__dirname, '..'),
+//     manifest: require('./vendor-manifest.json')
+//   }),
+//]
 }

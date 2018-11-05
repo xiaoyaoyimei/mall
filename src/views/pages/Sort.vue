@@ -8,7 +8,7 @@
 				</div>
 			</header>
 			<div v-if="hasShow">
-				<scroll :on-reach-bottom="handleReachBottom">
+				<scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
 					<ul class="clearfix mylike">
 						<li v-for="(item, index) in productList" :key='index'>
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
@@ -156,7 +156,8 @@
 			},
 			//获取顶部筛选
 			getParams() {
-				this.scrollheight = document.body.offsetHeight - 131;
+				this.scrollheight = window.screen.height - 93;
+				console.log(this.scrollheight);
 				if(this.$route.query.type != undefined) {
 					this.getList('type', this.$route.query.type, this.$route.query.typeindex)
 				}
@@ -303,6 +304,8 @@
 		background: #fff;
 		a {
 			display: block;
+			width:100%;
+			height: 100%;
 		}
 	}
 	
@@ -352,8 +355,6 @@
 	
 	.filterModal .wrap {
 		margin-top: 0.25rem;
-		border-bottom: 0.05rem solid $color-border;
-		margin-bottom: 1rem;
 	}
 	
 	.zIndex {
@@ -362,6 +363,7 @@
 	
 	.filterModal .dt {
 		margin-bottom: 0.9rem;
+		font-weight: bold;
 	}
 	
 	.filterModal .dd {
@@ -379,6 +381,8 @@
 		height: 2.5rem;
 		line-height: 2.5rem;
 		font-size: 1.5rem;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	
 	.wrap .active {
@@ -392,8 +396,8 @@
 	
 	.filterModal .Hfoot button {
 		width: 7.5rem;
-		height: 2.5rem;
-		line-height: 1rem;
+		height: 4rem;
+		font-size: 1.6rem;
 	}
 	
 	.top {
@@ -428,24 +432,22 @@
 		height: 1.6rem;
 	}
 	.Hfoot{
-		position: fixed;
-		bottom: 10px;
+		position: absolute;
+		bottom:10px;
 	}
 </style>
 <style>
-	.new .ivu-scroll-container {
-		height: 100rem!important;
-		margin-bottom: 8rem;
-		z-index: 10;
-	}
 	
 	.filterModal .ivu-modal {
 		width: 100%!important;
 		right: 0rem;
 		top: 0rem;
 		margin: 0rem;
+		z-index: 10001;
 	}
-	
+	.filterModal .ivu-modal{
+		height: 100%;
+	}
 	.filterModal .ivu-modal-content {
 		border-radius: 0rem;
 	}
@@ -460,5 +462,8 @@
 	
 	.filterModal .ivu-modal-wrap {
 		left: 7.5rem!important;
+	}
+	.filterModal .ivu-modal-footer{
+		 border-top: 0 none;
 	}
 </style>

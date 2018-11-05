@@ -29,15 +29,14 @@
 			<Row class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
 				<i-col span="6"><img class='cartImg' :src="imageSrc+x.image"></i-col>
 				<i-col span="18">
-					<p class='cart_black'>
+					<p class='cart_black clearfix'>
 						{{x.itemNo}}
 						
-						
-						<span v-if="x.promotionTitle ==null&&xscoupon" style="float: right;">
+						<span v-if="x.promotionTitle ==null&&xscoupon" style="float: right;color:#f00">
 					      <label style="text-decoration: line-through;">￥{{x.originSalePrice|pricefilter}}</label> 	<label class="color-dx">￥{{x.salePrice|pricefilter}}</label>
 					     </span>
-					     <span v-else>￥{{x.originSalePrice|pricefilter}}</span>
-					       	</p>
+					     <span v-else style="float: right;color:#f00">￥{{x.originSalePrice|pricefilter}}</span>
+					    </p>
 						<p ><span class='title'>{{x.productName}}</span><span class="num">x{{x.quantity}}
 					       	 </span></p>
 					</span>
@@ -389,6 +388,7 @@
 					name: '/cart'
 				});
 			} else {
+					this.getDD();
 				this.getAddress();
 				this.getCartList();
 				this.jisuan();

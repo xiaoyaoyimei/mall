@@ -1,10 +1,9 @@
 <template>
 		<div class="order">
-			<div class="m_header_bar">
-				<router-link to="/user/setting"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-				<span class="m_header_bar_title">修改密码 </span>
+			<div class="wap_header">
+				<router-link to="/user/setting"  ><Icon type="ios-arrow-back"></Icon>修改密码</router-link>
 			</div>
-				<Form ref="pwd" :model="pwd"  :rules="pwdValidate" class="form_wrap">
+				<Form ref="pwd" :model="pwd"  :rules="pwdValidate" class="form_wrap pt44">
 					<FormItem  prop="newpass">
 						<i-input v-model.trim="pwd.newpass" placeholder="请输入新密码" type="password"></i-input>
 					</FormItem>

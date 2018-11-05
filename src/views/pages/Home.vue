@@ -8,7 +8,6 @@
 			</div>
 		</header>
 		
-		<Scroll>
 			<div class="side_nav_wrap clear">
 				<Carousel v-model="value3" :autoplay="setting.autoplay" :autoplay-speed="setting.autoplaySpeed" :dots="setting.dots" :radius-dot="setting.radiusDot" :trigger="setting.trigger" :arrow="setting.arrow" class="banner">
 					<CarouselItem v-for="(item, index) in Items" :key="index">
@@ -57,9 +56,10 @@
 								<Icon type="ios-arrow-forward" />
 							</router-link>
 						<span>电竞椅</span></div>
-					<div class="two clearfix list-wrap">
-						<div class="ad-wrap fl">
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:gameproductone.product_id} }"><img :src="gameproductone.img_url |imgfilter">
+					<div class="two  list-wrap clearfix">
+						<div class="ad-wrap">
+							<router-link :to="{ path: '/sort/sortDetail',query:{id:gameproductone.product_id} }">
+								<img :src="gameproductone.img_url |imgfilter">
 								<div class="ad ">
 									<h5>{{gameproductone.model_no}}</h5>
 									<h6>{{gameproductone.describe1}}</h6>
@@ -69,14 +69,12 @@
 							</router-link>
 						</div>
 						<ul class="clearfix">
-							<li class="li" v-for="(item, index) in gameproduct" :key='index' v-if="index>0" v-show='index<5'>
+							<li  v-for="(item, index) in gameproduct" :key='index' v-if="index>0" v-show='index<5'>
 								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
 									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
 									<h6>{{item.list.model_no}}</h6>
-									<!-- <p>{{item.list.describe1}}</p> -->
 									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
 								</router-link>
-
 							</li>
 						</ul>
 					</div>
@@ -160,20 +158,11 @@
 							</router-link>
 						<span>座椅周边</span></div>
 						<div class="max100"><router-link :to="{ path: '/sort',query:{keyword:'座椅周边'} }"><img src="../../assets/img/zyzb.jpg"></router-link></div>
-
-					<!--<ul class="clearfix peripheryproduct  bgli-white mb105">
-						<li v-for="(item, index) in peripheryproduct" :key='index' v-if='index<1'>
-							
-								<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
-							
-						</li>
-					</ul>-->
 					<div class="homeBottom">
 						—— 我是有底线的 ——
 					</div>
 				</div>
 			</div>
-		</Scroll>
 	</div>
 </template>
 
@@ -434,32 +423,43 @@
 	}
 	}
 	
-	
-	.two .ad-wrap {
-		position: relative;
-		width: 33.33%;
-		float: left;
+	.two{
+		.ad-wrap{
+			width: 33.333%;
+			float: left;
+			height: 323px;
+			img{
+				max-width: 100%;
+				height: 323px;
+			}
+			a{
+				position: relative;
+			}
+		}
+		ul{
+			width:66.66%;
+			float: left;
+		}
+		li{
+			float: left;
+			width: 50%;
+			height: 161px;
+			text-align: center;
+			border-left: 1px solid transparent;
+			border-top:1px solid transparent;
+			img{
+				max-width: 100%;
+				height: 110px;
+			}
+		}
+		li:nth-child(2n){
+			border-left:1px solid #eee
+		}
+		li:nth-child(n+3){
+			border-top:1px solid #eee
+		}
 	}
-	
-	.two .ad-wrap img {
-		width: 100%;
-		height: 31.25rem;
-	}
-	
-	.two .li:nth-of-type(1) {
-		border-right: 0.05rem solid $color-border;
-		border-bottom: 0.05rem solid $color-border;
-	}
-	
-	.two .li:nth-of-type(2) {
-		border-bottom: 0.05rem solid $color-border;
-	}
-	
-	.two .li:nth-of-type(3) {
-		border-right: 0.05rem solid $color-border;
-	}
-	
-    .ad {
+	    .ad {
 		position: absolute;
 		top: 2.4rem;
 		left: 1rem;
@@ -486,29 +486,9 @@
 		position: relative;
 		top: 1.5rem;
 	}
+
+
 	
-	.two ul {
-		float: left;
-		width: 66.67%;
-	}
-	
-	.two li {
-		float: left;
-		width: 50%;
-		height: 15.625rem;
-		text-align: center;
-		justify-content: center;
-		display: flex;
-		align-items: center;
-	}
-	
-	.two ul img {
-		max-width: 90px;
-	}
-	
-	.two h6 {
-		font-size: 1.2rem;
-	}
 	
 	.color-newred {
 		color: #ff0000;
@@ -519,13 +499,13 @@
 	.w594 {
 		float: left;
 		width: 66.67%;
-		height: 15.6rem;
+		height: 16rem;
 		position: relative;
 	}
 	
 	.w594 img {
 		width: 100%;
-		height: 15.6rem;
+			height: 16rem;
 	}
 	
 	.w594 .ad {
@@ -533,45 +513,27 @@
 		top: 2.25rem;
 		left: 2rem;
 	}
-	
+	.office li{
+		border-right:1px solid #eee;
+	}
+		.office li:nth-child(5){
+			border-top: 1px solid #eee;
+		}
 	.officeproduct {
 		float: left;
 		width: 33.33%;
-		height: 15.6rem;
 		text-align: center;
+		height: 16rem;
 	}
 	.floor ul{
 		background: #fff;
 		a{
 			display: block;
 		}
+		
 	}
-	.officeproduct:nth-of-type(2) {
-		border-bottom: 0.05rem solid $color-border;
-	}
-	
-	.officeproduct:nth-of-type(3) {
-		border-right: 0.05rem solid $color-border;
-	}
-	
-	.officeproduct:nth-of-type(4) {
-		border-right: 0.05rem solid $color-border;
-	}
-	
-	.officeproduct:nth-of-type(6) {
-		border-bottom: 0.05rem solid $color-border;
-	}
-	
-	.officeproduct:nth-of-type(7) {
-		border-right: 0.05rem solid $color-border;
-	}
-	
-	.officeproduct:nth-of-type(8) {
-		border-right: 0.05rem solid $color-border;
-	}
-	
 	.officeproduct img {
-		max-width:90px;
+		max-width:75px;
 	}
 	
 	.floor li h6 {
@@ -590,6 +552,7 @@
 		a{
 			display: block;
 			height: 13rem;
+			overflow: hidden;
 		}
 		img{
 			max-width: 100%;
@@ -691,5 +654,12 @@
 	.search-wrap .icon-search{
 		left: 6rem;
 	}
-
+.bg-black{
+	position: fixed;
+	z-index: 2;
+	top: 0;
+}
+.side_nav_wrap{
+	margin-top: 44px;
+}
 </style>
