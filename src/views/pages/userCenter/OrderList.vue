@@ -10,12 +10,11 @@
 		<div class="switchStatus">
 			<span @click="changeStatus('00')" :class="{red:'00' == numactive}">全部</span>
 			<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待付款</span>
-			<!--<span @click="changeStatus('02')" :class="{red:'02' == numactive}">已付款</span>-->
 			<span @click="changeStatus('05')" :class="{red:'05' == numactive}">待发货</span>
 			<span @click="changeStatus('06')" :class="{red:'06' == numactive}">已发货</span>
 				<span @click="changeStatus('07')" :class="{red:'07' == numactive}">已签收</span>
 		</div>
-		<Scroll v-show="hasShow">
+		<Scroll v-show="hasShow" :height="scrollheight">
 			<ul class="splist box-content">
 				<li v-for="(x,index) in cartList" :key="index">
 					<div>
@@ -59,6 +58,7 @@
 			<p>您还没有相关的订单</p>
 			<router-link to="/" class="color-dx">去购物</router-link>
 		</div>
+			<Spin size="large" fix v-if="spinShow"></Spin>
 	</div>
 </template>
 
@@ -77,6 +77,8 @@
 				hasShow: true,
 				height: 500,
 				totalnum: 0,
+				spinShow: true,
+				scrollheight:0
 			}
 		},
 		computed: {
@@ -200,6 +202,7 @@
 				}
 			},
 			getOrder() {
+				this.scrollheight=document.body.offsetHeight - 84;
 				let status = '',
 					url = '';
 				if(this.status == undefined) {

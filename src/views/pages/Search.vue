@@ -2,7 +2,7 @@
     <div class="search">
         	 <header class="bg-black ">
 				<div class="search-wrap">
-				<input placeholder="关键字" @click="search()" v-model.trim="keyword" @keyup.13="search()" ref="keyword">
+				<input placeholder="关键字"  v-model.trim="keyword" @keyup.13="search()" ref="keyword">
 					<Icon type="ios-search"  class="icon-search"/>
 						<span @click="search()">搜索</span>
 				</div>

@@ -1,11 +1,9 @@
 <template>
     <div>
-    		<div class="m_header_bar">
-			<router-link to="/user" class="m_header_bar_back">
-				<Icon type="ios-arrow-back"></Icon>
+    		<div class="wap_header">
+			<router-link to="/user" >
+				<Icon type="ios-arrow-back"></Icon>建议反馈
 			</router-link>
-			<span class="m_header_bar_title">建议反馈</span>
-			<span class="m_header_bar_menu"></span>
 		</div>
         <div class="advice">
                 <Form ref="tousuForm" class="form" :model="tousuForm"   :rules="ruleInline" >

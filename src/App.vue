@@ -15,8 +15,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #888;
-  height:100vh;
   background: #f0f0f0;
+  min-height: 100vh;
 }
 .icon{
     background-image: url(./assets/img/icon.png);
@@ -24,7 +24,6 @@
     background-attachment: scroll;
     display: inline-block;
     background-size: 25rem 25rem;
-  // background: #f0f0f0;
   color: #666;
 }
 ul,li{
@@ -40,7 +39,7 @@ outline{
 	border: 0 none;
 }
 .ivu-scroll-container{
-		height:calc(100vh - 50px)!important;
+		height:calc(100vh - 50px);
 	}
 	    .form_wrap .ivu-form-item{
         margin-bottom: 0;

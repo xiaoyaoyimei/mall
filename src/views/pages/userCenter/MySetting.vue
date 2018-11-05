@@ -1,13 +1,11 @@
 <template>
 	<div class="order coupon">
-		<div class="m_header_bar">
-			<router-link to="/user" class="m_header_bar_back">
-				<Icon type="ios-arrow-back"></Icon>
+		<div class="wap_header">
+			<router-link to="/user" >
+				<Icon type="ios-arrow-back"></Icon>设置
 			</router-link>
-			<span class="m_header_bar_title">设置</span>
-			<span class="m_header_bar_menu"></span>
 		</div>
-		<ul class="flex-ul">
+		<ul class="flex-ul pt44">
 			<li class="tx"><span>头像</span>
 				<router-link :to="{ path: '/user/photo'}" v-if="userinfo.iconUrl==''" class="tximg">
 					<img src="../../../assets/img/de-tx.jpg">

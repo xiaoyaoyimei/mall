@@ -1,10 +1,9 @@
 <template>
 	<div>
-  	<div class="m_header_bar">
-			<router-link to="/user"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">隐私政策  </span>
+  	<div class="wap_header">
+			<router-link to="/user"  ><Icon type="ios-arrow-back"></Icon>隐私政策</router-link>
 		</div>
-	<Scroll><yszc></yszc></Scroll>
+	<yszc class="pt44 plr15"></yszc>
 	</div>
 </template>
 
@@ -21,6 +20,9 @@
        }
 </script>
 
-<style >
-
+<style  scoped="scoped">
+.plr15{
+	padding-left: 15px;
+	padding-right: 15px;
+}
 </style>

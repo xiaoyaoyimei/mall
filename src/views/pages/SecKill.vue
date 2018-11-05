@@ -1,10 +1,10 @@
 <template>
-	<div style="background-color:#fff;">
+	<div >
 		<div class="m_header_bar">
 			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
 			<span class="m_header_bar_title">秒杀专场</span>
 		</div>
-			<div  class="flex-center" v-if="show">
+			<div  class="flex-center" v-if="show" >
 			<img src="../../assets/img/lightning.png">
 			<p>暂无秒杀活动 敬请期待</p>
 		</div>

@@ -323,7 +323,6 @@ let routes = [{
 	},
 ]
 const router = new VueRouter({
-	root: '/',
 	routes,
 	scrollBehavior(to, from, savedPosition) {
 		if(savedPosition) {

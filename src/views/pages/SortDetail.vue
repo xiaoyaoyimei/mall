@@ -2,24 +2,28 @@
 	<div>
 		<div class="clearfix ">
 			<Icon type="ios-arrow-back" @click="back()" class="icon-back" />
-				<router-link :to="{ path: '/cart' }" class="carticon"> <Icon type="ios-cart" /></router-link>
-						<div class="video-wrap" >
-						<div  ref="videoWrap"  v-show=" 0== videonum"  class="video-height">
-								<div  v-show="videoshow" class="video">
-								  <iframe  ref="video" frameborder=0 allowfullscreen ></iframe>  
-						    </div>
-						</div>
-					<div v-show=" 1== videonum"  class="swiper" >
-					<wc-swiper  v-if="shangp.productImageList.length" :autoplay='false'>
-					   <wc-slide v-for="(item, index) in shangp.productImageList" :key="index">
-					  	<img :src="item.listImg |imgfilter">
-					   </wc-slide>
+			<router-link :to="{ path: '/cart' }" class="carticon">
+				<Icon type="ios-cart" />
+			</router-link>
+			<div class="video-wrap">
+				<div ref="videoWrap" v-show=" 0== videonum" class="video-height">
+					<div v-show="videoshow" class="video">
+						<iframe ref="video" frameborder=0 allowfullscreen></iframe>
+					</div>
+				</div>
+				<div v-show=" 1== videonum" class="swiper">
+					<wc-swiper v-if="shangp.productImageList.length" :autoplay='false'>
+						<wc-slide v-for="(item, index) in shangp.productImageList" :key="index">
+							<img :src="item.listImg |imgfilter">
+						</wc-slide>
 					</wc-swiper>
-					</div>
-					<div class="controls" v-show="videoshow">
-						<button :class="videonum==1?'active':''" @click="togglevideotab(1)">图片</button>
-						<button  :class="videonum==0?'active':''" @click="togglevideotab(0)">视频</button></div>
-					</div>
+					<img :src="shangp.product.modelImg |imgfilter" v-else>
+					
+				</div>
+				<div class="controls" v-show="videoshow">
+					<button :class="videonum==1?'active':''" @click="togglevideotab(1)">图片</button>
+					<button :class="videonum==0?'active':''" @click="togglevideotab(0)">视频</button></div>
+			</div>
 			<div class="iteminfo">
 				<dl class="dl-base clearfix">
 					<div class="mylike" @click="likepro">
@@ -49,12 +53,11 @@
 						<p><span class="red">活动名称</span><span>{{choosesp.activityName}}</span></p>
 					</div>
 				</div>
-				<div class="fuwu">
-					<span class="gray">服务</span>
-					<span>○ 官方正品</span>
-					<span>○ 极速发货</span>
-					<span>○ 七天无理由退换货</span>
-				</div>
+			</div>
+			<div class="fuwu">
+				<span>○ 官方正品</span>
+				<span>○ 极速发货</span>
+				<span>○ 七天无理由退换货</span>
 			</div>
 		</div>
 		<div class="bg-lightgray">
@@ -72,7 +75,7 @@
 						<span class="title">{{item.attrCode}}:</span> <span>{{item.attrValue}}</span>
 					</p>
 				</div>
-				<div class="eval pt50 " v-show=" 2 == num">
+				<div class="eval  " v-show=" 2 == num">
 					<div class="eval-fl ">
 						<h5>全部评价
 						<span  v-if="!onlyimg" @click="toggleimg()">全部</span>
@@ -87,8 +90,8 @@
 									<p class="name">{{item.list.nickName | plusXing('*')}}</p>
 									<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd')}}
 										<p>
-											颜色分类：{{item.shippingOrderItems.productAttrs}}</p> 
-											<span class='zanicon' :class="{red:item.isZan =='Y'}">
+											颜色分类：{{item.shippingOrderItems.productAttrs}}</p>
+										<span class='zanicon' :class="{red:item.isZan =='Y'}">
 													<span>{{item.number}}</span>
 										<img src="../../assets/img/zan-red.png" v-if="item.isZan =='Y'" @click='zan(item.list.id,item.isZan)'>
 										<img src="../../assets/img/zan-gray.png" v-else @click='zan(item.list.id,item.isZan)'>
@@ -105,82 +108,82 @@
 							</li>
 						</ul>
 						<div class="flex-center  empty" v-else>
-							<img  src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
+							<img src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
 							<p>暂无评论记录~</p>
-							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<Modal class="cartModal" v-model="cartModal">
-				<div class="imgdetail">
-					<img :src="ImgUrl |imgfilter" alt="">
-					<div class="xinxi">
-						<span class="red" v-if="choosesp.price==0">￥{{shangp.product.salePrice | pricefilter}}</span>
-						<span class="red" v-else> 
+			<div class="imgdetail">
+				<img :src="ImgUrl |imgfilter" alt="">
+				<div class="xinxi">
+					<span class="red" v-if="choosesp.price==0">￥{{shangp.product.salePrice | pricefilter}}</span>
+					<span class="red" v-else> 
 					<span v-if="cxshow">
 					<span class="color-red red">￥{{choosesp.cuxiaoprice | pricefilter}} </span>
-						<label class="color-origin red">￥{{choosesp.price | pricefilter}}</label>
-						</span>
-						<span class="red" v-else>￥{{choosesp.price | pricefilter}}</span>
-						</span>
-						<span v-show="!xiajia">
+					<label class="color-origin red">￥{{choosesp.price | pricefilter}}</label>
+					</span>
+					<span class="red" v-else>￥{{choosesp.price | pricefilter}}</span>
+					</span>
+					<span v-show="!xiajia">
 					库存: {{choosesp.kucun}}件
 					</span>
-						<span class="prf10">已选：{{shangp.product.modelNo}} </span>
-						<div v-if="xiajia" class="xiajia">
-							<Icon type="information-circled">
-							</Icon>该商品已下架
-						</div>
+					<span class="prf10">已选：{{shangp.product.modelNo}} </span>
+					<div v-if="xiajia" class="xiajia">
+						<Icon type="information-circled">
+						</Icon>该商品已下架
 					</div>
-
 				</div>
-				<div class="summary">
-					<dl v-if="choosesp.activityName!=null&&choosesp.activityName!=''"><dt><em class="act">{{choosesp.activityName}}</em></dt>
-						<dd class="color-black">{{choosesp.activityName}} </dd>
-					</dl>
-					<dl class="noborde clerafix" v-for="(item, i) in shangp.productAttrList" :key="i">
-						<dt>{{item.attrKey.catalogAttrValue}}</dt>
-						<dd style="overflow: hidden;">
-							<ul class="color-sel clerafix">
-								<li :class="choosesp.kucun==0?'disabled':'abled'" v-for="(child, index) in item.attrValues" :key="index" @click="chooseSP($event,item)">
-									<span v-bind:class="item.attrValues.length==1?'active':''" :titleid="child.id" ref="dditem">
-										{{child.modelAttrValue}}</span>
-								</li>
-							</ul>
-						</dd>
-					</dl>
-					<dl class="dl-base clearfix"><dt>购买数量</dt>
-						<dd>
-							<div class="number">
-								<Icon type="ios-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)">
-								<Icon type="ios-remove" class="ios-remove" @click="jian" />
-							</div>
-						</dd>
-					</dl>
-				</div>
-				<div class="opt">
-					<button class="btn-cart" @click="atc" v-show="!wuhuotongzhi" v-if="!xiajia"><i class="icon-new icon-minicart"></i>加入购物车</button>
-					<button class="btn-xorder" v-show="!wuhuotongzhi" @click="buynow(0)"><i class="icon-new icon-minicart"  ></i>立即下单</button>
-					<button v-if="wuhuotongzhi" size="large" class="btn-nopro" disabled="disabled">暂时无货，到货通知</button>
-
-				</div>
-
-			</Modal>
-		<div class="detailfooter">
-				<router-link class="nav" :to="{ path: '/index' }"><img src="../../assets/img/bar-home-gray.png"> </router-link>
-				<router-link class="nav" :to="{ path: '/cart' }"><img src="../../assets/img/bar-cart-gray.png"></router-link>
-				<button class="nav " @click="cartmodal()" style="background-color:#ff0000"> 点击购买</button>
 
 			</div>
+			<div class="summary">
+				<dl v-if="choosesp.activityName!=null&&choosesp.activityName!=''"><dt><em class="act">{{choosesp.activityName}}</em></dt>
+					<dd class="color-black">{{choosesp.activityName}} </dd>
+				</dl>
+				<dl class="noborde clerafix" v-for="(item, i) in shangp.productAttrList" :key="i">
+					<dt>{{item.attrKey.catalogAttrValue}}</dt>
+					<dd style="overflow: hidden;">
+						<ul class="color-sel clerafix">
+							<li :class="choosesp.kucun==0?'disabled':'abled'" v-for="(child, index) in item.attrValues" :key="index" @click="chooseSP($event,item)">
+								<span v-bind:class="item.attrValues.length==1?'active':''" :titleid="child.id" ref="dditem">
+										{{child.modelAttrValue}}</span>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				<dl class="dl-base clearfix"><dt>购买数量</dt>
+					<dd>
+						<div class="number">
+							<Icon type="ios-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)">
+							<Icon type="ios-remove" class="ios-remove" @click="jian" />
+						</div>
+					</dd>
+				</dl>
+			</div>
+			<div class="opt">
+				<button class="btn-cart" @click="atc" v-show="!wuhuotongzhi" v-if="!xiajia"><i class="icon-new icon-minicart"></i>加入购物车</button>
+				<button class="btn-xorder" v-show="!wuhuotongzhi" @click="buynow(0)"><i class="icon-new icon-minicart"  ></i>立即下单</button>
+				<button v-if="wuhuotongzhi" size="large" class="btn-nopro" disabled="disabled">暂时无货，到货通知</button>
+
+			</div>
+
+		</Modal>
+		<div class="detailfooter">
+			<router-link :to="{ path: '/index' }"><img src="../../assets/img/bar-home-gray.png"> </router-link>
+			<router-link :to="{ path: '/cart' }"><img src="../../assets/img/bar-cart-gray.png"></router-link>
+			<button @click="cartmodal()" style="background-color:#ff0000"> 点击购买</button>
+
+		</div>
 	</div>
 </template>
 <script>
-		import store from '@/store/store';
+	import store from '@/store/store';
 	export default {
 		data() {
 			return {
-				videonum:1,
+				videonum: 1,
 				hasPJ: true,
 				cartList: [],
 				cartOne: {
@@ -192,8 +195,6 @@
 					salePrice: 0,
 					productType: '',
 				},
-				compine: [],
-				//compineList: [],
 				onlyimg: false, //0为img为空。1显示图片
 				//库存是否为0添加购物车显示按钮
 				num: 0,
@@ -261,12 +262,12 @@
 				likeshow: false,
 			}
 		},
-						         computed: {
-            token() {
-            	//获取store里面的token
-                return store.state.token;
-            },
-        },
+		computed: {
+			token() {
+				//获取store里面的token
+				return store.state.token;
+			},
+		},
 		methods: {
 			cartmodal() {
 				this.cartModal = true
@@ -274,64 +275,25 @@
 			back() {
 				this.$router.go(-1);
 			},
-//			checkAllGroupChange(data) {
-//				var _this = this;
-//				_this.dpnum = data.length;
-//				_this.dpjiage = 0;
-//				this.compineList = [];
-//				data.forEach((item, index) => {
-//					if(JSON.stringify(this.recomm[item].promotion) == "{}") {
-//						this.compineList.push({
-//							id: this.recomm[item].list.id,
-//							image: this.recomm[item].list.list_img,
-//							productName: this.recomm[item].list.item_no,
-//							quantity: 1,
-//							originSalePrice: this.recomm[item].list.sale_price,
-//							salePrice: this.recomm[item].list.sale_price,
-//							productType: this.recomm[item].list.catalogId
-//						})
-//						this.dpjiage += parseFloat(this.recomm[item].list.sale_price);
-//					} else {
-//						this.compineList.push({
-//							id: this.recomm[item].list.id,
-//							image: this.recomm[item].list.list_img,
-//							productName: this.recomm[item].list.item_no,
-//							quantity: 1,
-//							originSalePrice: this.recomm[item].list.sale_price,
-//							salePrice: this.recomm[item].promotion.onSalePrice,
-//							promotionTitle: this.recomm[item].promotion.activityName,
-//							productType: this.recomm[item].list.catalogId
-//						})
-//						this.dpjiage += parseFloat(this.recomm[item].promotion.onSalePrice);
-//					}
-//					this.compineId.push(this.recomm[item].list.id)
-//				});
-//				if(this.choosesp.cuxiaoprice > 0) {
-//					this.dpjiage += parseFloat(this.choosesp.cuxiaoprice * this.quantity);
-//				} else {
-//					this.dpjiage += parseFloat(this.choosesp.price * this.quantity);
-//				}
-//
-//			},
 			//喜欢
-				likepro() {
-			if(this.token!=null&&this.token!=""&&this.token!=undefined){
-							this.$axios({
-								method: 'post',
-								url: `/like/insert/${this.productId}`,
-							}).then((res) => {
-								if(res.code == '200') {
-									this.$Message.info('收藏成功');
-									this.likeshow=true;
-								} else if(res.code == '500'){
-									this.$Message.error(res.object);
-									this.likeshow=true;
-								}else{
-										this.$Message.error('收藏失败');
-									this.likeshow=false;
-								}
-						
-							})
+			likepro() {
+				if(this.token != null && this.token != "" && this.token != undefined) {
+					this.$axios({
+						method: 'post',
+						url: `/like/insert/${this.productId}`,
+					}).then((res) => {
+						if(res.code == '200') {
+							this.$Message.info('收藏成功');
+							this.likeshow = true;
+						} else if(res.code == '500') {
+							this.$Message.error(res.object);
+							this.likeshow = true;
+						} else {
+							this.$Message.error('收藏失败');
+							this.likeshow = false;
+						}
+
+					})
 				} else {
 					this.$Message.error('您尚未登录,请先登录');
 				}
@@ -370,16 +332,16 @@
 				this.onlyimg = !this.onlyimg;
 				this.showcomments();
 			},
-		
+
 			//切换商品介绍和规格
 			toggletab(num) {
 				this.num = num;
 			},
-				togglevideotab(v){
-				this.videonum=v;
+			togglevideotab(v) {
+				this.videonum = v;
 			},
 			changeNumber: function(event) {
-								var obj = event.target;
+				var obj = event.target;
 				this.quantity = parseInt(obj.value);
 				let n = /^[1-9]\d*$/;
 				if(!n.test(obj.value)) {
@@ -410,18 +372,6 @@
 				}
 			},
 
-			getIndex(imgUrl, index) {
-				this.videoshow = false;
-				this.ImgUrl = imgUrl;
-				for(let i = 0; i < this.shangp.productImageList.length; i++) {
-					if(index == i) {
-						this.shangp.productImageList[i].clickItem = true;
-					} else {
-						this.shangp.productImageList[i].clickItem = false;
-					}
-
-				}
-			},
 			close() {
 				this.videoshow = false;
 			},
@@ -440,42 +390,44 @@
 				}
 			},
 			buynow(v) {
-				if(this.token!=null&&this.token!=""&&this.token!=undefined){
-				if(this.productItemId == "") {
-					this.$Message.error('请选择商品属性');
-					return
-				}
-				this.cartOne.id=this.choosesp.id;
-				this.cartOne.productId=this.choosesp.productId;
-				this.cartOne.image=this.choosesp.img;
-				this.cartOne.productName=this.choosesp.itemNo;
-				this.cartOne.quantity=this.quantity;
-				this.cartOne.originSalePrice=this.choosesp.price;
-				this.cartOne.salePrice=this.choosesp.cuxiaoprice;
-				this.cartOne.promotionTitle=this.choosesp.activityName;
-				this.cartOne.productType=this.shangp.product.typeId;
-				this.cartOne.productCatalog=this.shangp.product.catalogId;
-				this.cartList[0]=this.cartOne;
-				//0为单个立即下单，1为推荐组合中的立即下单
-//				if(v==1){
-//					this.cartList=this.cartList.concat(this.compineList)
-//				}
-				sessionStorage.removeItem('cart');
-				sessionStorage.setItem('cart', JSON.stringify(this.cartList));
-				this.$router.push({ name:'/carttwo'});
-				localStorage.setItem('orderfrom', 'A')
-				}else{
-				this.$router.push({
+				if(this.token != null && this.token != "" && this.token != undefined) {
+					if(this.productItemId == "") {
+						this.$Message.error('请选择商品属性');
+						return
+					}
+					this.cartOne.id = this.choosesp.id;
+					this.cartOne.productId = this.choosesp.productId;
+					this.cartOne.image = this.choosesp.img;
+					this.cartOne.productName = this.choosesp.itemNo;
+					this.cartOne.quantity = this.quantity;
+					this.cartOne.originSalePrice = this.choosesp.price;
+					this.cartOne.salePrice = this.choosesp.cuxiaoprice;
+					this.cartOne.promotionTitle = this.choosesp.activityName;
+					this.cartOne.productType = this.shangp.product.typeId;
+					this.cartOne.productCatalog = this.shangp.product.catalogId;
+					this.cartList[0] = this.cartOne;
+					//0为单个立即下单，1为推荐组合中的立即下单
+					//				if(v==1){
+					//					this.cartList=this.cartList.concat(this.compineList)
+					//				}
+					sessionStorage.removeItem('cart');
+					sessionStorage.setItem('cart', JSON.stringify(this.cartList));
+					this.$router.push({
+						name: '/carttwo'
+					});
+					localStorage.setItem('orderfrom', 'A')
+				} else {
+					this.$router.push({
 						path: '/login',
 						query: {
 							redirect: this.$route.fullPath
 						}
-					})	
+					})
 				}
 			},
 			//加入购物车addtocart
-						atc() {
-				   if(this.token!=null&&this.token!=""&&this.token!=undefined){
+			atc() {
+				if(this.token != null && this.token != "" && this.token != undefined) {
 					if(this.productItemId == "") {
 						this.$Message.error('请选择商品属性');
 						return
@@ -513,92 +465,93 @@
 			},
 			//选择商品
 			detail() {
-				var chooseId = "",
-					jishu = 0;
-				let dditem = this.$refs['dditem'];
-				if(dditem!=null) {
-					for(let n = 0; n < dditem.length; n++) {
-						if(dditem[n].getAttribute("class") == 'active') {
-							chooseId += dditem[n].getAttribute("titleid") + ',';
-							jishu++
+				var self=this;
+				return new Promise(function(resolve, reject) {
+					var chooseId = "",
+						jishu = 0;
+					let dditem = self.$refs['dditem'];
+					if(dditem != null) {
+						for(let n = 0; n < dditem.length; n++) {
+							if(dditem[n].getAttribute("class") == 'active') {
+								chooseId += dditem[n].getAttribute("titleid") + ',';
+								jishu++
+							}
 						}
 					}
-				}
-				chooseId = (chooseId.slice(chooseId.length - 1) == ',') ? chooseId.slice(0, -1) : chooseId;
-				var flag = false;
-				if(jishu == this.shangp.productAttrList.length) {
-					//通过选择属性读出productItemId
-					for(let chooseItem of this.shangp.productItemList) {
-						if(chooseItem.productModelAttrs == chooseId) {
-							this.shangp.product.modelNo = chooseItem.itemNo;
-							this.ImgUrl = chooseItem.listImg;
-							this.choosesp.id=chooseItem.id;
-							this.choosesp.productId=chooseItem.productId;
-							this.choosesp.img = chooseItem.listImg;
-							this.choosesp.itemNo = chooseItem.itemNo;
-							this.choosesp.price = chooseItem.salePrice;
-							
-							//若无促销，则促销价为原价
-							this.choosesp.cuxiaoprice =chooseItem.salePrice;
-							this.productItemId = chooseItem.id;
-							if(this.shangp.promotions.length > 0) {
-								for(let cxitem of this.shangp.promotions) {
-									if(cxitem.productItemId == this.productItemId) {
-										this.cxshow = true;
-										this.choosesp.cuxiaoprice = cxitem.onSalePrice;
-										this.choosesp.activityName = cxitem.activityName;
-										this.choosesp.startTime = cxitem.startTime;
-										this.choosesp.endTime = cxitem.endTime;
-										this.choosesp.quantity=cxitem.quantity;
-										
-										
+					chooseId = (chooseId.slice(chooseId.length - 1) == ',') ? chooseId.slice(0, -1) : chooseId;
+					var flag = false;
+					if(jishu == self.shangp.productAttrList.length) {
+						//通过选择属性读出productItemId
+						for(let chooseItem of self.shangp.productItemList) {
+							if(chooseItem.productModelAttrs == chooseId) {
+								self.shangp.product.modelNo = chooseItem.itemNo;
+								self.ImgUrl = chooseItem.listImg;
+								self.choosesp.id = chooseItem.id;
+								self.choosesp.productId = chooseItem.productId;
+								self.choosesp.img = chooseItem.listImg;
+								self.choosesp.itemNo = chooseItem.itemNo;
+								self.choosesp.price = chooseItem.salePrice;
+
+								//若无促销，则促销价为原价
+								self.choosesp.cuxiaoprice = chooseItem.salePrice;
+								self.productItemId = chooseItem.id;
+								if(self.shangp.promotions.length > 0) {
+									for(let cxitem of self.shangp.promotions) {
+										if(cxitem.productItemId == self.productItemId) {
+											self.cxshow = true;
+											self.choosesp.cuxiaoprice = cxitem.onSalePrice;
+											self.choosesp.activityName = cxitem.activityName;
+											self.choosesp.startTime = cxitem.startTime;
+											self.choosesp.endTime = cxitem.endTime;
+											self.choosesp.quantity = cxitem.quantity;
+										}
+									}
+								}
+								flag = true;
+								break;
+							} else {
+								flag = false
+							}
+						}
+						if(flag == false) {
+							self.choosesp.itemNo = "";
+							self.choosesp.price = "";
+							self.xiajia = true
+							self.firstshow = false
+						} else {
+							self.xiajia = false;
+							self.firstshow = true
+						}
+						//计算库存（库存需大于0才显示）
+						var kucunflag = false;
+						if(self.shangp.inventory.length > 0) {
+							for(let kucunitem of self.shangp.inventory) {
+								if(kucunitem.skuId == self.productItemId) {
+									kucunflag = true;
+									self.choosesp.kucun = kucunitem.quantity - kucunitem.lockQuantity;
+									//设置加入购物车的最大值
+									self.max = self.choosesp.kucun;
+									if(self.choosesp.kucun < 0) {
+										self.choosesp.kucun = 0;
+										self.max = 0;
 									}
 								}
 							}
-							flag = true;
-							break;
+						}
+						if(!kucunflag) {
+							self.choosesp.kucun = 0;
+						}
+						if(self.choosesp.kucun < 1) {
+							self.wuhuotongzhi = true;
 						} else {
-							flag = false
+							self.wuhuotongzhi = false;
 						}
-					}
-					if(flag == false) {
-						this.choosesp.itemNo = "";
-						this.choosesp.price = "";
-						this.xiajia = true
-						this.firstshow = false
-					} else {
-						this.xiajia = false;
-						this.firstshow = true
-					}
-					//计算库存（库存需大于0才显示）
-					var kucunflag = false;
-					if(this.shangp.inventory.length > 0) {
-						for(let kucunitem of this.shangp.inventory) {
-							if(kucunitem.skuId == this.productItemId) {
-								kucunflag = true;
-								this.choosesp.kucun = kucunitem.quantity - kucunitem.lockQuantity;
-								//设置加入购物车的最大值
-							    this.max=this.choosesp.kucun;
-								if(this.choosesp.kucun < 0) {
-									this.choosesp.kucun = 0;
-									this.max=0;
-								}
-							}
-						}
-					}
-					if(!kucunflag) {
-						this.choosesp.kucun = 0;
-					}
-					if(this.choosesp.kucun < 1) {
-						this.wuhuotongzhi = true;
-					} else {
-						this.wuhuotongzhi = false;
-					}
-					 this.getlikepro(this.productItemId);
+						self.getlikepro(self.productItemId);
 
-				} else {
-					return;
-				}
+					} else {
+						return;
+					}
+				});
 			},
 			//选择属性
 			chooseSP(e, pa) {
@@ -628,51 +581,42 @@
 
 			//获取该商品信息
 			getProduct() {
-				let _this = this;
-				_this.videoshow = false;
-				this.$axios({
-					method: 'post',
-					url: '/product/' + this.productId,
-				}).then((res) => {
-					if(res.code == '200') {
-						//原始数据用于合并求得的数据=>新数据
-						_this.shangp = Object.assign({}, this.oldshangp, res.object);
-						if(_this.shangp.inventory.length > 0) {
-							for(let kucunitem of _this.shangp.inventory) {
-								_this.choosesp.kucun += kucunitem.quantity - kucunitem.lockQuantity;
+				var _this = this;
+				return new Promise(function(resolve, reject) {
+					_this.videoshow = false;
+					_this.$axios({
+						method: 'post',
+						url: '/product/' + _this.productId,
+					}).then((res) => {
+						if(res.code == '200') {
+							//原始数据用于合并求得的数据=>新数据
+							_this.shangp = Object.assign({}, _this.oldshangp, res.object);
+							if(_this.shangp.inventory.length > 0) {
+								for(let kucunitem of _this.shangp.inventory) {
+									_this.choosesp.kucun += kucunitem.quantity - kucunitem.lockQuantity;
+								}
+								if(_this.choosesp.kucun < 0) {
+									_this.choosesp.kucun = 0
+								}
 							}
-							if(_this.choosesp.kucun < 0) {
-								_this.choosesp.kucun = 0
-							}
-						}
 
-						if(_this.choosesp.kucun < 1) {
-							_this.wuhuotongzhi = true;
-						} else {
-							_this.wuhuotongzhi = false;
-						}
-						for(let a = 0; a < _this.shangp.productImageList.length; a++) {
-							_this.shangp.productImageList[a].clickItem = false;
-							if(a < 5) {
-								_this.shangp.productImageList[a].show = true
+							if(_this.choosesp.kucun < 1) {
+								_this.wuhuotongzhi = true;
 							} else {
-								_this.shangp.productImageList[a].show = false
+								_this.wuhuotongzhi = false;
 							}
-						}
-						_this.ImgUrl = _this.shangp.product.modelImg;
-						if(_this.shangp.productImageList.length > 0) {
-							_this.shangp.productImageList[0].clickItem = true;
-						}
-						if(_this.shangp.product.video != '') {
-							_this.videoIcon = true;
-						}
+						//	_this.shangp.productImageList=_this.shangp.productImageList.concat(_this.shangp.product.modelImg);
+							if(_this.shangp.product.video != '') {
+								_this.videoIcon = true;
+							}
 
-					}
-					this.getlikepro();
-				});
+						}
+						_this.getlikepro();
+					});
+				})
 			},
 			getProductDesc() {
-				//获得搭配
+				//详情
 				this.$axios({
 					method: 'post',
 					url: '/product/desc/' + this.productId,
@@ -710,11 +654,11 @@
 		},
 		mounted() {
 			this.getParams();
-			this.getProduct();
-			this.showcomments();
-			setTimeout(() => {
+			this.getProduct().then(res => {
 				this.detail();
-			}, 1000)
+			});
+			this.showcomments();
+
 			this.getProductDesc();
 
 		},
@@ -736,8 +680,11 @@
 	
 	.iteminfo {
 		padding-top: 1rem;
-		background-color: #f0f0f0;
 		position: relative;
+		background: #fff;
+		padding-left: 1rem;
+		padding-right: 1rem;
+		padding-top: 1rem;
 	}
 	
 	.dl-base .sku-price {
@@ -746,34 +693,22 @@
 		font-size: 2rem;
 		float: left;
 		color: #FF0000;
-		padding: 0rem 1.25rem;
 	}
 	
 	.iteminfo h1 {
 		margin-top: 0.75rem;
-		height: 1.5rem;
 		line-height: 1.5rem;
 		margin-bottom: 0.5rem;
-		padding: 0rem 1.25rem;
+	}
+	
+	.itemtitle {
+		font-size: 1.4rem;
+		padding-bottom: 0.5rem;
 	}
 	
 	.prf10 {
 		font-weight: 700;
 		font-size: 1.8rem;
-		color: #333333;
-	}
-	
-	.itemtitle .color-newred {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		font-weight: 400;
-		font-style: normal;
-		font-size: 1.8rem;
-		display: block;
-		height: 2.5rem;
-		overflow: hidden;
-		padding: 0rem 1.25rem;
 		color: #333333;
 	}
 	
@@ -788,13 +723,14 @@
 	
 	.mylike {
 		position: absolute;
-		top: 0rem;
-		right: 2.505rem;
+		top: 0.5rem;
+		right: 1.5rem;
+		img{
+			width: 2.4rem;
+			height: 2.4rem;
+		}
 	}
 	
-	.mylike i {
-		background-size: 25rem 25rem;
-	}
 	
 	.huodong {
 		width: 100%;
@@ -835,21 +771,10 @@
 	
 	.fuwu {
 		padding: 1rem;
-		border-bottom: 0.25rem solid $color-border;
-		border-top: 0.25rem solid $color-border;
-	}
-	
-	.fuwu span {
-		margin-left: 0.75rem;
-		color: #333333;
-		font-family: '微软雅黑';
-		font-weight: 400;
-		font-size: 1.6rem;
-	}
-	
-	.fuwu .gray {
-		color: #999999;
-		margin-left: 0.25rem;
+		border-bottom: 1rem solid #F0F0F0;
+		border-top: 1rem solid #F0F0F0;
+		background: #fff;
+		color: #666;
 	}
 	
 	.bg-lightgray {
@@ -894,25 +819,20 @@
 		border-top: 1px solid $color-border;
 		box-shadow: -0.2rem 0px 0px 0px #1b1b1b;
 		background-color: #fff;
-	}
-	
-	.nav {
-		float: left;
-		width: 25%;
 		text-align: center;
-		font-size: 1.8rem;
-		color: #999999;
-		padding: 1.5rem 0rem;
-	}
-	
-	button.nav {
-		width: 50%;
-		display: inline-block;
-		background-color: #fff;
-		border: none;
-		font-weight: 400;
-		font-size: 1.8rem;
-		color: #FFFFFF;
+		display: flex;
+		align-items: center;
+		a {
+			width: 25%;
+		}
+		button {
+			width: 50%;
+			border: none;
+			font-weight: 400;
+			font-size: 1.8rem;
+			color: #FFFFFF;
+			height: 100%;
+		}
 	}
 	
 	.big {
@@ -940,7 +860,6 @@
 		padding: 1.25rem;
 		background: #fff;
 	}
-	
 	
 	.pro_size span {
 		float: left;
@@ -982,7 +901,7 @@
 		margin-bottom: 0.5rem;
 		margin-right: 1rem;
 		text-align: center;
-	border-radius: 0.5rem;
+		border-radius: 0.5rem;
 	}
 	
 	.color-sel li span {
@@ -1004,7 +923,6 @@
 	.color-sel .active {
 		border: 1px solid $color-border-red;
 		color: #f00;
-		
 	}
 	
 	.cartModal .dl-base {
@@ -1086,8 +1004,6 @@
 		line-height: 3.6rem;
 		border: none;
 		font-size: 1.6rem;
-		padding-left: 1.5rem;
-		padding-right: 1.5rem;
 		width: 50%;
 	}
 	
@@ -1100,7 +1016,6 @@
 		background-color: #FF0000;
 		color: #fff;
 	}
-	
 	
 	.iconUrl {
 		width: 4.5rem;
@@ -1160,55 +1075,64 @@
 		width: 5rem;
 		height: 5rem;
 	}
-	.carticon{
-	position: fixed;
-    z-index: 1;
-    right: 1.5rem;
-    top: 1rem;
-    background: #333;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 2rem;
-    height: 3rem;
-    width: 3rem;
-    text-align: center;
-    opacity: 0.5;
+	
+	.carticon {
+		position: fixed;
+		z-index: 1;
+		right: 1.5rem;
+		top: 1rem;
+		background: #333;
+		border-radius: 50%;
+		color: #fff;
+		font-size: 2rem;
+		height: 3rem;
+		width: 3rem;
+		text-align: center;
+		opacity: 0.5;
 	}
-	.video-wrap{
-	position: relative;
-	.swiper{
-		img{
-			max-width: 100%;
+	
+	.video-wrap {
+		position: relative;
+		width: 100%;
+		display: block;
+		.swiper {
+			img {
+				max-width: 100%;
+			}
+		}
+		.controls {
+			position: absolute;
+			bottom: 3rem;
+			left: 50%;
+			margin-left: -70px;
+			z-index: 10;
+			button {
+				background: #fff;
+				color: #666;
+				border: 1px solid #666;
+				margin-left: 1.5rem;
+				padding: 0 0.7rem;
+				font-size: 1.2rem;
+				border-radius: 0.5rem;
+			}
+			.active {
+				background: #0099ff;
+				color: #fff;
+				border-color: #0099ff;
+			}
 		}
 	}
-	.controls{
-		position:absolute;
-		bottom: 3rem;
-		left:50%;
-		margin-left: -70px;
-		z-index: 10;
-		button{
-			background: #fff;
-			color:#666;
-			border:1px solid #666;
-			margin-left: 1.5rem;
-			padding:0 0.7rem;
-			font-size: 1.2rem;
-			border-radius: 0.5rem;
-		}
-		.active{
-			background: #0099ff;
-			color:#fff;
-			border-color:#0099ff;
-		}
+	
+	.video {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 1;
 	}
-}
-.video{
-	position: absolute;
-	left: 0;
-	top: 0;
-	z-index:1;
-}
+	
+	.flex-center {
+		background: #fff;
+	}
 </style>
 <style>
 	.ivu-modal-close {

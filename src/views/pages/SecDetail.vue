@@ -24,7 +24,7 @@
 
 			<div class="chooseAddress">
 				<ul class="address" v-if="youdizhi">
-					<li @click.native="addAdd">
+					<li @click="addAdd">
 						<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 							<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
 						<Icon type="ios-arrow-forward"></Icon>
@@ -43,7 +43,7 @@
 				<dl class="dl-base clearfix"><dt class="goumai">购买数量</dt>
 					<dd>
 						<div class="number">
-							<Icon type="md-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)" >
+							<Icon type="md-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)">
 							<Icon type="md-remove" class="ios-remove" @click="jian" />
 						</div>
 					</dd>
@@ -80,7 +80,6 @@
 							有图
 							</span>
 							</h5>
-
 							<ul class="eval-ul" v-if="hasPJ">
 								<li v-for="(item, index) in commentList" :key="index">
 									<h6><img :src="item.list.iconUrl | imgfilter">{{item.list.nickName}}</h6>
@@ -89,10 +88,10 @@
 									<div class="zan"><span class="fr"><i class="icon-new icon-zan" :class="{'icon-zan-active':item.isZan=='Y' }" @click='zan(item.list.id,item.isZan)' ></i>{{item.number}}</span>{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</div>
 								</li>
 							</ul>
-							<div class="flex-center  empty" v-else>
 
-								<img  src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
-							<p>暂无评论记录~</p>
+							<div class="flex-center  empty" v-else>
+								<img src="../../assets/img/pj_empty.png" style="max-width: 8rem;">
+								<p>暂无评论记录~</p>
 							</div>
 						</div>
 					</div>
@@ -106,7 +105,7 @@
 	</div>
 </template>
 <script>
-		import store from '@/store/store';
+	import store from '@/store/store';
 	export default {
 		data() {
 			return {
@@ -139,7 +138,8 @@
 				freightPrice: 0,
 				freightTypeId: '',
 				hasPJ: true,
-				max:1
+				max: 1,
+				temp:''
 
 			}
 		},
@@ -261,7 +261,7 @@
 				let para = {
 					addressId: this.addressList.id,
 					quantity: this.quantity,
-					skuId: this.$route.query.skuId
+					skuId: this.temp
 				};
 				this.$axios({
 					method: 'post',
@@ -269,6 +269,7 @@
 					data: para
 				}).then((res) => {
 					if(res.code == '200') {
+						 localStorage.removeItem('skuId');
 						this.$router.push({
 							path: '/cartthree',
 							query: {
@@ -298,8 +299,8 @@
 					}
 				})
 			},
-						changeNumber: function(event) {
-								var obj = event.target;
+			changeNumber: function(event) {
+				var obj = event.target;
 				this.quantity = parseInt(obj.value);
 				let n = /^[1-9]\d*$/;
 				if(!n.test(obj.value)) {
@@ -314,13 +315,17 @@
 				this.calculate();
 			},
 			getDetail() {
+				if(this.$route.query.skuId!=null&&this.$route.query.skuId!=undefined){
+						this.temp=this.$route.query.skuId;
+						localStorage.setItem('skuId',this.temp);
+				}
 				this.$axios({
 					method: 'get',
-					url: '/promotion/crush/' + this.$route.query.skuId,
+					url: '/promotion/crush/' + localStorage.getItem('skuId'),
 				}).then((res) => {
 					if(res.code == '200') {
 						this.detail = res.object;
-						this.max=this.detail.crush.unitQuantity;
+						this.max = this.detail.crush.unitQuantity;
 						this.freightPrice = this.detail.product.salePrice;
 						this.freightTypeId = this.detail.product.catalogId;
 						if(this.detail.switch == '0') {
@@ -343,21 +348,7 @@
 						}).then((res) => {
 							this.productimg = res;
 						});
-						//显示评论。0位全部评论，1为显示带图评论
-						let imgshow = this.onlyimg;
-						if(imgshow == true) {
-							imgshow = 1
-						} else {
-							imgshow = 0
-						}
-						this.$axios({
-							method: 'get',
-							url: `/comment/search/${this.proId}/${imgshow}`,
-						}).then((res) => {
-							if(res.code == "200") {
-								this.commentList = res.object;
-							}
-						});
+						this.showcomments();
 						this.getExpressPrice()
 					}
 				});
