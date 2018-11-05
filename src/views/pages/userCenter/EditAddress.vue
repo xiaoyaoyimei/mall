@@ -1,10 +1,10 @@
 <template>
 	<div class="order">
 		<div class="wap_header">
-			<router-link to="/user/address" class="m_header_bar_back">
+			<router-link to="/user/address">
 				<Icon type="ios-arrow-back"></Icon>编辑地址</router-link>
 		</div>
-		<Form :model="editForm" ref="editForm" :rules="ruleValidate" class="form_wrap">
+		<Form :model="editForm" ref="editForm" :rules="ruleValidate" class="form_wrap pt44">
 			<FormItem prop="person">
 				<Input v-model="editForm.person" placeholder="收货人姓名"></Input>
 			</FormItem>
@@ -18,7 +18,6 @@
 			<FormItem prop="address">
 				<Input v-model="editForm.address" placeholder="详细地址"></Input>
 			</FormItem>
-
 		</Form>
 		<div class="btn-wrap">
 			<Button type="primary" @click="addSubmit" long class="btn-red">保存</Button>
@@ -27,8 +26,18 @@
 </template>
 
 <script>
+	import { validatePhone } from '@/utils/validate';
 	export default {
 		data() {
+			const validateName = (rule, value, callback) => {
+				if(value == undefined) {
+					callback(new Error('手机号不能为空'));
+				} else if(!validatePhone(value)) {
+					callback(new Error('请输入正确的手机号'));
+				} else {
+					callback();
+				}
+			};
 			return {
 				old: [],
 				addressOption: [],
@@ -47,8 +56,8 @@
 					}],
 					phone: [{
 						required: true,
-						message: '手机号不能为空',
-						trigger: 'change'
+						validator: validateName,
+						trigger: 'blur'
 					}, ],
 					selectedOptionsAddr: [{
 						required: true,
@@ -68,7 +77,7 @@
 		methods: {
 			getParams() {
 				// 取到路由带过来的参数 
-				let routerParams = this.$route.query.old
+				let routerParams = JSON.parse(localStorage.getItem('old'))
 				// 将数据放在当前组件的数据内
 				this.old = routerParams
 				this.editForm.id = this.old.id;
@@ -105,6 +114,7 @@
 							this.$Message.success('提交成功');
 							this.$refs['editForm'].resetFields();
 							this.$router.push('/user/address')
+							localStorage.removeItem('old')
 						});
 					}
 				});
@@ -112,6 +122,7 @@
 		},
 		mounted() {
 			this.getAddressOption();
+			
 			this.getParams();
 		}
 	}

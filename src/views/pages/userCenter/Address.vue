@@ -14,7 +14,8 @@
 					<p>
 						<span> <Radio  v-model="item.isDefault" @click.native="updateDefault(item.id)">设为默认</Radio></span>
 						<span>
-					<router-link :to="{ path: '/user/editaddress', query: {old:item}}" tag="button">编辑</router-link>
+					<!--<router-link :to="{ path: '/user/editaddress', query: {old:JSON.stringify(item)}}" tag="button"></router-link>-->
+					<button @click="seeA(item)">编辑</button>
 						<button @click="handleDelete(item.id)">删除</button>
 					</span>
 					</p>
@@ -46,6 +47,10 @@
 		},
 
 		methods: {
+			seeA(v){
+				localStorage.setItem('old',JSON.stringify(v))
+					this.$router.push({path: '/user/editaddress',})
+			},
 			getAddressList() {
 				this.$axios({
 					method: 'post',
