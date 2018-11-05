@@ -44,7 +44,11 @@
 
 				</li>
 			</ul>
+			<spin size="large" fix v-if="spinShow"></spin>
+			<i-switch @on-change="spinShow = !spinShow"></i-switch>
 		</Scroll>
+		
+		
 		<div class="flex-center  empty" v-else>
 			<img src="../../../assets/img/u9.png" style="max-width: 8rem;">
 			<p>暂无任何评价记录~</p>
@@ -60,6 +64,7 @@
 				evaluateList: [],
 				hasEvaluate: true,
 				onlyimg: false,
+				spinShow: true
 			}
 		},
 		methods: {
@@ -81,6 +86,7 @@
 			},
 			//点赞
 			zan(value, isZan) {
+				this.spinShow=true;
 				var zanid = value;
 				var Like = isZan;
 				if(Like == 'N') {
@@ -95,13 +101,24 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.getEvaluate()
+					setTimeout(() => {
+						this.spinShow=false;
+					}, 1000);
+
 					}
 				})
+			setTimeout(() => {
+				this.spinShow=false;
+			}, 2000);
 			},
+
 
 		},
 		mounted() {
 			this.getEvaluate();
+			setTimeout(() => {
+				this.spinShow=false;
+			}, 2000);
 		},
 	}
 </script>
