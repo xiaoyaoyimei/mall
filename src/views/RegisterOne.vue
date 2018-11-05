@@ -13,14 +13,14 @@
 				</FormItem>
 				<FormItem prop="verificationCode" class="clearfix">
 					<div class="clearfix">
-						<Input v-model.trim="regiForm.verificationCode"   placeholder="请输入图形验证码" class="logw12"  ></Input>
+						<Input v-model.trim="regiForm.verificationCode"   placeholder="请输入图形验证码" class="logw12" style="width:12rem;"  ></Input>
 						<img :src="verimg" @click="getTx" class="tx" />
 						<img src="../assets/img/refresh.png" @click="getTx">
 					</div>
 				</FormItem>
 				<FormItem prop="shortMessage">
 					<div class="clearfix">
-						<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="logw12"></Input>
+						<Input v-model="regiForm.shortMessage" placeholder="请输入短信验证码" class="logw12" style="width:12rem;" ></Input>
 						<Button v-if="sendMsgDisabled" style="height: 4.4rem;">
 						<span >{{time+'秒后获取'}}</span>
 						</Button>
@@ -52,7 +52,7 @@
 			</p>
 			<fwtk></fwtk>
 			<div slot="footer">
-				<Button size="large" long @click="fwtkmodal= false" type="primary" class="btn-blue">确定</Button>
+				<Button size="large" long @click="yhxymodal= false" type="primary" class="btn-blue">确定</Button>
 			</div>
 		</Modal>
 		<Modal v-model="yszcmodal" width="300px">
@@ -62,7 +62,7 @@
 			</p>
 			<yszc></yszc>
 			<div slot="footer">
-				<Button size="large" long @click="fwtkmodal= false" type="primary" class="btn-blue">确定</Button>
+				<Button size="large" long @click="yszcmodal= false" type="primary" class="btn-blue">确定</Button>
 			</div>
 		</Modal>
 	</div>

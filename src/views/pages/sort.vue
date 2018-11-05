@@ -428,7 +428,6 @@
 		height: 1.6rem;
 	}
 	.Hfoot{
-		position: fixed;
 		bottom: 10px;
 	}
 </style>
