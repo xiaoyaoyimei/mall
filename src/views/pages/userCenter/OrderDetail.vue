@@ -80,7 +80,7 @@
 			<div class="wrap">
 				<ul class="sp">
 					<li><span class="t">商品总价:</span><span class="s">￥{{orderdetail.shippingOrder.productFee|pricefilter}}</span></li>
-					<li><span class="t">活动优惠:</span><span class="s">￥{{orderdetail.shippingOrder.discountFee|pricefilter}}</span></li>
+					<li><span class="t">活动优惠:</span><span class="s">-￥{{orderdetail.shippingOrder.discountFee|pricefilter}}</span></li>
 					<li><span class="t">运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费:</span><span class="s">￥{{orderdetail.shippingOrder.postageFee|pricefilter}}</span></li>
 					<li class="border"> <span class="t">应付总额:</span><span class="s zjg">￥{{orderdetail.shippingOrder.orderTotalFee|pricefilter}}</span></li>
 				</ul>

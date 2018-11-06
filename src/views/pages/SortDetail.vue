@@ -18,7 +18,7 @@
 						</wc-slide>
 					</wc-swiper>
 					<img :src="shangp.product.modelImg |imgfilter" v-else>
-					
+
 				</div>
 				<div class="controls" v-show="videoshow">
 					<button :class="videonum==1?'active':''" @click="togglevideotab(1)">图片</button>
@@ -465,7 +465,7 @@
 			},
 			//选择商品
 			detail() {
-				var self=this;
+				var self = this;
 				return new Promise(function(resolve, reject) {
 					var chooseId = "",
 						jishu = 0;
@@ -599,19 +599,21 @@
 									_this.choosesp.kucun = 0
 								}
 							}
-
 							if(_this.choosesp.kucun < 1) {
 								_this.wuhuotongzhi = true;
 							} else {
 								_this.wuhuotongzhi = false;
 							}
-						//	_this.shangp.productImageList=_this.shangp.productImageList.concat(_this.shangp.product.modelImg);
+							_this.ImgUrl = _this.shangp.product.modelImg;
 							if(_this.shangp.product.video != '') {
 								_this.videoIcon = true;
 							}
-
+								
 						}
 						_this.getlikepro();
+						resolve();
+					}).catch(function(){
+						reject();
 					});
 				})
 			},
@@ -658,7 +660,6 @@
 				this.detail();
 			});
 			this.showcomments();
-
 			this.getProductDesc();
 
 		},
@@ -725,12 +726,11 @@
 		position: absolute;
 		top: 0.5rem;
 		right: 1.5rem;
-		img{
+		img {
 			width: 2.4rem;
 			height: 2.4rem;
 		}
 	}
-	
 	
 	.huodong {
 		width: 100%;
