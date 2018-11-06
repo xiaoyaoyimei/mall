@@ -67,20 +67,20 @@
                 userId: '',
                 mobile: '',
                 content: '',
-                imageUrl: '',
-},
-uploadList: [],
-	defaultList: [],
-	ruleInline: {
-		userId: [	{
-					required: true,
-					message:'请输入姓名', trigger: 'blur' },
+                imageUrl:'',
+            },  
+            uploadList: [],
+            defaultList: [],
+            ruleInline: {
+                userId: [	{
+					    required: true,
+					    message:'请输入姓名', trigger: 'blur' },
                     ],
-                    mobile: [
-                                { required: true,  trigger: 'blur',  validator: validatePhone }
+                mobile: [
+                        { required: true,  trigger: 'blur',  validator: validatePhone }
                             
                     ],
-                    content: [
+                content: [
                             { required: true, message: '请输入内容', trigger: 'blur' },
                     ],
             },
@@ -96,7 +96,10 @@ uploadList: [],
             _this.$refs.tousuForm.validate(valid => {
                 if (valid) {
                     let tousuForm=this.tousuForm;
-                    tousuForm.imageUrl = this.uploadList[0].url;
+                    if( this.uploadList.length>0){
+                        tousuForm.imageUrl = this.uploadList[0].url;
+                    }
+                    
                     this.$axios({
                         method: 'post',
                         url: '/advice/insert',

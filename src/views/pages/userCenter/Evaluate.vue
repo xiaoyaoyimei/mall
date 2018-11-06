@@ -183,7 +183,6 @@
 			//提交评价
 			evaluation() {
 				 this.loading = true;
-				 debugger;
 				let isimgs = 0;
 				if(this.evauploadList.length > 0) {
 					isimgs = 1

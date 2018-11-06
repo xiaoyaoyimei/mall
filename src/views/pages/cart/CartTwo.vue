@@ -7,7 +7,7 @@
 			<span class="m_header_bar_title">确认订单</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
-		<Scroll>
+		<Scroll style="">
 		<div class="chooseAddress">
 			<ul class="address" v-if="youdizhi">
 				<li @click="addAdd">
@@ -528,4 +528,9 @@
 	.bd1{
 		border-bottom: 1px solid #ddd;
 	}
+</style>
+<style>
+.paymoney .ivu-scroll-container{
+	height: 100vh!important;
+}
 </style>
