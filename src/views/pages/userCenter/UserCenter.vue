@@ -31,7 +31,7 @@
 				<router-link :to="{ path: '/user/orderlist',query:{status:'06'} }" tag="li"><img src="../../../assets/img/dsh.png">已发货</router-link>
 				<router-link :to="{ path: '/user/orderlist',query:{status:'07'} }" tag="li"><img src="../../../assets/img/yqs.png">已签收</router-link>
 				<router-link :to="{ path: '/user/orderlist',query:{status:'04'} }" tag="li"><img src="../../../assets/img/yqx.png">已取消</router-link>
-				<router-link :to="{ path: '/user/aftersales'}" tag="li"><img src="../../../assets/img/sh.png">售后</router-link>
+				<router-link :to="{ path: '/user/aftersales',query:{refundOrderStatus:'00'}}" tag="li"><img src="../../../assets/img/sh.png">售后</router-link>
 			</ul>
 		</div>
 		<ul class="dl">
@@ -62,7 +62,7 @@
 		},
 		methods: {
 					addAdd() {
-				localStorage.setItem('fromc', 'setting')
+				localStorage.setItem('fromc', 'usercenter')
 				this.$router.push({
 					name: '/user/address'
 				});

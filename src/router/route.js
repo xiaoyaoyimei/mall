@@ -163,14 +163,6 @@ let routes = [{
 				path: '/user/Aftersalesdetail',
 				component: resolve => require(['@/views/pages/userCenter/AfterSalesdetail.vue'], resolve),
 			},
-			{
-				meta: {
-					requireAuth: true
-				},
-				name: 'rufundlist',
-				path: 'rufundlist',
-				component: resolve => require(['@/views/pages/userCenter/RefundList.vue'], resolve),
-			},
 
 			{
 				meta: {

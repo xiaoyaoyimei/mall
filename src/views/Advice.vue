@@ -154,7 +154,6 @@ uploadList: [],
 <style scoped="scoped" lang="scss">
 .advice{
 	background: #fff;
-	margin-top: 1rem;
 	padding:  2rem 2rem 5rem; 
 	h6{
 		font-size: 1.6rem;

@@ -156,7 +156,7 @@
 							}).then((res)=>{
 								if(res.code!=='200'){
 									this.txv++;
-          						 this.verimg=this.global_.originurl+'/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
+          						 this.verimg=this.global_.originurl+'/mall/wap/customer/'+this.regiForm.mobile+'/verification.png?v='+this.txv;
 								}else{
 									  this.$Message.error('该手机号不存在，请注册');
 								}

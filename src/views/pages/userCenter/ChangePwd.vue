@@ -3,7 +3,7 @@
 			<div class="wap_header">
 				<router-link to="/user/setting"  ><Icon type="ios-arrow-back"></Icon>修改密码</router-link>
 			</div>
-				<Form ref="pwd" :model="pwd"  :rules="pwdValidate" class="form_wrap pt44">
+				<Form ref="pwd" :model="pwd"  :rules="pwdValidate" class="form_wrap pt44 new_height">
 					<FormItem  prop="newpass">
 						<i-input v-model.trim="pwd.newpass" placeholder="请输入新密码" type="password"></i-input>
 					</FormItem>
@@ -61,5 +61,9 @@
 
 </script>
 
-<style scoped="scoped" lang="scss">
+<style>
+	.new_height .ivu-form-item{
+		padding-top: 10px!important;
+		padding-bottom: 20px!important;
+	}
 </style>

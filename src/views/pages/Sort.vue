@@ -157,7 +157,6 @@
 			//获取顶部筛选
 			getParams() {
 				this.scrollheight = window.screen.height - 93;
-				console.log(this.scrollheight);
 				if(this.$route.query.type != undefined) {
 					this.getList('type', this.$route.query.type, this.$route.query.typeindex)
 				}

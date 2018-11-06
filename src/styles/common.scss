@@ -804,7 +804,6 @@ border-right: 0.5rem solid #f0f0f0;
       color: #fff;
   }
   .form_wrap {
-      margin-top: 10px;
       background: #fff;
       font-size: 16px;
   }
@@ -821,7 +820,7 @@ border-right: 0.5rem solid #f0f0f0;
   
   //登录注册头部
   .log-forget {
-      padding: 3.5rem 3rem 4.5rem;
+      padding: 3.5rem 3rem 3.5rem;
       overflow: hidden;
       .tx {
           width: 10rem;
@@ -830,7 +829,7 @@ border-right: 0.5rem solid #f0f0f0;
           color: #0099ff;
       }
       .opt {
-          margin-top: 5rem;
+          margin-top: 3.5rem;
           p {
               margin-bottom: 2rem;
           }
@@ -849,12 +848,6 @@ border-right: 0.5rem solid #f0f0f0;
   .btn-blue {
       background: #0099ff;
       border-radius: 0.5rem;
-  }
-  
-  .form_wrap {
-      margin-top: 10px;
-      background: #fff;
-      font-size: 16px;
   }
   
   .btn-wrap {
@@ -1111,7 +1104,7 @@ border-right: 0.5rem solid #f0f0f0;
     i{
         width: 44px;
         text-align: center;
-        font-size: 22px;
+        font-size: 24px;
     }
 }
 .pt44{

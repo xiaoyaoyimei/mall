@@ -35,7 +35,7 @@
 						        </div>
 						    </Upload> 
 						<modal title="查看 头像大图" v-model="visible">
-       				 <img :src="bigimg " v-if="visible" style="width: 100%">
+       				 <img :src="bigimg | imgfilter" v-if="visible" style="width: 100%">
    					 </modal>
    					 </div>
 </div>

@@ -1,14 +1,11 @@
 <template>
 	<div class='paymoney'>
-		<div class="m_header_bar bg-red">
-			<router-link to="/cart" class="m_header_bar_back ">
-				<Icon type="ios-arrow-back"></Icon>
+		<div class="wap_header" >
+			<router-link to="/cart" >
+				<Icon type="ios-arrow-back"></Icon>确认订单
 			</router-link>
-			<span class="m_header_bar_title">确认订单</span>
-			<span class="m_header_bar_menu"></span>
 		</div>
-		<Scroll>
-		<div class="chooseAddress">
+		<div class="chooseAddress pt44" >
 			<ul class="address" v-if="youdizhi">
 				<li @click="addAdd">
 					<img src="../../../assets/img/icon-address.png">
@@ -64,7 +61,6 @@
 			</button>
 			<strong>合计:<span class="color-dx">￥{{total.price+freight|pricefilter}}</span></strong>
 		</div>
-		</Scroll>
 	</div>
 </template>
 <script>
@@ -397,6 +393,12 @@
 	}
 </script>
 <style lang="scss" scoped="scoped">
+ .wap_header{
+ 	background: red;
+ 	a{
+ 		color: #fff;
+ 	}
+ }
 	h6 {
 		border-top: 1px solid #ddd;
 		font-size: 1.6rem;
@@ -406,7 +408,7 @@
 	}
 	
 	.paymoney {
-		margin-bottom: 6rem;
+		padding-bottom:6rem;
 		font-size: 1.6rem;
 	}
 	
