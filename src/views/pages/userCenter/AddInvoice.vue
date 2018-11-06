@@ -1,5 +1,5 @@
 <template>
-		<div class="order">
+		<div class="">
 			<div class="m_header_bar">
 			<span   class="m_header_bar_back" @click="goback()"><Icon type="ios-arrow-back"></Icon></span>
 			<span class="m_header_bar_title">发票信息</span>

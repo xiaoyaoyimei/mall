@@ -277,6 +277,10 @@
 
 <style lang="scss" scoped="scoped">
 	@import '@/styles/common.scss';
+	.new{
+		height: calc(100vh - 65px);
+		overflow: hidden;
+	}
 	.bg-black {
 		position: fixed;
 		top: 0;
