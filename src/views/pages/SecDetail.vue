@@ -261,7 +261,7 @@
 				let para = {
 					addressId: this.addressList.id,
 					quantity: this.quantity,
-					skuId: this.temp
+					skuId: localStorage.getItem('skuId')
 				};
 				this.$axios({
 					method: 'post',

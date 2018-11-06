@@ -59,4 +59,7 @@ outline{
     .form_wrap   .ivu-input:focus{
         box-shadow:none;
     }
+    .ivu-form-item-error-tip{
+    	z-index: 2;
+    }
 </style>

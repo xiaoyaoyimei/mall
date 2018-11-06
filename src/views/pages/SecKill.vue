@@ -8,7 +8,7 @@
 			<img src="../../assets/img/lightning.png">
 			<p>暂无秒杀活动 敬请期待</p>
 		</div>
-		<div class="product" v-else style="background-color:#fff">
+		<div class="product" v-else style='background: #fff;'>
 			<div v-if='startproshow'>
 				<div class="sTitle">
 					秒杀已开始  距结束
@@ -222,7 +222,6 @@ export default {
 	margin-top:1rem;
 }
 .sKpdetail{
-	width: calc(100% - 5rem);
 	margin: 2.5rem;
 	padding-bottom: 2.5rem;
 	border-bottom: 1px solid $color-border;
@@ -233,7 +232,6 @@ export default {
 }
 .product .Slist .Sicon{
 	position: absolute;
-	// top: 0rem;
 	left: 0rem;
 	width: 4rem;
 	height: 4rem;

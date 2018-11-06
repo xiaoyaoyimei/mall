@@ -13,9 +13,6 @@
 			<FormItem prop="phone">
 				<Input v-model="addForm.phone" placeholder="手机号码"></Input>
 			</FormItem>
-			<!--<FormItem>
-				<Input v-model="addForm.tel" placeholder="邮编"></Input>
-			</FormItem>-->
 			<FormItem prop="selectedOptionsAddr">
 				<Cascader v-model="addForm.selectedOptionsAddr" :data="addressOption"></Cascader>
 			</FormItem>
@@ -29,8 +26,18 @@
 </template>
 
 <script>
+		import { validatePhone } from '@/utils/validate';
 	export default {
 		data() {
+					const validateName = (rule, value, callback) => {
+				if(value == undefined) {
+					callback(new Error('手机号不能为空'));
+				} else if(!validatePhone(value)) {
+					callback(new Error('请输入正确的手机号'));
+				} else {
+					callback();
+				}
+			};
 			return {
 				addressOption: [],
 				addForm: {
@@ -46,8 +53,8 @@
 						trigger: 'blur'
 					}],
 					phone: [{
-						required: true,
-						message: '手机号不能为空',
+							required: true,
+						validator: validateName,
 						trigger: 'blur'
 					}, ],
 					selectedOptionsAddr: [{
