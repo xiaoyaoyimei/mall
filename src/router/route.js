@@ -43,7 +43,7 @@ let routes = [{
 			{
 				name: '/sort',
 				path: '/sort',
-				component: resolve => require(['@/views/pages/Sort.vue'], resolve),
+				component: resolve => require(['@/views/pages/NewSort.vue'], resolve),
 			},
 			{
 				name: '用户中心',
