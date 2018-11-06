@@ -28,6 +28,10 @@
         this.name = routerParams
       },
       handleNick(){
+				if( this.name == ''){
+					 this.$Message.error('昵称不能为空');
+					return
+				}
       		this.$axios({
 						    method: 'post',
 						    url:'/account/update',

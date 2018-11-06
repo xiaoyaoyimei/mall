@@ -15,7 +15,7 @@
              <FormItem  prop="confirmpassWord">
             <Input v-model="forgetForm.confirmpassWord" placeholder="请确认新密码" type="password"></Input>
         </FormItem>
-         <FormItem>
+         <FormItem style="margin-top:2rem">
             <Button type="primary" @click="handleSubmit()" class="btn-red" >确定</Button>
         </FormItem>
     </Form>
