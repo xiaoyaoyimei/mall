@@ -42,86 +42,80 @@
 <script>
 	import store from '@/store/store';
 	import { validatePHONE } from '@/assets/js/validate';
-	export default {
-		name: 'login',
-		data() {
-			const validatePhone = (rule, value, callback) => {
-				if(value == undefined) {
-					callback(new Error('手机号不能为空'));
-				} else if(!validatePHONE(value)) {
-					callback(new Error('请输入正确的手机号'));
-				} else {
-
-					callback();
-				}
-			};
-			return {
-				uploadUrl: this.$axios.defaults.baseURL + '/upload/upload?path=account',
-				tousuForm: {
-					userId: '',
-					mobile: '',
-					content: '',
-					imageUrl: '',
-				},
-				uploadList: [],
-				defaultList: [],
-				ruleInline: {
-					userId: [{
-						required: true,
-						message: '请输入姓名',
-						trigger: 'blur'
-					}, ],
-					mobile: [{
-							required: true,
-							trigger: 'blur',
-							validator: validatePhone
-						}
-
-					],
-					content: [{
-						required: true,
-						message: '请输入内容',
-						trigger: 'blur'
-					}, ],
-				},
-				loading: false,
-				showDialog: false,
-				showFile: true
-			}
-		},
-		methods: {
-			toususubmit() {
-				var _this = this;
-				this.loading = true;
-				_this.$refs.tousuForm.validate(valid => {
-					if(valid) {
-						let tousuForm = this.tousuForm;
-						if(this.uploadList.length > 0) {
-							tousuForm.imageUrl = this.uploadList[0].url;
-						}
-
-						this.$axios({
-							method: 'post',
-							url: '/advice/insert',
-							data: tousuForm
-						}).then((res) => {
-							if(res.code == '200') {
-								this.$Message.success('投诉成功');
-								this.$router.push('/index');
-
-							} else {
-								this.loading = false
-								this.$Message.success('投诉失败');
-							}
-						});
-					}
-				})
-				setTimeout(() => {
-					this.loading = false;
-				}, 2000);
-			},
-			evauploadhandleSuccess(res, file) {
-				if(res.code == '200') {
+    export default {
+      data() {
+      	 const validatePhone = (rule, value, callback) => {
+      	 	if(value==undefined){
+      	 		 callback(new Error('手机号不能为空'));
+      	 	}
+          else if (!validatePHONE(value)) {
+            callback(new Error('请输入正确的手机号'));
+          } else {
+          	
+            callback();
+          }
+        };
+        return {
+            uploadUrl: this.$axios.defaults.baseURL + '/upload/upload?path=account',
+            tousuForm:{
+                userId: '',
+                mobile: '',
+                content: '',
+                imageUrl:'',
+            },  
+            uploadList: [],
+            defaultList: [],
+            ruleInline: {
+                userId: [	{
+					    required: true,
+					    message:'请输入姓名', trigger: 'blur' },
+                    ],
+                mobile: [
+                        { required: true,  trigger: 'blur',  validator: validatePhone }
+                            
+                    ],
+                content: [
+                            { required: true, message: '请输入内容', trigger: 'blur' },
+                    ],
+            },
+          loading: false,
+          showDialog: false,
+          showFile:true
+        }
+      },
+    methods: {
+        toususubmit() {
+        var _this=this;
+        this.loading = true;
+            _this.$refs.tousuForm.validate(valid => {
+                if (valid) {
+                    let tousuForm=this.tousuForm;
+                    if( this.uploadList.length>0){
+                        tousuForm.imageUrl = this.uploadList[0].url;
+                    }
+                    
+                    this.$axios({
+                        method: 'post',
+                        url: '/complaint/addAdvice',
+                        data:tousuForm
+                    }).then((res) => {
+                        if(res.code == '200') {
+                            this.$Message.success('投诉成功');
+                            this.$router.push( '/index' );
+                        
+                        }else{
+                            this.loading = false
+                            this.$Message.success('投诉失败');
+                        }
+                    });                    
+                    }
+                })
+                setTimeout(() => {
+                     this.loading = false;
+                }, 2000);
+        },
+        evauploadhandleSuccess(res, file){
+					if(res.code == '200') {
 					file.url = res.msg;
 					file.name = res.msg;
 					this.showFile = false;
