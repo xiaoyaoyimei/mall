@@ -821,10 +821,11 @@
   
   //登录注册头部
   .log-forget {
-      padding: 3.5rem 3rem 3.5rem;
+      padding: 3.5rem 2rem 3.5rem;
       overflow: hidden;
       .tx {
-          width: 10rem;
+          width: 6rem;
+          height: 4.4rem;
       }
       h3 {
           color: #0099ff;
@@ -973,13 +974,10 @@
               }
           }
       }
-      img {
-          max-width: 7rem;
-          max-height: 7rem;
-          margin-right: 1rem;
-      }
   }
-  
+  .spitem li>p{
+      width:2rem
+  }
   .wrap {
       margin-top: 1rem;
       background: #fff;

@@ -59,7 +59,7 @@
 					<div class="two  list-wrap clearfix">
 						<div class="ad-wrap">
 							<router-link :to="{ path: '/sort/sortDetail',query:{id:gameproductone.product_id} }">
-								<img :src="gameproductone.img_url |imgfilter">
+								<img :src="gameproductone.img_url | imgfilter">
 								<div class="ad ">
 									<h5>{{gameproductone.model_no}}</h5>
 									<h6>{{gameproductone.describe1}}</h6>

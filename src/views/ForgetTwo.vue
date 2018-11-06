@@ -5,7 +5,7 @@
 			<span class="m_header_bar_title">重置密码</span>
 		</div>
 		<div class="log-forget">
-		<Form :model="forgetForm"  :rules="ruleValidate" ref="forgetForm" class="form_wrap">
+		<Form :model="forgetForm"  :rules="ruleValidate" ref="forgetForm" style="font-size: 16px;">
 			     <FormItem  >
         <span class="font-16 text-center"> {{mobile}}</span>
         </FormItem>
