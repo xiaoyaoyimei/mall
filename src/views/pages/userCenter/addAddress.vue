@@ -43,7 +43,7 @@
 				addForm: {
 					person: '',
 					phone: '',
-					selectedOptionsAddr: [],
+					selectedOptionsAddr: ["北京","北京市","东城区"],
 					address: '',
 				},
 				ruleValidate: {

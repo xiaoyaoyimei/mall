@@ -102,7 +102,7 @@
                     
                     this.$axios({
                         method: 'post',
-                        url: '/advice/insert',
+                        url: '/complaint/addAdvice',
                         data:tousuForm
                     }).then((res) => {
                         if(res.code == '200') {
