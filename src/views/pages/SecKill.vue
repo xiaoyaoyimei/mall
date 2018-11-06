@@ -193,7 +193,7 @@ export default {
 	line-height: 4.4rem;
 	background-color: #f0f0f0;
 	font-weight: 400;
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 	color: #1E1E1E;
 	text-align: center;
 }
@@ -222,7 +222,7 @@ export default {
 	margin-top:1rem;
 }
 .sKpdetail{
-	margin: 2.5rem;
+	margin: 2.5rem 1.5rem;
 	padding-bottom: 2.5rem;
 	border-bottom: 1px solid $color-border;
 	position: relative;
@@ -250,11 +250,11 @@ export default {
     font-size: 1.8rem;
 	color: #FFFFFF;
 	background-color: #ff0000;
-	width: 10rem;
+	width: 9rem;
 	height: 3.5rem;
 	position: absolute;
 	bottom:1rem;
-	right:1rem;
+	right:0rem;
 	text-align: center;
 }
 .Slist .blue{
