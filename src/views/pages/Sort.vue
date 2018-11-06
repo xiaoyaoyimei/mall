@@ -273,6 +273,10 @@
 
 <style lang="scss" scoped="scoped">
 	@import '@/styles/common.scss';
+	.new{
+		height: calc(100vh - 65px);
+		overflow: hidden;
+	}
 	.icon-xuanze {
 		background-size: 25rem 25rem;
 		width: 2.25rem;
