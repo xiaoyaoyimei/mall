@@ -16,7 +16,7 @@
 					<Input type="password" v-model="loginForm.passWord" placeholder="请输入密码" @keyup.enter.native="handleLogin">
 					</Input>
 				</Form-item>
-				<Button type="primary" @click="handleLogin('loginForm')" class="mt10 btn-red" :loading="loading">登录</Button>
+				<Button type="primary" @click="handleLogin('loginForm')" class="mt10 btn-red font-16" :loading="loading" >登录</Button>
 				<div class="opt">
 					<p>
 						<router-link :to="{path: '/register'}">没有账号?去注册></router-link>
@@ -126,6 +126,7 @@
 		},
 	}
 </script>
+
 <style>
 	.log-reg .ivu-input {
 		font-size: 1.6rem;

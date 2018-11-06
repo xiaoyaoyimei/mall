@@ -205,7 +205,7 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.txv++;
-						this.verimg = this.global_.originurl + 'customer/' + this.regiForm.loginName + '/verification.png?v=' + this.txv;
+						this.verimg = this.global_.originurl + '/mall/wap/customer/' + this.regiForm.loginName + '/verification.png?v=' + this.txv;
 					} else {
 						this.$Message.error(res.msg);
 					}

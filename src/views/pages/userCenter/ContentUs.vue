@@ -24,7 +24,6 @@
 <style scoped="scoped" lang="scss">
 	.contantUs {
 		background: #FFF;
-		margin-top: 1rem;
 		padding: 2rem 2rem 5rem;
 		font-size: 1.6rem;
 		h6 {

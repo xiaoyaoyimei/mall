@@ -8,10 +8,18 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
+//  proxyTable: {
+//  	 '/dxracer-mall-api/wap': {
+//             target: "http://10.0.0.28:8081/",
+//              changeOrigin: true,
+//              pathRewrite: {
+//                  '^/dxracer-mall-api/wap': '/dxracer-mall-api/wap'
+//              }
+//          }
+//  },
+        proxyTable: {
     	 '/mall/wap': {
                target: "http://10.0.0.28:8080/",
-              	//target: "http://www.dxracer.cn/",
                 changeOrigin: true,
                 pathRewrite: {
                     '^/mall/wap': '/mall/wap'

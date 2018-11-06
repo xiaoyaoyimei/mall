@@ -14,7 +14,6 @@
 					<p>
 						<span> <Radio  v-model="item.isDefault" @click.native="updateDefault(item.id)">设为默认</Radio></span>
 						<span>
-					<!--<router-link :to="{ path: '/user/editaddress', query: {old:JSON.stringify(item)}}" tag="button"></router-link>-->
 					<button @click="seeA(item)">编辑</button>
 						<button @click="handleDelete(item.id)">删除</button>
 					</span>
@@ -95,11 +94,18 @@
 				let fromc = localStorage.getItem('fromc');
 				if(fromc != undefined) {
 					if(fromc == 'miaosha') {
-						this.$router.push('/secdetail')
+						this.$router.push('/secdetail');
+						localStorage.removeItem('fromc')
 					} else if(fromc == 'setting') {
 						this.$router.push('/user/setting');
-					} else {
+						localStorage.removeItem('fromc')
+					} else if(fromc=='usercenter'){
+						this.$router.push('/user');
+						localStorage.removeItem('fromc')
+					}else{
+						//fromc=='dingdang'
 						this.$router.push('/carttwo');
+						localStorage.removeItem('fromc')
 					}
 				} else {
 					this.$router.push('/user');

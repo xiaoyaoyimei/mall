@@ -1,12 +1,11 @@
 <template>
 	<div class="order">
-		<div class="m_header_bar">
-			<router-link to="/user/address" class="m_header_bar_back">
-				<Icon type="ios-arrow-back"></Icon>
+		<div class="wap_header">
+			<router-link to="/user/address">
+				<Icon type="ios-arrow-back"></Icon>编辑地址
 			</router-link>
-			<span class="m_header_bar_title">新增地址</span>
 		</div>
-		<Form :model="addForm" ref="addForm" :rules="ruleValidate" class="form_wrap">
+		<Form :model="addForm" ref="addForm" :rules="ruleValidate" class="form_wrap adrr pt44">
 			<FormItem prop="person">
 				<Input v-model="addForm.person" placeholder="收货人姓名"></Input>
 			</FormItem>
@@ -111,7 +110,7 @@
 				});
 			}
 		},
-		mounted() {
+		created() {
 			this.getAddressOption();
 		}
 	}
@@ -129,4 +128,10 @@
 		cursor: pointer;
 	}
 
+</style>
+<style>
+	.adrr .ivu-form-item{
+		padding-top: 10px!important;
+		padding-bottom: 20px!important;
+	}
 </style>

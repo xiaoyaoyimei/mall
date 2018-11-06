@@ -137,8 +137,7 @@
 								    url:'/order/weixin/h5/'+this.orderNo,
 								}).then((res)=>{
 									if(res.code=='200'){
-										let urlo=window.location.origin;
-										var redirect_url = encodeURIComponent(urlo+'/#/user/orderlist');
+										var redirect_url = encodeURIComponent(this.global_.originurl+'/#/user/orderlist');
 									    window.open(res.msg+'&redirect_url='+redirect_url);
 									  }
 								});

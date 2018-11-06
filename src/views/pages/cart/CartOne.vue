@@ -1,7 +1,6 @@
 <template>
 	<div class='cart1'>
 		<div class="m_header_bar bg-red">
-			<span class="m_header_bar_back" @click='back()'><Icon type="ios-arrow-back"></Icon></span>
 			<span class="m_header_bar_title">购物车</span>
 			<span @click="edit" v-show="editface" class="m_header_bar_menu" v-if="hasShow">编辑</span>
 			<span @click="edit" v-show="!editface" class="m_header_bar_menu">完成</span>
@@ -266,9 +265,6 @@
 					this.totalPrice += parseFloat(this.cartList[i].salePrice) * parseFloat(this.cartList[i].quantity);
 					this.zslcount += parseInt(this.cartList[i].quantity)
 				});
-			},
-			back() {
-				this.$router.go(-1);
 			},
 		},
 		mounted() {

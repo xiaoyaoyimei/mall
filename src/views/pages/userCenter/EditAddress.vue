@@ -1,10 +1,11 @@
 <template>
 	<div class="order">
-		<div class="wap_header">
+			<div class="wap_header">
 			<router-link to="/user/address">
-				<Icon type="ios-arrow-back"></Icon>编辑地址</router-link>
+				<Icon type="ios-arrow-back"></Icon>编辑地址
+			</router-link>
 		</div>
-		<Form :model="editForm" ref="editForm" :rules="ruleValidate" class="form_wrap pt44">
+		<Form :model="editForm" ref="editForm" :rules="ruleValidate" class="form_wrap pt44 adrr">
 			<FormItem prop="person">
 				<Input v-model="editForm.person" placeholder="收货人姓名"></Input>
 			</FormItem>
@@ -120,9 +121,10 @@
 				});
 			}
 		},
-		mounted() {
+		created(){
 			this.getAddressOption();
-			
+		},
+		mounted() {
 			this.getParams();
 		}
 	}
@@ -132,7 +134,7 @@
 	.addaddress {
 		position: fixed;
 		bottom: 0;
-		background: #ed1844;
+		background: #ff0000;
 		width: 100%;
 		color: #fff;
 		text-align: center;
@@ -149,5 +151,11 @@
 	.ivu-form-item {
 		padding: 0.5rem 1rem;
 		margin-bottom: 0;
+	}
+</style>
+<style>
+	.adrr .ivu-form-item{
+		padding-top: 10px!important;
+		padding-bottom: 20px!important;
 	}
 </style>

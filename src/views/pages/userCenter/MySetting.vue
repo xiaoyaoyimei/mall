@@ -144,9 +144,6 @@
 		height: 100%
 	}
 	
-	.order .flex-ul {
-		margin-top: 1rem;
-	}
 	
 	.order .flex-ul .tx {
 		padding-top: 2rem;
