@@ -6,7 +6,6 @@
 			<span @click="edit" v-show="!editface" class="m_header_bar_menu">完成</span>
 		</div>
 		<div v-if="hasShow">
-			<Scroll>
 				<Row class="P15">
 					<Checkbox-group v-model="checkAllGroup" @on-change="checkAllGroupChange">
 						<Col class='cartCol' span="24" v-for="(x,index) in cartList" :key="index">
@@ -31,7 +30,6 @@
 						</Col>
 					</Checkbox-group>
 				</Row>
-			</Scroll>
 			<div class='cartfoot'>
 				<Row>
 					<Col span="24">
@@ -288,7 +286,7 @@
 	
 	.P15 {
 		font-size: 1.6rem;
-		margin-bottom: 5rem;
+		padding-bottom: 5rem;
 	}
 	
 	.cart1 {

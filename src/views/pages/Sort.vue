@@ -1,14 +1,16 @@
 <template>
-	<div class="new" style="overflow: hidden;">
-		<header class="bg-black ">
+	<div class="new" >
+	
+		
+			<Scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
+					<header class="bg-black ">
 			<div class="search-wrap">
 				<input @click="gosearch()" v-model.trim="keyword">
 				<Icon type="ios-search" class="icon-search" />
 				<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
 			</div>
 		</header>
-		<div v-if="hasShow">
-			<scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
+		<div v-if="hasShow" class="pt44">
 				<ul class="clearfix mylike">
 					<li v-for="(item, index) in productList" :key='index'>
 						<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
@@ -20,11 +22,11 @@
 					</li>
 				</ul>
 				<div class="jiazaicenter">{{bottomtext}}</div>
-
-			</scroll>
-		</div>
-		<div class="flex-center  empty" v-else>
-			<img src="../../assets/img/sort_empty.png" style="">
+					</div>
+			</Scroll>
+	
+		<div class="flex-center  empty" v-if="!hasShow">
+			<img src="../../assets/img/sort_empty.png" >
 			<p>抱歉 没有找到相关商品</p>
 			<div class="try">
 				<h6>您还可以尝试以下搜素:</h6>
@@ -108,9 +110,15 @@
 				flag: true,
 				catalogId: '',
 				hasShow: true, //搜索有商品
-				scrollheight: 0,
 				keyword: '',
 				bottomtext: '加载更多....',
+			}
+		},
+		computed: {
+			// 计算属性的 getter
+			scrollheight: function() {
+				// `this` 指向 vm 实例
+				return document.body.clientHeight -49
 			}
 		},
 		methods: {
@@ -148,8 +156,6 @@
 			},
 			//获取顶部筛选
 			getParams() {
-				//document.body.offsetHeight(错？)
-				this.scrollheight = document.body.clientHeight  - 93;
 				if(this.$route.query.type != undefined) {
 					this.getList('type', this.$route.query.type, this.$route.query.typeindex)
 				}
@@ -273,6 +279,12 @@
 
 <style lang="scss" scoped="scoped">
 	@import '@/styles/common.scss';
+	.bg-black {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
 	.icon-xuanze {
 		background-size: 25rem 25rem;
 		width: 2.25rem;

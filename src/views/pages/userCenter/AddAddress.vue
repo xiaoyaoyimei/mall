@@ -2,7 +2,7 @@
 	<div class="order">
 		<div class="wap_header">
 			<router-link to="/user/address">
-				<Icon type="ios-arrow-back"></Icon>编辑地址
+				<Icon type="ios-arrow-back"></Icon>新增地址
 			</router-link>
 		</div>
 		<Form :model="addForm" ref="addForm" :rules="ruleValidate" class="form_wrap adrr pt44">
