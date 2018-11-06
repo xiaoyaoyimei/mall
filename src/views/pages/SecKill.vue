@@ -8,7 +8,7 @@
 			<img src="../../assets/img/lightning.png">
 			<p>暂无秒杀活动 敬请期待</p>
 		</div>
-		<div class="product" v-else>
+		<div class="product" v-else style="background-color:#fff">
 			<div v-if='startproshow'>
 				<div class="sTitle">
 					秒杀已开始  距结束
