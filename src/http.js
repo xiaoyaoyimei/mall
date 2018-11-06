@@ -11,7 +11,7 @@ Vue.prototype.$Message = Message
 axios.defaults.timeout = 9000;
 //修改flj
 //生产环境
-axios.defaults.baseURL = `http://10.0.0.28:8081/dxracer-mall-api/wap`;
+axios.defaults.baseURL = `/mall/wap`;
 // http request 拦截器
 axios.interceptors.request.use(
 	config => {

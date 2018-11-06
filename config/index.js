@@ -8,12 +8,21 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-    	 '/dxracer-mall-api/wap': {
-               target: "http://10.0.0.28:8081/",
+//  proxyTable: {
+//  	 '/dxracer-mall-api/wap': {
+//             target: "http://10.0.0.28:8081/",
+//              changeOrigin: true,
+//              pathRewrite: {
+//                  '^/dxracer-mall-api/wap': '/dxracer-mall-api/wap'
+//              }
+//          }
+//  },
+        proxyTable: {
+    	 '/mall/wap': {
+               target: "http://10.0.0.28:8080/",
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/dxracer-mall-api/wap': '/dxracer-mall-api/wap'
+                    '^/mall/wap': '/mall/wap'
                 }
             }
     },
