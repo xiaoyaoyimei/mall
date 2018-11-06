@@ -1,40 +1,41 @@
 <template>
-	<div class="new">
-			<header class="bg-black ">
-				<div class="search-wrap">
-					<input  @click="gosearch()" v-model.trim="keyword">
-					<Icon type="ios-search" class="icon-search" />
-					<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
-				</div>
-			</header>
-			<div v-if="hasShow">
-				<scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
-					<ul class="clearfix mylike">
-						<li v-for="(item, index) in productList" :key='index'>
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
-								<i v-if="item.promotionTitle !=null">{{item.promotionTitle}}</i>
-								<img :src='item.model_img |imgfilter' :alt="item.model_name">
-								<p class="ptitle">{{item.model_no}}</p>
-								<p class="red">{{item.sale_price}}</p>
-							</router-link>
-						</li>
-					</ul>
-					<div class="jiazaicenter" v-if="hasMore">{{bottomtext}}</div>
-				</scroll>
+	<div class="new" style="overflow: hidden;">
+		<header class="bg-black ">
+			<div class="search-wrap">
+				<input @click="gosearch()" v-model.trim="keyword">
+				<Icon type="ios-search" class="icon-search" />
+				<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
 			</div>
-			<div class="flex-center  empty" v-else>
-				<img src="../../assets/img/sort_empty.png" style="">
-				<p>抱歉 没有找到相关商品</p>
-				<div class="try">
-					<h6>您还可以尝试以下搜素:</h6>
-					<ul>
-						<li>电竞</li>
-						<li>办公</li>
-						<li>吃鸡</li>
-						<li>LPL</li>
-					</ul>
-				</div>
+		</header>
+		<div v-if="hasShow">
+			<scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
+				<ul class="clearfix mylike">
+					<li v-for="(item, index) in productList" :key='index'>
+						<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
+							<i v-if="item.promotionTitle !=null">{{item.promotionTitle}}</i>
+							<img :src='item.model_img |imgfilter' :alt="item.model_name">
+							<p class="ptitle">{{item.model_no}}</p>
+							<p class="red">{{item.sale_price}}</p>
+						</router-link>
+					</li>
+				</ul>
+				<div class="jiazaicenter">{{bottomtext}}</div>
+
+			</scroll>
+		</div>
+		<div class="flex-center  empty" v-else>
+			<img src="../../assets/img/sort_empty.png" style="">
+			<p>抱歉 没有找到相关商品</p>
+			<div class="try">
+				<h6>您还可以尝试以下搜素:</h6>
+				<ul>
+					<li>电竞</li>
+					<li>办公</li>
+					<li>吃鸡</li>
+					<li>LPL</li>
+				</ul>
 			</div>
+		</div>
 		<Spin size="large" fix v-if="spinShow"></Spin>
 		<Modal class="filterModal" :class="{zIndex:!filterModal}" v-model="filterModal" title="筛选条件">
 			<div class="wrap">
@@ -76,14 +77,6 @@
 	</div>
 </template>
 <script>
-	// 节流函数
-	const delay = (function() {
-		let timer = 0;
-		return function(callback, ms) {
-			clearTimeout(timer);
-			timer = setTimeout(callback, ms);
-		};
-	})();
 	// 引入公共的bug，来做为中间传达的工具
 	export default {
 		data() {
@@ -118,13 +111,12 @@
 				scrollheight: 0,
 				keyword: '',
 				bottomtext: '加载更多....',
-				hasMore: false
 			}
 		},
 		methods: {
 			//筛选搜索（类别）
 			ok() {
-				this.keyword='';
+				this.keyword = '';
 				this.startRow = 0;
 				this.$axios({
 					method: 'GET',
@@ -146,17 +138,18 @@
 				this.typeindex = -1;
 				this.seriesindex = -1;
 				this.brandindex = -1;
-				 this.searchfilter.catalog='';
-				this.searchfilter.series='';
-				this.searchfilter.type='';
-				this.searchfilter.brand=''
+				this.searchfilter.catalog = '';
+				this.searchfilter.series = '';
+				this.searchfilter.type = '';
+				this.searchfilter.brand = ''
 			},
 			xuanzeModal() {
 				this.filterModal = true;
 			},
 			//获取顶部筛选
 			getParams() {
-				this.scrollheight = window.screen.height - 93;
+				//document.body.offsetHeight(错？)
+				this.scrollheight = document.body.clientHeight  - 93;
 				if(this.$route.query.type != undefined) {
 					this.getList('type', this.$route.query.type, this.$route.query.typeindex)
 				}
@@ -226,20 +219,21 @@
 				}
 
 			},
-			async fetchData() {
+			fetchData() {
 				this.productList = [],
 					this.startRow = 0;
-				const res = await this.$axios({
-					url: '/product/search?keyWord=' + this.keyword + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
+				this.$axios({
 					method: 'GET',
-				});
-				if(res.total > 0) {
-					this.hasShow=true;
-					this.productList = res.itemsList;
-					this.totalSize = res.total;
-				} else {
-					this.hasShow=false;
-				}
+					url: '/product/search?keyWord=' + this.keyword + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
+				}).then((res) => {
+					if(res.total > 0) {
+						this.hasShow = true;
+						this.productList = res.itemsList;
+						this.totalSize = res.total;
+					} else {
+						this.hasShow = false;
+					}
+				})
 			},
 			gosearch() {
 				this.$router.push('/search');
@@ -255,14 +249,12 @@
 							method: 'GET',
 							url: '/product/search?startRow=' + this.startRow + '&pageSize=' + this.pageSize,
 						}).then((res) => {
-							_this.hasMore = true;
 							_this.productList = _this.productList.concat(res.itemsList);
 						})
 						resolve();
 					});
 				} else {
-					_this.hasMore = false;
-					this.bottomtext = '没有更多了....';
+					this.bottomtext = '已经到底了,没有更多了....';
 					return false;
 				}
 			}
@@ -273,7 +265,7 @@
 			this.getTop();
 			//首页点击左侧分类
 			this.getParams();
-     		this.fetchData();
+			this.fetchData();
 		},
 
 	}
@@ -299,11 +291,11 @@
 		width: 50%;
 		text-align: center;
 		border-bottom: 1px solid $color-border;
-		border-right:1px solid transparent;
+		border-right: 1px solid transparent;
 		background: #fff;
 		a {
 			display: block;
-			width:100%;
+			width: 100%;
 			height: 100%;
 		}
 	}
@@ -426,17 +418,18 @@
 			color: #333;
 		}
 	}
-	.search-wrap .sx{
-		width:1.6rem;
+	
+	.search-wrap .sx {
+		width: 1.6rem;
 		height: 1.6rem;
 	}
-	.Hfoot{
+	
+	.Hfoot {
 		position: absolute;
-		bottom:10px;
+		bottom: 10px;
 	}
 </style>
 <style>
-	
 	.filterModal .ivu-modal {
 		width: 100%!important;
 		right: 0rem;
@@ -444,9 +437,11 @@
 		margin: 0rem;
 		z-index: 10001;
 	}
-	.filterModal .ivu-modal{
+	
+	.filterModal .ivu-modal {
 		height: 100%;
 	}
+	
 	.filterModal .ivu-modal-content {
 		border-radius: 0rem;
 	}
@@ -462,7 +457,8 @@
 	.filterModal .ivu-modal-wrap {
 		left: 7.5rem!important;
 	}
-	.filterModal .ivu-modal-footer{
-		 border-top: 0 none;
+	
+	.filterModal .ivu-modal-footer {
+		border-top: 0 none;
 	}
 </style>
