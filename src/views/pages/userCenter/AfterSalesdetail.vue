@@ -7,7 +7,6 @@
 			<span class="m_header_bar_title">退货单详情</span>
 			<span class="m_header_bar_menu"></span>
 		</div>
-		<Scroll>
 		<div class="detail">
 			<div class="status">
 				{{statusfilter(refundOrderdetail.shoppingRefundOrder.refundOrderStatus)}}
@@ -19,8 +18,8 @@
 					<li class="clearfix orderteail" v-for="(item,index) in orderdetail.shippingOrderItems" :key="index">
 						<img :src="item.productItemImg | imgfilter" :alt="item.productTitle">
 						<div class="orderdetailText">
-							<span>{{orderFeejun(item)|pricefilter}} x {{item.quantity}}</span>
-							<span>{{item.productTitle}}</span>
+							<p>{{orderFeejun(item)|pricefilter}} x {{item.quantity}}</p>
+							<p>{{item.productTitle}}</p>
 						</div>
 					</li>
 				</ul>
@@ -50,7 +49,6 @@
 			</div>
 		</div>
 		<Spin size="large" fix v-if="spinShow"></Spin>
-		</Scroll>
 	</div>
 
 </template>

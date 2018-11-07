@@ -673,7 +673,6 @@
   
   .splist .sphead {
       border-top: 1px solid #eee;
-      overflow: hidden;
       padding: 1rem 0;
       display: flex;
       cursor: pointer;
@@ -683,7 +682,6 @@
       width: 5rem;
       height: 5rem;
       border-radius: 1rem;
-      margin-right: 1rem;
   }
   
   .title {
@@ -695,13 +693,12 @@
   }
   
   .xq {
-      margin-right: 1rem;
-      flex: 1;
+      width:13rem
   }
   
   .price {
-      float: right;
       text-align: right;
+      width: 6rem;
   }
   
   .orderno {
@@ -735,7 +732,7 @@
   }
   
   .btn {
-      padding: 0.3rem 1rem;
+      padding: 0.3rem 0.5rem;
       background: #fff;
       border-width: 1px;
       border-style: solid;
@@ -992,10 +989,13 @@
           li {
               display: flex;
               span {
-                  display: block;
+                  display: inline-block;
               }
               .t {
-                  width: 7.5rem
+                  padding-right: 1rem;
+              }
+              .s{
+                  color: #454545;
               }
           }
       }
@@ -1017,7 +1017,7 @@
       height: 8rem;
       color: #fff;
       font-size: 1.6rem;
-      padding-top: 2rem;
+      padding-top: 1rem;
       padding-left: 2rem;
       margin: 1rem 0;
   }
@@ -1041,8 +1041,8 @@
       margin-bottom: 0.5rem;
   }
   
-  .w15 {
-      width: 15rem
+  .w13 {
+      width: 13rem
   }
   
   .eval-fl h5 {

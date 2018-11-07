@@ -35,7 +35,7 @@
 				<ul class="spitem">
 					<li v-for="(item,index) in orderdetail.shippingOrderItems" :key="index">
 						<img :src="item.productItemImg | imgfilter">
-						<div class="w15">
+						<div class="w13">
 							<p class="color-black">{{item.productItemNo}}</p>
 							<p class="title">{{item.productTitle}}</p>
 							<span>{{item.productAttrs}} </span>

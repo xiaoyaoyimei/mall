@@ -25,7 +25,9 @@
 
 						<div v-for="(child,i) in x.orderItems" :key="i" class="order-wrap">
 							<div class="sphead">
+									<router-link :to="{ path: '/sort/sortDetail',query:{id:child.productModelId} }">
 								<img :src="child.productItemImg | imgfilter">
+								</router-link>
 								<div class="xq">
 									<p class="color-black">{{child.productItemNo}}</p>
 									<p class="title">{{child.productTitle}}</p>

@@ -602,8 +602,8 @@
 							}
 							_this.ImgUrl = _this.shangp.product.modelImg;
 							let vwidth = document.body.clientWidth;
-							console.log(_this.shangp.product.video);
 							if(_this.shangp.product.video != '') {
+								
 								_this.player = new YKU.Player('youkuplayer', {
 									styleid: '0',
 									client_id: '0996850d68cf40fe',

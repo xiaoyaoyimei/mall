@@ -143,7 +143,7 @@
 				const check = this.uploadList.length < 5;
 				if(!check) {
 					this.$Notice.warning({
-						title: '最多可上传9张图片.'
+						title: '最多可上传5张图片.'
 					});
 				}
 				return check;
@@ -182,6 +182,7 @@
 			},
 			//提交评价
 			evaluation() {
+				console.log( this.evaItem);
 				 this.loading = true;
 				let isimgs = 0;
 				if(this.evauploadList.length > 0) {

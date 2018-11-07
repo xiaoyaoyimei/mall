@@ -14,12 +14,13 @@
 			<span @click="changeStatus('04')" :class="{red:'04' == numactive}">已退款</span>
 			<span @click="changeStatus('05')" :class="{red:'05' == numactive}">已拒绝</span>
 		</div>
-		<Scroll v-if="hasShow">
-			<ul class="splist box-content">
+			<Scroll v-if="hasShow" :height="scrollheight">
+			<ul class="splist box-content" >
 				<li v-for="(x,index) in refundList" :key="index">
-					<div @click="seeDetail(x.refundOrder.orderNo)">
+					<div @click="seeDetail(x.refundOrder.refundOrderNo,x.refundOrder.orderNo)">
 						<div class="orderno">
-							<p><span class="color-black">订单编号:{{x.refundOrder.orderNo}}</span><span class="orderstatus">{{statusrufundfilter(x.refundOrder.refundOrderStatus)}}</span></p>
+							<p><span class="color-black">订单编号:{{x.refundOrder.orderNo}}</span><span class="orderstatus">
+								{{statusrufundfilter(x.refundOrder.refundOrderStatus)}}</span></p>
 							<p>下单时间:{{x.refundOrder.createTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</p>
 						</div>
 
@@ -47,7 +48,7 @@
 					</div>
 				</li>
 			</ul>
-		</Scroll>
+				</Scroll>
 		<div class="flex-center  empty" v-else>
 			<img src="../../../assets/img/sh_empty.png" style="max-width: 8rem;">
 			<p>暂无售后记录哦~</p>
@@ -55,17 +56,12 @@
 		</div>
 		<Modal v-model="infoModal" class="aftersalemodal" width="500" :mask-closable="false">
 			<p slot="header">
-				<Icon type="ios-information-circle"></Icon>
 				<span class="expressNo">填写物流单号</span>
 			</p>
-			<div>
-				<div class="refund">
-					<p>退款退货订单号</p><span>{{rfOrderNumer}}</span></div>
-				<div class="refund">
-					<p>物流公司</p><input placeholder="物流公司" v-model="logistics"></div>
-				<div class="refund">
-					<p>物流单号</p><input placeholder="物流单号" v-model="expressNo">
-				</div>
+			<div class="wldh">
+					<p>退款退货订单号:{{rfOrderNumer}}</p>
+				<input placeholder="物流公司" v-model="logistics">
+				<input placeholder="物流单号" v-model="expressNo">
 
 			</div>
 			<div slot="footer">
@@ -74,12 +70,11 @@
 		</Modal>
 		<Modal v-model="dealModal" class="aftersaledealModal" width="500" :mask-closable="false">
 			<p slot="header">
-				<Icon type="ios-information-circle"></Icon>
-				<span class="expressNo" style="padding-left:25px;">审核结果</span>
+				审核结果
 			</p>
 			<div style="padding-bottom:30px;" class="refund">
 				<div>
-					<p>退款金额 :</p> <span class="color-red font-15">￥{{refundAmount | pricefilter}}</span>
+					<p>退款金额 :</p> <strong class="color-dx font-15">￥{{refundAmount | pricefilter}}</strong>
 				</div>
 				<div v-if="refundOrderStatus=='05'">
 					<p>拒绝原因 : </p>{{refuseReason}}
@@ -95,9 +90,6 @@
 						<p>退货地址 : </p>{{refundAddress.address}}
 					</div>
 				</div>
-			</div>
-			<div slot="footer">
-				<Button type="primary" size="large" long @click="submitLogisticsInfo">提交</Button>
 			</div>
 		</Modal>
 	</div>
@@ -121,6 +113,7 @@
 				refundOrderStatus: '00',
 				hasShow: true,
 				numactive: '00',
+				scrollheight:0
 			}
 		},
 		methods: {
@@ -163,7 +156,6 @@
 			},
 			show(v) {
 				this.dealModal = true;
-
 				this.refundAmount = v.refundOrderTotalFee;
 				this.refuseReason = v.refuseReason;
 				this.refundOrderStatus = v.refundOrderStatus
@@ -175,6 +167,15 @@
 			//提交物流信息
 			submitLogisticsInfo() {
 				var _this = this;
+						if(_this.logistics==''){
+					_this.$Message.info('物流公司不能为空');
+					return 
+				}
+					if(_this.expressNo==''){
+					_this.$Message.info('物流单号不能为空');
+					return 
+				}
+				
 				_this.$axios({
 					method: 'post',
 					url: `/refund/submitLogisticsInfo?refundOrderNo=${_this.rfOrderNumer}&expressNo=${_this.expressNo}&logistics=${_this.logistics}`,
@@ -221,6 +222,7 @@
 				});
 			},
 			getRefundOrder() {
+					this.scrollheight=document.body.offsetHeight - 84;
 				let refundOrderStatus = '',
 					url = '';
 				if(this.refundOrderStatus == '00' || this.refundOrderStatus == undefined) {
@@ -267,5 +269,21 @@
 </script>
 
 <style scoped="scoped">
-
+	.refund{
+		font-size: 14px;
+		color: #333;
+	}
+.refund p{
+	display: inline-block;
+	width: 8rem;
+	color: #787878;
+}
+.wldh input{
+	width: 100%;
+	margin-top: 1rem;
+	height: 40px;
+	line-height: 40px;
+	text-indent: 5px;
+	border:1px solid #ccc;
+}
 </style>

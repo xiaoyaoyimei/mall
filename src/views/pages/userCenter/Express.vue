@@ -1,14 +1,11 @@
 <template>
 	<div>
-		<div class="m_header_bar">
-			<router-link to="/user" class="m_header_bar_back">
-				<Icon type="ios-arrow-back"></Icon>
+		<div class="wap_header">
+			<router-link to="/user">
+				<Icon type="ios-arrow-back"></Icon>物流信息
 			</router-link>
-			<span class="m_header_bar_title">物流信息</span>
-			<span class="m_header_bar_menu"></span>
 		</div>
-		<Scroll>
-		<div class="express">	
+		<div class="express pt44">	
 			<div class="ex_t ">{{orderStatus}}</div>
 			<ul >
 				<li  v-for="(item,index) in expressList" :key="index">
@@ -24,7 +21,6 @@
 				<p>发货地址： 江苏省无锡市江阴市青阳镇工业园区华澄路21号</p>
 			</div>
 		</div>
-		</Scroll>
 	</div>
 </template>
 
@@ -82,6 +78,7 @@
 		color:red;
 		font-size: 1.6rem;
 		padding-bottom: 1rem;
+		padding-top: 1rem;
 	}
 	ul{
 		border-top: 1px solid #ddd;
