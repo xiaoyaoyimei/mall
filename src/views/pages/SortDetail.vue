@@ -99,8 +99,8 @@
 									</div>
 
 									<p class="commentContent">{{item.list.commentContent}}</p>
-									<div class="sz" v-for="(child, index) in item.imgList" :key="index" v-if="item.imgList.length>0">
-										<span>
+									<div class="sz">
+										<span  v-for="(child, index) in item.imgList" :key="index" v-if="item.imgList.length>0">
 												<img :src="child | imgfilter"></span>
 									</div>
 
@@ -1138,7 +1138,7 @@
 		z-index: 1;
 	}
 	
-	.flex-center {
+	.flex-center,.eval-fl  {
 		background: #fff;
 	}
 </style>

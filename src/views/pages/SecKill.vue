@@ -12,7 +12,7 @@
 			<div v-if='startproshow'>
 				<div class="sTitle">
 					秒杀已开始  距结束
-					<span class="red">{{day}}</span> :
+					<span class="red">{{day}}</span> 天
 					<span class="red">{{hr}}</span> :
 					<span class="red">{{min}}</span> :
 					<span class="red">{{sec}}</span>
@@ -38,7 +38,7 @@
 				<div v-if='nostartproshow'>
 					<div class="sTitle">
 						秒杀未开始  距开始
-						<span class="blue">{{nostartday}}</span> :
+						<span class="blue">{{nostartday}}</span> 天
 						<span class="blue">{{nostarthr}}</span> :
 						<span class="blue">{{nostartmin}}</span> :
 						<span class="blue">{{nostartsec}}</span>
@@ -222,7 +222,7 @@ export default {
 	margin-top:1rem;
 }
 .sKpdetail{
-	margin: 2.5rem 1.5rem;
+	margin: 1.5rem;
 	padding-bottom: 2.5rem;
 	border-bottom: 1px solid $color-border;
 	position: relative;

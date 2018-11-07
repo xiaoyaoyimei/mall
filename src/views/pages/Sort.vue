@@ -155,7 +155,7 @@
 			//获取顶部筛选
 			getParams() {
 				if(this.$route.query.type != undefined) {
-					this.getList('type', this.$route.query.type, this.$route.query.typeindex)
+					this.getList('type', this.$route.query.type, 4)
 				}
 				if(this.$route.query.keyword != undefined) {
 					this.keyword = this.$route.query.keyword;
@@ -187,15 +187,6 @@
 					url: '/product/type',
 				}).then((res) => {
 					this.type = res;
-					for(let index = 0; index < this.type.length; index++) {
-						if(this.type[index].id == this.catalogId) {
-							this.type[index].red = true;
-							this.typeindex = -2
-						} else {
-							this.type[index].red = false;
-						}
-
-					}
 				})
 				this.spinShow = false
 			},
@@ -210,7 +201,6 @@
 					this.searchfilter.type = value
 					for(let i = 0; i < this.type.length; i++) {
 						this.type[i].red = false;
-
 					}
 				}
 				if(type == 'series') {

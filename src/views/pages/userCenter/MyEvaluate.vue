@@ -1,7 +1,7 @@
 <template>
 	<div class="myEva">
 		<div class="wap_header">
-			<router-link to="/user" >
+			<router-link to="/user">
 				<Icon type="ios-arrow-back"></Icon>
 				我的评价
 			</router-link>
@@ -35,7 +35,6 @@
 					<div class="evaluateImg">
 						<img :src="item.shippingOrderItems.productItemImg | imgfilter" alt="">
 						<div class="productItem">
-							<!-- <span>{{item.list.productItemNo}}</span> -->
 							<span class="fubiao">{{item.list.productTitle}}</span>
 							<span class="productFee">￥{{item.list.productFee |pricefilter}}</span>
 						</div>
@@ -45,8 +44,7 @@
 			</ul>
 			<spin size="large" fix v-if="spinShow"></spin>
 		</Scroll>
-		
-		
+
 		<div class="flex-center  empty" v-else>
 			<img src="../../../assets/img/u9.png" style="max-width: 8rem;">
 			<p>暂无任何评价记录~</p>
@@ -71,6 +69,7 @@
 					method: 'get',
 					url: '/comment/mysearch/',
 				}).then((res) => {
+					this.spinShow=false
 					if(res.code == "200") {
 						this.evaluateList = res.object;
 						if(this.evaluateList.length > 0) {
@@ -84,7 +83,6 @@
 			},
 			//点赞
 			zan(value, isZan) {
-				this.spinShow=true;
 				var zanid = value;
 				var Like = isZan;
 				if(Like == 'N') {
@@ -92,31 +90,20 @@
 				} else {
 					Like = 'no'
 				}
-
 				this.$axios({
 					method: 'post',
 					url: '/comment/beLike/' + zanid + '/' + Like,
 				}).then((res) => {
 					if(res.code == '200') {
 						this.getEvaluate()
-					setTimeout(() => {
-						this.spinShow=false;
-					}, 1000);
 
 					}
 				})
-			setTimeout(() => {
-				this.spinShow=false;
-			}, 2000);
 			},
-
 
 		},
 		mounted() {
 			this.getEvaluate();
-			setTimeout(() => {
-				this.spinShow=false;
-			}, 2000);
 		},
 	}
 </script>
@@ -126,7 +113,7 @@
 		width: 100%;
 		background-color: #ffffff;
 		padding: 1rem;
-		margin-bottom: 0.2rem;
+		margin-bottom: 0.5rem;
 	}
 	
 	.evaluateImg img {
@@ -207,7 +194,8 @@
 		margin-right: 2rem;
 		vertical-align: middle;
 	}
-	.myEva .column-style{
+	
+	.myEva .column-style {
 		padding: 0rem;
 	}
 </style>
@@ -220,8 +208,9 @@
 		width: 33.333%;
 		text-align: center;
 	}
-	.myEva .ivu-scroll-container{
-		height:calc(100vh - 35px )!important;
-		margin-top:35px;
+	
+	.myEva .ivu-scroll-container {
+		height: calc(100vh - 35px)!important;
+		margin-top: 35px;
 	}
 </style>

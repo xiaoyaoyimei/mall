@@ -51,7 +51,7 @@
 				</Scroll>
 		<div class="flex-center  empty" v-else>
 			<img src="../../../assets/img/sh_empty.png" style="max-width: 8rem;">
-			<p>暂无售后记录哦~</p>
+			<p>暂无记录哦~</p>
 			<router-link to="/" class="color-dx">去购物</router-link>
 		</div>
 		<Modal v-model="infoModal" class="aftersalemodal" width="500" :mask-closable="false">

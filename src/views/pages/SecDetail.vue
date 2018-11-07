@@ -27,7 +27,7 @@
 					<li @click="addAdd">
 						<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 							<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
-						<Icon type="ios-arrow-forward"></Icon>
+						<Icon type="md-arrow-round-forward"></Icon>
 					</li>
 					<li class="freight">运费:<span class="color-newred" style="color:#ff0000">￥{{freight | pricefilter}}</span></li>
 				</ul>
@@ -40,7 +40,7 @@
 			</div>
 			<div class="sxq">
 				<p>{{detail.product.modelName}}</p>
-				<dl class="dl-base clearfix"><dt class="goumai">购买数量</dt>
+				<dl class="dl-base clearfix"><dt class="goumai">数量</dt>
 					<dd>
 						<div class="number">
 							<Icon type="md-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)">
@@ -50,12 +50,11 @@
 				</dl>
 			</div>
 		</div>
-		<div class="fuwu">
-			<span class="gray">服务</span>
-			<span>○ 官方正品</span>
-			<span>○ 极速发货</span>
-			<span>○ 七天无理由退换货</span>
-		</div>
+			<div class="fuwu">
+				<span>○ 官方正品</span>
+				<span>○ 极速发货</span>
+				<span>○ 七天无理由退换货</span>
+			</div>
 		<div class="bg-lightgray padding40">
 			<ul class="swith-tab pt50 clearfix">
 				<li @click="toggletab(0)" :class="{active:0 == num}">商品详情</li>
@@ -130,7 +129,7 @@
 				proId: '',
 				productDesc: [],
 				productimg: [],
-				addressList: {},
+				addressList: {receiveProvince:''},
 				onlyimg: false,
 				commentList: [],
 				num: 0,
@@ -350,10 +349,14 @@
 						});
 						this.showcomments();
 						this.getExpressPrice()
-					}
+					} 
 				});
 			},
 			getExpressPrice() {
+				if(this.addressList.receiveProvince==''){
+					this.$Message.warning('请先选择收货地址');
+					return false
+				}
 				this.$axios({
 					method: 'post',
 					url: '/order/getShipPrice',
@@ -427,7 +430,6 @@
 	
 	.sxq {
 		padding: 1rem;
-		margin-bottom: 1rem;
 		margin-top: 1rem;
 		background: #fff;
 		p {
@@ -464,6 +466,7 @@
 	
 	.swith-tab {
 		width: 100%;
+		background: #fff;
 		border-bottom: 0.5rem solid $color-border;
 	}
 	
@@ -486,8 +489,9 @@
 	
 	.fuwu {
 		padding: 1rem;
-		border-bottom: 0.25rem solid $color-border;
-		border-top: 0.25rem solid $color-border;
+		border-bottom:10px solid $color-border;
+		border-top:10px solid $color-border;
+		background: #fff;
 	}
 	
 	.fuwu span {
@@ -495,7 +499,8 @@
 		color: #333333;
 		font-family: '微软雅黑';
 		font-weight: 400;
-		font-size: 1.6rem;
+		font-size: 1.2rem;
+		
 	}
 	
 	.fuwu .gray {

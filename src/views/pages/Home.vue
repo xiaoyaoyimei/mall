@@ -18,7 +18,7 @@
 				</Carousel>
 				<ul class="minipro clearfix">
 					<li>
-						<router-link :to="{ path: '/sort',query:{keyword:'新品'}}">
+						<router-link :to="{ path: '/sort',query:{type:'f1e3e761ab6b4a659e676e83bae636a4'}}">
 							<img src="../../assets/img/xp.png"> 新品
 						</router-link>
 					</li>
