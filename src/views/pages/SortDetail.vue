@@ -2,12 +2,12 @@
 	<div>
 		<div class="clearfix ">
 			<Icon type="ios-arrow-back" @click="back()" class="icon-back" />
-			<span class="carticon" @click="close()">
-				<Icon type="md-close" />
-			</span>
+			<router-link :to="{ path: '/cart' }" class="carticon">
+				<Icon type="ios-cart" />
+			</router-link>
 			<div class="video-wrap">
 				<div ref="videoWrap" v-show=" 0== videonum" class="video-height" :style="{width:videowidth,height:videowidth}">
-					<div v-if="videoshow" class="video" :id="shangp.product.video"  style="width: 100%;height:100%">
+					<div class="video" id="youkuplayer" style="width: 100%;height:100%">
 					</div>
 				</div>
 				<div v-show=" 1== videonum" class="swiper">
@@ -200,7 +200,7 @@
 				num: 0,
 				isActive: false,
 				videoshow: false,
-				controlshow:false,
+				controlshow: false,
 				mousehidden: true,
 				xiajia: false,
 				wuhuotongzhi: false,
@@ -261,6 +261,7 @@
 				dpnum: 0,
 				compineId: [],
 				likeshow: false,
+				player: {},
 			}
 		},
 		computed: {
@@ -268,7 +269,7 @@
 				//获取store里面的token
 				return store.state.token;
 			},
-			videowidth(){
+			videowidth() {
 				return `${window.screen.width}px`;
 			}
 		},
@@ -376,26 +377,12 @@
 
 			close() {
 				this.videoshow = false;
-				this.videonum=1
+				this.videonum = 1
 			},
 			togglevideotab(v) {
 				this.videonum = v;
 				if(v == 0) {
-					this.getVideo(this.shangp.product.video);
-				}
-			},
-			getVideo(imgVideo) {
-				let _this = this;
-				if(imgVideo != "") {
-					_this.videoshow = true;
-					let player = new YKU.Player(imgVideo, {
-						styleid: '0',
-						client_id: '0996850d68cf40fe',
-						vid: imgVideo,
-						newPlayer: true,
-						isAutoPlay: true,
-					});
-
+					this.player.playVideo();
 				}
 			},
 			buynow(v) {
@@ -614,9 +601,20 @@
 								_this.wuhuotongzhi = false;
 							}
 							_this.ImgUrl = _this.shangp.product.modelImg;
+							let vwidth = document.body.clientWidth;
+							console.log(_this.shangp.product.video);
 							if(_this.shangp.product.video != '') {
+								_this.player = new YKU.Player('youkuplayer', {
+									styleid: '0',
+									client_id: '0996850d68cf40fe',
+									vid: _this.shangp.product.video,
+									newPlayer: true,
+									isAutoPlay: true,
+									width: vwidth,
+									height: vwidth
+								});
 								_this.videoshow = true;
-								_this.controlshow=true
+								_this.controlshow = true
 							}
 
 						}
