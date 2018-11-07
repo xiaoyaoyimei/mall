@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="refund clearfix">
-                <i-input class="evaluationreason" v-model="evaluationreason" type="textarea"></i-input>
+                <i-input class="evaluationreason" v-model="evaluationreason" placeholder="评价内容" type="textarea"></i-input>
             </div>
             <div class="refund refundLast clearfix">
                 <div class="user-con-wrap ">
@@ -219,11 +219,11 @@
 					if(res.code == '200') {
 						this.$Message.info(res.msg);
 						this.evaluationModal = false;
-						this.$router.push('/user/orderlist')
+						this.$router.push('/user/myevaluate')
 					} else {
 						this.$Message.error(res.msg);
 						this.evaluationModal = false;
-						this.$router.push('/user/orderlist')
+						this.$router.push('/user/myevaluate')
 					}
 				});
 				setTimeout(() => {
