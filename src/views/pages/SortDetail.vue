@@ -2,13 +2,12 @@
 	<div>
 		<div class="clearfix ">
 			<Icon type="ios-arrow-back" @click="back()" class="icon-back" />
-			<router-link :to="{ path: '/cart' }" class="carticon">
-				<Icon type="ios-cart" />
-			</router-link>
+			<span class="carticon" @click="close()">
+				<Icon type="md-close" />
+			</span>
 			<div class="video-wrap">
-				<div ref="videoWrap" v-show=" 0== videonum" class="video-height">
-					<div v-show="videoshow" class="video">
-						<iframe ref="video" frameborder=0 allowfullscreen></iframe>
+				<div ref="videoWrap" v-show=" 0== videonum" class="video-height" :style="{width:videowidth,height:videowidth}">
+					<div v-if="videoshow" class="video" :id="shangp.product.video"  style="width: 100%;height:100%">
 					</div>
 				</div>
 				<div v-show=" 1== videonum" class="swiper">
@@ -20,9 +19,10 @@
 					<img :src="shangp.product.modelImg |imgfilter" v-else>
 
 				</div>
-				<div class="controls" v-show="videoshow">
+				<div class="controls" v-show="controlshow">
 					<button :class="videonum==1?'active':''" @click="togglevideotab(1)">图片</button>
-					<button :class="videonum==0?'active':''" @click="togglevideotab(0)">视频</button></div>
+					<button :class="videonum==0?'active':''" @click="togglevideotab(0)">视频</button>
+				</div>
 			</div>
 			<div class="iteminfo">
 				<dl class="dl-base clearfix">
@@ -200,6 +200,7 @@
 				num: 0,
 				isActive: false,
 				videoshow: false,
+				controlshow:false,
 				mousehidden: true,
 				xiajia: false,
 				wuhuotongzhi: false,
@@ -267,6 +268,9 @@
 				//获取store里面的token
 				return store.state.token;
 			},
+			videowidth(){
+				return `${window.screen.width}px`;
+			}
 		},
 		methods: {
 			cartmodal() {
@@ -337,9 +341,7 @@
 			toggletab(num) {
 				this.num = num;
 			},
-			togglevideotab(v) {
-				this.videonum = v;
-			},
+
 			changeNumber: function(event) {
 				var obj = event.target;
 				this.quantity = parseInt(obj.value);
@@ -374,6 +376,13 @@
 
 			close() {
 				this.videoshow = false;
+				this.videonum=1
+			},
+			togglevideotab(v) {
+				this.videonum = v;
+				if(v == 0) {
+					this.getVideo(this.shangp.product.video);
+				}
 			},
 			getVideo(imgVideo) {
 				let _this = this;
@@ -606,13 +615,14 @@
 							}
 							_this.ImgUrl = _this.shangp.product.modelImg;
 							if(_this.shangp.product.video != '') {
-								_this.videoIcon = true;
+								_this.videoshow = true;
+								_this.controlshow=true
 							}
-								
+
 						}
 						_this.getlikepro();
 						resolve();
-					}).catch(function(){
+					}).catch(function() {
 						reject();
 					});
 				})
@@ -671,7 +681,7 @@
 		position: fixed;
 		background: #333;
 		opacity: 0.5;
-		z-index: 1;
+		z-index: 11;
 		color: #fff;
 		border-radius: 100%;
 		left: 1rem;
@@ -1078,7 +1088,7 @@
 	
 	.carticon {
 		position: fixed;
-		z-index: 1;
+		z-index: 11;
 		right: 1.5rem;
 		top: 1rem;
 		background: #333;

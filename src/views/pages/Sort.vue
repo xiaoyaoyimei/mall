@@ -19,11 +19,9 @@
 						</router-link>
 					</li>
 				</ul>
-				<div class="jiazaicenter">{{bottomtext}}</div>
+				<div class="#ff0037">{{bottomtext}}</div>
 			</div>
-		</Scroll>
-
-		<div class="flex-center  empty" v-if="!hasShow">
+					<div class="flex-center  empty" v-if="!hasShow">
 			<img src="../../assets/img/sort_empty.png">
 			<p>抱歉 没有找到相关商品</p>
 			<div class="try">
@@ -36,6 +34,8 @@
 				</ul>
 			</div>
 		</div>
+		</Scroll>
+
 		<Spin size="large" fix v-if="spinShow"></Spin>
 		<Modal class="filterModal" :class="{zIndex:!filterModal}" v-model="filterModal" title="筛选条件">
 			<div class="wrap">
@@ -109,7 +109,7 @@
 				catalogId: '',
 				hasShow: true, //搜索有商品
 				keyword: '',
-				bottomtext: '加载更多....',
+				bottomtext: '',
 			}
 		},
 		computed: {
@@ -246,7 +246,6 @@
 			handleReachBottom() {
 				this.startRow = this.startRow + this.pageSize;
 				let _this = this;
-				this.bottomtext = '加载更多....'
 				if(_this.productList.length < this.totalSize) {
 					return new Promise(resolve => {
 						this.$axios({
@@ -360,7 +359,7 @@
 	}
 	
 	.filterModal .wrap {
-		margin-top: 0.25rem;
+		margin-top: 0;
 	}
 	
 	.zIndex {
@@ -452,7 +451,9 @@
 		margin: 0rem;
 		z-index: 10001;
 	}
-	
+		.filterModal .ivu-modal-body{
+			padding: 0;
+		}
 	.filterModal .ivu-modal {
 		height: 100%;
 	}

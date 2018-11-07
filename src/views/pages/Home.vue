@@ -52,7 +52,7 @@
 				</div>
 				<div class="floor">
 					<div class="more">
-							<router-link :to="{ path: '/sort',query:{keyword:'电竞'} }" class="seemore"> 查看更多
+							<router-link :to="{ path: '/sort',query:{keyword:'电竞椅'} }" class="seemore"> 查看更多
 								<Icon type="ios-arrow-forward" />
 							</router-link>
 						<span>电竞椅</span></div>
