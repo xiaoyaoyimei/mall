@@ -96,12 +96,12 @@
                     
                     this.$axios({
                         method: 'post',
-                        url: '/complaint/addAdvice',
+                        url: '/complaint/add',
                         data:tousuForm
                     }).then((res) => {
                         if(res.code == '200') {
                             this.$Message.success('投诉成功');
-                            this.$router.push( '/index' );
+                            this.$router.push( '/user' );
                         
                         }else{
                             this.loading = false
