@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div class="wap_header">
-			<router-link to="/user">
+			<span @click="$router.go(-1)">
 				<Icon type="ios-arrow-back"></Icon>建议反馈
-			</router-link>
+			</span>
 		</div>
 		<div class="advice pt44">
 			<Form ref="tousuForm" class="form" :model="tousuForm" :rules="ruleInline">
@@ -101,7 +101,7 @@
                     }).then((res) => {
                         if(res.code == '200') {
                             this.$Message.success('投诉成功');
-                            this.$router.push( '/user' );
+                            this.$router.go(-1);
                         
                         }else{
                             this.loading = false
