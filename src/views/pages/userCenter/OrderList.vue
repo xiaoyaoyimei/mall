@@ -36,7 +36,7 @@
 								<div class="price">
 									<span class="color-black">	￥{{childjun(child) | pricefilter}}</span>
 									<br/>x {{child.quantity}}<br/>
-									<router-link v-if="x.order.orderStatus=='07'&&!child.pinglun" class="color-red pingjia" style="color:#ff0000" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,index:i}}">去评价</router-link>
+									<router-link v-if="x.order.orderStatus=='07'&& !child.pinglun" class="color-red pingjia" style="color:#ff0000" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,index:i,productId:child.productModelId}}">去评价</router-link>
 								</div>
 
 							</div>
@@ -80,7 +80,7 @@
 				height: 500,
 				totalnum: 0,
 				spinShow: true,
-				scrollheight:0
+				scrollheight:0,
 			}
 		},
 		computed: {

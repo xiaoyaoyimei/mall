@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="myEva">
 		<div class="wap_header">
 			<router-link to="/user" >
 				<Icon type="ios-arrow-back"></Icon>
@@ -44,7 +44,6 @@
 				</li>
 			</ul>
 			<spin size="large" fix v-if="spinShow"></spin>
-			<i-switch @on-change="spinShow = !spinShow"></i-switch>
 		</Scroll>
 		
 		
@@ -127,7 +126,7 @@
 		width: 100%;
 		background-color: #ffffff;
 		padding: 1rem;
-		margin-bottom: 0.1rem;
+		margin-bottom: 0.2rem;
 	}
 	
 	.evaluateImg img {
@@ -208,6 +207,9 @@
 		margin-right: 2rem;
 		vertical-align: middle;
 	}
+	.myEva .column-style{
+		padding: 0rem;
+	}
 </style>
 <style>
 	.coupon .ivu-tabs-nav {
@@ -217,5 +219,9 @@
 	.coupon .ivu-tabs-nav .ivu-tabs-tab {
 		width: 33.333%;
 		text-align: center;
+	}
+	.myEva .ivu-scroll-container{
+		height:calc(100vh - 35px )!important;
+		margin-top:35px;
 	}
 </style>

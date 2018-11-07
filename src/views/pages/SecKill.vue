@@ -229,6 +229,7 @@ export default {
 }
 .Slist{
 	position: relative;
+	display: block;
 }
 .product .Slist .Sicon{
 	position: absolute;

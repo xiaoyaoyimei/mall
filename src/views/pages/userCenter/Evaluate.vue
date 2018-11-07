@@ -9,7 +9,6 @@
 		</div>
         <div class="evaluation">
             <div class="refund clearfix">
-                <p>商品名称</p>
                 <div class="refundImg">
                     <img :src="evaItem.productItemImg | imgfilter" alt="">
                     <div class="evaluationText">
@@ -19,19 +18,17 @@
                 </div>
             </div>
             <div class="refund clearfix">
-                <p class="pp">商品评价</p>
                 <i-input class="evaluationreason" v-model="evaluationreason" type="textarea"></i-input>
             </div>
             <div class="refund refundLast clearfix">
-                <p>上传图片</p>
                 <div class="user-con-wrap ">
                     <div class="demo-upload-list" v-for="item in evauploadList">
                         <template v-if="item.status === 'finished'">
                             <img :src="item.url  | imgfilter">
-                            <div class="demo-upload-list-cover">
+                            <!-- <div class="demo-upload-list-cover">
                                 <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
                                 <Icon type="ios-trash-outline" @click.native="evahandleRemove(item)"></Icon>
-                            </div>
+                            </div> -->
                         </template>
                         <template v-else>
                             <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
@@ -63,7 +60,8 @@
 				loading:false,
 				refundorder: '',
                 evauploadList:[],
-                evaluationList: [],
+				evaluationList: [],
+				productId:'',
                 uploadUrl: this.$axios.defaults.baseURL + '/upload/upload?path=account',
                 evaluationreason: '',
 				//评论图片
@@ -178,7 +176,8 @@
 			getParams() {
 				// 取到路由带过来的参数 
                 this.orderNo = this.$route.query.rforder;
-                this.index = this.$route.query.index
+				this.index = this.$route.query.index;
+				this.productId = this.$route.query.productId
 			},
 			//提交评价
 			evaluation() {
@@ -214,7 +213,7 @@
 						commentContent: _this.evaluationreason,
 						commentPics: imgs,
 						orderItemsId: _this.evaItem.orderItemsId,
-						productId: _this.evaItem.productItemId,
+						productId: _this.productId,
 						isImg: isimgs
 					}
 				}).then((res) => {
@@ -292,6 +291,7 @@
 	.evaluation{
 		background-color: #fff;
 		margin-bottom: 2rem;
+		padding:0rem 1.5rem;
 	}
 	.orderNo{
 		padding-left:0.5rem; 
@@ -304,21 +304,11 @@
 		padding-bottom: 0.5rem;
 		border: none!important;
     }
-    .refund  >p{
-        float: left;
-        width: 7rem;
-        padding-top:3.5rem;
-        text-align: right;
-        padding-right: 1rem;
-    }
-    .refund .pp{
-        padding-top: 2rem;
-    }
-
     .refundImg{
         float: left;
-        width: calc(100% - 7rem);
+        width: 100%;
         margin-top: 1.5rem;
+		margin-bottom: 1.5rem
     }
     .refundImg img{
         width: 5rem;
@@ -329,7 +319,7 @@
     }
     .evaluationreason{
         float: left;
-        width: calc(100% - 8rem);
+        width: 100%;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
         border: none;
@@ -340,7 +330,7 @@
     }
     .user-con-wrap {
         float: left;
-        width: calc(100% - 9rem);
+        width: 100%;
     }
 </style>
 <style> 
