@@ -9,14 +9,14 @@
 		<div class="log-forget">
 			<Form ref="loginForm" autoComplete="off" :model="loginForm" :rules="loginRules">
 				<Form-item prop="loginName">
-					<Input type="text" v-model="loginForm.loginName" placeholder="请输入用户名" autoComplete="on">
+					<Input type="text" v-model.trim="loginForm.loginName" placeholder="请输入用户名" autoComplete="on">
 					</Input>
 				</Form-item>
 				<Form-item prop="passWord">
-					<Input type="password" v-model="loginForm.passWord" placeholder="请输入密码" @keyup.enter.native="handleLogin">
+					<Input type="password" v-model.trim="loginForm.passWord" placeholder="请输入密码" @keyup.enter.native="handleLogin">
 					</Input>
 				</Form-item>
-				<Button type="primary" @click="handleLogin('loginForm')" class="mt10 btn-red font-16" :loading="loading" >登录</Button>
+				<Button type="primary" @click="handleLogin('loginForm')" class="mt10 btn-red " :loading="loading" style="font-size: 16px;">登录</Button>
 				<div class="opt">
 					<p>
 						<router-link :to="{path: '/register'}">没有账号?去注册></router-link>

@@ -1,16 +1,14 @@
 <template>
-	<div class="new" >
-	
-		
-			<Scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
-					<header class="bg-black ">
-			<div class="search-wrap">
-				<input @click="gosearch()" v-model.trim="keyword">
-				<Icon type="ios-search" class="icon-search" />
-				<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
-			</div>
-		</header>
-		<div v-if="hasShow" class="pt44">
+	<div class="new newsort">
+		<Scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
+			<header class="bg-black ">
+				<div class="search-wrap">
+					<input @click="gosearch()" v-model.trim="keyword">
+					<Icon type="ios-search" class="icon-search" />
+					<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
+				</div>
+			</header>
+			<div v-if="hasShow" class="pt44">
 				<ul class="clearfix mylike">
 					<li v-for="(item, index) in productList" :key='index'>
 						<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
@@ -22,11 +20,11 @@
 					</li>
 				</ul>
 				<div class="jiazaicenter">{{bottomtext}}</div>
-					</div>
-			</Scroll>
-	
+			</div>
+		</Scroll>
+
 		<div class="flex-center  empty" v-if="!hasShow">
-			<img src="../../assets/img/sort_empty.png" >
+			<img src="../../assets/img/sort_empty.png">
 			<p>抱歉 没有找到相关商品</p>
 			<div class="try">
 				<h6>您还可以尝试以下搜素:</h6>
@@ -118,7 +116,7 @@
 			// 计算属性的 getter
 			scrollheight: function() {
 				// `this` 指向 vm 实例
-				return document.body.clientHeight -49
+				return document.body.clientHeight - 49
 			}
 		},
 		methods: {
@@ -280,7 +278,7 @@
 <style lang="scss" scoped="scoped">
 	@import '@/styles/common.scss';
 	.new{
-		height: calc(100vh - 65px);
+		height: calc(100vh - 50px);
 		overflow: hidden;
 	}
 	.bg-black {
@@ -289,6 +287,7 @@
 		left: 0;
 		width: 100%;
 	}
+	
 	.icon-xuanze {
 		background-size: 25rem 25rem;
 		width: 2.25rem;
@@ -476,5 +475,9 @@
 	
 	.filterModal .ivu-modal-footer {
 		border-top: 0 none;
+	}
+	
+	.newsort .ivu-scroll-container{
+		height:calc(100vh - 50px)!important;
 	}
 </style>
