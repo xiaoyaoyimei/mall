@@ -116,6 +116,7 @@
 					method: 'post',
 					url: '/address/updateDefault?id=' + value + '&isDefault=Y',
 				}).then((res) => {
+						this.$Message.info('设为默认成功');
 					this.getAddressList();
 				})
 			},

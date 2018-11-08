@@ -19,21 +19,21 @@
 						</router-link>
 					</li>
 				</ul>
-				<div class="#ff0037">{{bottomtext}}</div>
+				<div class="bottom">{{bottomtext}}</div>
 			</div>
-					<div class="flex-center  empty" v-if="!hasShow">
-			<img src="../../assets/img/sort_empty.png">
-			<p>抱歉 没有找到相关商品</p>
-			<div class="try">
-				<h6>您还可以尝试以下搜素:</h6>
-				<ul>
-					<li>电竞</li>
-					<li>办公</li>
-					<li>吃鸡</li>
-					<li>LPL</li>
-				</ul>
+			<div class="flex-center  empty" v-if="!hasShow">
+				<img src="../../assets/img/sort_empty.png">
+				<p>抱歉 没有找到相关商品</p>
+				<div class="try">
+					<h6>您还可以尝试以下搜素:</h6>
+					<ul>
+						<li>电竞</li>
+						<li>办公</li>
+						<li>吃鸡</li>
+						<li>LPL</li>
+					</ul>
+				</div>
 			</div>
-		</div>
 		</Scroll>
 
 		<Spin size="large" fix v-if="spinShow"></Spin>
@@ -120,24 +120,7 @@
 			}
 		},
 		methods: {
-			//筛选搜索（类别）
-			ok() {
-				this.keyword = '';
-				this.startRow = 0;
-				this.$axios({
-					method: 'GET',
-					url: '/product/search?catalog=' + this.searchfilter.catalog + '&series=' + this.searchfilter.series + '&type=' + this.searchfilter.type + '&brand=' + this.searchfilter.brand + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
-				}).then((res) => {
-					if(res.itemsList.length > 0) {
-						this.productList = res.itemsList;
-						this.hasShow = true
-					} else {
-						this.hasShow = false
-					}
-					this.totalSize = res.total;
-				})
-				this.filterModal = false;
-			},
+
 			//筛选重置搜索条件
 			reset() {
 				this.catalogindex = -1;
@@ -155,10 +138,13 @@
 			//获取顶部筛选
 			getParams() {
 				if(this.$route.query.type != undefined) {
-					this.getList('type', this.$route.query.type, 4)
-				}
-				if(this.$route.query.keyword != undefined) {
-					this.keyword = this.$route.query.keyword;
+					this.getList('type', this.$route.query.type, 4);
+					this.ok()
+				} else {
+					if(this.$route.query.keyword != undefined) {
+						this.keyword = this.$route.query.keyword;
+					}
+
 					this.fetchData();
 				}
 			},
@@ -199,9 +185,6 @@
 				if(type == 'type') {
 					this.typeindex = index;
 					this.searchfilter.type = value
-					for(let i = 0; i < this.type.length; i++) {
-						this.type[i].red = false;
-					}
 				}
 				if(type == 'series') {
 					this.seriesindex = index;
@@ -211,7 +194,25 @@
 					this.brandindex = index;
 					this.searchfilter.brand = value
 				}
-
+			},
+			//筛选搜索（类别）
+			ok() {
+				
+				this.keyword = '';
+				this.startRow = 0;
+				this.$axios({
+					method: 'GET',
+					url: '/product/search?catalog=' + this.searchfilter.catalog + '&series=' + this.searchfilter.series + '&type=' + this.searchfilter.type + '&brand=' + this.searchfilter.brand + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
+				}).then((res) => {
+					if(res.itemsList.length > 0) {
+						this.productList = res.itemsList;
+						this.hasShow = true
+					} else {
+						this.hasShow = false
+					}
+					this.totalSize = res.total;
+				})
+				this.filterModal = false;
 			},
 			fetchData() {
 				this.productList = [],
@@ -237,6 +238,7 @@
 				this.startRow = this.startRow + this.pageSize;
 				let _this = this;
 				if(_this.productList.length < this.totalSize) {
+					this.bottomtext = '下拉加载更多';
 					return new Promise(resolve => {
 						this.$axios({
 							method: 'GET',
@@ -247,7 +249,7 @@
 						resolve();
 					});
 				} else {
-					this.bottomtext = '已经到底了,没有更多了....';
+					this.bottomtext = '已经到底了';
 					return false;
 				}
 			}
@@ -258,7 +260,7 @@
 			this.getTop();
 			//首页点击左侧分类
 			this.getParams();
-			this.fetchData();
+			//this.fetchData();
 		},
 
 	}
@@ -266,10 +268,11 @@
 
 <style lang="scss" scoped="scoped">
 	@import '@/styles/common.scss';
-	.new{
+	.new {
 		height: calc(100vh - 50px);
 		overflow: hidden;
 	}
+	
 	.bg-black {
 		position: fixed;
 		top: 0;
@@ -375,7 +378,6 @@
 		overflow: hidden;
 		height: 2.5rem;
 		line-height: 2.5rem;
-		font-size: 1.5rem;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
@@ -393,13 +395,6 @@
 		width: 7.5rem;
 		height: 4rem;
 		font-size: 1.6rem;
-	}
-	
-	.top {
-		background: rgba(255, 0, 0, .9);
-		color: #fff;
-		text-align: center;
-		border-radius: 2px;
 	}
 	
 	.try {
@@ -429,8 +424,13 @@
 	}
 	
 	.Hfoot {
-		position: absolute;
+		position: fixed;
 		bottom: 10px;
+	}
+	
+	.bottom {
+		padding: 1rem;
+		text-align: center;
 	}
 </style>
 <style>
@@ -441,15 +441,18 @@
 		margin: 0rem;
 		z-index: 10001;
 	}
-		.filterModal .ivu-modal-body{
-			padding: 0;
-		}
+	
+	.filterModal .ivu-modal-body {
+		padding: 0;
+	}
+	
 	.filterModal .ivu-modal {
 		height: 100%;
 	}
 	
 	.filterModal .ivu-modal-content {
 		border-radius: 0rem;
+		padding-bottom: 20px;
 	}
 	
 	.filterModal .ivu-modal-header {
@@ -468,7 +471,7 @@
 		border-top: 0 none;
 	}
 	
-	.newsort .ivu-scroll-container{
-		height:calc(100vh - 50px)!important;
+	.newsort .ivu-scroll-container {
+		height: calc(100vh - 50px)!important;
 	}
 </style>

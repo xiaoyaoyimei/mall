@@ -21,16 +21,15 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="chooseAddress">
 				<ul class="address" v-if="youdizhi">
 					<li @click="addAdd">
 						<p><strong>{{addressList.person}} <label>{{addressList.phone}}</label></strong>
 							<span>{{addressList.receiveProvince}}{{addressList.receiveCity}}{{addressList.receiveDistrict}}{{addressList.address}}</span></p>
 						<Icon type="md-arrow-round-forward"></Icon>
-					</li>
-					<li class="freight">运费:<span class="color-newred" style="color:#ff0000">￥{{freight | pricefilter}}</span></li>
+					</li><li class="freight">运费:<span class="color-newred" style="color:#ff0000">￥{{freight | pricefilter}}</span></li>
 				</ul>
+				
 				<div class="zeroAddress" v-else>
 					<div @click="addAdd">
 						请选择收货地址
@@ -50,11 +49,11 @@
 				</dl>
 			</div>
 		</div>
-			<div class="fuwu">
-				<span>○ 官方正品</span>
-				<span>○ 极速发货</span>
-				<span>○ 七天无理由退换货</span>
-			</div>
+		<div class="fuwu">
+			<span>○ 官方正品</span>
+			<span>○ 极速发货</span>
+			<span>○ 七天无理由退换货</span>
+		</div>
 		<div class="bg-lightgray padding40">
 			<ul class="swith-tab pt50 clearfix">
 				<li @click="toggletab(0)" :class="{active:0 == num}">商品详情</li>
@@ -81,7 +80,9 @@
 							</h5>
 							<ul class="eval-ul" v-if="hasPJ">
 								<li v-for="(item, index) in commentList" :key="index">
-									<h6><img :src="item.list.iconUrl | imgfilter">{{item.list.nickName}}</h6>
+									<h6>
+										<img  src="../../assets/img/de-tx.jpg" alt="头像" v-if="item.list.iconUrl==''" class="iconUrl" >
+											<img :src="item.list.iconUrl | imgfilter" v-else class="iconUrl" >{{item.list.nickName}}</h6>
 									<p>{{item.list.commentContent}}</p>
 									<div class="sz" :key="index"><span v-for="(child, index) in item.imgList"><img :src="child | imgfilter"></span></div>
 									<div class="zan"><span class="fr"><i class="icon-new icon-zan" :class="{'icon-zan-active':item.isZan=='Y' }" @click='zan(item.list.id,item.isZan)' ></i>{{item.number}}</span>{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</div>
@@ -129,7 +130,9 @@
 				proId: '',
 				productDesc: [],
 				productimg: [],
-				addressList: {receiveProvince:''},
+				addressList: {
+					receiveProvince: ''
+				},
 				onlyimg: false,
 				commentList: [],
 				num: 0,
@@ -138,7 +141,7 @@
 				freightTypeId: '',
 				hasPJ: true,
 				max: 1,
-				temp:''
+				temp: ''
 
 			}
 		},
@@ -239,12 +242,11 @@
 					}).then((res) => {
 						if(res.length > 0) {
 							res.map(function(i) {
-								if(i.isDefault == 'Y' && JSON.stringify(_this.addressList) == "{}") {
+								if(i.isDefault == 'Y' && _this.addressList.receiveProvince == '') {
 									_this.addressList = i;
 									_this.youdizhi = true
 								}
 							});
-
 						}
 						if(_this.youdizhi) {
 							this.getExpressPrice();
@@ -268,7 +270,7 @@
 					data: para
 				}).then((res) => {
 					if(res.code == '200') {
-						 localStorage.removeItem('skuId');
+						localStorage.removeItem('skuId');
 						this.$router.push({
 							path: '/cartthree',
 							query: {
@@ -314,9 +316,9 @@
 				this.calculate();
 			},
 			getDetail() {
-				if(this.$route.query.skuId!=null&&this.$route.query.skuId!=undefined){
-						this.temp=this.$route.query.skuId;
-						localStorage.setItem('skuId',this.temp);
+				if(this.$route.query.skuId != null && this.$route.query.skuId != undefined) {
+					this.temp = this.$route.query.skuId;
+					localStorage.setItem('skuId', this.temp);
 				}
 				this.$axios({
 					method: 'get',
@@ -348,12 +350,11 @@
 							this.productimg = res;
 						});
 						this.showcomments();
-						this.getExpressPrice()
-					} 
+					}
 				});
 			},
 			getExpressPrice() {
-				if(this.addressList.receiveProvince==''){
+				if(this.addressList.receiveProvince == '') {
 					this.$Message.warning('请先选择收货地址');
 					return false
 				}
@@ -489,8 +490,8 @@
 	
 	.fuwu {
 		padding: 1rem;
-		border-bottom:10px solid $color-border;
-		border-top:10px solid $color-border;
+		border-bottom: 10px solid $color-border;
+		border-top: 10px solid $color-border;
 		background: #fff;
 	}
 	
@@ -500,7 +501,6 @@
 		font-family: '微软雅黑';
 		font-weight: 400;
 		font-size: 1.2rem;
-		
 	}
 	
 	.fuwu .gray {

@@ -85,7 +85,11 @@
 							</h5>
 						<ul class="eval-ul" v-if="hasPJ">
 							<li class="clearfix" v-for="(item, index) in commentList" :key="index">
-								<h6><img class="iconUrl" :src="item.list.iconUrl | imgfilter"></h6>
+								<h6>
+											<img  src="../../assets/img/de-tx.jpg" alt="头像" v-if="item.list.iconUrl==''" class="iconUrl" >
+											<img :src="item.list.iconUrl | imgfilter" v-else class="iconUrl" >
+											{{item.list.nickName}}
+											</h6>
 								<div>
 									<p class="name">{{item.list.nickName | plusXing('*')}}</p>
 									<div class="zan">{{item.list.commentTime | formatDate('yyyy-MM-dd')}}
@@ -100,7 +104,7 @@
 
 									<p class="commentContent">{{item.list.commentContent}}</p>
 									<div class="sz">
-										<span  v-for="(child, index) in item.imgList" :key="index" v-if="item.imgList.length>0">
+										<span v-for="(child, index) in item.imgList" :key="index" v-if="item.imgList.length>0">
 												<img :src="child | imgfilter"></span>
 									</div>
 
@@ -127,10 +131,10 @@
 					</span>
 					<span class="red" v-else>￥{{choosesp.price | pricefilter}}</span>
 					</span>
-					<span v-show="!xiajia">
-					库存: {{choosesp.kucun}}件
-					</span>
-					<span class="prf10">已选：{{shangp.product.modelNo}} </span>
+					<p v-show="!xiajia">
+						库存: {{choosesp.kucun}}件
+					</p>
+					<p class="prf10">已选：{{shangp.product.modelNo}} </p>
 					<div v-if="xiajia" class="xiajia">
 						<Icon type="information-circled">
 						</Icon>该商品已下架
@@ -153,11 +157,12 @@
 						</ul>
 					</dd>
 				</dl>
-				<dl class="dl-base clearfix"><dt>购买数量</dt>
+				<dl class="dl-base clearfix">
 					<dd>
+						购买数量
 						<div class="number">
-							<Icon type="ios-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)">
-							<Icon type="ios-remove" class="ios-remove" @click="jian" />
+							<Icon type="md-add" class="ios-add" @click="jia" /><input value="1" type="text" v-model="quantity" v-on:blur="changeNumber($event)">
+							<Icon type="md-remove" class="ios-remove" @click="jian" />
 						</div>
 					</dd>
 				</dl>
@@ -174,8 +179,12 @@
 			<router-link :to="{ path: '/index' }"><img src="../../assets/img/bar-home-gray.png"> </router-link>
 			<router-link :to="{ path: '/cart' }"><img src="../../assets/img/bar-cart-gray.png"></router-link>
 			<button @click="cartmodal()" style="background-color:#ff0000"> 点击购买</button>
-
 		</div>
+		<BackTop :height="100" :bottom="200">
+			<div class="top">
+				<Icon type="md-arrow-round-up" />
+			</div>
+		</BackTop>
 	</div>
 </template>
 <script>
@@ -603,7 +612,7 @@
 							_this.ImgUrl = _this.shangp.product.modelImg;
 							let vwidth = document.body.clientWidth;
 							if(_this.shangp.product.video != '') {
-								
+
 								_this.player = new YKU.Player('youkuplayer', {
 									styleid: '0',
 									client_id: '0996850d68cf40fe',
@@ -705,7 +714,6 @@
 	}
 	
 	.iteminfo h1 {
-		margin-top: 0.75rem;
 		line-height: 1.5rem;
 		margin-bottom: 0.5rem;
 	}
@@ -716,8 +724,7 @@
 	}
 	
 	.prf10 {
-		font-weight: 700;
-		font-size: 1.8rem;
+		font-size: 1.2rem;
 		color: #333333;
 	}
 	
@@ -824,8 +831,6 @@
 		left: 0rem;
 		bottom: 0rem;
 		z-index: 1000;
-		border-top: 1px solid $color-border;
-		box-shadow: -0.2rem 0px 0px 0px #1b1b1b;
 		background-color: #fff;
 		text-align: center;
 		display: flex;
@@ -917,10 +922,9 @@
 		padding-right: 1rem;
 		display: block;
 		width: 100%;
-		border: 1px solid $color-border;
-		height: 3rem;
-		line-height: 3rem;
-		font-size: 1.4rem;
+		background: #fafafa;
+		padding: 3px 8px;
+		border: 1px solid #fafafa
 	}
 	
 	.color-sel li img {
@@ -929,8 +933,9 @@
 	}
 	
 	.color-sel .active {
-		border: 1px solid $color-border-red;
 		color: #f00;
+		background: #fdeded;
+		border: 1px solid #f00
 	}
 	
 	.cartModal .dl-base {
@@ -939,31 +944,28 @@
 		border-top: 1px solid $color-border;
 	}
 	
-	.number input {
+	.number {
 		float: right;
-		line-height: 3.6rem;
-		height: 3.6rem;
-		width: 5rem;
-		border: 1px solid $color-border;
-		text-align: center;
 	}
 	
-	.number .ios-add {
-		float: right;
-		line-height: 3.6rem;
-		height: 3.6rem;
-		width: 3.6rem;
-		background-color: #f0f0f0;
-		text-align: center;
-	}
-	
+	.number .ios-add,
+	.number input,
 	.number .ios-remove {
 		float: right;
-		line-height: 3.6rem;
-		height: 3.6rem;
+		line-height: 3rem;
+		height: 3rem;
+		text-align: center;
+	}
+	
+	.number input {
+		width: 5rem;
+		border: 1px solid $color-border;
+	}
+	
+	.number .ios-add,
+	.number .ios-remove {
 		width: 3.6rem;
 		background-color: #f0f0f0;
-		text-align: center;
 	}
 	
 	.imgdetail {
@@ -974,13 +976,6 @@
 		width: 10rem;
 		height: 10rem;
 		margin-right: 1rem;
-	}
-	
-	.xinxi span {
-		display: block;
-		font-weight: 400;
-		font-size: 1.6rem;
-		color: #999999;
 	}
 	
 	.summary {
@@ -1011,7 +1006,7 @@
 		height: 3.6rem;
 		line-height: 3.6rem;
 		border: none;
-		font-size: 1.6rem;
+		font-size: 1.4rem;
 		width: 50%;
 	}
 	
@@ -1101,8 +1096,9 @@
 	
 	.video-wrap {
 		position: relative;
-		width: 100%;
 		display: block;
+		min-width: 320px;
+		min-height: 320px;
 		.swiper {
 			img {
 				max-width: 100%;
@@ -1124,9 +1120,9 @@
 				border-radius: 0.5rem;
 			}
 			.active {
-				background: #0099ff;
+				background: #FF0000;
 				color: #fff;
-				border-color: #0099ff;
+				border-color: #FF0000;
 			}
 		}
 	}
@@ -1138,8 +1134,13 @@
 		z-index: 1;
 	}
 	
-	.flex-center,.eval-fl  {
+	.flex-center,
+	.eval-fl {
 		background: #fff;
+	}
+	
+	.wc-pagination .wc-dot-active {
+		background: #ff0000;
 	}
 </style>
 <style>

@@ -110,7 +110,8 @@
 								})
 								setToken(data.object["token"])
 								setUserId(data.object["userId"]);
-								this.$router.push('/')
+								//this.$router.push('/')
+								this.$router.push(this.$route.query.redirect || '/')
 							}
 						}).catch(error => {
 							this.loading = false

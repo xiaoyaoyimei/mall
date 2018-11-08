@@ -222,9 +222,6 @@
 			}
 		},
 		methods: {
-			back() {
-
-			},
 			gosearch() {
 				this.$router.push({
 					path: '/search',

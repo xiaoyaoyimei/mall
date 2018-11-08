@@ -1,51 +1,48 @@
 <template>
 		<div class="">
-			<div class="m_header_bar">
-			<span   class="m_header_bar_back" @click="goback()"><Icon type="ios-arrow-back"></Icon></span>
-			<span class="m_header_bar_title">发票信息</span>
-			<span  @click="addSubmit" class="m_header_bar_menu">保存</span>
-		</div>
-		<div class="P15 bg-white">
-			<Form :label-width="100" :model="invoiceForm" ref="invoiceForm" :rules="ruleValidate"  style="background: #fff;"> 
-			<FormItem label="订单编号" prop="orderNo">
-	            <Input  placeholder="订单编号"  :value="invoiceForm.orderNo" disabled></Input>
+			<div class="wap_header">
+				<span   class="m_header_bar_back" @click="goback()"><Icon type="ios-arrow-back"></Icon>发票信息</span>
+			</div>
+		<div class="P15 bg-white pt44">
+			<Form  :model="invoiceForm" ref="invoiceForm" :rules="ruleValidate"  style="background: #fff;"> 
+				<p style="padding-top: 10px;padding-bottom: 10px;font-size: 14px;color: #333;">订单编号:{{invoiceForm.orderNo}}</p>
+	        <FormItem  prop="invoiceTitle">
+	        	 <Input  v-model="invoiceForm.invoiceTitle" placeholder="发票抬头" ></Input>
 	        </FormItem>
-	        <FormItem label="发票抬头"  prop="invoiceTitle">
-	        	 <Input  v-model="invoiceForm.invoiceTitle" ></Input>
-	        </FormItem>
-	        <FormItem label="发票类型" prop="invoiceType">
+	        <FormItem  prop="invoiceType">
 					  <RadioGroup v-model="invoiceForm.invoiceType" >
 				        <Radio label="增值税普通发票">增值税普通发票</Radio>
 				        <Radio label="增值税专用发票">增值税专用发票</Radio>
    					 </RadioGroup>
 				</FormItem>
-	         <FormItem label="收票人姓名" prop="receivePerson">
+	         <FormItem  prop="receivePerson">
 	            <Input v-model="invoiceForm.receivePerson" placeholder="收票人姓名" ></Input>
 	        </FormItem>
-	        <FormItem label="收票人手机" prop="receivePhone">
+	        <FormItem prop="receivePhone">
 	            <Input v-model="invoiceForm.receivePhone" placeholder="收票人手机" ></Input>
 	        </FormItem>
-	       		<FormItem label="所在地区"  prop="selectedOptionsAddr">
+	       		<FormItem   prop="selectedOptionsAddr">
 				       <Cascader  v-model="invoiceForm.selectedOptionsAddr" :data="addressOption"></Cascader>
 				</FormItem>
-	        <FormItem label="详细地址" prop="receiveAddress">
+	        <FormItem  prop="receiveAddress">
 	            <Input v-model="invoiceForm.receiveAddress" placeholder="详细地址" ></Input>
 	        </FormItem>
 	       <div v-if="invoiceForm.invoiceType=='增值税专用发票'">
-	         <FormItem label="开户行名称" prop="bankName">
+	         <FormItem  prop="bankName">
 	            <Input v-model="invoiceForm.bankName" placeholder="开户行名称" ></Input>
 	        </FormItem>
-	        <FormItem label="银行账号" prop="bankNo">
+	        <FormItem  prop="bankNo">
 	            <Input v-model="invoiceForm.bankNo" placeholder="银行账号" ></Input>
 	        </FormItem>
-	        <FormItem label="纳税人识别码" prop="invoiceCode">
+	        <FormItem  prop="invoiceCode">
 	            <Input v-model="invoiceForm.invoiceCode" placeholder="纳税人识别码" ></Input>
 	        </FormItem>
-	        <FormItem label="注册地址" prop="registerAddress">
+	        <FormItem  prop="registerAddress">
 	            <Input v-model="invoiceForm.registerAddress" placeholder="注册地址" ></Input>
 	        </FormItem>
 	        </div>
 	    </Form>
+	     <div class="btn-wrap"><Button  type="primary" @click="addSubmit" long class="btn-red">保存</Button></div>
 	    </div>
 	</div>
 </template>
