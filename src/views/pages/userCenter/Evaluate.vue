@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="refund clearfix">
-                <i-input class="evaluationreason" v-model="evaluationreason" placeholder="评价内容" type="textarea"></i-input>
+                <textarea class="evaluationreason" v-model="evaluationreason" placeholder="评价内容"  rows="3"></textarea>
             </div>
             <div class="refund refundLast clearfix">
                 <div class="user-con-wrap ">
@@ -322,7 +322,7 @@
         width: 100%;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
-        border: none;
+        border: 1px solid #ddd;
     }
     .refundLast{
         padding-top: 1rem;
@@ -332,10 +332,5 @@
         float: left;
         width: 100%;
     }
-</style>
-<style> 
-.refund .ivu-input{
-     border: none!important;
-}
 </style>
 

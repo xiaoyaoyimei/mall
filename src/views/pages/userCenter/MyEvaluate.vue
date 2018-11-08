@@ -210,7 +210,7 @@
 	}
 	
 	.myEva .ivu-scroll-container {
-		height: calc(100vh - 35px)!important;
-		margin-top: 35px;
+		height: calc(100vh - 44px)!important;
+		margin-top: 44px;
 	}
 </style>
