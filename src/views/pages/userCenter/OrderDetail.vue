@@ -65,16 +65,20 @@
 				<h6>发票信息</h6>
 				<ul class="sp">
 
-					<!--<span v-if="orderdetail.shippingOrder.receiveTime!=''">签收时间：{{orderdetail.shippingOrder.receiveTime | formatDate}}</span>-->
-					<li><span class="t">收&nbsp;&nbsp;票&nbsp;&nbsp;人:</span><span class="s">{{orderdetail.shippingInvoice.receivePerson}}</span></li>
+					<li><span class="t">发票状态:</span><span class="s">{{invoiceFilter(orderdetail.shippingInvoice.invoiceStatus)}}</span></li>
+				<li><span class="t">收&nbsp;&nbsp;票&nbsp;&nbsp;人:</span><span class="s">{{orderdetail.shippingInvoice.receivePerson}}</span></li>
+					
 					<li><span class="t">发票抬头:</span><span class="s">{{orderdetail.shippingInvoice.invoiceTitle}}</span></li>
 					<li><span class="t">发票类型:</span><span class="s">{{orderdetail.shippingInvoice.invoiceType}} </span>
 						<span v-if="orderdetail.shippingOrder.orderStatus!='04'" class="btn-invoice">
 		   			<router-link 
 		   				:to="{ name: '/addInvoice',
 		   				query:{orderNo:orderdetail.shippingOrder.orderNo},
-		   				params:{shippingInvoice:orderdetail.shippingInvoice} }" v-if="orderdetail.shippingInvoice==''||orderdetail.shippingInvoice.invoiceStatus=='created'">
-		   		     	编辑发票</router-link></span> </li>
+		   				params:{shippingInvoice:orderdetail.shippingInvoice} }" 
+		   				v-if="orderdetail.shippingInvoice==''||orderdetail.shippingInvoice.invoiceStatus=='created'">
+		   		     	编辑发票</router-link></span> 
+		   		     	</li>
+		   		     	
 				</ul>
 			</div>
 			<div class="wrap">
@@ -121,6 +125,16 @@
 		},
 
 		methods: {
+			//发票类型转换
+			invoiceFilter(v){
+				if(v=='created'){
+					return '待开票'
+				}else if(v=='B'){
+					return '已开票'
+				}else{
+					return '已寄出'
+				}
+			},
 			countdown: function() {
 				const end = Date.parse(new Date(this.jsqtime));
 				const now = Date.parse(new Date());

@@ -1,40 +1,37 @@
 <template>
-	<div class="new newsort">
-		<Scroll :on-reach-bottom="handleReachBottom" :height="scrollheight">
-			<header class="bg-black ">
-				<div class="search-wrap">
-					<input @click="gosearch()" v-model.trim="keyword">
-					<Icon type="ios-search" class="icon-search" />
-					<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
-				</div>
-			</header>
-			<div v-if="hasShow" class="pt44">
-				<ul class="clearfix mylike">
-					<li v-for="(item, index) in productList" :key='index'>
-						<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
-							<i v-if="item.promotionTitle !=null">{{item.promotionTitle}}</i>
-							<img :src='item.model_img |imgfilter' :alt="item.model_name">
-							<p class="ptitle">{{item.model_no}}</p>
-							<p class="red">{{item.sale_price}}</p>
-						</router-link>
-					</li>
+	<div>
+		<header class="bg-black ">
+			<div class="search-wrap">
+				<input @click="gosearch()" v-model.trim="keyword">
+				<Icon type="ios-search" class="icon-search" />
+				<span @click="xuanzeModal()">筛选<img src="../../assets/img/sx.png" class="sx"></span>
+			</div>
+		</header>
+		<scroll class="wrapper" :data="data" :pulldown="pulldown" :pullup="pullup" @pulldown="loadData" @scrollToEnd="moreData" ref="child" v-if="hasShow" :loadingStatus='loadingStatus' :bottomTip='bottomTip'>
+			<ul class="content mylike clearfix">
+				<li v-for="(item, index) in data" :key='index'>
+					<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
+						<i v-if="item.promotionTitle !=null">{{item.promotionTitle}}</i>
+						<img :src='item.model_img |imgfilter' :alt="item.model_name">
+						<p class="ptitle">{{item.model_no}}</p>
+						<p class="red">{{item.sale_price}}</p>
+					</router-link>
+				</li>
+			</ul>
+		</scroll>
+		<div class="flex-center  empty" v-if="!hasShow">
+			<img src="../../assets/img/sort_empty.png">
+			<p>抱歉 没有找到相关商品</p>
+			<div class="try">
+				<h6>您还可以尝试以下搜素:</h6>
+				<ul>
+					<li>电竞</li>
+					<li>办公</li>
+					<li>吃鸡</li>
+					<li>LPL</li>
 				</ul>
-				<div class="bottom">{{bottomtext}}</div>
 			</div>
-			<div class="flex-center  empty" v-if="!hasShow">
-				<img src="../../assets/img/sort_empty.png">
-				<p>抱歉 没有找到相关商品</p>
-				<div class="try">
-					<h6>您还可以尝试以下搜素:</h6>
-					<ul>
-						<li>电竞</li>
-						<li>办公</li>
-						<li>吃鸡</li>
-						<li>LPL</li>
-					</ul>
-				</div>
-			</div>
-		</Scroll>
+		</div>
 
 		<Spin size="large" fix v-if="spinShow"></Spin>
 		<Modal class="filterModal" :class="{zIndex:!filterModal}" v-model="filterModal" title="筛选条件">
@@ -77,13 +74,23 @@
 	</div>
 </template>
 <script>
+	import BScroll from 'better-scroll'
+	import Scroll from '@/components/Scroll'
 	// 引入公共的bug，来做为中间传达的工具
 	export default {
 		data() {
 			return {
+				bottomTip: '查看更多',
+				loadingStatus: {
+					showIcon: false,
+					status: ''
+				},
+				data: [],
+				pullup: true,
+				pulldown: true,
+				curPage: 0,
 				searchdate: '',
 				spinShow: false,
-				productList: [],
 				startRow: 0,
 				pageSize: 16,
 				title: '',
@@ -112,6 +119,9 @@
 				bottomtext: '',
 			}
 		},
+		components: {
+			Scroll
+		},
 		computed: {
 			// 计算属性的 getter
 			scrollheight: function() {
@@ -119,7 +129,46 @@
 				return document.body.clientHeight - 49
 			}
 		},
+		created() {
+			this.getParams();
+		},
 		methods: {
+			moreData() {
+				this.startRow = this.startRow + this.pageSize;
+				if(this.startRow < this.totalSize) { //判断是否继续上拉刷新
+					this.bottomTip = '查看更多';
+					this.loadData() //获取数据方法   
+				} else {
+					this.bottomTip = '已经到底了';
+					return false
+				}
+			},
+			loadData() {
+				this.hasMORE = false
+				this.loadingStatus = {
+					showIcon: true,
+					status: '正在加载...'
+				}
+				this.$axios({
+					method: 'GET',
+					url: '/product/search?keyWord=' + this.keyword + '&catalog=' + this.searchfilter.catalog + '&series=' + this.searchfilter.series + '&type=' + this.searchfilter.type + '&brand=' + this.searchfilter.brand + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
+				}).then((res) => {
+					var self = this;
+					setTimeout(function() {
+						self.loadingStatus = {
+							showIcon: false,
+							status: ''
+						}
+					}, 600);
+					this.totalSize = res.total;
+					this.data = this.data.concat(res.itemsList);
+					if(res.total > 0) {
+						this.hasShow = true;
+					} else {
+						this.hasShow = false;
+					}
+				})
+			},
 
 			//筛选重置搜索条件
 			reset() {
@@ -139,14 +188,12 @@
 			getParams() {
 				if(this.$route.query.type != undefined) {
 					this.getList('type', this.$route.query.type, 4);
-					this.ok()
 				} else {
 					if(this.$route.query.keyword != undefined) {
 						this.keyword = this.$route.query.keyword;
 					}
-
-					this.fetchData();
 				}
+				this.loadData();
 			},
 
 			getTop() {
@@ -197,82 +244,28 @@
 			},
 			//筛选搜索（类别）
 			ok() {
-				
 				this.keyword = '';
 				this.startRow = 0;
-				this.$axios({
-					method: 'GET',
-					url: '/product/search?catalog=' + this.searchfilter.catalog + '&series=' + this.searchfilter.series + '&type=' + this.searchfilter.type + '&brand=' + this.searchfilter.brand + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
-				}).then((res) => {
-					if(res.itemsList.length > 0) {
-						this.productList = res.itemsList;
-						this.hasShow = true
-					} else {
-						this.hasShow = false
-					}
-					this.totalSize = res.total;
-				})
+				this.data = [];
+				this.$refs.child.scrollTo(0, 0)
+				this.loadData();
 				this.filterModal = false;
-			},
-			fetchData() {
-				this.productList = [],
-					this.startRow = 0;
-				this.$axios({
-					method: 'GET',
-					url: '/product/search?keyWord=' + this.keyword + '&startRow=' + this.startRow + '&pageSize=' + this.pageSize,
-				}).then((res) => {
-					if(res.total > 0) {
-						this.hasShow = true;
-						this.productList = res.itemsList;
-						this.totalSize = res.total;
-					} else {
-						this.hasShow = false;
-					}
-				})
 			},
 			gosearch() {
 				this.$router.push('/search');
 			},
-			//scroll下拉加载更多
-			handleReachBottom() {
-				this.startRow = this.startRow + this.pageSize;
-				let _this = this;
-				if(_this.productList.length < this.totalSize) {
-					this.bottomtext = '下拉加载更多';
-					return new Promise(resolve => {
-						this.$axios({
-							method: 'GET',
-							url: '/product/search?startRow=' + this.startRow + '&pageSize=' + this.pageSize,
-						}).then((res) => {
-							_this.productList = _this.productList.concat(res.itemsList);
-						})
-						resolve();
-					});
-				} else {
-					this.bottomtext = '已经到底了';
-					return false;
-				}
-			}
 		},
 
 		mounted() {
 			//得到顶部分类
 			this.getTop();
-			//首页点击左侧分类
-			this.getParams();
-			//this.fetchData();
 		},
 
 	}
 </script>
 
 <style lang="scss" scoped="scoped">
-	@import '@/styles/common.scss';
-	.new {
-		height: calc(100vh - 50px);
-		overflow: hidden;
-	}
-	
+	@import '@/styles/color.scss';
 	.bg-black {
 		position: fixed;
 		top: 0;
@@ -291,6 +284,7 @@
 	
 	.mylike {
 		border-top: 1px solid $color-border;
+		min-height: 100vh;
 	}
 	
 	.mylike li {
@@ -471,7 +465,11 @@
 		border-top: 0 none;
 	}
 	
-	.newsort .ivu-scroll-container {
-		height: calc(100vh - 50px)!important;
+	.wrapper {
+		overflow: hidden;
+		position: fixed;
+		top: 44px;
+		bottom: 50px;
+		z-index: 1;
 	}
 </style>

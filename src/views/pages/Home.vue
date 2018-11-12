@@ -71,7 +71,7 @@
 						<ul class="clearfix">
 							<li  v-for="(item, index) in gameproduct" :key='index' v-if="index>0" v-show='index<5'>
 								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<img :src="item.list.img_url  |imgfilter" >
 									<h6>{{item.list.model_no}}</h6>
 									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
 								</router-link>
@@ -89,7 +89,7 @@
 					<div class=" three clearfix list-wrap">
 						<ul class=" clearfix  office ">
 							<li class="w594">
-								<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }" class="gradlan">
 									<img :src="officeproductone.img_url |imgfilter">
 									<div class="ad ">
 										<h5>{{officeproductone.model_no}}</h5>
@@ -101,7 +101,7 @@
 							</li>
 							<li class="officeproduct" v-for="(item, index) in officeproduct" :key='index' v-if="index>0" v-show='index<5'>
 								<router-link :to="{ path: '/sort/sortDetail',query:{id:item.list.product_id} }">
-									<img :src="item.list.img_url  |imgfilter" :ref="item.list.id">
+									<img :src="item.list.img_url  |imgfilter" >
 									<h6>{{item.list.model_no}}</h6>
 									<span class="color-newred">¥ {{item.list.sale_price|pricefilter}}</span>
 								</router-link>
@@ -117,7 +117,7 @@
 					<div class=" three clearfix">
 						<ul class=" clearfix  office">
 							<li class="w594">
-								<router-link :to="{ path: '/sort/sortDetail',query:{id:houseproductone.product_id} }">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:houseproductone.product_id} }"   >
 									<img :src="houseproductone.img_url | imgfilter">
 									<div class="ad ">
 										<h5>{{houseproductone.model_no}}</h5>
@@ -458,7 +458,7 @@
 	}
 	    .ad {
 		position: absolute;
-		top: 2.4rem;
+		top: 1rem;
 		left: 1rem;
 	}
 	
@@ -480,8 +480,6 @@
 		font-weight: 700;
 		font-size: 1.2rem;
 		color: #FFFFFF;
-		position: relative;
-		top: 1.5rem;
 	}
 
 
@@ -502,7 +500,6 @@
 	
 	.w594 img {
 		width: 100%;
-			height: 16rem;
 	}
 	
 	.w594 .ad {
@@ -526,6 +523,7 @@
 		background: #fff;
 		a{
 			display: block;
+			height: 16rem;
 		}
 		
 	}

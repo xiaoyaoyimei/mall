@@ -1009,7 +1009,9 @@
   
   .btn-invoice a {
       float: right;
-      color: #f00
+      color: #f00;
+      border:1px solid #f00;
+      margin-left: 5px;
   }
   
   .status {

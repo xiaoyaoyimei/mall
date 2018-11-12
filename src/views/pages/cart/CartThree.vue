@@ -74,7 +74,6 @@
 	          },
 			onBridgeReady(){
 					var weixin=this.weixin;
-			
 									WeixinJSBridge.invoke('getBrandWCPayRequest',
 									{
 								           "appId":weixin.appId,     //公众号名称，由商户传入     
