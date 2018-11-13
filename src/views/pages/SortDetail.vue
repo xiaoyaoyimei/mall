@@ -88,7 +88,6 @@
 								<h6>
 											<img  src="../../assets/img/de-tx.jpg" alt="头像" v-if="item.list.iconUrl==''" class="iconUrl" >
 											<img :src="item.list.iconUrl | imgfilter" v-else class="iconUrl" >
-											{{item.list.nickName}}
 											</h6>
 								<div>
 									<p class="name">{{item.list.nickName | plusXing('*')}}</p>
@@ -324,6 +323,7 @@
 			},
 			//点赞
 			zan(value, isZan) {
+				if(this.token != null && this.token != "" && this.token != undefined) {
 				var zanid = value;
 				var Like = isZan;
 				if(Like == 'N') {
@@ -331,7 +331,6 @@
 				} else {
 					Like = 'no'
 				}
-
 				this.$axios({
 					method: 'post',
 					url: '/comment/beLike/' + zanid + '/' + Like,
@@ -340,6 +339,10 @@
 						this.showcomments()
 					}
 				})
+				}
+				else{
+				this.$Message.error('点赞需要登录哦,请先登录');
+				}
 			},
 			//只显示带图评论
 			toggleimg() {

@@ -82,7 +82,7 @@
 								<li v-for="(item, index) in commentList" :key="index">
 									<h6>
 										<img  src="../../assets/img/de-tx.jpg" alt="头像" v-if="item.list.iconUrl==''" class="iconUrl" >
-											<img :src="item.list.iconUrl | imgfilter" v-else class="iconUrl" >{{item.list.nickName}}</h6>
+											<img :src="item.list.iconUrl | imgfilter" v-else class="iconUrl" >{{item.list.nickName | plusXing('*')}}</h6>
 									<p>{{item.list.commentContent}}</p>
 									<div class="sz" :key="index"><span v-for="(child, index) in item.imgList"><img :src="child | imgfilter"></span></div>
 									<div class="zan"><span class="fr"><i class="icon-new icon-zan" :class="{'icon-zan-active':item.isZan=='Y' }" @click='zan(item.list.id,item.isZan)' ></i>{{item.number}}</span>{{item.list.commentTime | formatDate('yyyy-MM-dd hh:mm:ss')}}</div>
@@ -284,6 +284,7 @@
 				});
 			},
 			zan(value, isZan) {
+				if(this.token != null && this.token != "" && this.token != undefined) {
 				var zanid = value;
 				var Like = isZan;
 				if(Like == 'N') {
@@ -299,6 +300,10 @@
 						this.showcomments()
 					}
 				})
+				}
+					else{
+				this.$Message.error('点赞需要登录哦,请先登录');
+				}
 			},
 			changeNumber: function(event) {
 				var obj = event.target;

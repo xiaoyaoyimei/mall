@@ -546,7 +546,7 @@
 		background: #fff;
 		a{
 			display: block;
-			height: 13rem;
+			height: 115px;
 			overflow: hidden;
 		}
 		img{
