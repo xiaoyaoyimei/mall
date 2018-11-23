@@ -1,67 +1,52 @@
-<template>
-	<div class="order">
-		<div class="m_header_bar">
-			<router-link to="/index"  class="m_header_bar_back"><Icon type="ios-arrow-back"></Icon></router-link>
-			<span class="m_header_bar_title">新品频道</span>
-			<Icon :type="styleshow?'android-menu':'android-apps'"  class="m_header_bar_menu"  @click.native="toggle()"></Icon>
-		</div>
-			<div v-if='show' class="flex-center">
-				<img src="../../assets/img/new.png">
-				<p>暂无任何新品,敬请期待</p></div>
-		  <div  v-else  :class="styleshow?'product':'column-style'">
-				<div   class="spdetail"    v-for="(item, index) in productNew" :key='index'>
-							<router-link :to="{ path: '/sort/sortDetail',query:{id:item.id} }">
-								<img  :src='item.model_img |imgfilter'>
-							   <div class="right">	<p class="sP">{{item.model_name}}
-								</p>
-								<p class="font-14">{{item.model_no}}</p>
-								<p>
-									<span v-if="item.promotionTitle !=null" class="promotion">{{item.promotionTitle}}</span>
-									<span v-else></span>
-								</p>
-								<p class="sh6">￥{{item.sale_price | pricefilter}}</p>
-								</div>
-							</router-link>
-				</div>
-	    </div>
-	</div>
-</template>
-	
-<script>
-	export default {
-        data () {
-            return {
-                productNew:[],
-                show:true,
-                styleshow:true,
-            }
-        },
-        methods: {
-        	toggle(){
-				this.styleshow=!this.styleshow;		
-			},
-    	     getNewChannel(){
-    	     	this.$axios({
-						    method: 'GET',
-						    url:'/index/product/new',
-						}).then((res)=>{
-							if(res.code=='200'){
-							 this.productNew=res.object;
-							}
-							if( res.object.length>0){
-								this.show=false
-							}
-						});
-						
-    	      	},
-    	},
-        mounted() {
-			this.getNewChannel();
-		}
-    }
-</script>
-<style  scoped="scoped">
-	.center{
-		text-align: center;
-	}
-</style>
+<view class="top_line"></view>
+<view>
+    <view class="add_item">
+        <text class="item_text">订单号:</text>
+        <text class="item_input">{{rforder}}</text>
+    </view>
+        <view class="add_item">
+        <text class="item_text">退款退货原因:</text>
+      <picker class="picker" bindchange="bindPickerChange" value="{{index}}" range="{{reasonList}}"  range-key="content">
+        <view class="picker">
+   
+          {{reasonList[index].content}}
+        </view>
+  </picker>
+    </view>
+        <view class="add_item">
+        <text class="item_text">上传凭证:</text>
+        <view class="question-images-tool">
+         <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 5}}">选择图片</button>
+</view>
+   
+        <view class="add_item">
+        <text class="item_text">上传视频:</text>
+    <view class="question-images-tool">    
+    <button type="default" size="mini" bindtap="chooseVideo">选择视频</button>
+    
+     </view>
+    </view>
+    <view class="add_item">
+          <textarea class="item_input" placeholder='请输入退款退货理由' bindinput='bindTextarea'></textarea>
+    </view>
+ 
+    <!-- 图片缩略图  -->
+    <view class="question-images">
+      <block wx:for="{{images}}" wx:key="*this">
+        <view class="q-image-wrap">
+          <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+          <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
+        </view>
+      </block>
+    </view>
+    <view class="question-images">
+      <video  src="{{refundVideo}}" controls></video>
+    </view>
+    <view class="add_address" bindtap="add">
+        <view class="add">
+            <text>保存</text>
+        </view>
+    </view>
+
+
+</view> 

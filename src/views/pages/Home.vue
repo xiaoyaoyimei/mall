@@ -90,7 +90,7 @@
 						<ul class=" clearfix  office ">
 							<li class="w594">
 								<router-link :to="{ path: '/sort/sortDetail',query:{id:officeproductone.product_id} }" class="gradlan">
-									<img :src="officeproductone.img_url |imgfilter">
+									<img :src="officeproductone.img_url | imgfilter">
 									<div class="ad ">
 										<h5>{{officeproductone.model_no}}</h5>
 										<h6>{{officeproductone.describe1}}</h6>
@@ -308,7 +308,7 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.gameproduct = res.object;
-						if(this.gameproduct.length > 0) {
+						if(res.object.length > 0) {
 							this.gameproductone = this.gameproduct[0].list;
 						}
 					}

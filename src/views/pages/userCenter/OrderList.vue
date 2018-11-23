@@ -12,7 +12,7 @@
 			<span @click="changeStatus('01')" :class="{red:'01' == numactive}">待付款</span>
 			<span @click="changeStatus('05')" :class="{red:'05' == numactive}">待发货</span>
 			<span @click="changeStatus('06')" :class="{red:'06' == numactive}">已发货</span>
-				<span @click="changeStatus('07')" :class="{red:'07' == numactive}">已签收</span>
+			<span @click="changeStatus('07')" :class="{red:'07' == numactive}">已签收</span>
 		</div>
 		<Scroll v-show="hasShow" :height="scrollheight">
 			<ul class="splist box-content">
@@ -25,8 +25,8 @@
 
 						<div v-for="(child,i) in x.orderItems" :key="i" class="order-wrap">
 							<div class="sphead">
-									<router-link :to="{ path: '/sort/sortDetail',query:{id:child.productModelId} }">
-								<img :src="child.productItemImg | imgfilter">
+								<router-link :to="{ path: '/sort/sortDetail',query:{id:child.productModelId} }">
+									<img :src="child.productItemImg | imgfilter">
 								</router-link>
 								<div class="xq">
 									<p class="color-black">{{child.productItemNo}}</p>
@@ -36,7 +36,7 @@
 								<div class="price">
 									<span class="color-black">	￥{{childjun(child) | pricefilter}}</span>
 									<br/>x {{child.quantity}}<br/>
-									<router-link  v-if="x.order.orderStatus=='07'&& !child.pinglun"  style="background:#ff0000;color: #fff;" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,index:i,productId:child.productModelId}}">去评价</router-link>
+									<router-link v-if="x.order.orderStatus=='07'&& !child.pinglun" style="background:#ff0000;color: #fff;" :to="{ path: '/user/evaluate', query: {rforder:x.order.orderNo,index:i,productId:child.productModelId}}">去评价</router-link>
 								</div>
 
 							</div>
@@ -60,7 +60,7 @@
 			<p>您还没有相关的订单</p>
 			<router-link to="/" class="color-dx">去购物</router-link>
 		</div>
-			<Spin size="large" fix v-if="spinShow"></Spin>
+		<Spin size="large" fix v-if="spinShow"></Spin>
 	</div>
 </template>
 
@@ -80,7 +80,7 @@
 				height: 500,
 				totalnum: 0,
 				spinShow: true,
-				scrollheight:0,
+				scrollheight: 0,
 			}
 		},
 		computed: {
@@ -204,7 +204,7 @@
 				}
 			},
 			getOrder() {
-				this.scrollheight=document.body.offsetHeight - 84;
+				this.scrollheight = document.body.offsetHeight - 84;
 				let status = '',
 					url = '';
 				if(this.status == undefined) {
@@ -222,21 +222,21 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.cartList = res.object;
-						this.hasShow=true
+						this.hasShow = true
 						for(let i = 0; i < this.cartList.length; i++) {
 							this.maopao(this.cartList[i])
 						}
 						this.pro = this.cartList;
-								this.cartList.forEach(function(i){
-								 let child=i.orderItems;
-								 let n=0;
-								 child.forEach(function(c){
-								 	n+=c.quantity;
-								 })
-								 i.znum=n;
+						this.cartList.forEach(function(i) {
+							let child = i.orderItems;
+							let n = 0;
+							child.forEach(function(c) {
+								n += c.quantity;
 							})
+							i.znum = n;
+						})
 					} else {
-						this.hasShow=false
+						this.hasShow = false
 						this.cartList = [];
 						this.pro = [];
 					}

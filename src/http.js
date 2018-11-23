@@ -35,10 +35,10 @@ axios.interceptors.response.use(
 			            Message.error( '验证已过期, 请重新登录')
 				        //   window.location.href=global_.originurl+'/#/login'
 				           		router.replace({
-                        path: '/login',
-                        query: {redirect: router.currentRoute.fullPath}
+			                        path: '/login',
+			                        query: {redirect: router.currentRoute.fullPath}
                         //redirect 登录以后回到上一页面
-                    })
+                    		})
 				             return false
 				          })
 			}else{
