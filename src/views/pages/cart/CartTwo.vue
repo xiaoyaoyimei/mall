@@ -54,6 +54,7 @@
 			<span class="color-dx">已优惠:-￥{{(origintotal.price -total.price)|pricefilter}}</span>
 		</dd></dl>
 			<dl class="bd1"><dt>配送方式</dt><dd><span class="color-dx">快递费用￥{{freight | pricefilter}}</span></dd></dl>
+			<dl class="bd1"><dt>发票信息</dt><dd><span class="color-dx spanBtn" @click="modaladdorderNo=true">编辑发票</span></dd></dl>
 			<dl><dt>备注留言</dt><dd><textarea>{{beizhu}}</textarea></dd></dl>
 		<div class='cartfoot'>
 			<button @click="confirm" type="button"> 
@@ -61,11 +62,81 @@
 			</button>
 			<strong>合计:<span class="color-dx">￥{{total.price+freight|pricefilter}}</span></strong>
 		</div>
+		<Modal v-model="modaladdorderNo" class="modaladdorderNo" title="新增发票信息"  :loading="loading" :mask-closable='false'>
+			<Form :model="addInvoice" ref="addInvoice" style="padding: 15px;" :rules="fpruleValidate">
+				<FormItem  prop="invoiceType">
+					<RadioGroup v-model="addInvoice.invoiceType">
+						<Radio label="增值税普通发票">增值税普通发票</Radio>
+						<Radio label="增值税专用发票">增值税专用发票</Radio>
+					</RadioGroup>
+				</FormItem>
+				<div v-if="addInvoice.invoiceType=='增值税普通发票'">
+					<FormItem  prop="headType">
+						<RadioGroup v-model="addInvoice.headType">
+						<Radio label="个人">个人</Radio>
+						<Radio label="公司">公司</Radio>
+					</RadioGroup>
+					</FormItem>
+						<div v-if="addInvoice.headType=='公司'">
+					<FormItem  prop='invoiceCode'>
+						<Input v-model="addInvoice.invoiceCode" placeholder="纳税人识别码" autocomplete="off"></Input>
+					</FormItem>
+					</div>
+				</div>
+
+				<FormItem  prop="invoiceTitle">
+					<Input v-model="addInvoice.invoiceTitle" placeholder="发票抬头" autocomplete="off"></Input>
+				</FormItem>
+					<div v-if="addInvoice.invoiceType=='增值税专用发票'">
+					<h5 class="color-blue">专用发票必填信息:</h5>
+					<FormItem  prop="bankName">
+						<Input v-model="addInvoice.bankName" placeholder="开户行名称" autocomplete="off"></Input>
+					</FormItem>
+					<FormItem  prop="bankNo">
+						<Input v-model="addInvoice.bankNo" placeholder="银行账号" autocomplete="off"></Input>
+					</FormItem>
+					<FormItem  prop='invoiceCode'>
+						<Input v-model="addInvoice.invoiceCode" placeholder="纳税人识别码" autocomplete="off"></Input>
+					</FormItem>
+					<FormItem  prop="registerAddress">
+						<Input v-model="addInvoice.registerAddress" placeholder="注册地址"></Input>
+					</FormItem>
+							<FormItem prop="registerPhone">
+						<Input v-model="addInvoice.registerPhone" placeholder="注册电话"></Input>
+					</FormItem>
+				</div>
+				<FormItem  prop="receivePerson">
+					<Input v-model="addInvoice.receivePerson" placeholder="收票人姓名" autocomplete="off"></Input>
+				</FormItem>
+				<FormItem  prop="receivePhone">
+					<Input v-model="addInvoice.receivePhone" placeholder="收票人手机" autocomplete="off"></Input>
+				</FormItem>
+				<FormItem  prop="selectedOptionsAddr">
+					<Cascader v-model="addInvoice.selectedOptionsAddr" placeholder="选择所在区域" :data="addressOption"></Cascader>
+				</FormItem>
+				<FormItem  prop='receiveAddress'>
+					<Input v-model="addInvoice.receiveAddress" placeholder="详细地址" autocomplete="off"></Input>
+				</FormItem>
+			
+			</Form>
+			<div class="btn-wrap"><Button  type="primary" @click="addinvoice" long class="btn-red">保存</Button></div>
+		</Modal>
+
 	</div>
 </template>
 <script>
+import { validatePhone } from '@/utils/validate';
 	export default {
 		data() {
+			const validatename= (rule, value, callback) => {
+				if(value === undefined) {
+					callback(new Error('手机号不能为空'));
+				} else if(!validatePhone(value)) {
+					callback(new Error('请输入正确的手机号'));
+				} else {
+					callback();
+				}
+			};
 			return {
 				orderfail: false,
 				xscoupon: false,
@@ -105,9 +176,111 @@
 				orderfrom: 'B',
 				useCouponMsg: '',
 				beizhu: '',
+				modaladdorderNo: false,
+				loading: true,
+				addressOption: [],
+				orderInvoiceForm:{},
+				addInvoice: {
+					bankName: '',
+					bankNo: '',
+					invoiceCode: '',
+					invoiceTitle: '',
+					headType:'个人',
+					invoiceType: '增值税普通发票',
+					receiveAddress: '',
+					receivePerson: '',
+					registerAddress: '',
+					receivePhone: '',
+					selectedOptionsAddr: [],
+					registerPhone:''
+				},
+				fpruleValidate: {
+					selectedOptionsAddr: [{
+						required: true,
+						type: 'array',
+						message: '请选择省市区',
+						trigger: 'change'
+					}],
+					bankName: [{
+						required: true,
+						message: '开户行名称不能为空',
+						trigger: 'blur'
+					}],
+					bankNo: [{
+						required: true,
+						message: '银行账号不能为空',
+						trigger: 'blur'
+					}],
+					invoiceCode: [{
+						required: true,
+						message: '纳税人识别码不能为空',
+						trigger: 'blur'
+					}],
+					invoiceTitle: [{
+						required: true,
+						message: '发票抬头不能为空',
+						trigger: 'blur'
+					}, ],
+					invoiceType: [{
+						required: true,
+						message: '发票类型不能为空',
+						trigger: 'change'
+					}],
+					receiveAddress: [{
+						required: true,
+						message: '详细地址不能为空',
+						trigger: 'blur'
+					}],
+					receivePerson: [{
+						required: true,
+						message: '收票人姓名不能为空',
+						trigger: 'blur'
+					}],
+					receivePhone: [{
+						required: true,
+						trigger: 'blur',
+						validator: validatename,
+					}],
+					registerPhone: [{
+							required: true,
+						message: '注册电话不能为空',
+						trigger: 'blur'
+					}],
+					registerAddress: [{
+						required: true,
+						message: '注册地址不能为空',
+						trigger: 'blur'
+					}],
+					
+					},
 			}
 		},
 		methods: {
+			addinvoice() {
+				this.loading = false;
+				this.$nextTick(() => {
+					this.loading = true;
+					this.$refs['addInvoice'].validate((valid) => {
+						if(valid) {
+							let temp = this.addInvoice;
+							temp.receiveProvince = this.addInvoice.selectedOptionsAddr[0];
+							temp.receiveCity = this.addInvoice.selectedOptionsAddr[1];
+							temp.receiveDistrict = this.addInvoice.selectedOptionsAddr[2];
+							 this.orderInvoiceForm  = Object.assign({}, temp);
+							 delete this.orderInvoiceForm['selectedOptionsAddr']
+							 this.modaladdorderNo = false;
+						}
+					})
+				}, 2000)
+			},
+			getAddressOption(){
+    	      	this.$axios({
+					method: 'post',
+					url:'/common/address',
+				}).then((res)=>{
+					 this.addressOption=res;
+				});
+    	    },
 			//总价计算
 			jisuan(value) {
 				let _this = this;
@@ -318,6 +491,7 @@
 					type: this.orderfrom,
 					quantity: this.quantitys,
 					modelIds:this.modelIds,
+					orderInvoiceForm:this.orderInvoiceForm,
 				};
 				this.$axios({
 					method: 'post',
@@ -388,6 +562,7 @@
 				this.getAddress();
 				this.getCartList();
 				this.jisuan();
+				this.getAddressOption()
 			}
 		}
 	}
@@ -530,9 +705,23 @@
 	.bd1{
 		border-bottom: 1px solid #ddd;
 	}
+	.spanBtn{
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+		padding-top: 0.8rem;
+		height: 3rem;
+		font-weight: 400;
+		font-size: 1.4rem;
+		background-color: #FFFFFF;
+		border: 0.1px solid red;
+		color: #FF0000;
+	}
 </style>
 <style>
 .paymoney .ivu-scroll-container{
 	height: 100vh!important;
+}
+.modaladdorderNo .ivu-modal-footer{
+	display: none!important;
 }
 </style>
