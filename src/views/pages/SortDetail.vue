@@ -382,6 +382,7 @@
 			jian: function() {
 				if(this.quantity <= 1) {
 					this.quantity =1
+
 				} else {
 					this.quantity = parseInt(this.quantity) - 1;
 				}
