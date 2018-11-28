@@ -181,7 +181,6 @@
 			},
 			//提交评价
 			evaluation() {
-				console.log( this.evaItem);
 				 this.loading = true;
 				let isimgs = 0;
 				if(this.evauploadList.length > 0) {

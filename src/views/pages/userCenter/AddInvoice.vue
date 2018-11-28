@@ -229,6 +229,9 @@
 </script>
 
 <style scoped="scoped">
+	.color-blue{
+		color: #0099ff;
+	}
 	.bg-white{
 		background: #fff;
 	}

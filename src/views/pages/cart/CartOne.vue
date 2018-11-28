@@ -1,4 +1,4 @@
-<template>
+jian<template>
 	<div class='cart1'>
 		<div class="m_header_bar bg-red">
 			<span class="m_header_bar_title">购物车</span>
@@ -139,8 +139,8 @@
 
 			//减
 			jian: function(x, index) {
-				if(x.quantity == 1) {
-					x.quantity == 1
+				if(x.quantity <= 1) {
+					x.quantity = 1
 				} else {
 					x.quantity = parseInt(x.quantity) - 1;
 					this.checkAllGroup = this.temp;
