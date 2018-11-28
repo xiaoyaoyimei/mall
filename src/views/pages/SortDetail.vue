@@ -1103,6 +1103,8 @@
 		min-width: 320px;
 		min-height: 320px;
 		.swiper {
+			text-align: center;
+			background-color: #fff;
 			img {
 				max-width: 100%;
 			}

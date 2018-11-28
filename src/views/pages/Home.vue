@@ -424,10 +424,10 @@
 		.ad-wrap{
 			width: 33.333%;
 			float: left;
-			height: 323px;
+			// height: 323px;
 			img{
 				max-width: 100%;
-				height: 323px;
+				// height: 323px;
 			}
 			a{
 				position: relative;
@@ -440,13 +440,13 @@
 		li{
 			float: left;
 			width: 50%;
-			height: 161px;
+			// height: 161px;
 			text-align: center;
 			border-left: 1px solid transparent;
 			border-top:1px solid transparent;
 			img{
 				max-width: 100%;
-				height: 110px;
+				// height: 110px;
 			}
 		}
 		li:nth-child(2n){
@@ -494,7 +494,7 @@
 	.w594 {
 		float: left;
 		width: 66.67%;
-		height: 16rem;
+		// height: 16rem;
 		position: relative;
 	}
 	
@@ -517,18 +517,18 @@
 		float: left;
 		width: 33.33%;
 		text-align: center;
-		height: 16rem;
+		// height: 16rem;
 	}
 	.floor ul{
 		background: #fff;
 		a{
 			display: block;
-			height: 16rem;
+			// height: 16rem;
 		}
 		
 	}
 	.officeproduct img {
-		max-width:75px;
+		width:75%;
 	}
 	
 	.floor li h6 {
@@ -546,7 +546,7 @@
 		background: #fff;
 		a{
 			display: block;
-			height: 115px;
+			// height: 115px;
 			overflow: hidden;
 		}
 		img{
@@ -585,7 +585,7 @@
 	
 	.homeBottom {
 		background-color: #f0f0f0;
-		height: 15rem;
+		// height: 15rem;
 		width: 100%;
 		font-weight: 400;
 		font-size: 1.2rem;
@@ -598,6 +598,7 @@
 	.one li {
 		float: left;
 		width: 33.33%;
+		// height: 18.5rem;
 		position: relative;
 		text-align: center;
 		border-top: 0.05rem solid $color-border;

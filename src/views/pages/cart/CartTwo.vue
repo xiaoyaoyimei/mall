@@ -708,7 +708,7 @@ import { validatePhone } from '@/utils/validate';
 	.spanBtn{
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
-		padding-top: 0.8rem;
+		padding-top: 0.4rem;
 		height: 3rem;
 		font-weight: 400;
 		font-size: 1.4rem;
