@@ -63,7 +63,7 @@
 			<strong>合计:<span class="color-dx">￥{{total.price+freight|pricefilter}}</span></strong>
 		</div>
 		<Modal v-model="modaladdorderNo" class="modaladdorderNo" title="新增发票信息"  :loading="loading" :mask-closable='false'>
-			<Form :model="addInvoice" ref="addInvoice" style="padding: 15px;" :rules="fpruleValidate">
+			<Form :model="addInvoice" ref="addInvoice" :rules="fpruleValidate">
 				<FormItem  prop="invoiceType">
 					<RadioGroup v-model="addInvoice.invoiceType">
 						<Radio label="增值税普通发票">增值税普通发票</Radio>
@@ -240,11 +240,6 @@ import { validatePhone } from '@/utils/validate';
 						required: true,
 						trigger: 'blur',
 						validator: validatename,
-					}],
-					registerPhone: [{
-							required: true,
-						message: '注册电话不能为空',
-						trigger: 'blur'
 					}],
 					registerAddress: [{
 						required: true,

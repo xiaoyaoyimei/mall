@@ -185,7 +185,7 @@
 				hotitem: [],
 				aditems: [],
 				gameproduct: [],
-				gameproductone: {},
+				gameproductone:{},
 				officeproduct: [],
 				officeproductone: {},
 				houseproduct: [],
@@ -308,7 +308,7 @@
 				}).then((res) => {
 					if(res.code == '200') {
 						this.gameproduct = res.object;
-						if(res.object.length > 0) {
+						if(this.gameproduct.length > 0) {
 							this.gameproductone = this.gameproduct[0].list;
 						}
 					}

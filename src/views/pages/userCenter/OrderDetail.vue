@@ -234,6 +234,9 @@
 </script>
 
 <style scoped="scoped" lang="scss">
+  .price{
+  	float: right;
+  }
 	.fixbottom {
 		position: fixed;
 		bottom: 0;
