@@ -445,7 +445,7 @@
 			border-left: 1px solid transparent;
 			border-top:1px solid transparent;
 			img{
-				max-width: 100%;
+				max-width: 60%;
 				// height: 110px;
 			}
 		}
