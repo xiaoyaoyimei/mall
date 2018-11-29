@@ -447,6 +447,7 @@
 	.filterModal .ivu-modal-content {
 		border-radius: 0rem;
 		padding-bottom: 20px;
+		height: 100%;
 	}
 	
 	.filterModal .ivu-modal-header {
